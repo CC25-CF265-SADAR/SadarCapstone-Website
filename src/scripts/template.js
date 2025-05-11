@@ -6,7 +6,7 @@ export function generateNavbarTemplate() {
 
 export function generateLeaderboardTemplate() {
   return `
-        //isi disini...
+        //isi disini... cacacaca
     `;
 }
 
