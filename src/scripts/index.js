@@ -1,4 +1,7 @@
 import '../styles/styles.css';
+import { 
+  generateFooterTemplate
+ } from './template.js';
 
 const header = document.getElementById('header-first');
 if (header) {
@@ -106,3 +109,5 @@ if (main) {
     </div>
   `;
 }
+
+document.querySelector('footer').innerHTML = generateFooterTemplate();
