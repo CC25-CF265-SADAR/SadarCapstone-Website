@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-import { generateFooterTemplate, generateModuleTemplate } from '../../template.js';
-=======
-import { 
-    generateFooterTemplate,
-    generateLeaderboardTemplate
- } from '../../template.js';
->>>>>>> 87e580a2bbf3d5ad4ec50c5d925e090710a18f07
+import { generateFooterTemplate, generateLeaderboardTemplate } from '../../template.js';
 import HomePresenter from './homepage-presenter.js';
 
 export default class Homepage {
