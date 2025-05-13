@@ -9,3 +9,11 @@
   padding: auto;
   justify-content: space-around;
 }
+
+.article-info-1 {
+  padding: 1em 2em;
+}
+
+.info-2 {
+  padding: 2em 3em;
+}
