@@ -76,8 +76,8 @@ export function generateFooterTemplate() {
               </div>
               <div class="flex justify-end">
                 <form class="flex flex-col gap-4 w-full max-w-md">
-                  <input type="email" placeholder="Masukkan Email Anda" class="text-base w-[350px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
-                  <button type="submit" class=" text-basew-[350px] bg-[#42A7C3] text-white px-4 py-2 rounded-lg hover:bg-[#2C6F82] transition">Langganan Sekarang</button>
+                  <input type="email" placeholder="Masukkan Email Anda" class="text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+                  <button type="submit" class=" text-base bg-[#42A7C3] text-white px-4 py-2 rounded-lg hover:bg-[#2C6F82] transition">Langganan Sekarang</button>
                 </form>
               </div>
             </div>
