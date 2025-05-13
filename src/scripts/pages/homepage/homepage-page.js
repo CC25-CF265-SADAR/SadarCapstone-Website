@@ -1,4 +1,4 @@
-import { generateFooterTemplate } from '../../template.js';
+import { generateFooterTemplate, generateModuleTemplate } from '../../template.js';
 import HomePresenter from './homepage-presenter.js';
 
 export default class Homepage {
@@ -153,7 +153,6 @@ export default class Homepage {
                             </a>
                         </div>
                     </div>
-                
                 </section>
             </section>
             
