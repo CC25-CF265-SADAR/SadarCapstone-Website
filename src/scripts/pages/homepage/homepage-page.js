@@ -1,3 +1,6 @@
+import { generateFooterTemplate } from '../../template.js';
+import HomePresenter from './homepage-presenter.js';
+
 export default class Homepage {
   async render() {
     return `
@@ -6,7 +9,8 @@ export default class Homepage {
             </section>
 
             <section class="info-1">
-                //isi disini...
+                <p>Ini info 1</p>
+                <p>Halo semuanya apa kabar</p>
             </section>
 
             <section class="info-2">
@@ -24,6 +28,12 @@ export default class Homepage {
             <section class="faq">
                 //isi disini...
             </section>
+
+            ${generateFooterTemplate()}
         `;
+  }
+
+  async afterRender() {
+    //isi disini..
   }
 }
