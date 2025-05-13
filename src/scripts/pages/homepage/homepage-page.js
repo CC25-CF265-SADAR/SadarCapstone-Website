@@ -34,7 +34,7 @@ export default class Homepage {
             <img
             alt="image"
             src="https://images.unsplash.com/photo-1464582883107-8adf2dca8a9f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            class="h-56 w-full object-cover sm:h-full"/>
+            class="mt-5 h-40 w-full object-cover sm:h-full"/>
             </section>
             </section>
 
