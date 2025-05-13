@@ -60,7 +60,63 @@ export function generateNavbarTemplate() {
 
 export function generateLeaderboardTemplate() {
   return `
-        //isi disini... cacacaca
+        <section class="leaderboard flex flex-col md:flex-row gap-8 px-4 md:px-16 py-10">
+          <div class="md:w-1/2 flex justify-center md:justify-start items-center">
+            <div>
+              <h2 class="text-4xl md:text-4xl font-semibold text-black">Tautan Mencurigakan yang<br/>Sering dicari</h2>
+              <p class="mt-4 text-gray-500 text-base">
+                Berikut merupakan tautan mencurigakan yang paling sering dicari oleh pengguna. 
+                Berhati-hatilah setiap kali mengunjungi tautan mencurigakan yang belum anda ketahui secara pasti keamanannya.
+              </p>
+            </div>
+          </div>
+
+          <div class="md:w-1/2">
+            <div class="flex gap-2 justify-end mb-4">
+              <button class="px-4 py-1 border border-[#42A7C3] bg-[#42A7C3] text-white text-base font-regular rounded-4xl">semua</button>
+              <button class="px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-base font-regular rounded-4xl hover:bg-gray-200">bulan ini</button>
+            </div>
+
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3 p-4 border rounded-xl bg-white shadow-sm">
+                <div class="w-12 h-12 rounded-lg bg-[#FFF1AA] text-[#2C6F82] text-xl font-bold flex items-center justify-center">1</div>
+                <div>
+                  <h3 class="text-xl text-gray-800 font-regular">http://tungtungtung sahur</h3>
+                  <p class="text-base font-regular text-gray-500">telah dicari sebanyak 36 kali</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3 p-4 border rounded-xl bg-white shadow-sm">
+                <div class="w-12 h-12 rounded-lg bg-[#FFF1AA] text-[#2C6F82] text-xl font-bold flex items-center justify-center">2</div>
+                <div>
+                  <h3 class="text-xl text-gray-800 font-regular">http://tungtungtung sahur</h3>
+                  <p class="text-base font-regular text-gray-500">telah dicari sebanyak 36 kali</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3 p-4 border rounded-xl bg-white shadow-sm">
+                <div class="w-12 h-12 rounded-lg bg-[#FFF1AA] text-[#2C6F82] text-xl font-bold flex items-center justify-center">3</div>
+                <div>
+                  <h3 class="text-xl text-gray-800 font-regular">http://tungtungtung sahur</h3>
+                  <p class="text-base font-regular text-gray-500">telah dicari sebanyak 36 kali</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3 p-4 border rounded-xl bg-white shadow-sm">
+                <div class="w-12 h-12 rounded-lg bg-[#FFF1AA] text-[#2C6F82] text-xl font-bold flex items-center justify-center">4</div>
+                <div>
+                  <h3 class="text-xl text-gray-800 font-regular">http://tungtungtung sahur</h3>
+                  <p class="text-base font-regular text-gray-500">telah dicari sebanyak 36 kali</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3 p-4 border rounded-xl bg-white shadow-sm">
+                <div class="w-12 h-12 rounded-lg bg-[#FFF1AA] text-[#2C6F82] text-xl font-bold flex items-center justify-center">5</div>
+                <div>
+                  <h3 class="text-xl text-gray-800 font-regular">http://tungtungtung sahur</h3>
+                  <p class="text-base font-regular text-gray-500">telah dicari sebanyak 36 kali</p>
+                </div>
+              </li>
+              <!-- Ulangi li untuk item 2-5 dengan nomor berbeda -->
+            </ul>
+          </div>
+        </section>
     `;
 }
 
@@ -68,7 +124,6 @@ export function generateFooterTemplate() {
   return `
         <footer class="bg-[#DFF0F5] font-jakarta text-[#858995] px-18 pt-12 pb-6">
           <div class="max-w-7xl mx-auto space-y-12">
-            <!-- Bagian Newsletter -->
             <div class="bg-white rounded-2xl px-14 py-18 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div>
                 <h2 class="text-2xl md:text-4xl font-semibold text-[#2C6F82] mb-4">Daftar untuk Pemberitauan Kami!</h2>
@@ -82,7 +137,6 @@ export function generateFooterTemplate() {
               </div>
             </div>
 
-            <!-- Bagian Footer -->
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-sm">
               <div>
                 <h3 class="font-semibold text-base mb-2">LOGO SADAR</h3>
