@@ -1,4 +1,7 @@
-import { generateFooterTemplate } from '../../template.js';
+import { 
+    generateFooterTemplate,
+    generateLeaderboardTemplate
+ } from '../../template.js';
 import HomePresenter from './homepage-presenter.js';
 
 export default class Homepage {
@@ -158,7 +161,7 @@ export default class Homepage {
             </section>
             
             <section class="leaderboard">
-                //isi disini...
+                ${generateLeaderboardTemplate()}
             </section>
             
             <section class="faq bg-white font-jakarta flex items-center py-12 px-18">
