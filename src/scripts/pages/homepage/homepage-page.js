@@ -5,7 +5,7 @@ export default class Homepage {
   async render() {
     return `
             <section class="hero-image">
-                <section class="overflow-hidden bg-gray-50 sm:grid sm:grid-cols-2">
+                <section class="overflow-hidden bg-white sm:grid sm:grid-cols-2">
                   <div class="p-8 md:p-12 lg:px-16 lg:py-24">
                       <div class="mx-auto max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
                         <h2 class="text-2xl font-semibold text-gray-900 md:text-3xl">
@@ -25,7 +25,7 @@ export default class Homepage {
                             href="#"
                             class="inline-block rounded-full bg-[#42A7C3] px-12 py-3 text-sm font-medium text-white transition hover:bg-[#2C6F82] focus:ring-3 focus:ring-yellow-400 focus:outline-hidden"
                             >
-                            Get Started Today
+                            Coba Sekarang ➔
                         </a>
                     </div>
                 </div>
