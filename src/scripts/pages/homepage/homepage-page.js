@@ -38,124 +38,128 @@ export default class Homepage {
             </section>
             </section>
 
-            <section class="info-1 font-jakarta px-6 py-8 max-w-screen-xl mx-auto">
-                <h1 class="font-bold text-4xl text-center mb-10">
-                <span class="text-[#42A7C3]">Pertumbuhan Penetrasi Internet</span> di Indonesia
+            <section class="info-1 font-jakarta px-4 sm:px-6 lg:px-8 py-8 max-w-screen-xl mx-auto">
+                <h1 class="font-bold text-3xl sm:text-4xl text-center mb-10">
+                    <span class="text-[#42A7C3]">Pertumbuhan Penetrasi Internet</span> di Indonesia
                 </h1>
 
-                <article class="article-info-1 flex flex-row gap-10 items-center justify-between">
-                    <section class="article-info-1-section-1 flex flex-col gap-4 max-w-xl justify-center">
-                        <h2 class="text-3xl font-semibold">Tahukah Kamu?</h2>
-                        <p class="text-2xl font-normal">
-                        Selama tujuh tahun terakhir, jumlah penduduk terkoneksi internet tahun 2024 mencapai
-                        <span class="font-bold inline-block text-white bg-[#378BA2] px-1">221.563.479</span>
-                        Jiwa dari total populasi 278.696.200 jiwa penduduk Indonesia.
-                        </p>
-                        <p class="text-lg font-normal">Sumber: Asosiasi Penyelenggara Jasa Internet Indonesia (APJII) 2024</p>
+                <article class="article-info-1 flex flex-col lg:flex-row lg:gap-10 items-center lg:items-start justify-between">
+                    <section class="flex flex-col gap-4 max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
+                        <h2 class="text-2xl sm:text-3xl font-semibold">Tahukah Kamu?</h2>
+                        <p class="text-lg sm:text-2xl"> Selama tujuh tahun terakhir, jumlah penduduk terkoneksi internet tahun 2024 mencapai
+                        <span class="font-bold inline-block text-white bg-[#378BA2] px-1"> 221.563.479 </span> jiwa dari total populasi 278.696.200 jiwa penduduk Indonesia.</p>
+                        <p class="text-sm sm:text-base"> Sumber: Asosiasi Penyelenggara Jasa Internet Indonesia (APJII) 2024</p>
                     </section>
 
-                    <aside class="article-info-1-aside-1 max-w-md">
+                    <aside class="w-full max-w-xs sm:max-w-md mt-8 lg:mt-0">
                         <img
                         src="images/grafik-data-penetrasi.svg"
                         alt="Grafik penetrasi di Indonesia"
                         class="w-full h-auto object-contain"
                         />
                     </aside>
-                </article>
+                 </article>
             </section>
 
-            <section class="info-2 flex flex-row justify-center items-center gap-12 max-w-screen-xl w-full mx-auto px-4 py-8 overflow-hidden">
-                <article class="article-info-2 flex flex-col gap-6 w-3/5">
-                    <h1 class="font-bold text-4xl leading-snug">
+            <section class="info-2 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 lg:gap-12 max-w-screen-xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-hidden">
+                <article class="flex flex-col gap-6 w-full lg:w-3/5 text-center lg:text-left">
+                    <h1 class="font-bold text-3xl sm:text-4xl leading-snug">
                     <span class="text-[#42A7C3]">Korban</span> Penipuan Online
                     </h1>
-                    <p class="text-lg">
-                    <span class="font-bold">Rendahnya tingkat literasi digital</span> masyarakat Indonesia menyebabkan masih banyak kelompok umur yang rentan menjadi korban penipuan online.
+
+                    <p class="text-base sm:text-lg">
+                    <span class="font-bold">Rendahnya tingkat literasi digital</span> masyarakat Indonesia menyebabkan masih banyak kelompok umur yang rentan menjadi korban penipuan online.
                     </p>
-                    <p class="text-lg">
-                    Meskipun tingkat penetrasi/pengguna internet semakin tinggi, sebagian besar masyarakat belum memiliki kebiasaan atau kemampuan memadai dalam memverifikasi informasi, menjaga keamanan data pribadi, atau mengenali bentuk-bentuk penipuan digital yang makin canggih.
+
+                    <p class="text-base sm:text-lg">
+                    Meskipun tingkat penetrasi/pengguna internet semakin tinggi, sebagian besar masyarakat belum memiliki kebiasaan atau kemampuan memadai dalam memverifikasi informasi, menjaga keamanan data pribadi, atau mengenali bentuk‑bentuk penipuan digital yang makin canggih.
                     </p>
                 </article>
 
-                <aside class="w-[550px] h-[415px] flex-shrink-0 overflow-hidden">
+                <aside class="w-full max-w-sm sm:max-w-md lg:max-w-[550px] lg:h-[415px] flex-shrink-0 mt-8 lg:mt-0">
                     <img
                     src="images/korban-penipuan-online.png"
                     alt="Korban penipuan online di Indonesia"
-                    class="w-full h-full object-cover"
+                    class="w-full h-full object-cover rounded-lg"
                     />
                 </aside>
             </section>
-       
+
             <section class="sadar-feature relative flex flex-col gap-8 min-h-[600px]">
-                <img 
-                src="images/background-sadar.png"
-                alt="Background sadar"
-                class="absolute inset-0 -z-10"
+                <img
+                    src="images/background-sadar.png"
+                    alt="Background sadar"
+                    class="absolute inset-0 -z-10 w-full h-full object-cover"
                 />
-                <article class="text-white text-wrap flex flex-col gap-4 z-10 mt-10">
-                    <h1 class="text-3xl font-bold text-center">SADAR Mulai Dari Sekarang!</h1>
-                    <p class="text-lg text-center max-w-[600px] mx-auto">Gunakan layanan kami untuk meningkatkan pengalaman Anda dalam menjaga informasi dan data dari penipuan online</p>
+
+                <article class="text-white flex flex-col gap-4 z-10 mt-10 px-4 text-center">
+                    <h1 class="text-2xl sm:text-3xl font-bold">SADAR Mulai Dari Sekarang!</h1>
+                    <p class="text-base sm:text-lg max-w-xl mx-auto">
+                    Gunakan layanan kami untuk meningkatkan pengalaman Anda dalam menjaga informasi dan data dari penipuan online
+                    </p>
                 </article>
-                
-                <section class="sadar-feature-detail z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-18 grid grid-flow-col grid-rows-4 gap-4">
-                    <div class="lg:row-span-4 max-w-lg p-15 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex flex-col space-y-7 justify-center">
-                        <img src="images/ikon-cekajadulu.svg" class="w-[76px] h-[76px]max-w-full">
-                        <a href="#">
-                        <h2 class="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">CekAjaDulu</h2>
-                        </a>
-                        <p class="mb-5 font-normal text-gray-500 dark:text-gray-400">Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam nec tortor massa. Praesent cursus porttitor egestas.</p>
-                        <div class="flex flex-row space-x-5">
-                        <a href="#" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
-                        Lihat Fitur
-                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                        </svg>
-                        </a>
-                        <a href="#" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
-                        Lihat Fitur
-                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                        </svg>
-                        </a>
+
+                <section class="sadar-feature-detail z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-[1fr_1fr] lg:grid-rows-2 gap-6 pb-12">
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 flex flex-col gap-5 lg:row-span-2">
+                        <img src="images/ikon-cekajadulu.svg" class="w-[76px] h-[76px]" alt="Ikon CekAjaDulu" />
+                        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">CekAjaDulu</h2>
+                        <p class="text-gray-500 dark:text-gray-400">
+                            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam nec tortor massa. Praesent cursus porttitor egestas.
+                        </p>
+                        <div class="flex flex-row gap-6">
+                            <a href="#" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
+                                Lihat Fitur
+                                <svg class="w-3.5 h-3.5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                </svg>
+                            </a>
+                            <a href="#" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
+                                Lihat Fitur
+                                <svg class="w-3.5 h-3.5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                </svg>
+                            </a>
                         </div>
                     </div>
 
-                    <div class="lg:col-span-2 row-span-2 max-w-lg p-12 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex flex-row space-x-6 items-start">
-                        <img src="images/ikon-tipumeter.svg" class="w-[76px] h-[76px]max-w-full">
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 flex gap-5 items-start">
+                        <img src="images/ikon-tipumeter.svg" class="w-[76px] h-[76px]" alt="Ikon TipuMeter" />
                         <div>
-                            <a href="#">
-                            <h2 class="mb-3 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">TipuMeter</h2>
-                            </a>
-                            <p class="mb-5 text-base font-normal text-gray-500 dark:text-gray-400">Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam nec tortor massa. Praesent cursus porttitor egestas.</p>
-                    
+                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">TipuMeter</h2>
+                            <p class="text-gray-500 dark:text-gray-400 mb-3">
+                            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.
+                            </p>
                             <a href="#" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
                             Lihat Fitur
-                            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                            <svg class="w-3.5 h-3.5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9" />
                             </svg>
                             </a>
                         </div>
                     </div>
 
-                    <div class="lg:col-span-2 row-span-2 max-w-lg p-12 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex flex-row space-x-6 items-start">
-                        <img src="images/ikon-antitertipu.svg" class="w-[76px] h-[76px]max-w-full">
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 flex gap-5 items-start">
+                        <img src="images/ikon-antitertipu.svg" class="w-[76px] h-[76px]" alt="Ikon AntiTertipu" />
                         <div>
-                            <a href="#">
-                            <h2 class="mb-3 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">AntiTertipu</h2>
-                            </a>
-                            <p class="mb-5 font-normal text-gray-500 dark:text-gray-400">Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam nec tortor massa. Praesent cursus porttitor egestas.</p>
-                    
+                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">AntiTertipu</h2>
+                            <p class="text-gray-500 dark:text-gray-400 mb-3">
+                            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.
+                            </p>
                             <a href="#" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
                             Lihat Fitur
-                            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                            <svg class="w-3.5 h-3.5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9" />
                             </svg>
                             </a>
                         </div>
                     </div>
                 </section>
             </section>
-            
+
             <section class="leaderboard">
                 ${generateLeaderboardTemplate()}
             </section>

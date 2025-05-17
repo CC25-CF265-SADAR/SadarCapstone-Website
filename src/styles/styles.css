@@ -9,18 +9,3 @@
   padding: auto;
   justify-content: space-around;
 }
-
-.article-info-1 {
-  padding: 1em 2em;
-}
-
-.info-2 {
-  padding: 2em 3em;
-}
-
-/* .custom-gradient-border {
-  border: 3px solid;
-  border-image: linear-gradient(45deg, #2f327d, #81c4d7);
-  border-image-slice: 1;
-  border-radius: 0.5em; 
-} */
