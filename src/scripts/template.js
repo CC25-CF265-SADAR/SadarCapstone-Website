@@ -352,7 +352,7 @@ export function generateModuleSylabusTemplate() {
 
 export function generateQuizNavTemplate() {
   return `
-  //isi disini
+
   `;
 }
 
@@ -469,23 +469,31 @@ export function generateModuleFooterTemplate() {
 }
 
 export function generateProgressQuizTemplate() {
+  const dots = Array(12)
+    .fill(
+      `<span class="w-2 h-2 rounded-full bg-[#42A7C3] opacity-100 inline-block"></span>`
+    )
+    .join("");
+
   return `
-<div class="w-full max-w-xl md:max-w-[640px] mx-auto mt-6 px-4">
-      <div class="flex flex-col gap-1 text-left">
+    <div class="w-full max-w-xl md:max-w-[640px] mx-auto mt-6 px-4">
+      <div class="flex flex-col gap-2 text-left">
         <div>
           <p class="text-sm font-semibold text-gray-500">TipuMeter</p>
           <p id="progress-text" class="text-base font-semibold text-[#42A7C3]">0/12 telah dijawab</p>
         </div>
 
-        <div class="relative w-full h-4 bg-gray-300 rounded-full overflow-hidden border border-red-50">
-          <div id="progress-bar" class="absolute top-0 left-0 h-full bg-sky-500 rounded-full transition-all duration-300 z-0" style="width: 50%;"></div>
+        <div class="relative w-full h-4 bg-[#E0E0E0] rounded-lg overflow-hidden border border-gray-300 shadow-sm">
+          <div id="progress-bar"
+            class="absolute top-0 left-0 h-full bg-[#42A7C3] rounded-lg transition-all duration-300 z-0"
+            style="width: 0%;">
+          </div>
 
-          <div id="progress-dots" class="absolute top-1/2 left-0 w-full flex justify-between px-1 -translate-y-1/2 pointer-events-none z-10">
-            ${Array(12).fill(`<span class="w-2 h-2 rounded-full bg-sky-500/40 opacity-80"></span>`).join('')}
+          <div id="progress-dots"
+            class="absolute top-1/2 left-0 w-full flex justify-between px-1 -translate-y-1/2 pointer-events-none z-20">
+            ${dots}
           </div>
         </div>
-        <div class="text-center">
-      </div>
       </div>
     </div>
   `;
@@ -500,14 +508,30 @@ export function generateQuizQuestionMcqTemplate({ id, question, options, multipl
       <h2 class="text-base font-semibold text-[#000000] text-center">${question}</h2>
 
       <form class="space-y-3 mt-5 mb-8" data-question-id="${id}">
-        ${options.map((option) => `
-          <label class="block border border-gray-300 rounded-lg px-4 py-3 cursor-pointer hover:border-yellow-400 transition-all flex items-center gap-3">
+        ${options.map((option, index) => `
+          <label class="peer-checked:border-yellow-400 block border border-gray-300 rounded-lg px-4 py-3 cursor-pointer hover:border-yellow-400 transition-all flex items-center gap-3">
             <input
               type="${inputType}"
               name="${inputName}"
               value="${option}"
-              class="accent-yellow-500 w-5 h-5 focus:ring focus:ring-yellow-300"
+              id="${inputName}-${index}"
+              class="peer hidden"
             />
+            <!-- Lingkaran radio / kotak checkbox -->
+            <span class="
+              w-5 h-5 inline-block relative border-2
+              ${multiple
+                ? 'rounded-md border-gray-300 peer-checked:border-yellow-400'
+                : 'rounded-full border-gray-300 peer-checked:border-yellow-400'}
+              transition-all duration-200
+            ">
+              <span class="
+                absolute top-1/2 left-1/2 bg-yellow-400 transform -translate-x-1/2 -translate-y-1/2 scale-0
+                ${multiple ? 'w-2 h-2' : 'w-2.5 h-2.5 rounded-full'}
+                peer-checked:scale-100
+                transition-transform duration-200
+              "></span>
+            </span>
             <span class="text-md font-regular text-[#000000]">${option}</span>
           </label>
         `).join("")}
@@ -531,17 +555,17 @@ export function generateQuizQuestionDragdropTemplate({ id, question, options }) 
     .sort(() => Math.random() - 0.5);
 
   return `
-<div class="quiz-container w-full max-w-[600px] mx-auto p-6 space-y-8">
+    <div class="quiz-container w-full max-w-[600px] mx-auto p-6 space-y-8">
       <h2 class="text-base font-semibold text-gray-800 text-center mb-4">${question}</h2>
 
       <!-- Kontainer pilihan drag -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mb-4">
-        ${shuffled.map((item) => `
+        ${shuffled.map((item, index) => `
           <div
-            class="bg-[#DFF0F5] text-gray-800 text-md text-center px-1 py-3 rounded-md cursor-move shadow-md draggable"
-            draggable="true"
+            class="bg-[#DFF0F5] text-gray-800 text-sm text-center px-3 py-2 rounded-md cursor-move shadow-md draggable"
             data-value="${item.text}"
             data-category="${item.category}"
+            data-id="option-${index}"
           >
             ${item.text}
           </div>
@@ -553,18 +577,22 @@ export function generateQuizQuestionDragdropTemplate({ id, question, options }) 
         <div class="w-full border border-gray-300 rounded-lg p-4 space-y-3">
           <p class="text-center text-base font-medium text-gray-700 mb-2">Aman</p>
           <div
-            class="drop-zone w-full h-40 border-2 border-dashed border-green-400 rounded-md bg-green-50 flex items-center justify-center text-gray-400"
+            class="drop-zone flex flex-col gap-2 p-2 w-full min-h-[300px] border-2 border-dashed border-gray-300 rounded-lg overflow-auto"
             data-accept="right"
+            id="zone-right"
           >
+            <span class="placeholder text-sm text-gray-400 text-center select-none pointer-events-none">Tarik ke sini</span>
           </div>
         </div>
 
         <div class="w-full border border-gray-300 rounded-lg p-4 space-y-3">
           <p class="text-center text-base font-medium text-gray-700 mb-2">Berbahaya</p>
           <div
-            class="drop-zone w-full h-40 border-2 border-dashed border-red-400 rounded-md bg-red-50 flex items-center justify-center text-gray-400"
+            class="drop-zone flex flex-col gap-2 p-2 w-full min-h-[300px] border-2 border-dashed border-gray-300 rounded-lg overflow-auto"
             data-accept="wrong"
+            id="zone-wrong"
           >
+            <span class="placeholder text-sm text-gray-400 text-center select-none pointer-events-none">Tarik ke sini</span>
           </div>
         </div>
       </div>
@@ -583,7 +611,6 @@ export function generateQuizQuestionDragdropTemplate({ id, question, options }) 
 
 export function generateQuizResolveTemplate() {
   return `
-        //isi disini...
     `;
 }
 
