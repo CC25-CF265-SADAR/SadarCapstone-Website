@@ -517,7 +517,6 @@ export function generateQuizQuestionMcqTemplate({ id, question, options, multipl
               id="${inputName}-${index}"
               class="peer hidden"
             />
-            <!-- Lingkaran radio / kotak checkbox -->
             <span class="
               w-5 h-5 inline-block relative border-2
               ${multiple
@@ -558,7 +557,6 @@ export function generateQuizQuestionDragdropTemplate({ id, question, options }) 
     <div class="quiz-container w-full max-w-[600px] mx-auto p-6 space-y-8">
       <h2 class="text-base font-semibold text-gray-800 text-center mb-4">${question}</h2>
 
-      <!-- Kontainer pilihan drag -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mb-4">
         ${shuffled.map((item, index) => `
           <div
@@ -572,7 +570,6 @@ export function generateQuizQuestionDragdropTemplate({ id, question, options }) 
         `).join("")}
       </div>
 
-      <!-- Dua kotak drop horizontal -->
       <div class="flex flex-col md:flex-row gap-6 mt-4">
         <div class="w-full border border-gray-300 rounded-lg p-4 space-y-3">
           <p class="text-center text-base font-medium text-gray-700 mb-2">Aman</p>

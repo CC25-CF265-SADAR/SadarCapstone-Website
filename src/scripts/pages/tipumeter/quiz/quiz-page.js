@@ -96,6 +96,6 @@ async render() {
 
   #showResult() {
     const container = document.getElementById("quiz-nav");
-    container.innerHTML = generateQuizResolveTemplate(); // or result template
+    container.innerHTML = generateQuizResolveTemplate();
   }
 }

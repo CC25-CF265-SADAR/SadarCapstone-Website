@@ -25,13 +25,12 @@ export function setupSortableDragAndDrop() {
     });
   });
 
-  // Sumber pilihan (opsional jika ingin Sortable dari pilihan awal)
   const sourceContainer = document.querySelector(".grid");
   if (sourceContainer) {
     new Sortable(sourceContainer, {
       group: "quiz-options",
       animation: 150,
-      sort: false // Biar posisi pilihan awal tidak berubah
+      sort: false
     });
   }
 }
