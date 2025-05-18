@@ -28,7 +28,7 @@ export default class Homepage {
                         <div class="mt-4 md:mt-8">
                         <a
                             href="#"
-                            class="inline-block rounded-full bg-[#42A7C3] px-12 py-3 text-sm font-medium text-white transition hover:bg-[#2C6F82] focus:ring-3 focus:ring-yellow-400 focus:outline-hidden"
+                            class="inline-block rounded-full bg-[#42A7C3] px-12 py-3 text-sm font-medium text-white transition hover:bg-[#2C6F82] focus:outline-hidden"
                             >
                             Coba Sekarang ➔
                         </a>
