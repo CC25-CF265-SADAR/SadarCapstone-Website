@@ -1,3 +1,4 @@
+
 import {
   generateQuizFooterTemplate,
   generateQuizNavTemplate,
@@ -8,6 +9,7 @@ import {
 } from "../../../template";
 
 import { questions } from "../../../data/question-data.js";
+import { setupSortableDragAndDrop } from "../../../utils/dragdrop-utils.js";
 
 export default class QuizPage {
   #currentIndex = 0;
@@ -17,11 +19,10 @@ export default class QuizPage {
 async render() {
   return `
     <section class="quiz-page">
-      ${generateProgressQuizTemplate()}
-
       <div id="quiz-nav"></div>
-
-      <div id="quiz-content" class="mt-4"></div> <!-- Tempat pertanyaan -->
+      ${generateProgressQuizTemplate()}
+      
+      <div id="quiz-content" class="mt-4"></div>
 
       <div id="quiz-footer">
         ${generateQuizFooterTemplate()}
@@ -35,10 +36,11 @@ async render() {
     this.#renderCurrentQuestion();
     this.#handleNextButton();
     this.#updateProgress(0);
+
   }
 
-  #renderCurrentQuestion() {
-  const container = document.getElementById("quiz-content"); // sebelumnya: quiz-nav
+#renderCurrentQuestion() {
+  const container = document.getElementById("quiz-content");
   const currentQuestion = questions[this.#currentIndex];
 
   if (!currentQuestion) return;
@@ -52,12 +54,47 @@ async render() {
   }
 
   container.innerHTML = questionTemplate;
+
+  const nextButton = document.getElementById("next-button");
+  if (nextButton && this.#currentIndex === this.#totalQuestions - 1) {
+    nextButton.textContent = "Selesai";
+  }
+
+  if (currentQuestion.type === "dragdrop") {
+    setupSortableDragAndDrop();
+  }
 }
 
-
-  #handleNextButton() {
+#handleNextButton() {
   document.addEventListener("click", (e) => {
     if (e.target && e.target.id === "next-button") {
+      const currentQuestion = questions[this.#currentIndex];
+      const form = document.querySelector("form");
+      const errorMessage = document.getElementById("error-message");
+
+      if (errorMessage) errorMessage.classList.add("hidden");
+
+      if (currentQuestion.type === "mcq") {
+        const checkedInputs = form.querySelectorAll("input:checked");
+        if (checkedInputs.length === 0) {
+          if (errorMessage) errorMessage.classList.remove("hidden");
+          return;
+        }
+      }
+
+      if (currentQuestion.type === "dragdrop") {
+        const rightZone = document.getElementById("zone-right");
+        const wrongZone = document.getElementById("zone-wrong");
+        const hasItem =
+          rightZone.querySelectorAll(".draggable").length > 0 ||
+          wrongZone.querySelectorAll(".draggable").length > 0;
+
+        if (!hasItem) {
+          if (errorMessage) errorMessage.classList.remove("hidden");
+          return;
+        }
+      }
+
       this.#answered++;
       this.#currentIndex++;
 
@@ -65,27 +102,27 @@ async render() {
         this.#renderCurrentQuestion();
         this.#updateProgress(this.#answered);
       } else {
-        this.#showResult();
+        window.location.href = "/#/result";
       }
     }
   });
 }
 
   #updateProgress(answeredCount) {
-    const percent = (answeredCount / this.#totalQuestions) * 100;
-    document.getElementById("progress-bar").style.width = `${percent}%`;
-    document.getElementById("progress-text").textContent = `${answeredCount}/${this.#totalQuestions} telah dijawab`;
+  const percent = (answeredCount / this.#totalQuestions) * 100;
+  document.getElementById("progress-bar").style.width = `${percent}%`;
+  document.getElementById("progress-text").textContent = `${answeredCount}/${this.#totalQuestions} telah dijawab`;
 
-    const dots = document.querySelectorAll("#progress-dots span");
-    dots.forEach((dot, index) => {
-      dot.className =
-        "w-2 h-2 rounded-full " +
-        (index < answeredCount ? "bg-yellow-400" : "bg-sky-500/40");
-    });
-  }
+  const dots = document.querySelectorAll("#progress-dots span");
+  dots.forEach((dot, index) => {
+    dot.className =
+      "w-2 h-2 rounded-full inline-block " +
+      (index < answeredCount ? "bg-[#FFEA7F]" : "bg-[#42A7C3]");
+  });
+}
 
   #showResult() {
     const container = document.getElementById("quiz-nav");
-    container.innerHTML = generateQuizResolveTemplate(); // or result template
+    container.innerHTML = generateQuizResolveTemplate();
   }
 }
