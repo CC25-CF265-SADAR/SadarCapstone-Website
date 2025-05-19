@@ -72,10 +72,8 @@ async render() {
       const form = document.querySelector("form");
       const errorMessage = document.getElementById("error-message");
 
-      // Reset pesan error
       if (errorMessage) errorMessage.classList.add("hidden");
 
-      // Validasi untuk MCQ
       if (currentQuestion.type === "mcq") {
         const checkedInputs = form.querySelectorAll("input:checked");
         if (checkedInputs.length === 0) {
@@ -84,7 +82,6 @@ async render() {
         }
       }
 
-      // Validasi untuk Drag & Drop
       if (currentQuestion.type === "dragdrop") {
         const rightZone = document.getElementById("zone-right");
         const wrongZone = document.getElementById("zone-wrong");
@@ -98,7 +95,6 @@ async render() {
         }
       }
 
-      // Jika lolos validasi
       this.#answered++;
       this.#currentIndex++;
 
