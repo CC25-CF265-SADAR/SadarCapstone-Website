@@ -69,7 +69,6 @@ async render() {
   document.addEventListener("click", (e) => {
     if (e.target && e.target.id === "next-button") {
       const currentQuestion = questions[this.#currentIndex];
-      const form = document.querySelector("form");
       const errorMessage = document.getElementById("error-message");
 
       if (errorMessage) errorMessage.classList.add("hidden");
@@ -77,7 +76,10 @@ async render() {
       let answer;
 
       if (currentQuestion.type === "mcq") {
-        const checkedInputs = document.querySelectorAll("input[name='quiz-option']:checked");
+        const form = document.querySelector("form");
+        const inputName = form.getAttribute("data-question-id");
+        const checkedInputs = form.querySelectorAll(`input[name="question-${inputName}${currentQuestion.multiple ? '[]' : ''}"]:checked`);
+
         if (checkedInputs.length === 0) {
           if (errorMessage) errorMessage.classList.remove("hidden");
           return;
