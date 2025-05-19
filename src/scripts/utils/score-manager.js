@@ -1,4 +1,4 @@
-import { renderResultPage } from '../template';
+import { generateResultTemplate } from '../template';
 import { recommendationModules } from '../data/recommendation-data';
 
 export function handleQuizResult(userAnswers, correctAnswers) {
@@ -12,7 +12,7 @@ export function handleQuizResult(userAnswers, correctAnswers) {
   console.log('Karakter:', characterData);
   console.log('Rekomendasi Modul:', recommendedModules);
 
-  renderResultPage(characterData, recommendedModules);
+  generateResultTemplate(characterData, recommendedModules);
 }
 
 function calculateCorrectAnswers(userAnswers, correctAnswers) {

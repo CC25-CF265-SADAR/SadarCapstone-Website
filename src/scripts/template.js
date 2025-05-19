@@ -610,7 +610,7 @@ export function generateQuizQuestionDragdropTemplate({ id, question, options }) 
   `;
 }
 
-export function renderResultPage(characterData, recommendedModules) {
+export function generateResultTemplate(characterData, recommendedModules) {
   const resultContainer = document.getElementById('app');
   resultContainer.innerHTML = `
     <section class="px-4 py-8 max-w-4xl mx-auto">
@@ -621,7 +621,7 @@ export function renderResultPage(characterData, recommendedModules) {
           <h2 class="text-2xl font-bold mb-2">${characterData.name}</h2>
           <div class="flex flex-wrap gap-2 mb-3">
             ${characterData.traits.map(trait => `
-              <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">${trait}</span>
+              <span class="px-4 py-2 border border-[#42A7C3] bg-white text-[#42A7C3] text-sm font-regular rounded-4xl">${trait}</span>
             `).join('')}
           </div>
           <p class="text-gray-700">${characterData.description}</p>
@@ -662,4 +662,7 @@ export function renderResultPage(characterData, recommendedModules) {
   document.getElementById('btn-back-home').addEventListener('click', () => {
     window.location.hash = ''; // atau kamu bisa redirect ke halaman landing
   });
+}
+
+export function generateQuizResolveTemplate() {
 }

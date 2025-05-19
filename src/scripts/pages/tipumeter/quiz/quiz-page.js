@@ -1,4 +1,3 @@
-
 import {
   generateQuizFooterTemplate,
   generateQuizNavTemplate,
@@ -95,6 +94,7 @@ async render() {
         }
       }
 
+      
       this.#answered++;
       this.#currentIndex++;
 
@@ -102,11 +102,54 @@ async render() {
         this.#renderCurrentQuestion();
         this.#updateProgress(this.#answered);
       } else {
+        //caca nambahin ini
+        const userAnswers = this.#collectUserAnswers(); // fungsi baru kamu buat
+        const correctAnswers = questions.map(q => q.answer); // ambil dari question-data.js
+
+        localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
+        localStorage.setItem('correctAnswers', JSON.stringify(correctAnswers));
+        // sampe sini, ak catet biar nnt kalo error ak apus
         window.location.href = "/#/result";
       }
     }
   });
 }
+
+//caca tambah ini jg
+#collectUserAnswers() {
+  const answers = [];
+
+  for (let i = 0; i < this.#totalQuestions; i++) {
+    const question = questions[i];
+
+    if (question.type === 'mcq') {
+      const inputs = document.querySelectorAll(`[name="question-${i}"]:checked`);
+      if (question.multiple) {
+        const values = Array.from(inputs).map(input => input.value);
+        answers.push(values);
+      } else {
+        answers.push([inputs[0]?.value]); // simpan sebagai array satu elemen
+      }
+    }
+
+    if (question.type === 'dragdrop') {
+      const rightZone = document.getElementById("zone-right");
+      const rightItems = rightZone
+        ? Array.from(rightZone.querySelectorAll(".draggable")).map(item => item.textContent.trim())
+        : [];
+
+      const wrongZone = document.getElementById("zone-wrong");
+      const wrongItems = wrongZone
+        ? Array.from(wrongZone.querySelectorAll(".draggable")).map(item => item.textContent.trim())
+        : [];
+
+      answers.push({ right: rightItems, wrong: wrongItems });
+    }
+  }
+
+  return answers;
+}
+// caca sampe sini
 
   #updateProgress(answeredCount) {
   const percent = (answeredCount / this.#totalQuestions) * 100;

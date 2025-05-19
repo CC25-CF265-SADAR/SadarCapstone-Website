@@ -1,8 +1,23 @@
+import {
+  generateQuizFooterTemplate,
+  generateQuizNavTemplate, 
+} from "../../../template";
 import { handleQuizResult } from "../../../utils/score-manager";
 
 export default class ResultPage {
   async render() {
-    return `<div id="app" class="min-h-screen bg-gray-50 py-10 px-4"></div>`;
+    return `
+    <section class="result-page">
+          <div id="result-nav"></div>
+            ${generateQuizNavTemplate()}
+          
+          <div id="app" class="mt-4"></div>
+    
+          <div id="result-footer">
+            ${generateQuizFooterTemplate()}
+          </div>
+        </section>
+      `;
   }
 
   async afterRender() {
