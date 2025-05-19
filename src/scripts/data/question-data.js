@@ -46,6 +46,14 @@ export const questions = [
   },
   {
     id: 6,
+    type: "mcq",
+    question: "Pilih semua kota besar di Indonesia",
+    options: ["Bandung", "Jakarta", "Surabaya", "Tokyo"],
+    answer: ["Bandung", "Jakarta", "Surabaya"],
+    multiple: true
+  },
+  {
+    id: 7,
     type: "dragdrop",
     question: "Kamu menerima email yang mengaku dari “Admin Pajak Nasional”. Mereka menyebutkan kamu dapat pengembalian pajak dan diminta klik link untuk mengisi data pribadi dan rekening. Seret dan letakkan seluruh pilihan di bawah  ini ke kolom yang sesuai",
     options: [
@@ -56,14 +64,6 @@ export const questions = [
     { text: "Cari info di situs resmi Direktorat Jenderal Pajak", category: "right" },
     { text: "Cek alamat email pengirim secara teliti", category: "right" }
   ]
-  },
-  {
-    id: 7,
-    type: "mcq",
-    question: "Pilih semua kota yang termasuk di Pulau Jawa",
-    options: ["Medan", "Surabaya", "Bandung", "Makassar"],
-    answer: ["Surabaya", "Bandung"],
-    multiple: true
   },
   {
     id: 8,
