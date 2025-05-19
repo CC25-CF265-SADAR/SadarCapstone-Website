@@ -14,7 +14,7 @@ export const recommendationModules = [
   {
     title: 'Modul Pharming',
     description: 'Pelajari bagaimana situs palsu dibuat untuk mencuri datamu dan cara mendeteksinya.',
-    image: 'modul_pharming.png',
+    image: 'modul-pharming.png',
     link: '#/modul/pharming',
   },
   {
