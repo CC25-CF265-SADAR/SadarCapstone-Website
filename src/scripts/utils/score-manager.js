@@ -17,11 +17,27 @@ export function handleQuizResult(userAnswers, correctAnswers) {
 
 function calculateCorrectAnswers(userAnswers, correctAnswers) {
   let correctCount = 0;
+
   for (let i = 0; i < correctAnswers.length; i++) {
-    if (JSON.stringify(userAnswers[i]) === JSON.stringify(correctAnswers[i])) {
-      correctCount++;
+    const user = userAnswers[i];
+    const correct = correctAnswers[i];
+
+    if (typeof correct === "object" && correct.right && correct.wrong) {
+      const isRightCorrect =
+        JSON.stringify(user.right.sort()) === JSON.stringify(correct.right.sort());
+      const isWrongCorrect =
+        JSON.stringify(user.wrong.sort()) === JSON.stringify(correct.wrong.sort());
+
+      if (isRightCorrect && isWrongCorrect) {
+        correctCount++;
+      }
+    } else {
+      if (JSON.stringify(user) === JSON.stringify(correct)) {
+        correctCount++;
+      }
     }
   }
+
   return correctCount;
 }
 

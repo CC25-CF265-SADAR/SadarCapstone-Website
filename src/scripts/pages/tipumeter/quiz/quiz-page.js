@@ -14,6 +14,7 @@ export default class QuizPage {
   #currentIndex = 0;
   #totalQuestions = questions.length;
   #answered = 0;
+  #userAnswers = []; // cc tambah ini
 
 async render() {
   return `
@@ -72,29 +73,43 @@ async render() {
       const errorMessage = document.getElementById("error-message");
 
       if (errorMessage) errorMessage.classList.add("hidden");
+      // caca ubah dari sini
+      let answer;
 
       if (currentQuestion.type === "mcq") {
-        const checkedInputs = form.querySelectorAll("input:checked");
+        const checkedInputs = document.querySelectorAll("input[name='quiz-option']:checked");
         if (checkedInputs.length === 0) {
           if (errorMessage) errorMessage.classList.remove("hidden");
           return;
         }
+
+        answer = currentQuestion.multiple
+          ? Array.from(checkedInputs).map((el) => el.value)
+          : [checkedInputs[0].value];
       }
 
       if (currentQuestion.type === "dragdrop") {
         const rightZone = document.getElementById("zone-right");
         const wrongZone = document.getElementById("zone-wrong");
-        const hasItem =
-          rightZone.querySelectorAll(".draggable").length > 0 ||
-          wrongZone.querySelectorAll(".draggable").length > 0;
 
-        if (!hasItem) {
+        const rightItems = Array.from(
+          rightZone.querySelectorAll(".draggable")
+        ).map((el) => el.textContent.trim());
+
+        const wrongItems = Array.from(
+          wrongZone.querySelectorAll(".draggable")
+        ).map((el) => el.textContent.trim());
+
+        if (rightItems.length === 0 && wrongItems.length === 0) {
           if (errorMessage) errorMessage.classList.remove("hidden");
           return;
         }
+
+        answer = { right: rightItems, wrong: wrongItems };
       }
 
-      
+      // Simpan jawaban soal saat ini
+      this.#userAnswers.push(answer);
       this.#answered++;
       this.#currentIndex++;
 
@@ -102,13 +117,9 @@ async render() {
         this.#renderCurrentQuestion();
         this.#updateProgress(this.#answered);
       } else {
-        //caca nambahin ini
-        const userAnswers = this.#collectUserAnswers(); // fungsi baru kamu buat
-        const correctAnswers = questions.map(q => q.answer); // ambil dari question-data.js
-
-        localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
-        localStorage.setItem('correctAnswers', JSON.stringify(correctAnswers));
-        // sampe sini, ak catet biar nnt kalo error ak apus
+        const correctAnswers = this.#collectCorrectAnswers();
+        localStorage.setItem("userAnswers", JSON.stringify(this.#userAnswers));
+        localStorage.setItem("correctAnswers", JSON.stringify(correctAnswers));
         window.location.href = "/#/result";
       }
     }
@@ -116,38 +127,25 @@ async render() {
 }
 
 //caca tambah ini jg
-#collectUserAnswers() {
-  const answers = [];
-
-  for (let i = 0; i < this.#totalQuestions; i++) {
-    const question = questions[i];
-
-    if (question.type === 'mcq') {
-      const inputs = document.querySelectorAll(`[name="question-${i}"]:checked`);
-      if (question.multiple) {
-        const values = Array.from(inputs).map(input => input.value);
-        answers.push(values);
-      } else {
-        answers.push([inputs[0]?.value]); // simpan sebagai array satu elemen
-      }
+#collectCorrectAnswers() {
+  return questions.map((q) => {
+    if (q.type === "dragdrop") {
+      return {
+        right: q.options
+          .filter((opt) => opt.category === "right")
+          .map((opt) => opt.text),
+        wrong: q.options
+          .filter((opt) => opt.category === "wrong")
+          .map((opt) => opt.text),
+      };
     }
 
-    if (question.type === 'dragdrop') {
-      const rightZone = document.getElementById("zone-right");
-      const rightItems = rightZone
-        ? Array.from(rightZone.querySelectorAll(".draggable")).map(item => item.textContent.trim())
-        : [];
-
-      const wrongZone = document.getElementById("zone-wrong");
-      const wrongItems = wrongZone
-        ? Array.from(wrongZone.querySelectorAll(".draggable")).map(item => item.textContent.trim())
-        : [];
-
-      answers.push({ right: rightItems, wrong: wrongItems });
+    if (q.multiple) {
+      return q.answer; // array
     }
-  }
 
-  return answers;
+    return [q.answer]; // single choice
+  });
 }
 // caca sampe sini
 
