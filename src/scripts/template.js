@@ -616,7 +616,7 @@ export function renderResultPage(characterData, recommendedModules) {
     <section class="px-4 py-8 max-w-4xl mx-auto">
       <!-- Bagian Karakter -->
       <div class="flex flex-col md:flex-row items-center gap-6 bg-white rounded-2xl shadow-md p-6">
-        <img src="images/${characterData.image}" alt="${characterData.name}" class="w-32 h-32 object-contain"/>
+        <img src="/images/character/${characterData.image}" alt="${characterData.name}" class="w-32 h-32 object-contain"/>
         <div>
           <h2 class="text-2xl font-bold mb-2">${characterData.name}</h2>
           <div class="flex flex-wrap gap-2 mb-3">
@@ -638,7 +638,7 @@ export function renderResultPage(characterData, recommendedModules) {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           ${recommendedModules.map(module => `
             <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow hover:shadow-lg transition">
-              <img src="images/${module.image}" alt="${module.title}" class="w-12 h-12 object-contain"/>
+              <img src="/images/modules/${module.image}" alt="${module.title}" class="w-12 h-12 object-contain"/>
               <div>
                 <h4 class="text-lg font-semibold mb-1">${module.title}</h4>
                 <p class="text-sm text-gray-600 mb-2">${module.description}</p>

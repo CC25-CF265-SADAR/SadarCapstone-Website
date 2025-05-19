@@ -6,6 +6,12 @@ export function handleQuizResult(userAnswers, correctAnswers) {
   const characterData = determineCharacter(totalCorrect);
   const recommendedModules = determineRecommendedModules(userAnswers, correctAnswers);
 
+  console.log('Jawaban User:', userAnswers);
+  console.log('Jawaban Benar:', correctAnswers);
+  console.log('Hasil Skor:', totalCorrect);
+  console.log('Karakter:', characterData);
+  console.log('Rekomendasi Modul:', recommendedModules);
+
   renderResultPage(characterData, recommendedModules);
 }
 
