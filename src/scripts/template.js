@@ -610,13 +610,56 @@ export function generateQuizQuestionDragdropTemplate({ id, question, options }) 
   `;
 }
 
-export function generateQuizResolveTemplate() {
-  return `
-    `;
-}
+export function renderResultPage(characterData, recommendedModules) {
+  const resultContainer = document.getElementById('app');
+  resultContainer.innerHTML = `
+    <section class="px-4 py-8 max-w-4xl mx-auto">
+      <!-- Bagian Karakter -->
+      <div class="flex flex-col md:flex-row items-center gap-6 bg-white rounded-2xl shadow-md p-6">
+        <img src="images/${characterData.image}" alt="${characterData.name}" class="w-32 h-32 object-contain"/>
+        <div>
+          <h2 class="text-2xl font-bold mb-2">${characterData.name}</h2>
+          <div class="flex flex-wrap gap-2 mb-3">
+            ${characterData.traits.map(trait => `
+              <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">${trait}</span>
+            `).join('')}
+          </div>
+          <p class="text-gray-700">${characterData.description}</p>
+        </div>
+      </div>
 
-export function generateModuleRecommTemplate() {
-  return `
-        //isi disini...
-    `;
+      <!-- Bagian Rekomendasi Modul -->
+      <div class="mt-12">
+        <h3 class="text-xl font-semibold mb-2">Rekomendasi Modul Belajar</h3>
+        <p class="text-gray-600 mb-6">
+          Wah, sepertinya kamu perlu memperkuat pemahaman soal topik-topik berikut ini.
+          Yuk pelajari lebih lanjut lewat modul di bawah ini.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          ${recommendedModules.map(module => `
+            <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow hover:shadow-lg transition">
+              <img src="images/${module.image}" alt="${module.title}" class="w-12 h-12 object-contain"/>
+              <div>
+                <h4 class="text-lg font-semibold mb-1">${module.title}</h4>
+                <p class="text-sm text-gray-600 mb-2">${module.description}</p>
+                <a href="${module.link}" class="inline-block px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition">Mulai Belajar</a>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- Tombol Kembali -->
+      <div class="mt-10 text-center">
+        <button id="btn-back-home" class="px-6 py-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition">
+          Kembali Ke Beranda
+        </button>
+      </div>
+    </section>
+  `;
+
+  // Event untuk tombol kembali
+  document.getElementById('btn-back-home').addEventListener('click', () => {
+    window.location.hash = ''; // atau kamu bisa redirect ke halaman landing
+  });
 }
