@@ -1,4 +1,4 @@
-import { handleQuizResult } from '../utils/score-manager'
+import { handleQuizResult } from "../../../utils/score-manager";
 
 export default class ResultPage {
   async render() {
