@@ -536,6 +536,8 @@ export function generateQuizQuestionMcqTemplate({ id, question, options, multipl
         `).join("")}
       </form>
 
+      <p id="error-message" class="text-sm text-red-500 mt-2 hidden">*Pilih jawaban sebelum melanjutkan.</p>
+
       <div class="pt-4 text-center">
         <button
           class="bg-[#42A7C3] hover:bg-[#2C6F82] text-white font-semibold py-2 px-6 rounded-md shadow transition-all"
@@ -593,6 +595,8 @@ export function generateQuizQuestionDragdropTemplate({ id, question, options }) 
           </div>
         </div>
       </div>
+      
+      <p id="error-message" class="text-sm text-red-500 mt-2 hidden">*Pilih jawaban sebelum melanjutkan.</p>
 
       <div class="text-center pt-6">
         <button

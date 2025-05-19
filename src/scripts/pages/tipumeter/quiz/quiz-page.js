@@ -65,9 +65,40 @@ async render() {
   }
 }
 
-  #handleNextButton() {
+#handleNextButton() {
   document.addEventListener("click", (e) => {
     if (e.target && e.target.id === "next-button") {
+      const currentQuestion = questions[this.#currentIndex];
+      const form = document.querySelector("form");
+      const errorMessage = document.getElementById("error-message");
+
+      // Reset pesan error
+      if (errorMessage) errorMessage.classList.add("hidden");
+
+      // Validasi untuk MCQ
+      if (currentQuestion.type === "mcq") {
+        const checkedInputs = form.querySelectorAll("input:checked");
+        if (checkedInputs.length === 0) {
+          if (errorMessage) errorMessage.classList.remove("hidden");
+          return;
+        }
+      }
+
+      // Validasi untuk Drag & Drop
+      if (currentQuestion.type === "dragdrop") {
+        const rightZone = document.getElementById("zone-right");
+        const wrongZone = document.getElementById("zone-wrong");
+        const hasItem =
+          rightZone.querySelectorAll(".draggable").length > 0 ||
+          wrongZone.querySelectorAll(".draggable").length > 0;
+
+        if (!hasItem) {
+          if (errorMessage) errorMessage.classList.remove("hidden");
+          return;
+        }
+      }
+
+      // Jika lolos validasi
       this.#answered++;
       this.#currentIndex++;
 
@@ -75,7 +106,7 @@ async render() {
         this.#renderCurrentQuestion();
         this.#updateProgress(this.#answered);
       } else {
-        this.#showResult();
+        window.location.href = "/#/result";
       }
     }
   });
