@@ -11,7 +11,8 @@
   justify-content: space-around;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -23,7 +24,7 @@ body, html {
   min-height: 100vh;
 }
 
-#quiz-progress{
+#quiz-progress {
   padding: 1rem 0;
 }
 
@@ -35,4 +36,34 @@ body, html {
 #quiz-footer {
   padding: 1rem;
   text-align: center;
+}
+
+/* .swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+} */
+
+/* .swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 250px;
+  height: 350px;
+  transition: transform 0.3s ease;
+} */
+
+/* CSS Code */
+.mySwiper {
+  width: 100%;
+  padding: 40px 0;
+}
+
+.swiper-slide {
+  width: 70%;
+  height: 200px;
+  background: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
 }
