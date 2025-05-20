@@ -37,21 +37,6 @@ html {
   padding: 1rem;
   text-align: center;
 }
-
-/* .swiper {
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-} */
-
-/* .swiper-slide {
-  background-position: center;
-  background-size: cover;
-  width: 250px;
-  height: 350px;
-  transition: transform 0.3s ease;
-} */
-
 /* CSS Code */
 .mySwiper {
   width: 100%;
