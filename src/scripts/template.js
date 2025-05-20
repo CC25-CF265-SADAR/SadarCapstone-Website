@@ -1,53 +1,69 @@
 export function generateNavbarTemplate() {
   return `
-    <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8 bg-[#42A7C3]">
-  <!-- Logo -->
-  <a class="text-white font-bold text-lg" href="#">Logo Sadar</a>
+  <div class="bg-[#42A7C3]">
+    <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <!-- Logo -->
+      <a class="text-white font-bold text-lg" href="#">Logo Sadar</a>
 
-  <!-- Centered Navbar -->
-  <nav class="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
-    <ul class="flex items-center gap-6 text-sm">
-      <li>
-        <a class="text-base font-semibold text-white transition hover:text-[#163741]" href="#">CekAjaDulu</a>
-      </li>
-      <li class="relative group">
-        <button class="flex items-center gap-1 text-base font-semibold text-white transition hover:text-[#163741] focus:outline-none">
-          AntiTertipu
-          <svg class="w-4 h-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
-        <ul class="absolute left-0 mt-2 w-56 rounded-md bg-white shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible invisible transition duration-200 z-50">
-          <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Umum</a></li>
-          <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Phising</a></li>
-          <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Pharming</a></li>
-          <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Sniffing</a></li>
-          <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Social Engineering</a></li>
-          <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Money Rule</a></li>
+      <!-- Desktop Navbar -->
+      <nav class="hidden md:flex justify-center flex-1">
+        <ul class="flex items-center gap-6 text-sm">
+          <li>
+            <a class="text-base font-semibold text-white transition hover:text-[#163741]" href="#">CekAjaDulu</a>
+          </li>
+          <li class="relative group">
+            <button class="flex items-center gap-1 text-base font-semibold text-white transition hover:text-[#163741] focus:outline-none">
+              AntiTertipu
+              <svg class="w-4 h-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <ul class="absolute left-0 mt-2 w-56 rounded-md bg-white shadow-xl ring-1 ring-black/5 border border-gray-200 z-50 opacity-0 group-hover:opacity-100 group-hover:visible invisible transition duration-200">
+              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Umum</a></li>
+              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Phising</a></li>
+              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Pharming</a></li>
+              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Sniffing</a></li>
+              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Social Engineering</a></li>
+              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Money Rule</a></li>
+            </ul>
+          </li>
+          <li>
+            <a class="text-base font-semibold text-white transition hover:text-[#163741]" href="#/quiz">TipuMeter</a>
+          </li>
         </ul>
-      </li>
-      <li>
-        <a class="text-base font-semibold text-white transition hover:text-[#163741]" href="#/quiz">TipuMeter</a>
-      </li>
-    </ul>
-  </nav>
+      </nav>
 
-  <!-- Login/Register and Menu -->
-  <div class="flex items-center gap-4">
-    <div class="hidden sm:flex sm:gap-4">
-      <a class="block rounded-md bg-[#2C6F82] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#215361]" href="#">Login</a>
-      <a class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-[#2C6F82] transition hover:text-[#215361]" href="#">Register</a>
+      <!-- Login/Register desktop -->
+      <div class="hidden md:flex gap-2">
+        <a href="#" class="text-sm font-medium text-white bg-[#2C6F82] px-4 py-2 rounded">Login</a>
+        <a href="#" class="text-sm font-medium text-[#2C6F82] bg-white px-4 py-2 rounded hover:bg-gray-100">Register</a>
+      </div>
+
+      <!-- Mobile toggle and menu -->
+      <div class="relative md:hidden flex items-center">
+        <input type="checkbox" id="menu-toggle" class="peer hidden">
+        
+        <label for="menu-toggle" class="cursor-pointer rounded bg-gray-100 p-2.5 text-gray-600 z-50">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </label>
+
+        <!-- Mobile menu -->
+        <div class="peer-checked:flex hidden absolute right-0 top-full mt-2 w-56 flex-col gap-2 rounded-md bg-white p-4 shadow-lg z-40">
+          <a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-gray-200">CekAjaDulu</a>
+          <a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-gray-200">AntiTertipu</a>
+          <a href="#/quiz" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-gray-200">TipuMeter</a>
+
+          <div class="border-t pt-2 mt-2 flex flex-col gap-2">
+            <a href="#" class="text-sm font-medium text-white bg-[#2C6F82] px-4 py-2 rounded text-center">Login</a>
+            <a href="#" class="text-sm font-medium text-[#2C6F82] border border-[#2C6F82] px-4 py-2 rounded text-center hover:bg-gray-100 active:bg-gray-200">Register</a>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <button class="block rounded-sm bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
-      <span class="sr-only">Toggle menu</span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
   </div>
-</div>
-`;
+  `;
 }
 
 export function generateLeaderboardTemplate() {
