@@ -7,7 +7,7 @@ export default class QuizIntroPage {
       <div class="relative max-w-screen-xl text-center m-0 lg:py-0 overflow-hidden">
         <!-- Gambar background -->
         <img src="background-tipumeter.svg"
-            class="border border-black w-full object-contain object-bottom h-[420px] z-0 md:h-[500px] md:object-contain lg:h-[620] lg:object-cover"
+            class="w-full object-contain object-bottom h-[420px] z-0 md:h-[500px] md:object-contain lg:h-[620] lg:object-cover"
             alt="background">
 
         <!-- Konten di atas gambar -->
@@ -19,8 +19,8 @@ export default class QuizIntroPage {
             Penipuan siber bisa datang kapan saja lewat pesan WhatsApp, email mencurigakan, hingga iklan palsu di media sosial. Kamu Termasuk yang Waspada atau Ceroboh? Cek disini!
           </p>
           <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
-            <a id="start-button"
-            class="w-fit inline-flex items-center px-4 sm:px-5 py-3 sm:py-4 text-sm font-medium text-white bg-[#2C6F82] rounded-lg hover:bg-[#215361] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <a id="start-button" href="#/quiz/take-quiz"
+            class="cursor-pointer w-fit inline-flex items-center px-4 sm:px-5 py-3 sm:py-4 text-sm font-medium text-white bg-[#2C6F82] rounded-lg hover:bg-[#215361] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Mulai Kuis
               <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -30,7 +30,7 @@ export default class QuizIntroPage {
         </div>
       </div>
 
-      <section class="border border-black mt-10 bg-white flex flex-col justify-center dark:bg-gray-900">
+      <section class="mt-10 bg-white flex flex-col justify-center dark:bg-gray-900">
         <h2 class="text-xl sm:text-lg md:text-xl lg:text-2xl font-bold text-center mb-8">
           Temukan Karakter Digitalmu
         </h2>
@@ -113,7 +113,7 @@ export default class QuizIntroPage {
           <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
             <a id="start-button"
               href="#/quiz/take-quiz"
-              class="inline-flex items-center justify-center px-6 py-3 text-sm sm:text-base font-medium text-white bg-[#2C6F82] rounded-lg hover:bg-[#215361] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-all duration-200">
+              class="cursor-pointer inline-flex items-center justify-center px-6 py-3 text-sm sm:text-base font-medium text-white bg-[#2C6F82] rounded-lg hover:bg-[#215361] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-all duration-200">
               Mulai Kuis
             </a>
           </div>
@@ -139,7 +139,7 @@ export default class QuizIntroPage {
           <div class="flex flex-col space-y-4 sm:flex-row sm:justify-start sm:space-y-0">
             <a id="start-button"
               href="#/quiz/take-quiz"
-              class="w-fit inline-flex items-center px-5 py-3 text-sm font-medium text-center text-white bg-[#2C6F82] rounded-lg hover:bg-[#215361] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              class="cursor-pointer w-fit inline-flex items-center px-5 py-3 text-sm font-medium text-center text-white bg-[#2C6F82] rounded-lg hover:bg-[#215361] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Mulai Kuis
             </a>
           </div>
