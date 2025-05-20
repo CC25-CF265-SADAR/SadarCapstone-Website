@@ -36,7 +36,9 @@ export default class QuizPresenter {
     this.view.renderQuestion(questionTemplate, isLast);
 
     if (currentQuestion.type === 'dragdrop') {
-      setupSortableDragAndDrop();
+      requestAnimationFrame(() => {
+        setupSortableDragAndDrop();
+      });
     }
   }
 
@@ -70,23 +72,29 @@ export default class QuizPresenter {
         }
 
         if (currentQuestion.type === 'dragdrop') {
-          const rightZone = document.getElementById('zone-right');
-          const wrongZone = document.getElementById('zone-wrong');
-
-          const rightItems = Array.from(rightZone.querySelectorAll('.draggable')).map((el) =>
-            el.textContent.trim(),
+          const zones = document.querySelectorAll('.drop-zone');
+          answer = {};
+          let hasDroppedItem = false;
+          
+          zones.forEach((zone) => {
+            const key = zone.getAttribute('data-accept');
+            const items = Array.from(zone.querySelectorAll('.draggable')).map((el) =>
+              el.textContent.trim(),
           );
-          const wrongItems = Array.from(wrongZone.querySelectorAll('.draggable')).map((el) =>
-            el.textContent.trim(),
-          );
-
-          if (rightItems.length === 0 && wrongItems.length === 0) {
-            this.view.showErrorMessage();
-            return;
+          
+          if (items.length > 0) {
+            hasDroppedItem = true;
           }
-
-          answer = { right: rightItems, wrong: wrongItems };
+          
+          answer[key] = items;
+        });
+        
+        if (!hasDroppedItem) {
+          this.view.showErrorMessage();
+          return;
         }
+      
+      }
 
         this.#userAnswers.push(answer);
         this.#answered++;
@@ -114,15 +122,18 @@ export default class QuizPresenter {
   }
 
   #collectCorrectAnswers() {
-    return questions.map((q) => {
-      if (q.type === 'dragdrop') {
-        return {
-          right: q.options.filter((opt) => opt.category === 'right').map((opt) => opt.text),
-          wrong: q.options.filter((opt) => opt.category === 'wrong').map((opt) => opt.text),
-        };
-      }
+  return questions.map((q) => {
+    if (q.type === 'dragdrop') {
+      const correctMap = {};
+      q.dropZones.forEach(zone => {
+        correctMap[zone] = q.options
+          .filter(opt => opt.category === zone)
+          .map(opt => opt.text);
+      });
+      return correctMap;
+    }
 
-      return q.multiple ? q.answer : [q.answer];
-    });
-  }
+    return q.multiple ? q.answer : [q.answer];
+  });
+}
 }

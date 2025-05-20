@@ -552,7 +552,7 @@ export function generateQuizQuestionMcqTemplate({ id, question, options, multipl
   `;
 }
 
-export function generateQuizQuestionDragdropTemplate({ id, question, options }) {
+export function generateQuizQuestionDragdropTemplate({ id, question, options, dropZones }) {
   const shuffled = options
     .map(item => ({ ...item }))
     .sort(() => Math.random() - 0.5);
@@ -575,29 +575,23 @@ export function generateQuizQuestionDragdropTemplate({ id, question, options }) 
       </div>
 
       <div class="flex flex-col md:flex-row gap-6 mt-4">
-        <div class="w-full border border-gray-300 rounded-lg p-4 space-y-3">
-          <p class="text-center text-base font-medium text-gray-700 mb-2">Aman</p>
-          <div
-            class="drop-zone flex flex-col gap-2 p-2 w-full min-h-[300px] border-2 border-dashed border-gray-300 rounded-lg overflow-auto"
-            data-accept="right"
-            id="zone-right"
-          >
-            <span class="placeholder text-sm text-gray-400 text-center select-none pointer-events-none">Tarik ke sini</span>
-          </div>
-        </div>
-
-        <div class="w-full border border-gray-300 rounded-lg p-4 space-y-3">
-          <p class="text-center text-base font-medium text-gray-700 mb-2">Berbahaya</p>
-          <div
-            class="drop-zone flex flex-col gap-2 p-2 w-full min-h-[300px] border-2 border-dashed border-gray-300 rounded-lg overflow-auto"
-            data-accept="wrong"
-            id="zone-wrong"
-          >
-            <span class="placeholder text-sm text-gray-400 text-center select-none pointer-events-none">Tarik ke sini</span>
-          </div>
-        </div>
+        ${dropZones.map((label, i) => {
+          const zoneKey = label.toLowerCase().replace(/\s+/g, "-"); // contoh: "Tidak Setuju" → "tidak-setuju"
+          return `
+            <div class="w-full border border-gray-300 rounded-lg p-4 space-y-3">
+              <p class="text-center text-base font-medium text-gray-700 mb-2">${label}</p>
+              <div
+                class="drop-zone flex flex-col gap-2 p-2 w-full min-h-[300px] border-2 border-dashed border-gray-300 rounded-lg overflow-auto"
+                data-accept="${zoneKey}"
+                id="zone-${zoneKey}"
+              >
+                <span class="placeholder text-sm text-gray-400 text-center select-none pointer-events-none">Tarik ke sini</span>
+              </div>
+            </div>
+          `;
+        }).join("")}
       </div>
-      
+
       <p id="error-message" class="text-sm text-red-500 mt-2 hidden">*Pilih jawaban sebelum melanjutkan.</p>
 
       <div class="text-center pt-6">

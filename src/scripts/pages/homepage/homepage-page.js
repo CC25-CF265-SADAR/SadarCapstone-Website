@@ -22,12 +22,12 @@ export default class Homepage {
                         </p>
                         
                         <p class="hidden text-gray-500 md:mt-4 md:block">
-                        Penipuan digital sekarang makin licik! Mulai dari pesan spam hingga link jebakan.Tes seberapa waspada kamu lewat simulasi interaktif ini. Seru, cepat, dan bikin kamu lebih sadar!
+                        Penipuan digital sekarang makin licik! Mulai dari pesan spam hingga link jebakan. Tes seberapa waspada kamu lewat simulasi interaktif ini. Seru, cepat, dan bikin kamu lebih sadar!
                         </p>
         
                         <div class="mt-4 md:mt-8">
                         <a
-                            href="#"
+                            href="#/quiz"
                             class="inline-block rounded-full bg-[#42A7C3] px-12 py-3 text-sm font-medium text-white transition hover:bg-[#2C6F82] focus:outline-hidden"
                             >
                             Coba Sekarang ➔

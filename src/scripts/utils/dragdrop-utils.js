@@ -1,15 +1,14 @@
 import Sortable from 'sortablejs';
 
 export function setupSortableDragAndDrop() {
-  const rightZone = document.getElementById("zone-right");
-  const wrongZone = document.getElementById("zone-wrong");
+  const dropZones = document.querySelectorAll(".drop-zone");
 
-  if (!rightZone || !wrongZone) {
-    console.warn("Drop zone belum ditemukan di DOM!");
+  if (!dropZones.length) {
+    console.warn("Drop zones belum ditemukan di DOM!");
     return;
   }
 
-  [rightZone, wrongZone].forEach((zone) => {
+  dropZones.forEach((zone) => {
     new Sortable(zone, {
       group: "quiz-options",
       animation: 150,
@@ -25,7 +24,7 @@ export function setupSortableDragAndDrop() {
     });
   });
 
-  const sourceContainer = document.querySelector(".grid");
+  const sourceContainer = document.querySelector(".grid"); // tempat asal
   if (sourceContainer) {
     new Sortable(sourceContainer, {
       group: "quiz-options",

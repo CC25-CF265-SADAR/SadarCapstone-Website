@@ -22,17 +22,34 @@ function calculateCorrectAnswers(userAnswers, correctAnswers) {
     const user = userAnswers[i];
     const correct = correctAnswers[i];
 
-    if (typeof correct === "object" && correct.right && correct.wrong) {
-      const isRightCorrect =
-        JSON.stringify(user.right.sort()) === JSON.stringify(correct.right.sort());
-      const isWrongCorrect =
-        JSON.stringify(user.wrong.sort()) === JSON.stringify(correct.wrong.sort());
+    if (!user || !correct) continue;
 
-      if (isRightCorrect && isWrongCorrect) {
-        correctCount++;
+    if (typeof correct === "object" && !Array.isArray(correct)) {
+      let allMatch = true;
+
+      const normalizedUser = {};
+      Object.keys(user).forEach((key) => {
+        normalizedUser[key.toLowerCase()] = user[key];
+      });
+
+      const normalizedCorrect = {};
+      Object.keys(correct).forEach((key) => {
+        normalizedCorrect[key.toLowerCase()] = correct[key];
+      });
+
+      for (const key of Object.keys(normalizedCorrect)) {
+        const userItems = (normalizedUser[key] || []).map(t => t.trim()).sort();
+        const correctItems = (normalizedCorrect[key] || []).map(t => t.trim()).sort();
+
+        if (JSON.stringify(userItems) !== JSON.stringify(correctItems)) {
+          allMatch = false;
+          break;
+        }
       }
+
+      if (allMatch) correctCount++;
     } else {
-      if (JSON.stringify(user) === JSON.stringify(correct)) {
+      if (JSON.stringify(user.sort?.() || user) === JSON.stringify(correct.sort?.() || correct)) {
         correctCount++;
       }
     }
@@ -82,14 +99,37 @@ function determineCharacter(score) {
 
 function determineRecommendedModules(userAnswers, correctAnswers) {
   const modules = new Set();
-
+    //ak ubah dikit krna dragdrop revisi dikit
   for (let i = 0; i < correctAnswers.length; i++) {
-    const isCorrect = JSON.stringify(userAnswers[i]) === JSON.stringify(correctAnswers[i]);
+    const correct = correctAnswers[i];
+    let isCorrect = false;
+
+    if (typeof correct === "object" && !Array.isArray(correct)) {
+      const user = Object.fromEntries(
+        Object.entries(userAnswers[i] || {}).map(([k, v]) => [k.toLowerCase(), v])
+      );
+
+      const zoneLabels = Object.keys(correct);
+      isCorrect = true;
+
+      for (const zone of zoneLabels) {
+        const correctItems = (correct[zone] || []).sort();
+        const userItems = (user[zone.toLowerCase()] || []).sort();
+
+        if (JSON.stringify(correctItems) !== JSON.stringify(userItems)) {
+          isCorrect = false;
+          break;
+        }
+      }
+    } else {
+      isCorrect = JSON.stringify(userAnswers[i]) === JSON.stringify(correct);
+    }
     if (!isCorrect) {
-      const moduleIndex = Math.floor(i / 2); // 0–5
+      const moduleIndex = Math.floor(i / 2);
       modules.add(recommendationModules[moduleIndex]);
     }
   }
 
   return Array.from(modules);
 }
+      
