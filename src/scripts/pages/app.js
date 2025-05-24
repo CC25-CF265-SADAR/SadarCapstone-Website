@@ -12,7 +12,12 @@ class App {
   }
 
   #setupNavigation(url) {
-    if (url === '/login' || url === '/register') {
+    if (
+      url === '/login' ||
+      url === '/register' ||
+      url === '/forgot-password' ||
+      url === '/reset-password'
+    ) {
       this.#header.innerHTML = '';
     } else {
       this.#header.innerHTML = `
