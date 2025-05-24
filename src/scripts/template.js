@@ -35,8 +35,8 @@ export function generateNavbarTemplate() {
 
       <!-- Login/Register desktop -->
       <div class="hidden md:flex gap-2">
-        <a href="#" class="text-sm font-medium text-white bg-[#2C6F82] px-4 py-2 rounded">Login</a>
-        <a href="#" class="text-sm font-medium text-[#2C6F82] bg-white px-4 py-2 rounded hover:bg-gray-100">Register</a>
+        <a href="#/login" class="text-sm font-medium text-white bg-[#2C6F82] px-4 py-2 rounded">Login</a>
+        <a href="#/register" class="text-sm font-medium text-[#2C6F82] bg-white px-4 py-2 rounded hover:bg-gray-100">Register</a>
       </div>
 
       <!-- Mobile toggle and menu -->
@@ -488,10 +488,8 @@ export function generateModuleFooterTemplate() {
 
 export function generateProgressQuizTemplate() {
   const dots = Array(12)
-    .fill(
-      `<span class="w-2 h-2 rounded-full bg-[#42A7C3] opacity-100 inline-block"></span>`
-    )
-    .join("");
+    .fill(`<span class="w-2 h-2 rounded-full bg-[#42A7C3] opacity-100 inline-block"></span>`)
+    .join('');
 
   return `
     <div class="w-full max-w-xl md:max-w-[640px] mx-auto mt-6 px-4">
@@ -526,7 +524,9 @@ export function generateQuizQuestionMcqTemplate({ id, question, options, multipl
       <h2 class="text-base font-semibold text-[#000000] text-center">${question}</h2>
 
       <form class="space-y-3 mt-5 mb-8" data-question-id="${id}">
-        ${options.map((option, index) => `
+        ${options
+          .map(
+            (option, index) => `
           <label class="peer-checked:border-yellow-400 block border border-gray-300 rounded-lg px-4 py-3 cursor-pointer hover:border-yellow-400 transition-all flex items-center gap-3">
             <input
               type="${inputType}"
@@ -537,9 +537,11 @@ export function generateQuizQuestionMcqTemplate({ id, question, options, multipl
             />
             <span class="
               w-5 h-5 inline-block relative border-2
-              ${multiple
-                ? 'rounded-md border-gray-300 peer-checked:border-yellow-400'
-                : 'rounded-full border-gray-300 peer-checked:border-yellow-400'}
+              ${
+                multiple
+                  ? 'rounded-md border-gray-300 peer-checked:border-yellow-400'
+                  : 'rounded-full border-gray-300 peer-checked:border-yellow-400'
+              }
               transition-all duration-200
             ">
               <span class="
@@ -551,7 +553,9 @@ export function generateQuizQuestionMcqTemplate({ id, question, options, multipl
             </span>
             <span class="text-md font-regular text-[#000000]">${option}</span>
           </label>
-        `).join("")}
+        `,
+          )
+          .join('')}
       </form>
 
       <p id="error-message" class="text-sm text-red-500 mt-2 hidden">*Pilih jawaban sebelum melanjutkan.</p>
@@ -569,16 +573,16 @@ export function generateQuizQuestionMcqTemplate({ id, question, options, multipl
 }
 
 export function generateQuizQuestionDragdropTemplate({ id, question, options, dropZones }) {
-  const shuffled = options
-    .map(item => ({ ...item }))
-    .sort(() => Math.random() - 0.5);
+  const shuffled = options.map((item) => ({ ...item })).sort(() => Math.random() - 0.5);
 
   return `
     <div class="quiz-container w-full max-w-[600px] mx-auto p-6 space-y-8">
       <h2 class="text-base font-semibold text-gray-800 text-center mb-4">${question}</h2>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mb-4">
-        ${shuffled.map((item, index) => `
+        ${shuffled
+          .map(
+            (item, index) => `
           <div
             class="bg-[#DFF0F5] text-gray-800 text-sm text-center px-3 py-2 rounded-md cursor-move shadow-md draggable"
             data-value="${item.text}"
@@ -587,13 +591,16 @@ export function generateQuizQuestionDragdropTemplate({ id, question, options, dr
           >
             ${item.text}
           </div>
-        `).join("")}
+        `,
+          )
+          .join('')}
       </div>
 
       <div class="flex flex-col md:flex-row gap-6 mt-4">
-        ${dropZones.map((label, i) => {
-          const zoneKey = label.toLowerCase().replace(/\s+/g, "-"); // contoh: "Tidak Setuju" → "tidak-setuju"
-          return `
+        ${dropZones
+          .map((label, i) => {
+            const zoneKey = label.toLowerCase().replace(/\s+/g, '-'); // contoh: "Tidak Setuju" → "tidak-setuju"
+            return `
             <div class="w-full border border-gray-300 rounded-lg p-4 space-y-3">
               <p class="text-center text-base font-medium text-gray-700 mb-2">${label}</p>
               <div
@@ -605,7 +612,8 @@ export function generateQuizQuestionDragdropTemplate({ id, question, options, dr
               </div>
             </div>
           `;
-        }).join("")}
+          })
+          .join('')}
       </div>
 
       <p id="error-message" class="text-sm text-red-500 mt-2 hidden">*Pilih jawaban sebelum melanjutkan.</p>
@@ -631,9 +639,13 @@ export function generateResultTemplate(characterData, recommendedModules) {
         <div>
           <h2 class="text-2xl font-bold mb-2">${characterData.name}</h2>
           <div class="flex flex-wrap gap-2 mb-3">
-            ${characterData.traits.map(trait => `
+            ${characterData.traits
+              .map(
+                (trait) => `
               <span class="px-4 py-2 border border-[#42A7C3] bg-white text-[#42A7C3] text-sm font-regular rounded-4xl">${trait}</span>
-            `).join('')}
+            `,
+              )
+              .join('')}
           </div>
           <p class="text-gray-700">${characterData.description}</p>
         </div>
@@ -646,7 +658,9 @@ export function generateResultTemplate(characterData, recommendedModules) {
           Yuk pelajari lebih lanjut lewat modul di bawah ini.
         </p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          ${recommendedModules.map(module => `
+          ${recommendedModules
+            .map(
+              (module) => `
             <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow hover:shadow-lg transition">
               <img src="/images/modules/${module.image}" alt="${module.title}" class="w-12 h-12 object-contain"/>
               <div>
@@ -660,7 +674,9 @@ export function generateResultTemplate(characterData, recommendedModules) {
                 </a>
               </div>
             </div>
-          `).join('')}
+          `,
+            )
+            .join('')}
         </div>
       </div>
 
@@ -678,5 +694,4 @@ export function generateResultTemplate(characterData, recommendedModules) {
   });
 }
 
-export function generateQuizResolveTemplate() {
-}
+export function generateQuizResolveTemplate() {}

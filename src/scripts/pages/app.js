@@ -9,16 +9,18 @@ class App {
   constructor({ header, content }) {
     this.#content = content;
     this.#header = header;
-
-    this.#setupNavigation();
   }
 
-  #setupNavigation() {
-    this.#header.innerHTML = `
+  #setupNavigation(url) {
+    if (url === '/login' || url === '/register') {
+      this.#header.innerHTML = '';
+    } else {
+      this.#header.innerHTML = `
       <nav>
         ${generateNavbarTemplate()}
       </nav>
     `;
+    }
   }
 
   async renderPage() {
@@ -26,6 +28,7 @@ class App {
     const matchedRoute = routes[url] || routes['/404'];
 
     if (!matchedRoute) return;
+    this.#setupNavigation(url);
 
     const page = matchedRoute();
     if (!page) return;

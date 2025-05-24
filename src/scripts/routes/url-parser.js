@@ -20,9 +20,14 @@ function constructRouteFromSegments(pathSegments) {
 
   return pathname || '/';
 }
-
+export function getQueryParams() {
+  const queryString = location.hash.split('?')[1];
+  return new URLSearchParams(queryString || '');
+}
 export function getActivePathname() {
-  return location.hash.replace('#', '') || '/';
+  const hash = location.hash.replace('#', '') || '/';
+  const [pathOnly] = hash.split('?'); // Pisahkan sebelum tanda tanya
+  return pathOnly;
 }
 
 export function getActiveRoute() {

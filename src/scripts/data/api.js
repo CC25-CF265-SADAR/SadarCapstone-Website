@@ -35,11 +35,31 @@ export const login = async ({ email, password }) => {
   return data.token;
 };
 
+export const requestResetPassword = async (email) => {
+  const response = await fetch(`${BASE_URL}/forgot-password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
+  });
+
+  return response.json();
+};
+
+export const submitNewPassword = async (token, newPassword) => {
+  const response = await fetch(`${BASE_URL}/reset-password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token, newPassword }),
+  });
+
+  return response.json();
+};
+
 // === AUTH HEADER ===
 const authHeader = () => {
   const token = localStorage.getItem('token');
   return {
-    Authorization: `Bearer ${token}`,
+    'Authorization': `Bearer ${token}`,
     'Content-Type': 'application/json',
   };
 };
