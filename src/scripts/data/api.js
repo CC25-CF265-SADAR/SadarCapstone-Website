@@ -41,6 +41,29 @@ export const login = async ({ email, password, remember }) => {
 
   return data.token;
 };
+export const googleLogin = async (id_token, remember = false) => {
+  const response = await fetch(`${BASE_URL}/auth/google`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id_token }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Login Google gagal');
+  }
+
+  const data = await response.json();
+
+  // Hapus token sebelumnya
+  document.cookie = `${CONFIG.ACCESS_TOKEN_KEY}=; path=/; max-age=0`;
+
+  // Set token baru di cookie
+  const maxAge = remember ? 7 * 86400 : 86400; // 7 hari atau 1 hari
+  document.cookie = `${CONFIG.ACCESS_TOKEN_KEY}=${data.token}; path=/; max-age=${maxAge}`;
+
+  return data.token;
+};
 
 export const requestResetPassword = async (email) => {
   const response = await fetch(`${BASE_URL}/forgot-password`, {

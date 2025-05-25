@@ -1,10 +1,12 @@
 import LoginPresenter from './login-presenter';
+import { googleLogin } from '../../../data/api';
+import CONFIG from '../../../config';
 export default class LoginPage {
   #presenter = null;
 
   async render() {
     return `
-      <section class="login-container bg-[#378BA2] w-full h-auto flex flex-col justify-start items-center p-8 gap-8 md:pt-12 h-full">
+      <section class="login-container bg-[#378BA2] w-full h-auto flex flex-col justify-start items-center p-8 gap-8 md:pt-12 h-auto">
         <img src="images/logo-sadar.svg" class="w-[180px] h-auto" alt="Logo"">
         <div class="w-full max-w-lg p-8 bg-white border border-gray-200 rounded-xl shadow-sm sm:p-6 md:p-9 dark:bg-gray-800 dark:border-gray-700">
             <h1 class="text-xl md:text-3xl font-bold text-[#378BA2] text-center">Masuk Akun</h1>
@@ -32,6 +34,13 @@ export default class LoginPage {
                     Belum punya akun? <a href="#/register" class="text-[#378BA2] hover:font-medium hover:underline dark:text-blue-500">Buat akun</a>
                 </div>
             </form>
+
+            <div class="flex items-center justify-center gap-4 mt-4">
+                <span class="text-gray-500 text-sm">Atau masuk dengan</span>
+              </div>
+              <button id="google-login" type="button" class="w-full flex items-center justify-center mt-3">
+              </button>
+
         </div>
       </section>
     `;
@@ -39,5 +48,32 @@ export default class LoginPage {
 
   afterRender() {
     this.#presenter = new LoginPresenter();
+
+    setTimeout(() => {
+      window.google.accounts.id.initialize({
+        client_id: CONFIG.GOOGLE_CLIENT_ID,
+        callback: async (response) => {
+          try {
+            const token = await googleLogin(response.credential, true);
+            localStorage.setItem('token', token);
+            window.location.href = '#/';
+          } catch (err) {
+            console.error('Login Google gagal:', err.message);
+          }
+        },
+        auto_select: false,
+      });
+
+      window.google.accounts.id.renderButton(document.getElementById('google-login'), {
+        theme: 'outline',
+        size: 'large',
+        type: 'standard',
+        shape: 'rectangular',
+        logo_alignment: 'center',
+        width: 500,
+        height: 1000,
+        text: 'signin_with',
+      });
+    }, 300);
   }
 }
