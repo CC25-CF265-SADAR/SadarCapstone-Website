@@ -1,6 +1,7 @@
 import routes from '../routes/routes';
 import { getActiveRoute } from '../routes/url-parser';
-import { generateNavbarTemplate } from '../template';
+import { getAccessToken } from '../utils/auth';
+import { generateNavbarTemplate, generateNavbarAuthTemplate } from '../template';
 
 class App {
   #content;
@@ -12,17 +13,15 @@ class App {
   }
 
   #setupNavigation(url) {
-    if (
-      url === '/login' ||
-      url === '/register' ||
-      url === '/forgot-password' ||
-      url === '/reset-password'
-    ) {
-      this.#header.innerHTML = '';
+    const isAuthPage = ['/login', '/register', '/forgot-password', '/reset-password'].includes(url);
+
+    if (isAuthPage) {
+      this.#header.innerHTML = ''; // hide navbar in auth pages
     } else {
+      const isLogin = !!getAccessToken();
       this.#header.innerHTML = `
       <nav>
-        ${generateNavbarTemplate()}
+        ${isLogin ? generateNavbarAuthTemplate() : generateNavbarTemplate()}
       </nav>
     `;
     }

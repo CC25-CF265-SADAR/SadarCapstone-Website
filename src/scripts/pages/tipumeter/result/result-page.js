@@ -1,8 +1,7 @@
-import {
-  generateQuizFooterTemplate,
-  generateQuizNavTemplate, 
-} from "../../../template";
-import { handleQuizResult } from "../../../utils/score-manager";
+import { generateQuizFooterTemplate, generateQuizNavTemplate } from '../../../template';
+import { handleQuizResult } from '../../../utils/score-manager';
+import { setupProfileDropdown } from '../../../utils/navbar-interaction';
+import { getLogout } from '../../../utils/auth';
 
 export default class ResultPage {
   async render() {
@@ -26,5 +25,15 @@ export default class ResultPage {
     const correctAnswers = JSON.parse(localStorage.getItem('correctAnswers')) || [];
 
     handleQuizResult(userAnswers, correctAnswers);
+
+    setupProfileDropdown();
+
+    document.addEventListener('click', (event) => {
+      if (event.target.id === 'logout-btn') {
+        getLogout();
+        location.hash = '/';
+        location.reload(); // agar render ulang navbar
+      }
+    });
   }
-};
+}

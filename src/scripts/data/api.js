@@ -18,7 +18,7 @@ export const register = async ({ email, password }) => {
   return await response.json();
 };
 
-export const login = async ({ email, password }) => {
+export const login = async ({ email, password, remember }) => {
   const response = await fetch(`${BASE_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -31,7 +31,14 @@ export const login = async ({ email, password }) => {
   }
 
   const data = await response.json();
-  localStorage.setItem('token', data.token);
+
+  // Hapus token sebelumnya
+  document.cookie = `${CONFIG.ACCESS_TOKEN_KEY}=; path=/; max-age=0`;
+
+  // Set max-age tergantung remember
+  const maxAge = remember ? 7 * 86400 : 86400; // 7 hari atau 1 hari
+  document.cookie = `${CONFIG.ACCESS_TOKEN_KEY}=${data.token}; path=/; max-age=${maxAge}`;
+
   return data.token;
 };
 

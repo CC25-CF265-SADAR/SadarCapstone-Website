@@ -23,17 +23,11 @@ export default class LoginPresenter {
     }
 
     try {
-      const token = await login({ email, password });
+      await login({ email, password, remember });
 
-      // Kalau kamu mau ingat login lebih lama, bisa simpan token ke localStorage
-      if (remember) {
-        localStorage.setItem('token', token);
-      } else {
-        sessionStorage.setItem('token', token);
-      }
-
-      // Redirect ke halaman beranda/dashboard tanpa menampilkan data sensitif di URL
+      // Redirect ke homepage dan refresh supaya navbar berubah
       window.location.hash = '#/';
+      window.location.reload();
     } catch (error) {
       alert(error.message);
     }

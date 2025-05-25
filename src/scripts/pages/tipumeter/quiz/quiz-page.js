@@ -1,5 +1,7 @@
 import { generateQuizFooterTemplate, generateProgressQuizTemplate } from '../../../template';
 import QuizPresenter from './quiz-presenter';
+import { setupProfileDropdown } from '../../../utils/navbar-interaction';
+import { getLogout } from '../../../utils/auth';
 
 export default class QuizPage {
   constructor() {
@@ -20,7 +22,17 @@ export default class QuizPage {
   }
 
   async afterRender() {
-    this.presenter.afterRender(); // lanjutkan ke presenter
+    this.presenter.afterRender();
+
+    setupProfileDropdown();
+
+    document.addEventListener('click', (event) => {
+      if (event.target.id === 'logout-btn') {
+        getLogout();
+        location.hash = '/';
+        location.reload(); // agar render ulang navbar
+      }
+    });
   }
 
   // metode-metode berikut dipanggil presenter

@@ -5,6 +5,8 @@ import {
   generateModuleDetailTemplate,
 } from '../../template.js';
 import HomePresenter from './homepage-presenter.js';
+import { setupProfileDropdown } from '../../utils/navbar-interaction.js';
+import { getLogout } from '../../utils/auth.js';
 
 export default class Homepage {
   async render() {
@@ -397,6 +399,14 @@ export default class Homepage {
   }
 
   async afterRender() {
-    //isi disini..
+    setupProfileDropdown();
+
+    document.addEventListener('click', (event) => {
+      if (event.target.id === 'logout-btn') {
+        getLogout();
+        location.hash = '/';
+        location.reload(); // agar render ulang navbar
+      }
+    });
   }
 }
