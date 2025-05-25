@@ -1,7 +1,7 @@
 import {
   generateQuizQuestionMcqTemplate,
   generateQuizQuestionDragdropTemplate,
-} from '../../../template';
+} from '../../../templates/template.js';
 import { questions } from '../../../data/question-data.js';
 import { setupSortableDragAndDrop } from '../../../utils/dragdrop-utils.js';
 
@@ -75,26 +75,25 @@ export default class QuizPresenter {
           const zones = document.querySelectorAll('.drop-zone');
           answer = {};
           let hasDroppedItem = false;
-          
+
           zones.forEach((zone) => {
             const key = zone.getAttribute('data-accept');
             const items = Array.from(zone.querySelectorAll('.draggable')).map((el) =>
               el.textContent.trim(),
-          );
-          
-          if (items.length > 0) {
-            hasDroppedItem = true;
+            );
+
+            if (items.length > 0) {
+              hasDroppedItem = true;
+            }
+
+            answer[key] = items;
+          });
+
+          if (!hasDroppedItem) {
+            this.view.showErrorMessage();
+            return;
           }
-          
-          answer[key] = items;
-        });
-        
-        if (!hasDroppedItem) {
-          this.view.showErrorMessage();
-          return;
         }
-      
-      }
 
         this.#userAnswers.push(answer);
         this.#answered++;
@@ -122,18 +121,18 @@ export default class QuizPresenter {
   }
 
   #collectCorrectAnswers() {
-  return questions.map((q) => {
-    if (q.type === 'dragdrop') {
-      const correctMap = {};
-      q.dropZones.forEach(zone => {
-        correctMap[zone] = q.options
-          .filter(opt => opt.category === zone)
-          .map(opt => opt.text);
-      });
-      return correctMap;
-    }
+    return questions.map((q) => {
+      if (q.type === 'dragdrop') {
+        const correctMap = {};
+        q.dropZones.forEach((zone) => {
+          correctMap[zone] = q.options
+            .filter((opt) => opt.category === zone)
+            .map((opt) => opt.text);
+        });
+        return correctMap;
+      }
 
-    return q.multiple ? q.answer : [q.answer];
-  });
-}
+      return q.multiple ? q.answer : [q.answer];
+    });
+  }
 }

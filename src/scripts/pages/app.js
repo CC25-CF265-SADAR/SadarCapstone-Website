@@ -1,7 +1,7 @@
 import routes from '../routes/routes';
 import { getActiveRoute } from '../routes/url-parser';
 import { getAccessToken } from '../utils/auth';
-import { generateNavbarTemplate, generateNavbarAuthTemplate } from '../template';
+import { generateNavbarTemplate, generateNavbarAuthTemplate } from '../templates/template';
 
 class App {
   #content;

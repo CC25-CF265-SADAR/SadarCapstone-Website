@@ -1,4 +1,7 @@
-import { generateQuizFooterTemplate, generateProgressQuizTemplate } from '../../../template';
+import {
+  generateQuizFooterTemplate,
+  generateProgressQuizTemplate,
+} from '../../../templates/template';
 import QuizPresenter from './quiz-presenter';
 import { setupProfileDropdown } from '../../../utils/navbar-interaction';
 import { getLogout } from '../../../utils/auth';

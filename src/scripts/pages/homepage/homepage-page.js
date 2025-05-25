@@ -3,7 +3,7 @@ import {
   generateLeaderboardTemplate,
   generateModuleTemplate,
   generateModuleDetailTemplate,
-} from '../../template.js';
+} from '../../templates/template.js';
 import HomePresenter from './homepage-presenter.js';
 import { setupProfileDropdown } from '../../utils/navbar-interaction.js';
 import { getLogout } from '../../utils/auth.js';

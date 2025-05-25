@@ -1,4 +1,4 @@
-import { generateQuizFooterTemplate } from '../../../template';
+import { generateQuizFooterTemplate } from '../../../templates/template.js';
 import { initSwiper } from '../../../utils/swiper.js';
 
 export default class QuizIntroPage {

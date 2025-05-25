@@ -1,4 +1,4 @@
-import { generateQuizFooterTemplate, generateQuizNavTemplate } from '../../../template';
+import { generateQuizFooterTemplate, generateQuizNavTemplate } from '../../../templates/template';
 import { handleQuizResult } from '../../../utils/score-manager';
 import { setupProfileDropdown } from '../../../utils/navbar-interaction';
 import { getLogout } from '../../../utils/auth';

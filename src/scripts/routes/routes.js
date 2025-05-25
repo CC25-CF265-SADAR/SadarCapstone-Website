@@ -6,6 +6,7 @@ import LoginPage from '../pages/auth/login/login-page';
 import RegisterPage from '../pages/auth/register/register-page';
 import ForgotPasswordPage from '../pages/auth/forgot-password/password-page';
 import ResetPasswordPage from '../pages/auth/reset-password/reset-page';
+import ModuleIntroPage from '../pages/antitertipu/intro-antitertipu';
 
 const routes = {
   '/login': () => new LoginPage(),
@@ -16,6 +17,7 @@ const routes = {
   '/quiz': () => new QuizIntroPage(),
   '/quiz/take-quiz': () => new QuizPage(),
   '/result': () => new Result(),
+  '/module-overview': () => new ModuleIntroPage(),
 };
 
 export default routes;
