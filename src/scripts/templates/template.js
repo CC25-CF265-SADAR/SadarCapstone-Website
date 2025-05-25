@@ -138,7 +138,7 @@ export function generateNavbarAuthTemplate() {
           </div>
           <ul class="py-2" aria-labelledby="user-menu-button">
             <li>
-              <a href="#" id="logout-btn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+              <a href="#" id="logout-btn" class="block px-4 py-2 text-sm text-red-500 hover:bg-gray-100">Sign out</a>
             </li>
           </ul>
         </div>

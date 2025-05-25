@@ -7,6 +7,7 @@ import RegisterPage from '../pages/auth/register/register-page';
 import ForgotPasswordPage from '../pages/auth/forgot-password/password-page';
 import ResetPasswordPage from '../pages/auth/reset-password/reset-page';
 import ModuleIntroPage from '../pages/antitertipu/intro-antitertipu';
+import ModuleDetailPage from '../pages/antitertipu/detailModul/detailAt-page';
 
 const routes = {
   '/login': () => new LoginPage(),
@@ -18,6 +19,7 @@ const routes = {
   '/quiz/take-quiz': () => new QuizPage(),
   '/result': () => new Result(),
   '/module-overview': () => new ModuleIntroPage(),
+  '/detail-module-penipuan-online': () => new ModuleDetailPage(),
 };
 
 export default routes;
