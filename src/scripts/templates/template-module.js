@@ -132,6 +132,31 @@ export function generateModuleContentTextTemplate(content) {
 
 export function generateModuleFooterTemplate(text) {
   return `
-        //isi disini
-    `;
+    <footer class="fixed bottom-0 left-0 right-0 bg-white shadow-md border-t px-4 py-3 z-50">
+      <div class="max-w-5xl mx-auto flex items-center justify-between text-sm sm:text-base font-medium text-gray-800">
+
+        <!-- Tombol Sebelumnya -->
+        <button
+          id="prev-button"
+          class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          ⬅️ Sebelumnya
+        </button>
+
+        <!-- Judul Materi -->
+        <h3 id="material-title" class="text-center font-semibold text-gray-800 truncate max-w-[50%]">
+          ${text}
+        </h3>
+
+        <!-- Tombol Selanjutnya -->
+        <button
+          id="next-button"
+          class="bg-[#42A7C3] hover:bg-[#2C6F82] text-white px-4 py-2 rounded"
+        >
+          Selanjutnya ➡️
+        </button>
+
+      </div>
+    </footer>
+  `;
 }
