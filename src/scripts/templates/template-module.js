@@ -51,12 +51,17 @@ export function generateModuleDetailTemplate() {
         </div>
   
         <div class="card-actions">
-          <button class="btn px-12 py-6 rounded-md bg-[#FF6250] hover:bg-[#e05545] text-white shadow-md shadow-[#FF6250] border-transparent hover:shadow-lg focus:ring-4 focus:ring-[#ff625066]">Belajar Sekarang</button>
+          <a href="#/modul-belajar">
+            <button class="btn px-12 py-6 rounded-md bg-[#FF6250] hover:bg-[#e05545] text-white shadow-md shadow-[#FF6250] border-transparent hover:shadow-lg focus:ring-4 focus:ring-[#ff625066]">
+              Belajar Sekarang
+            </button>
+          </a>
         </div>
       </div>
     </section>
     `;
 }
+
 export function generateVideoPlayer() {
   return `
         //isi disini
@@ -66,5 +71,67 @@ export function generateVideoPlayer() {
 export function generateModuleSylabusTemplate() {
   return `
         <section>Ini isi silabus</section>
+    `;
+}
+
+export function generateModuleNavbarTemplate(moduleTitle) {
+  return `
+    <nav class="flex items-center justify-between p-4 bg-white shadow-md sticky top-0 z-30">
+      <button id="backBtn" class="text-white bg-[#2C6F82] hover:bg-[#244f5a] focus:ring-2 focus:ring-[#2C6F82]/50 focus:outline-none font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center shadow-md">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      
+      <h1 class="text-lg font-semibold">${moduleTitle}</h1>
+
+      <button id="toggleSidebar" class="text-2xl text-[#2C6F82] hover:text-[#163741]">
+        &#9776;
+      </button>
+    </nav>
+  `;
+}
+
+export function generateModuleSidebarTemplate(module, currentTopicId) {
+  const topicItems = module.topics.map(topic => {
+    const isActive = topic.id === currentTopicId ? 'font-semibold text-blue-700' : '';
+    const check = topic.checkpoint ? '<span class="ml-2 text-green-600">✔</span>' : '';
+    return `<li class="text-sm ${isActive}">${topic.title}${check}</li>`;
+  }).join('');
+
+  return `
+    <div class="bg-white rounded-xl p-4 mt-2 mx-2">
+      <h2 class="text-lg font-bold mb-2">Daftar Modul</h2>
+      ${generateModuleProgressbarTemplate(module.topics)}
+      <ul class="space-y-2 mt-4">${topicItems}</ul>
+    </div>
+  `;
+}
+
+export function generateModuleProgressbarTemplate(topics) {
+  const total = topics.length;
+  const completed = topics.filter(t => t.checkpoint).length;
+  const percent = Math.floor((completed / total) * 100);
+
+  return `
+    <div class="mb-1 text-sm text-gray-600">${percent}% Selesai</div>
+    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+      <div class="bg-blue-600 h-2.5 rounded-full" style="width: ${percent}%"></div>
+    </div>
+  `;
+}
+
+export function generateModuleContentTextTemplate(content) {
+  return `
+    <article class="prose max-w-none px-20 py-6">
+      <h2 class="text-2xl font-bold mb-4">${content.title}</h2>
+      <p class="text-base">${content.content}</p>
+    </article>
+  `;
+}
+
+export function generateModuleFooterTemplate(text) {
+  return `
+        //isi disini
     `;
 }
