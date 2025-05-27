@@ -166,43 +166,23 @@ export function generateModuleFooterTemplate(text) {
   `;
 }
 
-export function generateProgressModuleQuizTemplate(total = 5, answeredMap = {}) {
-  const dots = Array(total)
-    .fill(0)
-    .map((_, i) => {
-      const isAnswered = answeredMap[i];
-      return `<span
-        class="w-2 h-2 rounded-full inline-block transition-colors duration-300"
-        style="background-color: ${isAnswered ? '#FFEA7F' : '#42A7C3'}"
-      ></span>`;
-    })
+export function generateProgressModuleQuizTemplate() {
+  const dots = Array(5)
+    .fill(`<span class="w-2 h-2 rounded-full bg-[#42A7C3] opacity-100 inline-block"></span>`)
     .join('');
-
-  const boxes = Array(total)
-    .fill(0)
-    .map((_, i) => {
-      const isAnswered = answeredMap[i];
-      return `<button
-        class="w-8 h-8 rounded-md text-sm font-bold border border-gray-400 ${isAnswered ? 'bg-yellow-300 text-black' : 'bg-white text-gray-800'}"
-        data-goto="${i}"
-      >${i + 1}</button>`;
-    })
-    .join(' ');
 
   return `
     <div class="w-full max-w-xl md:max-w-[640px] mx-auto mt-6 px-4">
-      <div class="flex flex-col gap-4 text-left">
+      <div class="flex flex-col gap-2 text-left">
         <div>
           <p class="text-sm font-semibold text-gray-500">AntiTertipu</p>
-          <p id="progress-text" class="text-base font-semibold text-[#42A7C3]">
-            ${Object.values(answeredMap).filter(Boolean).length}/${total} telah dijawab
-          </p>
+          <p id="progress-text" class="text-base font-semibold text-[#42A7C3]">0/5 telah dijawab</p>
         </div>
 
         <div class="relative w-full h-4 bg-[#E0E0E0] rounded-lg overflow-hidden border border-gray-300 shadow-sm">
           <div id="progress-bar"
             class="absolute top-0 left-0 h-full bg-[#42A7C3] rounded-lg transition-all duration-300 z-0"
-            style="width: ${(Object.values(answeredMap).filter(Boolean).length / total) * 100}%">
+            style="width: 0%;">
           </div>
 
           <div id="progress-dots"
@@ -210,18 +190,13 @@ export function generateProgressModuleQuizTemplate(total = 5, answeredMap = {}) 
             ${dots}
           </div>
         </div>
-
-        <div id="question-number-nav" class="flex gap-2 justify-center mt-2">
-          ${boxes}
-        </div>
       </div>
     </div>
   `;
 }
 
-export function generateQuizModuleQuestionMcqTemplate({ id, question, options, multiple = false }) {
-  const inputType = multiple ? 'checkbox' : 'radio';
-  const inputName = multiple ? `question-${id}[]` : `question-${id}`;
+export function generateQuizModuleQuestionTemplate({ id, question, options }) {
+  const inputName = `question-${id}`;
 
   return `
     <div class="quiz-container w-full max-w-md mx-auto p-6 space-y-8">
@@ -231,48 +206,45 @@ export function generateQuizModuleQuestionMcqTemplate({ id, question, options, m
         ${options
           .map(
             (option, index) => `
-          <label class="peer-checked:border-yellow-400 block border border-gray-300 rounded-lg px-4 py-3 cursor-pointer hover:border-yellow-400 transition-all flex items-center gap-3">
-            <input
-              type="${inputType}"
-              name="${inputName}"
-              value="${option}"
-              id="${inputName}-${index}"
-              class="peer hidden"
-            />
-            <span class="
-              w-5 h-5 inline-block relative border-2
-              ${multiple ? 'rounded-md border-gray-300 peer-checked:border-yellow-400' : 'rounded-full border-gray-300 peer-checked:border-yellow-400'}
-              transition-all duration-200
-            ">
-              <span class="
-                absolute top-1/2 left-1/2 bg-yellow-400 transform -translate-x-1/2 -translate-y-1/2 scale-0
-                ${multiple ? 'w-2 h-2' : 'w-2.5 h-2.5 rounded-full'}
-                peer-checked:scale-100
-                transition-transform duration-200
-              "></span>
-            </span>
-            <span class="text-md font-regular text-[#000000]">${option}</span>
-          </label>
-        `,
+              <label class="peer-checked:border-yellow-400 block border border-gray-300 rounded-lg px-4 py-3 cursor-pointer hover:border-yellow-400 transition-all flex items-center gap-3">
+                <input
+                  type="radio"
+                  name="${inputName}"
+                  value="${option}"
+                  id="${inputName}-${index}"
+                  class="peer hidden"
+                />
+                <span class="
+                  w-5 h-5 inline-block relative border-2 rounded-full border-gray-300 peer-checked:border-yellow-400
+                  transition-all duration-200
+                ">
+                  <span class="
+                    absolute top-1/2 left-1/2 bg-yellow-400 transform -translate-x-1/2 -translate-y-1/2 scale-0
+                    w-2.5 h-2.5 rounded-full peer-checked:scale-100
+                    transition-transform duration-200
+                  "></span>
+                </span>
+                <span class="text-md font-regular text-[#000000]">${option}</span>
+              </label>
+            `,
           )
           .join('')}
       </form>
 
       <p id="error-message" class="text-sm text-red-500 mt-2 hidden">*Pilih jawaban sebelum melanjutkan.</p>
 
-      <div class="pt-4 flex justify-between">
+      <div class="pt-4 text-center flex justify-between">
         <button
-          class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-md"
+          class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-md shadow transition-all"
           id="prev-button"
         >
-          ⬅ Kembali
+          ⬅ Sebelumnya
         </button>
-
         <button
           class="bg-[#42A7C3] hover:bg-[#2C6F82] text-white font-semibold py-2 px-6 rounded-md shadow transition-all"
           id="next-button"
         >
-          Berikutnya
+          Selanjutnya ➡
         </button>
       </div>
     </div>

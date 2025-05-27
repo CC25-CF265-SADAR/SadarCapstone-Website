@@ -36,12 +36,15 @@ export default class QuizMateriPage {
   }
 
   renderQuestion(template, isLast, currentIndex, userAnswers) {
-    document.getElementById('quiz-content').innerHTML = template;
+    const content = document.getElementById('quiz-content');
+    if (content) content.innerHTML = template;
   }
 
   updateProgress(answeredCount, totalQuestions, userAnswers, currentIndex) {
     const container = document.getElementById('progress-container');
-    container.innerHTML = generateProgressModuleQuizTemplate(totalQuestions, currentIndex, userAnswers);
+    if (container) {
+      container.innerHTML = generateProgressModuleQuizTemplate(totalQuestions, currentIndex, userAnswers);
+    }
   }
 
   showErrorMessage() {
