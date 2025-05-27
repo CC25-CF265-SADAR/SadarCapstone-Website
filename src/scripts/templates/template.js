@@ -555,38 +555,38 @@ export function generateQuizQuestionMcqTemplate({ id, question, options, multipl
   const inputName = multiple ? `question-${id}[]` : `question-${id}`;
 
   return `
-    <div class="quiz-container w-full max-w-md mx-auto p-6 space-y-8">
-      <h2 class="text-base font-semibold text-[#000000] text-center">${question}</h2>
+    <div class="quiz-container w-full max-w-2xl mx-auto p-6 space-y-8">
+      <h2 class="text-md font-medium text-[#000000] text-center leading-relaxed">${question}</h2>
 
       <form class="space-y-3 mt-5 mb-8" data-question-id="${id}">
         ${options
           .map(
             (option, index) => `
-          <label class="peer-checked:border-yellow-400 block border border-gray-300 rounded-lg px-4 py-3 cursor-pointer hover:border-yellow-400 transition-all flex items-center gap-3">
-            <input
-              type="${inputType}"
-              name="${inputName}"
-              value="${option}"
-              id="${inputName}-${index}"
-              class="peer hidden"
-            />
-            <span class="
-              w-5 h-5 inline-block relative border-2
-              ${
-                multiple
-                  ? 'rounded-md border-gray-300 peer-checked:border-yellow-400'
-                  : 'rounded-full border-gray-300 peer-checked:border-yellow-400'
-              }
-              transition-all duration-200
-            ">
+          <label class="flex items-center gap-3 p-4 border border-gray-300 rounded-lg cursor-pointer hover:border-yellow-400 transition-all peer-checked:border-yellow-400">
+            <div class="flex-shrink-0">
+              <input
+                type="${inputType}"
+                name="${inputName}"
+                value="${option}"
+                id="${inputName}-${index}"
+                class="peer hidden"
+              />
               <span class="
-                absolute top-1/2 left-1/2 bg-yellow-400 transform -translate-x-1/2 -translate-y-1/2 scale-0
-                ${multiple ? 'w-2 h-2' : 'w-2.5 h-2.5 rounded-full'}
-                peer-checked:scale-100
-                transition-transform duration-200
-              "></span>
-            </span>
-            <span class="text-md font-regular text-[#000000]">${option}</span>
+                block w-5 h-5 border-2
+                ${multiple ? 'rounded-md' : 'rounded-full'}
+                border-gray-300
+                peer-checked:border-yellow-400
+                relative
+              ">
+                <span class="
+                  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+                  ${multiple ? 'w-2 h-2' : 'w-2.5 h-2.5 rounded-full'}
+                  bg-yellow-400 scale-0 peer-checked:scale-100
+                  transition-transform duration-200
+                "></span>
+              </span>
+            </div>
+            <span class="text-md font-regular text-[#000000] leading-snug">${option}</span>
           </label>
         `,
           )
@@ -612,7 +612,7 @@ export function generateQuizQuestionDragdropTemplate({ id, question, options, dr
 
   return `
     <div class="quiz-container w-full max-w-[600px] mx-auto p-6 space-y-8">
-      <h2 class="text-base font-semibold text-gray-800 text-center mb-4">${question}</h2>
+      <h2 class="text-md font-medium text-gray-800 text-center mb-4">${question}</h2>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mb-4">
         ${shuffled

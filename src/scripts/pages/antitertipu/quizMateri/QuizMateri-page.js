@@ -3,9 +3,15 @@ import { generateProgressModuleQuizTemplate } from '../../../templates/template-
 import QuizMateriPresenter from './QuizMateri-presenter.js';
 import { setupProfileDropdown } from '../../../utils/navbar-interaction.js';
 import { getLogout } from '../../../utils/auth.js';
+import { moduleQuestions } from '../../../data/modul-question-data.js';
 
 export default class QuizMateriPage {
   constructor() {
+    const urlParams = new URLSearchParams(window.location.search);
+    this.modId = urlParams.get('modId') || 'mod-1';
+    this.questions = moduleQuestions[this.modId] || [];
+
+    // ✅ INISIALISASI PRESENTER di sini
     this.presenter = new QuizMateriPresenter(this);
   }
 
@@ -23,7 +29,7 @@ export default class QuizMateriPage {
   }
 
   async afterRender() {
-    this.presenter.afterRender();
+    await this.presenter.afterRender(); // ✅ panggil method presenter yang sekarang sudah ada
     setupProfileDropdown();
 
     document.addEventListener('click', (event) => {
