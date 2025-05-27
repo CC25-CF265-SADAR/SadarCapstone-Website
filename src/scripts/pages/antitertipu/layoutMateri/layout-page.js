@@ -61,7 +61,7 @@ export default class ModuleLayoutPage {
         window.history.back();
       });
     } catch (err) {
-      document.querySelector('#module-content').innerHTML = `<p class="text-center mt-20 text-red-500">Gagal memuat modul: ${err.message}</p>`;
+      document.querySelector('#module-content').innerHTML = '<p class="text-center mt-20 text-red-500">Gagal memuat modul: ${err.message}</p>';
     }
   }
 }

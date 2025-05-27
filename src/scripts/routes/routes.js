@@ -9,6 +9,7 @@ import ResetPasswordPage from '../pages/auth/reset-password/reset-page';
 import ModuleIntroPage from '../pages/antitertipu/intro-antitertipu';
 import ModuleDetailPage from '../pages/antitertipu/detailModul/detailAt-page';
 import ModuleLayoutPage from '../pages/antitertipu/layoutMateri/layout-page';
+import QuizMateriPage from '../pages/antitertipu/quizMateri/QuizMateri-page';
 
 const routes = {
   '/login': () => new LoginPage(),
@@ -22,6 +23,7 @@ const routes = {
   '/module-overview': () => new ModuleIntroPage(),
   '/detail-module-penipuan-online': () => new ModuleDetailPage(),
   '/modul-belajar': () => new ModuleLayoutPage(),
+  '/quiz-modul': () => new QuizMateriPage(),
 };
 
 export default routes;
