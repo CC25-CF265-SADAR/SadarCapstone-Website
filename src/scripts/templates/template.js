@@ -555,8 +555,8 @@ export function generateQuizQuestionMcqTemplate({ id, question, options, multipl
   const inputName = multiple ? `question-${id}[]` : `question-${id}`;
 
   return `
-    <div class="quiz-container w-full max-w-2xl mx-auto p-6 space-y-8">
-      <h2 class="text-md font-medium text-[#000000] text-center leading-relaxed">${question}</h2>
+    <div class="quiz-container w-full max-w-[600px] mx-auto p-6 space-y-8">
+      <h2 class="text-md font-regular text-[#000000] text-justify leading-relaxed">${question}</h2>
 
       <form class="space-y-3 mt-5 mb-8" data-question-id="${id}">
         ${options
@@ -612,7 +612,7 @@ export function generateQuizQuestionDragdropTemplate({ id, question, options, dr
 
   return `
     <div class="quiz-container w-full max-w-[600px] mx-auto p-6 space-y-8">
-      <h2 class="text-md font-medium text-gray-800 text-center mb-4">${question}</h2>
+      <h2 class="text-md font-regular text-gray-800 text-justify mb-4">${question}</h2>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mb-4">
         ${shuffled
