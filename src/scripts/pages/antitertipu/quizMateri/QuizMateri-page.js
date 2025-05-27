@@ -8,10 +8,9 @@ import { moduleQuestions } from '../../../data/modul-question-data.js';
 export default class QuizMateriPage {
   constructor() {
     const urlParams = new URLSearchParams(window.location.search);
-    this.modId = urlParams.get('modId') || 'mod-1';
+    this.modId = urlParams.get('modId') || 'mod-1'; // ✅ fallback default
     this.questions = moduleQuestions[this.modId] || [];
 
-    // ✅ INISIALISASI PRESENTER di sini
     this.presenter = new QuizMateriPresenter(this);
   }
 
@@ -29,7 +28,7 @@ export default class QuizMateriPage {
   }
 
   async afterRender() {
-    await this.presenter.afterRender(); // ✅ panggil method presenter yang sekarang sudah ada
+    await this.presenter.afterRender();
     setupProfileDropdown();
 
     document.addEventListener('click', (event) => {

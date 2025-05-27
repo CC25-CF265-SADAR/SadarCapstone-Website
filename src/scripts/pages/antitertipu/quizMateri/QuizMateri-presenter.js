@@ -10,11 +10,13 @@ export default class QuizMateriPresenter {
   }
 
   async afterRender() {
-    const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
-    const modId = urlParams.get('modId');
+    const modId = this.view.modId || 'mod-1'; // ✅ ambil dari view
     this.questions = moduleQuestions[modId] || [];
     this.totalQuestions = this.questions.length;
     this.#userAnswers = Array(this.totalQuestions).fill(null);
+
+    console.log('modId:', modId); // untuk debug
+    console.log('questions:', this.questions);
 
     this.#renderCurrentQuestion();
     this.#updateProgress();
@@ -38,7 +40,7 @@ export default class QuizMateriPresenter {
 
       if (!form) return;
 
-      // Handle NEXT
+      // NEXT
       if (e.target?.id === 'next-button') {
         const inputName = `question-${currentQuestion.id}`;
         const checked = form.querySelectorAll(`input[name="${inputName}"]:checked`);
@@ -65,7 +67,7 @@ export default class QuizMateriPresenter {
         }
       }
 
-      // Handle PREVIOUS
+      // PREVIOUS
       if (e.target?.id === 'prev-button') {
         if (this.#currentIndex > 0) {
           this.#currentIndex--;
@@ -74,7 +76,7 @@ export default class QuizMateriPresenter {
         }
       }
 
-      // Handle GOTO dot
+      // GOTO dot
       if (e.target.dataset.goto) {
         const index = parseInt(e.target.dataset.goto);
         if (!isNaN(index)) {

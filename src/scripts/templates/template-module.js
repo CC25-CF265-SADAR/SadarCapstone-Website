@@ -199,7 +199,7 @@ export function generateQuizModuleQuestionTemplate({ id, question, options }) {
   const inputName = `question-${id}`;
 
   return `
-    <div class="quiz-container w-full max-w-md mx-auto p-6 space-y-8">
+    <div class="quiz-container w-full max-w-[600px] mx-auto p-6 space-y-8">
       <h2 class="text-base font-semibold text-[#000000] text-center">${question}</h2>
 
       <form class="space-y-3 mt-5 mb-8" data-question-id="${id}">
@@ -234,17 +234,26 @@ export function generateQuizModuleQuestionTemplate({ id, question, options }) {
       <p id="error-message" class="text-sm text-red-500 mt-2 hidden">*Pilih jawaban sebelum melanjutkan.</p>
 
       <div class="pt-4 text-center flex justify-between">
+        <!-- Tombol Sebelumnya -->
         <button
-          class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-md shadow transition-all"
-          id="prev-button"
-        >
-          ⬅ Sebelumnya
+          class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-md shadow transition-all flex items-center"
+            id="prev-button"
+          >
+          <svg class="w-4 h-4 mr-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10" aria-hidden="true">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0l4 4M1 5l4-4" />
+          </svg>
+          <span>Sebelumnya</span>
         </button>
+
+        <!-- Tombol Selanjutnya -->
         <button
-          class="bg-[#42A7C3] hover:bg-[#2C6F82] text-white font-semibold py-2 px-6 rounded-md shadow transition-all"
-          id="next-button"
-        >
-          Selanjutnya ➡
+          class="bg-[#42A7C3] hover:bg-[#2C6F82] text-white font-semibold py-2 px-6 rounded-md shadow transition-all flex items-center"
+            id="next-button"
+          >
+          <span>Selanjutnya</span>
+              <svg class="w-4 h-4 ml-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10" aria-hidden="true">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+          </svg>
         </button>
       </div>
     </div>
