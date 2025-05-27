@@ -127,3 +127,32 @@ export const fetchContent = async (contentId) => {
 export const logout = () => {
   localStorage.removeItem('token');
 };
+
+// === PROGRESS ===
+export const saveUserProgress = async ({ moduleId, topicsProgress }) => {
+  const response = await fetch(`${BASE_URL}/progress`, {
+    method: 'POST',
+    headers: authHeader(),
+    body: JSON.stringify({ moduleId, topicsProgress }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Gagal menyimpan progres belajar');
+  }
+
+  return await response.json();
+};
+
+export const fetchUserProgress = async (moduleId) => {
+  const response = await fetch(`${BASE_URL}/progress/${moduleId}`, {
+    headers: authHeader(),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Gagal mengambil progres belajar');
+  }
+
+  return await response.json();
+};

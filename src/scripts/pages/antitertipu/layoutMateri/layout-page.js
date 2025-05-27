@@ -5,7 +5,14 @@ import {
   generateModuleFooterTemplate,
 } from '../../../templates/template-module.js';
 
+import { fetchModuleDetail, fetchContent, fetchUserProgress } from '../../../data/api.js';
+
 export default class ModuleLayoutPage {
+  constructor(params) {
+    this.moduleId = params.id;
+    this.currentContentId = params.contentId || null;
+  }
+
   async render() {
     return `
       <div class="relative min-h-screen bg-white flex flex-col">
@@ -28,25 +35,27 @@ export default class ModuleLayoutPage {
 
   async afterRender() {
     try {
-      const dummyModule = {
-        title: 'Modul Penipuan Online',
-        topics: [
-          { id: 't1', title: 'Pengantar', contentId: 'dummy-1', checkpoint: true },
-          { id: 't2', title: 'Jenis Penipuan', contentId: 'dummy-2', checkpoint: false },
-        ],
-      };
+      const moduleDetail = await fetchModuleDetail(this.moduleId);
+      const progress = await fetchUserProgress(this.moduleId).catch(() => null);
 
-      const dummyContent = {
-        id: 'dummy-1',
-        title: 'Pengantar Penipuan Online',
-        content: 'Ini adalah isi teks pembuka modul.',
-        videoURL: '',
-      };
+      if (progress) {
+        moduleDetail.topics = moduleDetail.topics.map(topic => {
+          const matched = progress.topicsProgress.find(p => p.id === topic.id);
+          return {
+            ...topic,
+            checkpoint: matched ? matched.checkpoint : false,
+          };
+        });
+      }
 
-      document.querySelector('#module-navbar').innerHTML = generateModuleNavbarTemplate(dummyModule.title);
-      document.querySelector('#module-sidebar-wrapper').innerHTML = generateModuleSidebarTemplate(dummyModule, dummyContent.id);
-      document.querySelector('#module-content').innerHTML = generateModuleContentTextTemplate(dummyContent);
-      document.querySelector('#module-footer').innerHTML = generateModuleFooterTemplate(dummyModule, dummyContent);
+      const firstTopic = moduleDetail.topics[0];
+      const contentId = this.currentContentId || firstTopic.contentId;
+      const content = await fetchContent(contentId);
+
+      document.querySelector('#module-navbar').innerHTML = generateModuleNavbarTemplate(moduleDetail.title);
+      document.querySelector('#module-sidebar-wrapper').innerHTML = generateModuleSidebarTemplate(moduleDetail, content.id);
+      document.querySelector('#module-content').innerHTML = generateModuleContentTextTemplate(content);
+      document.querySelector('#module-footer').innerHTML = generateModuleFooterTemplate(moduleDetail, content);
 
       const sidebarWrapper = document.querySelector('#module-sidebar-wrapper');
       const contentArea = document.querySelector('#module-content');
