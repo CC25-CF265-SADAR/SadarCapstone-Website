@@ -96,9 +96,9 @@ export default class QuizMateriPresenter {
   }
 
   #updateProgress() {
-    const answeredCount = this.#userAnswers.filter(ans => ans && ans.length > 0).length;
-    this.view.updateProgress(answeredCount, this.totalQuestions, this.#userAnswers, this.#currentIndex);
-  }
+  const answered = this.#userAnswers.slice(0, this.#currentIndex).filter((a) => a !== null).length;
+  this.view.updateProgress(answered, this.totalQuestions, this.#userAnswers, this.#currentIndex);
+}
 
   #finishQuiz() {
     // Buat array correct answers yang semuanya array (untuk konsistensi)
