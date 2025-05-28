@@ -5,7 +5,7 @@ export function generateModuleTemplate({ imageSrc, title, description, link }) {
       src="${imageSrc}"
       />
       <a href="#">
-        <h3 class="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">${title}</h3>
+        <h3 class="mb-2 text-md md:text-xl font-semibold tracking-tight text-gray-900 dark:text-white">${title}</h3>
       </a>
       <p class="mb-3 font-normal text-base text-gray-700 dark:text-gray-400">${description}</p>
       <a href="${link}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-[#2C6F82] bg-[#DFF0F5] rounded-lg hover:bg-[#2C6F82] hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -20,39 +20,40 @@ export function generateModuleTemplate({ imageSrc, title, description, link }) {
 
 export function generateModuleDetailTemplate() {
   return `
-    <section class="moduleDetail card bg-base-100 w-6xl shadow-sm rounded-xl">
-      <div class="flex flex-row justify-between items-center pt-7 pb-9 px-12 rounded-xl border-b-2 bg-[#FF6250] text-white border-neutral-100 px-6 py-3 leading-tight dark:border-white/10">
-        <article class="w-3xl flex flex-col gap-3">
-          <h1 class="text-lg font-semibold">
-            AntiTertipu
-          </h1>
-          <h2 class="text-2xl font-semibold">
-            Belajar Membedakan Penipuan Online
-          </h2>
-          <p class="text-lg font-regular mt-3">
+    <section class="moduleDetail card bg-base-100 w-full max-w-6xl shadow-sm rounded-xl mx-auto">
+      <div class="flex flex-col-reverse items-start gap-5 md:flex-row justify-between items-center pt-7 pb-9 px-6 md:px-12 rounded-t-xl border-b-2 bg-[#FF6250] text-white border-neutral-100 dark:border-white/10">
+        <article class="w-full md:w-3/5 flex flex-col gap-3">
+          <h1 class="text-lg font-semibold">AntiTertipu</h1>
+          <h2 class="text-2xl font-semibold">Belajar Membedakan Penipuan Online</h2>
+          <p class="text-base md:text-lg font-regular mt-3">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
           <div class="flex flex-row items-center mt-2 gap-2">
-            <img src="images/clock.svg">
-            <p class="text-base font-regular">
-            Estimasi belajar: 30 Menit
-            </p>
+            <img src="images/clock.svg" alt="clock icon" class="w-5 h-5">
+            <p class="text-sm md:text-base font-regular">Estimasi belajar: 30 Menit</p>
           </div>
         </article>
-        <img src="images/icon-module-detail-belajar-penipuan-online.png" alt="logo belajar penipuan online" class="w-40 h-40">
+        <img
+          src="images/icon-module-detail-belajar-penipuan-online.png"
+          alt="logo belajar penipuan online"
+          class="w-24 h-24 md:w-40 md:h-40 mt-6 md:mt-0 object-contain"
+        >
       </div>
-      
-      <div class="card-body flex flex-row justify-between items-center px-12">
-        <div class="flex flex-row gap-5 items-center">
-          <div class="w-xl h-6 bg-gray-200 rounded-full dark:bg-gray-700">
+
+      <div class="card-body flex flex-col sm:flex-row justify-between items-center px-6 md:px-12 py-6 gap-6 sm:gap-0">
+        <div class="flex flex-row gap-5 items-center w-full sm:w-auto">
+          <div class="w-full sm:w-xl h-6 bg-gray-200 rounded-full dark:bg-gray-700">
             <div class="h-6 bg-[#FF6250] rounded-full dark:bg-blue-500" style="width: 0%"></div>
           </div>
-          <p class="text-lg font-semibold text-[#FF6250]">0%</p>
+          <p class="text-lg font-semibold text-[#FF6250] whitespace-nowrap">0%</p>
         </div>
-  
-        <div class="card-actions">
-          <a href="#/modul-belajar">
-            <button class="btn px-12 py-6 rounded-md bg-[#FF6250] hover:bg-[#e05545] text-white shadow-md shadow-[#FF6250] border-transparent hover:shadow-lg focus:ring-4 focus:ring-[#ff625066]">
+
+        <div class="card-actions w-full sm:w-auto">
+          <a href="#/modul-belajar" class="block w-full sm:w-auto">
+            <button
+              class="btn w-full sm:w-auto px-12 py-6 rounded-md bg-[#FF6250] hover:bg-[#e05545] text-white shadow-md shadow-[#FF6250] border-transparent hover:shadow-lg focus:ring-4 focus:ring-[#ff625066]"
+              type="button"
+            >
               Belajar Sekarang
             </button>
           </a>
@@ -64,78 +65,133 @@ export function generateModuleDetailTemplate() {
 
 export function generateVideoPlayer() {
   return `
-        <section class="videoPlayer flex justify-center">
-          <iframe
-            class="w-4xl h-[450px] border border-gray-200 rounded-2xl dark:border-gray-700"
-            src="https://www.youtube.com/embed/8aRTMQvbODs?si=oKVGKBhVtaloCbmI?rel=0"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
+        <section class="videoPlayer flex justify-center px-4">
+          <div class="w-full max-w-4xl aspect-video border border-gray-200 rounded-2xl dark:border-gray-700 overflow-hidden">
+            <iframe
+              class="w-full h-full"
+              src="https://www.youtube.com/embed/8aRTMQvbODs?si=oKVGKBhVtaloCbmI&rel=0"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
         </section>
     `;
 }
 
 export function generateModuleSylabusTemplate() {
   return `
-        <section class="moduleSylabus mb-10">
-          <h2 class="text-lg font-semibold mt-5 py-1 px-5 w-xl bg-[#DFF0F5]">Lorem Ipsum</h2>
-          <ul class="text-lg font-regular px-5">
-            <li class="flex flex-row content-center items-center self-center gap-4 mt-4">
+       <section class="moduleSylabus mb-10 max-w-4xl mx-0 px-0 sm:px-0">
+          <h2 class="text-lg font-semibold mt-5 py-1 px-4 sm:px-4 w-full max-w-xl bg-[#DFF0F5]">
+            Lorem Ipsum
+          </h2>
+          <ul class="text-base sm:text-lg font-regular px-0 sm:px-0">
+            <!-- Loop item -->
+            <li class="flex flex-row items-center gap-4 mt-4">
               <!-- Circular Progress -->
-              <div class="relative size-7">
-                <svg class="size-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <div class="relative w-7 h-7 flex-shrink-0">
+                <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
                   <!-- Background Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-gray-200 dark:text-neutral-700" stroke-width="3"></circle>
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-gray-200 dark:text-neutral-700"
+                    stroke-width="3"
+                  ></circle>
                   <!-- Progress Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-[#378BA2] dark:text-blue-500" stroke-width="3" stroke-dasharray="100" stroke-dashoffset="100" stroke-linecap="round"></circle>
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-[#378BA2] dark:text-blue-500"
+                    stroke-width="3"
+                    stroke-dasharray="100"
+                    stroke-dashoffset="100"
+                    stroke-linecap="round"
+                  ></circle>
                 </svg>
               </div>
               <!-- End Circular Progress -->
-              <a href="#" class="hover:underline">Lorem Ipsum Sir Dolor Amet</a>
+              <a href="#" class="hover:underline text-sm sm:text-base">
+                Lorem Ipsum Sir Dolor Amet
+              </a>
             </li>
-            <li class="flex flex-row content-center items-center self-center gap-4 mt-4">
-              <!-- Circular Progress -->
-              <div class="relative size-7">
-                <svg class="size-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Background Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-gray-200 dark:text-neutral-700" stroke-width="3"></circle>
-                  <!-- Progress Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-[#378BA2] dark:text-blue-500" stroke-width="3" stroke-dasharray="100" stroke-dashoffset="100" stroke-linecap="round"></circle>
+            <!-- Duplikat list item sesuai kode asli -->
+            <li class="flex flex-row items-center gap-4 mt-4">
+              <div class="relative w-7 h-7 flex-shrink-0">
+                <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-gray-200 dark:text-neutral-700"
+                    stroke-width="3"
+                  ></circle>
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-[#378BA2] dark:text-blue-500"
+                    stroke-width="3"
+                    stroke-dasharray="100"
+                    stroke-dashoffset="100"
+                    stroke-linecap="round"
+                  ></circle>
                 </svg>
               </div>
-              <!-- End Circular Progress -->
-              <a href="#" class="hover:underline">Lorem Ipsum Sir Dolor Amet</a>
+              <a href="#" class="hover:underline text-sm sm:text-base">
+                Lorem Ipsum Sir Dolor Amet
+              </a>
             </li>
-            <li class="flex flex-row content-center items-center self-center gap-4 mt-4">
-              <!-- Circular Progress -->
-              <div class="relative size-7">
-                <svg class="size-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Background Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-gray-200 dark:text-neutral-700" stroke-width="3"></circle>
-                  <!-- Progress Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-[#378BA2] dark:text-blue-500" stroke-width="3" stroke-dasharray="100" stroke-dashoffset="100" stroke-linecap="round"></circle>
+            <li class="flex flex-row items-center gap-4 mt-4">
+              <div class="relative w-7 h-7 flex-shrink-0">
+                <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-gray-200 dark:text-neutral-700"
+                    stroke-width="3"
+                  ></circle>
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-[#378BA2] dark:text-blue-500"
+                    stroke-width="3"
+                    stroke-dasharray="100"
+                    stroke-dashoffset="100"
+                    stroke-linecap="round"
+                  ></circle>
                 </svg>
               </div>
-              <!-- End Circular Progress -->
-              <a href="#" class="hover:underline">Lorem Ipsum Sir Dolor Amet</a>
+              <a href="#" class="hover:underline text-sm sm:text-base">
+                Lorem Ipsum Sir Dolor Amet
+              </a>
             </li>
-            <li class="flex flex-row content-center items-center self-center gap-4 mt-4">
-              <!-- Circular Progress -->
-              <div class="relative size-7">
-                <svg class="size-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Background Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-gray-200 dark:text-neutral-700" stroke-width="3"></circle>
-                  <!-- Progress Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-[#378BA2] dark:text-blue-500" stroke-width="3" stroke-dasharray="100" stroke-dashoffset="100" stroke-linecap="round"></circle>
+            <li class="flex flex-row items-center gap-4 mt-4">
+              <div class="relative w-7 h-7 flex-shrink-0">
+                <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-gray-200 dark:text-neutral-700"
+                    stroke-width="3"
+                  ></circle>
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-[#378BA2] dark:text-blue-500"
+                    stroke-width="3"
+                    stroke-dasharray="100"
+                    stroke-dashoffset="100"
+                    stroke-linecap="round"
+                  ></circle>
                 </svg>
               </div>
-              <!-- End Circular Progress -->
-              <a href="#" class="hover:underline">Lorem Ipsum Sir Dolor Amet</a>
+              <a href="#" class="hover:underline text-sm sm:text-base">
+                Lorem Ipsum Sir Dolor Amet
+              </a>
             </li>
           </ul>
         </section>
+
     `;
 }
 
