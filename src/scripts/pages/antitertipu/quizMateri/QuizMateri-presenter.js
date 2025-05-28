@@ -18,21 +18,22 @@ export default class QuizMateriPresenter {
 
     this.#renderCurrentQuestion();
     this.#updateProgress();
-    this.#setupNavigation(); // hanya pasang listener sekali
+    this.#setupNavigation(); // pasang listener hanya sekali
   }
 
   #renderCurrentQuestion() {
-  const currentQuestion = this.questions[this.#currentIndex];
-  if (!currentQuestion) return;
+    const currentQuestion = this.questions[this.#currentIndex];
+    if (!currentQuestion) return;
 
-  const selectedAnswers = this.#userAnswers[this.#currentIndex] || [];
+    // Ambil jawaban yang sudah dipilih untuk soal ini (array)
+    const selectedAnswers = this.#userAnswers[this.#currentIndex] || [];
 
-  const template = generateQuizModuleQuestionTemplate(currentQuestion, selectedAnswers);
-  const isLast = this.#currentIndex === this.totalQuestions - 1;
+    // Generate template dengan jawaban yang sudah dipilih
+    const template = generateQuizModuleQuestionTemplate(currentQuestion, selectedAnswers);
+    const isLast = this.#currentIndex === this.totalQuestions - 1;
 
-  this.view.renderQuestion(template, isLast, this.#currentIndex, this.#userAnswers);
-}
-
+    this.view.renderQuestion(template, isLast, this.#currentIndex, this.#userAnswers);
+  }
 
   #setupNavigation() {
     if (this.#navigationSetup) return;
@@ -40,12 +41,15 @@ export default class QuizMateriPresenter {
 
     document.body.addEventListener('click', (e) => {
       const currentQuestion = this.questions[this.#currentIndex];
+      if (!currentQuestion) return;
+
+      const multiple = currentQuestion.multiple;
       const form = document.querySelector('form');
       if (!form) return;
 
-      // ✅ Tombol NEXT
+      // Tombol NEXT
       if (e.target.closest('#next-button')) {
-        const inputName = `question-${currentQuestion.id}`;
+        const inputName = multiple ? `question-${currentQuestion.id}[]` : `question-${currentQuestion.id}`;
         const checked = form.querySelectorAll(`input[name="${inputName}"]:checked`);
 
         if (checked.length === 0) {
@@ -55,8 +59,8 @@ export default class QuizMateriPresenter {
 
         this.view.hideErrorMessage();
 
-        const answer = currentQuestion.multiple
-          ? Array.from(checked).map((el) => el.value)
+        const answer = multiple
+          ? Array.from(checked).map(el => el.value)
           : [checked[0].value];
 
         this.#userAnswers[this.#currentIndex] = answer;
@@ -70,7 +74,7 @@ export default class QuizMateriPresenter {
         }
       }
 
-      // ✅ Tombol PREVIOUS
+      // Tombol PREVIOUS
       if (e.target.closest('#prev-button')) {
         if (this.#currentIndex > 0) {
           this.#currentIndex--;
@@ -79,7 +83,7 @@ export default class QuizMateriPresenter {
         }
       }
 
-      // ✅ Klik bulatan progress
+      // Klik bulatan progress
       if (e.target.dataset.goto) {
         const index = parseInt(e.target.dataset.goto);
         if (!isNaN(index)) {
@@ -92,19 +96,17 @@ export default class QuizMateriPresenter {
   }
 
   #updateProgress() {
-  const answered = this.#userAnswers
-    .slice(0, this.#currentIndex)
-    .filter((a) => a !== null).length;
-
-  this.view.updateProgress(answered, this.totalQuestions, this.#userAnswers, this.#currentIndex);
-}
+    const answeredCount = this.#userAnswers.filter(ans => ans && ans.length > 0).length;
+    this.view.updateProgress(answeredCount, this.totalQuestions, this.#userAnswers, this.#currentIndex);
+  }
 
   #finishQuiz() {
-    const correctAnswers = this.questions.map((q) => q.multiple ? q.answer : [q.answer]);
+    // Buat array correct answers yang semuanya array (untuk konsistensi)
+    const correctAnswers = this.questions.map(q => (q.multiple ? q.answer : [q.answer]));
 
     localStorage.setItem('userAnswers', JSON.stringify(this.#userAnswers));
     localStorage.setItem('correctAnswers', JSON.stringify(correctAnswers));
 
-    window.location.href = '/#/result';
+    window.location.href = '/#/result-module';
   }
 }

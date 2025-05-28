@@ -2,35 +2,41 @@ export const questions = [
   {
     id: 1,
     type: "mcq",
-    question: "Apa ibu kota Indonesia?",
-    options: ["Bandung", "Jakarta", "Surabaya", "Bali"],
-    answer: "Jakarta",
+    question: "Kamu mendapat pesan SMS dari nomor pengirim JNT-Express berbunyi: 'Paket Anda tidak dapat dikirim karena data alamat tidak lengkap. Harap konfirmasi data Anda melalui link berikut dalam 2 jam: http://jne-delivery.id/update'. Kamu memang sedang menunggu kiriman online dari e-commerce, tapi tidak tahu paket mana yang dimaksud. Apa langkah paling aman yang sebaiknya kamu lakukan?",
+    options: ["Klik tautan dan segera isi data agar pengiriman tidak gagal", "Balas pesan tersebut untuk meminta penjelasan lebih lanjut", "Hubungi langsung pihak JNE melalui nomor di website resminya", "Kirim ulang alamat lengkap melalui tautan yang diberikan untuk memastikan"],
+    answer: "Hubungi langsung pihak JNE melalui nomor di website resminya",
     multiple: false
   },
   {
     id: 2,
     type: 'dragdrop',
-    question: 'Pilih mana yang hoaks atau fakta.',
+    question: 'Andi menerima panggilan telepon dari nomor yang mengaku sebagai petugas bank. Suara di telepon meyakinkan dan terdengar resmi. Petugas bank (suara): "Pak Andi, ada transaksi mencurigakan di kartu kredit Bapak senilai Rp10 juta. Mohon segera verifikasi dengan menyebutkan nomor OTP yang dikirim via SMS ke ponsel Bapak." Beberapa detik kemudian, Andi menerima SMS berisi: "Kode OTP Anda adalah 482953. Jangan berikan kode ini ke siapapun termasuk petugas bank." Apa yang anda lakukan dalam situasi seperti ini',
     options: [
-    { text: 'Informasi tidak mencantumkan sumber resmi', category: 'Hoaks' },
-    { text: 'Bersumber dari web resmi pemerintah', category: 'Fakta' }
+    { text: 'Memberikan nomor OTP kepada penelepon karena mereka mengaku petugas bank', category: 'Berisiko' },
+    { text: 'Memastikan nomor telepon yang menelepon sesuai dengan nomor resmi bank', category: 'Aman' },
+    { text: 'Menghubungi call center bank langsung melalui nomor resmi di situs bank', category: 'Aman' },
+    { text: 'Tidak mengiyakan dan segera memutus telepon tanpa memberikan info', category: 'Aman' },
+    { text: 'Melaporkan kejadian ini ke pihak bank dan pihak berwenang', category: 'Aman' },
+    { text: 'Menjawab telepon dengan membacakan kode OTP untuk konfirmasi', category: 'Berisiko' },
+    { text: 'Mencari info lebih lanjut tentang modus penipuan melalui internet', category: 'Aman' },
+
   ],
-    dropZones: ['Fakta', 'Hoaks']
+    dropZones: ['Aman', 'Berisiko']
   },
   {
     id: 3,
     type: "mcq",
-    question: "Pilih semua kota besar di Indonesia",
-    options: ["Bandung", "Jakarta", "Surabaya", "Tokyo"],
-    answer: ["Bandung", "Jakarta", "Surabaya"],
-    multiple: true
+    question: "Anda sedang santai menggunakan ponsel, tiba-tiba masuk sebuah SMS/WhatsApp dari nomor tak dikenal. Pesan tersebut berisi 'Selamat! Nomor Anda terpilih sebagai pemenang undian senilai Rp 50.000.000. Untuk klaim hadiah, silakan klik tautan berikut: [tautan-hadiah-palsu].com dan isi data diri Anda. Batas klaim 1x24 jam. Info: 0812-xxxx-xxxx'. Bagaimana Anda seharusnya menanggapi SMS tersebut?",
+    options: ["Segera mengklik tautan dan mengisi data diri agar tidak kehilangan hadiah", "Menghubungi nomor yang tertera untuk memastikan kebenaran undian", "Mengabaikan dan menghapus SMS tersebut karena hadiahnya sangat tidak wajar dan patut dicurigai", "Meneruskan SMS tersebut ke teman-teman agar mereka juga bisa mendapatkan hadiah"],
+    answer: "Mengabaikan dan menghapus SMS tersebut karena hadiahnya sangat tidak wajar dan patut dicurigai",
+    multiple: false
   },
   {
     id: 4,
     type: "mcq",
-    question: "Apa ibu kota Indonesia?",
-    options: ["Bandung", "Jakarta", "Surabaya", "Bali"],
-    answer: "Jakarta",
+    question: "Anda menerima pesan WhatsApp dari nomor yang memakai foto profil teman dekat Anda, sebut saja Budi, namun nomornya baru. Isi pesannya adalah 'Bro/Sist, ini aku Budi, nomor lamaku hilang. Gawat nih, aku lagi di jalan, dompetku kecopetan, semua hilang. Bisa tolong pinjamkan uang dulu Rp 750.000 buat pulang? Mendesak banget nih! Tolong transfer ke rekening [Nomor Rekening Asing] a.n. [Nama Asing]. Nanti malam aku ganti pas sampai rumah. Please ya, penting banget!'. Anda membaca pesan ini dan merasa kasihan, tapi juga sedikit ragu. Apa tindakan paling bijak yang akan Anda lakukan dalam situasi ini?",
+    options: ["Langsung transfer, kasihan teman sedang susah", "JakartaMembalas, 'Oke, tapi transfer ke rekeningmu yang biasa saja ya?'", "Mencoba menelepon nomor lama Budi atau bertanya pada kenalan lain mengenai Budi", "Menelepon nomor tersebut untuk memastikan apakah benar itu Budi"],
+    answer: "Mencoba menelepon nomor lama Budi atau bertanya pada kenalan lain mengenai Budi",
     multiple: false
   },
   {
