@@ -195,7 +195,7 @@ export function generateProgressModuleQuizTemplate() {
   `;
 }
 
-export function generateQuizModuleQuestionTemplate({ id, question, options }) {
+export function generateQuizModuleQuestionTemplate({ id, question, options }, selectedAnswers = []) {
   const inputName = `question-${id}`;
 
   return `
@@ -208,12 +208,13 @@ export function generateQuizModuleQuestionTemplate({ id, question, options }) {
             (option, index) => `
               <label class="peer-checked:border-yellow-400 block border border-gray-300 rounded-lg px-4 py-3 cursor-pointer hover:border-yellow-400 transition-all flex items-center gap-3">
                 <input
-                  type="radio"
-                  name="${inputName}"
-                  value="${option}"
-                  id="${inputName}-${index}"
-                  class="peer hidden"
-                />
+              type="radio"
+              name="${inputName}"
+              value="${option}"
+              id="${inputName}-${index}"
+              class="peer hidden"
+              ${selectedAnswers.includes(option) ? 'checked' : ''}
+            />
                 <span class="
                   w-5 h-5 inline-block relative border-2 rounded-full border-gray-300 peer-checked:border-yellow-400
                   transition-all duration-200
