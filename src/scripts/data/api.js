@@ -153,7 +153,7 @@ export const logout = () => {
 
 // === PROGRESS ===
 export const saveUserProgress = async ({ moduleId, topicsProgress }) => {
-  const response = await fetch(`${BASE_URL}/progress`, {
+    const response = await fetch(`${BASE_URL}/progress`, {
     method: 'POST',
     headers: authHeader(),
     body: JSON.stringify({ moduleId, topicsProgress }),
@@ -169,6 +169,7 @@ export const saveUserProgress = async ({ moduleId, topicsProgress }) => {
 
 export const fetchUserProgress = async (moduleId) => {
   const response = await fetch(`${BASE_URL}/progress/${moduleId}`, {
+    method: 'GET',
     headers: authHeader(),
   });
 

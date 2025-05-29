@@ -144,7 +144,14 @@ export function generateModuleNavbarTemplate(moduleTitle) {
   `;
 }
 
-export function generateModuleSidebarTemplate(module, currentTopicId) {
+export function generateModuleSidebarTemplate(module, currentTopicId, userProgress = null) {
+  // Fungsi untuk menentukan apakah topic sudah selesai
+  const isTopicCompleted = (topicId) => {
+    if (!userProgress || !userProgress.topicsProgress) return false;
+    const topicProgress = userProgress.topicsProgress.find(t => t.topicId === topicId);
+    return topicProgress ? topicProgress.completed : false;
+  };
+
   const topicItems = module.topics
     .map((topic) => {
       const isActive =
@@ -155,17 +162,24 @@ export function generateModuleSidebarTemplate(module, currentTopicId) {
            hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent hover:shadow-sm
            transition-colors duration-300`;
 
-      const check = topic.checkpoint
+      // Tampilkan checklist hijau jika checkpoint atau topic sudah selesai
+      const check = topic.checkpoint || isTopicCompleted(topic.id)
         ? `<svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-           </svg>`
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>`
         : `<span class="w-4 h-4 bg-gray-300 rounded-full inline-block flex-shrink-0"></span>`;
 
+      // Tambahkan indikator progress jika topic sudah selesai tapi bukan checkpoint
+      const progressIndicator = !topic.checkpoint && isTopicCompleted(topic.id)
+        ? `<span class="text-xs text-green-600 ml-2">selesai</span>`
+        : '';
+
       return `
-        <li class="${isActive}" tabindex="0" role="button">
+        <li class="${isActive}" tabindex="0" role="button" data-topic-id="${topic.id}">
           <div class="flex items-center gap-3">
             ${check}
             <span class="text-sm">${topic.title}</span>
+            ${progressIndicator}
           </div>
         </li>
       `;
@@ -175,15 +189,22 @@ export function generateModuleSidebarTemplate(module, currentTopicId) {
   return `
     <div class="moduleSidebar bg-white rounded-xl p-5 mt-2 mx-2">
       <h2 class="text-lg font-bold mb-4 border-b border-gray-300 pb-3">Daftar Modul</h2>
-      ${generateModuleProgressbarTemplate(module.topics)}
+      ${generateModuleProgressbarTemplate(module.topics, userProgress)}
       <ul class="space-y-1 mt-4">${topicItems}</ul>
     </div>
   `;
 }
 
-export function generateModuleProgressbarTemplate(topics) {
+export function generateModuleProgressbarTemplate(topics, userProgress = null) {
   const total = topics.length;
-  const completed = topics.filter((t) => t.checkpoint).length;
+
+  let completed = 0;
+  if (userProgress && userProgress.topicsProgress) {
+    completed = userProgress.topicsProgress.filter(t => t.completed).length;
+  } else {
+    completed = topics.filter(t => t.checkpoint).length;
+  }
+  
   const percent = Math.floor((completed / total) * 100);
 
   return `

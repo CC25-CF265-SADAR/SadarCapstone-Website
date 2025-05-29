@@ -9,12 +9,22 @@ import {
   fetchModules,
   fetchModuleDetail,
   fetchContent,
+  fetchUserProgress,
+  saveUserProgress
 } from '../../../data/api.js';
 
+import ModuleLayoutPresenter from './layout-presenter.js';
 
 export default class ModuleLayoutPage {
-  #currentPageIndex = 0;
-  #content = null;
+  constructor() {
+    this.presenter = new ModuleLayoutPresenter(this, { 
+      fetchModules, 
+      fetchModuleDetail, 
+      fetchContent,
+      saveUserProgress,
+      fetchUserProgress
+    });
+  }
 
   async render() {
     return `
@@ -30,52 +40,79 @@ export default class ModuleLayoutPage {
   }
 
   async afterRender() {
-    try {
-      const modulesData = await fetchModules();
-      if (!modulesData || modulesData.length === 0) throw new Error('Tidak ada modul yang tersedia.');
+    await this.presenter.init();
+    this.addEventListeners();
+  }
 
-      const module = modulesData[0];
-      const moduleDetail = await fetchModuleDetail(module.id);
-      const firstTopic = moduleDetail.topics[0];
-      this.#content = await fetchContent(firstTopic.contentId);
+  renderNavbar(moduleTitle) {
+    const navbar = document.querySelector('#module-navbar');
+    if (navbar) navbar.innerHTML = generateModuleNavbarTemplate(moduleTitle);
+  }
 
-      document.querySelector('#module-navbar').innerHTML = generateModuleNavbarTemplate(moduleDetail.title);
-      document.querySelector('#module-sidebar-wrapper').innerHTML = generateModuleSidebarTemplate(moduleDetail, firstTopic.id);
-
-      this.renderPageContent();
-
-      document.querySelector('#module-footer').innerHTML = generateModuleFooterTemplate(moduleDetail.title);
-
-      const sidebarWrapper = document.querySelector('#module-sidebar-wrapper');
-      const contentArea = document.querySelector('#module-content');
-
-      document.querySelector('#toggleSidebar')?.addEventListener('click', () => {
-        const isOpen = !sidebarWrapper.classList.contains('-translate-x-full');
-        sidebarWrapper.classList.toggle('-translate-x-full');
-        contentArea.classList.toggle('ml-64', !isOpen);
-      });
-
-      document.querySelector('#backBtn')?.addEventListener('click', () => {
-        window.history.back();
-      });
-
-      // Event listener untuk tombol navigasi halaman konten
-      document.querySelector('#module-content').addEventListener('click', (event) => {
-        if (event.target.id === 'prev-page' && this.#currentPageIndex > 0) {
-          this.#currentPageIndex--;
-          this.renderPageContent();
-        } else if (event.target.id === 'next-page' && this.#currentPageIndex < this.#content.pages.length - 1) {
-          this.#currentPageIndex++;
-          this.renderPageContent();
-        }
-      });
-
-    } catch (err) {
-      document.querySelector('#module-content').innerHTML = `<p class="text-center mt-20 text-red-500">Gagal memuat modul: ${err.message}</p>`;
+  renderSidebar(moduleDetail, currentTopicId, userProgress = null) {
+    const sidebar = document.querySelector('#module-sidebar-wrapper');
+    if (sidebar) {
+      sidebar.innerHTML = generateModuleSidebarTemplate(moduleDetail, currentTopicId, userProgress);
+      this.addSidebarToggleListener();
     }
   }
 
-  renderPageContent() {
-    document.querySelector('#module-content').innerHTML = generateModuleContentTextTemplate(this.#content, this.#currentPageIndex);
+  renderContent(content, currentPageIndex) {
+    const contentArea = document.querySelector('#module-content');
+    if (contentArea) contentArea.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
+  }
+
+  renderFooter(moduleTitle, currentIndex, total, nextTopicId) {
+    const footer = document.querySelector('#module-footer');
+    if (footer) footer.innerHTML = generateModuleFooterTemplate(moduleTitle, currentIndex, total, nextTopicId);
+  }
+
+  showError(message) {
+    const contentArea = document.querySelector('#module-content');
+    if (contentArea) {
+      contentArea.innerHTML = `<p class="text-center mt-20 text-red-500">Gagal memuat modul: ${message}</p>`;
+    }
+  }
+
+  navigateToQuiz() {
+    window.location.href = '#/quiz-modul';
+  }
+
+  addSidebarToggleListener() {
+  document.querySelector('#toggleSidebar')?.addEventListener('click', () => {
+    const sidebarWrapper = document.querySelector('#module-sidebar-wrapper');
+    const contentArea = document.querySelector('#module-content');
+    if (!sidebarWrapper || !contentArea) return;
+
+    const isHidden = sidebarWrapper.classList.contains('-translate-x-full');
+
+    if (isHidden) {
+      // Kalau sidebar sekarang tersembunyi, buka sidebar
+      sidebarWrapper.classList.remove('-translate-x-full');
+      contentArea.classList.add('ml-64'); // Geser konten ke kanan supaya tidak tertutup sidebar
+    } else {
+      // Kalau sidebar sekarang terbuka, tutup sidebar
+      sidebarWrapper.classList.add('-translate-x-full');
+      contentArea.classList.remove('ml-64'); // Kembalikan konten ke posisi semula
+    }
+  });
+}
+
+  addEventListeners() {
+    this.addSidebarToggleListener();
+
+    // Back button
+    document.querySelector('#backBtn')?.addEventListener('click', () => {
+      window.history.back();
+    });
+
+    // Footer next/prev buttons delegation
+    document.querySelector('#module-footer')?.addEventListener('click', (event) => {
+      if (event.target.closest('#next-button')) {
+        this.presenter.onNextTopic();
+      } else if (event.target.closest('#prev-button')) {
+        this.presenter.onPrevTopic();
+      }
+    });
   }
 }

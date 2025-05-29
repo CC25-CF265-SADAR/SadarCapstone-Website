@@ -25,7 +25,7 @@ const routes = {
   '/module-overview/detail-module-:moduleId': (moduleId) => new ModuleDetailPage(moduleId),
   '/modul-belajar': () => new ModuleLayoutPage(),
   '/quiz-modul': () => new QuizMateriPage(),
-  '/result-module': () => new QuizResultModulePage(),
+  '/result-module': () => new QuizResultModulePage(), 
 };
 
 export default routes;
