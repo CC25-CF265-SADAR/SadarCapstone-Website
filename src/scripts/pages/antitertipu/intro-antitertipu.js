@@ -1,11 +1,17 @@
-import { generateModuleTemplate } from '../../templates/template-module';
+import {
+  generateBreadcrumbTemplate,
+  generateModuleTemplate,
+} from '../../templates/template-module';
 import { generateFooterTemplate } from '../../templates/template';
 
 export default class ModuleIntroPage {
   async render() {
     return `
-        <section class="flex flex-col items-center mt-12">
-            <h1 class="font-semibold text-2xl">Modul Pembelajaran AntiTertipu</h1>
+        <section class="flex flex-col mt-8">
+            <div class="mx-12">
+              ${generateBreadcrumbTemplate()}
+            </div>
+            <h1 class="font-semibold text-center text-2xl">Modul Pembelajaran AntiTertipu</h1>
             <h2 class="font-regular text-base text-center text-gray-500 mt-3 mb-10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
             <div class="flex flex-row flex-wrap justify-evenly items-center gap-y-10 mb-15">
                 ${generateModuleTemplate({

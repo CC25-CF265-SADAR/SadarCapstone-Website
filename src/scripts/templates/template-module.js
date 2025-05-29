@@ -20,39 +20,40 @@ export function generateModuleTemplate({ imageSrc, title, description, link }) {
 
 export function generateModuleDetailTemplate() {
   return `
-    <section class="moduleDetail card bg-base-100 w-6xl shadow-sm rounded-xl">
-      <div class="flex flex-row justify-between items-center pt-7 pb-9 px-12 rounded-xl border-b-2 bg-[#FF6250] text-white border-neutral-100 px-6 py-3 leading-tight dark:border-white/10">
-        <article class="w-3xl flex flex-col gap-3">
-          <h1 class="text-lg font-semibold">
-            AntiTertipu
-          </h1>
-          <h2 class="text-2xl font-semibold">
-            Belajar Membedakan Penipuan Online
-          </h2>
-          <p class="text-lg font-regular mt-3">
+ <section class="moduleDetail card bg-base-100 w-full max-w-6xl shadow-sm rounded-xl mx-auto">
+      <div class="flex flex-col-reverse items-start gap-5 md:flex-row justify-between md:items-center pt-7 pb-9 px-6 md:px-12 rounded-t-xl border-b-2 bg-[#FF6250] text-white border-neutral-100 dark:border-white/10">
+        <article class="w-full md:w-3/5 flex flex-col gap-3">
+          <h1 class="text-lg font-semibold">AntiTertipu</h1>
+          <h2 class="text-2xl font-semibold">Belajar Membedakan Penipuan Online</h2>
+          <p class="text-base md:text-lg font-regular mt-3">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
           <div class="flex flex-row items-center mt-2 gap-2">
-            <img src="images/clock.svg">
-            <p class="text-base font-regular">
-            Estimasi belajar: 30 Menit
-            </p>
+            <img src="images/clock.svg" alt="clock icon" class="w-5 h-5">
+            <p class="text-sm md:text-base font-regular">Estimasi belajar: 30 Menit</p>
           </div>
         </article>
-        <img src="images/icon-module-detail-belajar-penipuan-online.png" alt="logo belajar penipuan online" class="w-40 h-40">
+        <img
+          src="images/icon-module-detail-belajar-penipuan-online.png"
+          alt="logo belajar penipuan online"
+          class="w-24 h-24 md:w-40 md:h-40 mt-6 md:mt-0 object-contain"
+        >
       </div>
-      
-      <div class="card-body flex flex-row justify-between items-center px-12">
-        <div class="flex flex-row gap-5 items-center">
-          <div class="w-xl h-6 bg-gray-200 rounded-full dark:bg-gray-700">
+
+      <div class="card-body flex flex-col sm:flex-row justify-between items-center px-6 md:px-12 py-6 gap-6 sm:gap-0">
+        <div class="flex flex-row gap-5 items-center w-full sm:w-auto">
+          <div class="w-full sm:w-xl h-6 bg-gray-200 rounded-full dark:bg-gray-700">
             <div class="h-6 bg-[#FF6250] rounded-full dark:bg-blue-500" style="width: 0%"></div>
           </div>
-          <p class="text-lg font-semibold text-[#FF6250]">0%</p>
+          <p class="text-lg font-semibold text-[#FF6250] whitespace-nowrap">0%</p>
         </div>
-  
-        <div class="card-actions">
-          <a href="#/modul-belajar">
-            <button class="btn px-12 py-6 rounded-md bg-[#FF6250] hover:bg-[#e05545] text-white shadow-md shadow-[#FF6250] border-transparent hover:shadow-lg focus:ring-4 focus:ring-[#ff625066]">
+
+        <div class="card-actions w-full sm:w-auto">
+          <a href="#/modul-belajar" class="block w-full sm:w-auto">
+            <button
+              class="btn w-full sm:w-auto px-12 py-6 rounded-md bg-[#FF6250] hover:bg-[#e05545] text-white shadow-md shadow-[#FF6250] border-transparent hover:shadow-lg focus:ring-4 focus:ring-[#ff625066]"
+              type="button"
+            >
               Belajar Sekarang
             </button>
           </a>
@@ -79,60 +80,112 @@ export function generateVideoPlayer() {
 
 export function generateModuleSylabusTemplate() {
   return `
-        <section class="moduleSylabus mb-10">
-          <h2 class="text-lg font-semibold mt-5 py-1 px-5 w-xl bg-[#DFF0F5]">Lorem Ipsum</h2>
-          <ul class="text-lg font-regular px-5">
-            <li class="flex flex-row content-center items-center self-center gap-4 mt-4">
+      <section class="moduleSylabus mb-10 max-w-4xl mx-0 px-0 sm:px-0">
+          <h2 class="text-lg font-semibold mt-5 py-1 px-4 sm:px-4 w-full max-w-xl bg-[#DFF0F5]">
+            Lorem Ipsum
+          </h2>
+          <ul class="text-base sm:text-lg font-regular px-0 sm:px-0">
+            <!-- Loop item -->
+            <li class="flex flex-row items-center gap-4 mt-4">
               <!-- Circular Progress -->
-              <div class="relative size-7">
-                <svg class="size-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <div class="relative w-7 h-7 flex-shrink-0">
+                <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
                   <!-- Background Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-gray-200 dark:text-neutral-700" stroke-width="3"></circle>
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-gray-200 dark:text-neutral-700"
+                    stroke-width="3"
+                  ></circle>
                   <!-- Progress Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-[#378BA2] dark:text-blue-500" stroke-width="3" stroke-dasharray="100" stroke-dashoffset="100" stroke-linecap="round"></circle>
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-[#378BA2] dark:text-blue-500"
+                    stroke-width="3"
+                    stroke-dasharray="100"
+                    stroke-dashoffset="100"
+                    stroke-linecap="round"
+                  ></circle>
                 </svg>
               </div>
               <!-- End Circular Progress -->
-              <a href="#" class="hover:underline">Lorem Ipsum Sir Dolor Amet</a>
+              <a href="#" class="hover:underline text-sm sm:text-base">
+                Lorem Ipsum Sir Dolor Amet
+              </a>
             </li>
-            <li class="flex flex-row content-center items-center self-center gap-4 mt-4">
-              <!-- Circular Progress -->
-              <div class="relative size-7">
-                <svg class="size-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Background Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-gray-200 dark:text-neutral-700" stroke-width="3"></circle>
-                  <!-- Progress Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-[#378BA2] dark:text-blue-500" stroke-width="3" stroke-dasharray="100" stroke-dashoffset="100" stroke-linecap="round"></circle>
+            <!-- Duplikat list item sesuai kode asli -->
+            <li class="flex flex-row items-center gap-4 mt-4">
+              <div class="relative w-7 h-7 flex-shrink-0">
+                <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-gray-200 dark:text-neutral-700"
+                    stroke-width="3"
+                  ></circle>
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-[#378BA2] dark:text-blue-500"
+                    stroke-width="3"
+                    stroke-dasharray="100"
+                    stroke-dashoffset="100"
+                    stroke-linecap="round"
+                  ></circle>
                 </svg>
               </div>
-              <!-- End Circular Progress -->
-              <a href="#" class="hover:underline">Lorem Ipsum Sir Dolor Amet</a>
+              <a href="#" class="hover:underline text-sm sm:text-base">
+                Lorem Ipsum Sir Dolor Amet
+              </a>
             </li>
-            <li class="flex flex-row content-center items-center self-center gap-4 mt-4">
-              <!-- Circular Progress -->
-              <div class="relative size-7">
-                <svg class="size-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Background Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-gray-200 dark:text-neutral-700" stroke-width="3"></circle>
-                  <!-- Progress Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-[#378BA2] dark:text-blue-500" stroke-width="3" stroke-dasharray="100" stroke-dashoffset="100" stroke-linecap="round"></circle>
+            <li class="flex flex-row items-center gap-4 mt-4">
+              <div class="relative w-7 h-7 flex-shrink-0">
+                <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-gray-200 dark:text-neutral-700"
+                    stroke-width="3"
+                  ></circle>
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-[#378BA2] dark:text-blue-500"
+                    stroke-width="3"
+                    stroke-dasharray="100"
+                    stroke-dashoffset="100"
+                    stroke-linecap="round"
+                  ></circle>
                 </svg>
               </div>
-              <!-- End Circular Progress -->
-              <a href="#" class="hover:underline">Lorem Ipsum Sir Dolor Amet</a>
+              <a href="#" class="hover:underline text-sm sm:text-base">
+                Lorem Ipsum Sir Dolor Amet
+              </a>
             </li>
-            <li class="flex flex-row content-center items-center self-center gap-4 mt-4">
-              <!-- Circular Progress -->
-              <div class="relative size-7">
-                <svg class="size-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Background Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-gray-200 dark:text-neutral-700" stroke-width="3"></circle>
-                  <!-- Progress Circle -->
-                  <circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-[#378BA2] dark:text-blue-500" stroke-width="3" stroke-dasharray="100" stroke-dashoffset="100" stroke-linecap="round"></circle>
+            <li class="flex flex-row items-center gap-4 mt-4">
+              <div class="relative w-7 h-7 flex-shrink-0">
+                <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-gray-200 dark:text-neutral-700"
+                    stroke-width="3"
+                  ></circle>
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-[#378BA2] dark:text-blue-500"
+                    stroke-width="3"
+                    stroke-dasharray="100"
+                    stroke-dashoffset="100"
+                    stroke-linecap="round"
+                  ></circle>
                 </svg>
               </div>
-              <!-- End Circular Progress -->
-              <a href="#" class="hover:underline">Lorem Ipsum Sir Dolor Amet</a>
+              <a href="#" class="hover:underline text-sm sm:text-base">
+                Lorem Ipsum Sir Dolor Amet
+              </a>
             </li>
           </ul>
         </section>
@@ -262,7 +315,10 @@ export function generateProgressModuleQuizTemplate() {
   `;
 }
 
-export function generateQuizModuleQuestionTemplate({ id, question, options, multiple = false }, selectedAnswers = []) {
+export function generateQuizModuleQuestionTemplate(
+  { id, question, options, multiple = false },
+  selectedAnswers = [],
+) {
   const inputType = multiple ? 'checkbox' : 'radio';
   const inputName = multiple ? `question-${id}[]` : `question-${id}`;
 
@@ -330,5 +386,39 @@ export function generateQuizModuleQuestionTemplate({ id, question, options, mult
         </button>
       </div>
     </div>
+  `;
+}
+
+export function generateBreadcrumbTemplate() {
+  return `
+    <nav class="breadcrumb flex mb-8 w-full" aria-label="Breadcrumb">
+      <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+        <li class="inline-flex items-center">
+          <a href="#/" class="inline-flex items-center text-sm font-medium text-gray-400 hover:underline hover:text-[#378BA2] dark:text-gray-400 dark:hover:text-white">
+            <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+            </svg>
+            Beranda
+          </a>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg>
+            <a href="#/module-overview" class="ms-1 text-sm font-medium text-gray-400 hover:underline hover:text-[#378BA2] md:ms-2 dark:text-gray-400 dark:hover:text-white">Overview</a>
+          </div>
+        </li>
+        <li aria-current="page">
+          <div class="flex items-center">
+            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg>
+            <span class="ms-1 text-sm font-medium text-[#378BA2] md:ms-2 dark:text-gray-400">Detail Modul</span>
+          </div>
+        </li>
+      </ol>
+    </nav>
+
   `;
 }
