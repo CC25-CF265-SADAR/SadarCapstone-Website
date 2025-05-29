@@ -223,43 +223,37 @@ export function generateModuleContentTextTemplate(content, currentPageIndex) {
   `;
 }
 
-export function generateModuleFooterTemplate(text, currentIndex, total, nextTopicId) {
-  // Jika materi terakhir, tombolnya jadi 'Mulai Quiz' dan link ke quiz modul
-  const isLast = currentIndex === total - 1;
-  const nextHref = isLast ? '#/quiz-modul' : `#/detail-module-penipuan-online/${nextTopicId}`;
-
-  const buttonLabel = isLast ? 'Mulai Quiz' : 'Selanjutnya';
-
+export function generateModuleFooterTemplate(text) {
   return `
-    <div class="moduleFooter fixed bottom-0 left-10 right-10 bg-white border-t border-gray-300 px-4 py-3 z-50">
+    <div class="fixed bottom-0 left-10 right-10 bg-white border-t border-gray-300 px-4 py-3 z-50">
       <div class="max-w-5xl mx-auto flex items-center justify-between text-sm sm:text-base font-medium text-gray-800">
 
+        <!-- Tombol Sebelumnya -->
         <button
           id="prev-button"
-          class="flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-          ${currentIndex === 0 ? 'disabled' : ''}
-        >
-          <svg class="w-4 h-4 me-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10" aria-hidden="true">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0l4 4M1 5l4-4" />
-          </svg>
-          <span>Sebelumnya</span>
-        </button>
+            class="flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed">
+              <svg class="w-4 h-4 me-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10" aria-hidden="true">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0l4 4M1 5l4-4" />
+              </svg>
+              <span>Sebelumnya</span>
+          </button>
 
+          <!-- Judul Materi -->
         <h3 id="material-title" class="text-center font-semibold text-gray-800 truncate max-w-[50%]">
           ${text}
         </h3>
-
-        <a href="${nextHref}">
-          <button
-            id="next-button"
-            class="flex items-center bg-[#42A7C3] hover:bg-[#2C6F82] text-white px-4 py-2 rounded"
-          >
-            <span>${buttonLabel}</span>
-            <svg class="w-4 h-4 ms-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10" aria-hidden="true">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-            </svg>
-          </button>
-        </a>
+        
+        <!-- Tombol Selanjutnya -->
+        <a href="/#/quiz-modul">
+        <button
+          id="next-button"
+            class="flex items-center bg-[#42A7C3] hover:bg-[#2C6F82] text-white px-4 py-2 rounded">
+             <span>Selanjutnya</span>
+               <svg class="w-4 h-4 ms-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10" aria-hidden="true">
+                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+              </svg>
+        </button>
+</a>
       </div>
     </div>
   `;
@@ -399,5 +393,88 @@ export function generateBreadcrumbTemplate() {
       </ol>
     </nav>
 
+  `;
+}
+
+export function generateQuizModuleResultTemplate({
+  totalQuestions,
+  score,
+  date,
+  userAnswers,
+  correctAnswers,
+  questions,
+}) {
+  const isPerfectScore = score === 100;
+  const isPassed = score >= 70;
+
+  return `
+    <section class="result-page w-full max-w-4xl mx-auto p-6 space-y-8">
+      <div class="text-center space-y-2">
+        <h1 class="text-2xl font-bold">Hasil Exam</h1>
+        <p class="text-sm text-gray-500">Tanggal Ujian: ${date}</p>
+        <div class="flex justify-center gap-10 mt-4 text-lg">
+          <div>
+            <div class="text-gray-500">Total soal</div>
+            <div class="text-3xl font-bold">${totalQuestions}</div>
+          </div>
+          <div>
+            <div class="text-gray-500">Score</div>
+            <div class="text-3xl font-bold text-green-500">${score}</div>
+          </div>
+        </div>
+        <p class="text-md font-medium ${
+          isPassed ? 'text-green-600' : 'text-red-600'
+        } mt-2">
+          ${
+            isPerfectScore
+              ? 'Anda telah memahami seluruh materi dengan sangat baik. Selamat!'
+              : isPassed
+              ? 'Selamat! Anda telah lulus dari ujian ini.'
+              : 'Anda belum lulus. Silakan pelajari kembali materi dan coba lagi.'
+          }
+        </p>
+        <div class="mt-6 flex justify-center gap-4">
+          <button id="retry-button" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Coba Lagi
+          </button>
+          <a href="#/module-overview" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
+            Kembali ke Modul
+          </a>
+        </div>
+      </div>
+
+      <div class="space-y-10 mt-6">
+        ${questions
+          .map((question, index) => {
+            const userAnswer = userAnswers[index] || [];
+            const correct = correctAnswers[index] || [];
+
+            return `
+              <div class="border rounded-lg p-4 space-y-3">
+                <h3 class="font-semibold text-md">${index + 1}. ${question.question}</h3>
+                <div class="space-y-2">
+                  ${question.options
+                    .map((option) => {
+                      const isCorrect = correct.includes(option);
+                      const isSelected = userAnswer.includes(option);
+                      const isRightAndSelected = isCorrect && isSelected;
+                      const isWrongAndSelected = !isCorrect && isSelected;
+
+                      let color = '';
+                      if (isRightAndSelected) color = 'bg-green-100 border-green-500 text-green-700';
+                      if (isWrongAndSelected) color = 'bg-red-100 border-red-500 text-red-700';
+
+                      return `
+                        <div class="border rounded-md px-4 py-2 ${color}">
+                          ${option}
+                        </div>`;
+                    })
+                    .join('')}
+                </div>
+              </div>`;
+          })
+          .join('')}
+      </div>
+    </section>
   `;
 }

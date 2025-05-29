@@ -101,7 +101,6 @@ export default class QuizMateriPresenter {
 }
 
   #finishQuiz() {
-    // Buat array correct answers yang semuanya array (untuk konsistensi)
     const correctAnswers = this.questions.map(q => (q.multiple ? q.answer : [q.answer]));
 
     localStorage.setItem('userAnswers', JSON.stringify(this.#userAnswers));
