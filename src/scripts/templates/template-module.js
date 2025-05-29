@@ -295,43 +295,37 @@ export function generateModuleContentTextTemplate(content, currentPageIndex) {
   `;
 }
 
-export function generateModuleFooterTemplate(text, currentIndex, total, nextTopicId) {
-  // Jika materi terakhir, tombolnya jadi 'Mulai Quiz' dan link ke quiz modul
-  const isLast = currentIndex === total - 1;
-  const nextHref = isLast ? '#/quiz-modul' : `#/detail-module-penipuan-online/${nextTopicId}`;
-
-  const buttonLabel = isLast ? 'Mulai Quiz' : 'Selanjutnya';
-
+export function generateModuleFooterTemplate(text) {
   return `
-    <div class="moduleFooter fixed bottom-0 left-10 right-10 bg-white border-t border-gray-300 px-4 py-3 z-50">
+    <div class="fixed bottom-0 left-10 right-10 bg-white border-t border-gray-300 px-4 py-3 z-50">
       <div class="max-w-5xl mx-auto flex items-center justify-between text-sm sm:text-base font-medium text-gray-800">
 
+        <!-- Tombol Sebelumnya -->
         <button
           id="prev-button"
-          class="flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-          ${currentIndex === 0 ? 'disabled' : ''}
-        >
-          <svg class="w-4 h-4 me-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10" aria-hidden="true">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0l4 4M1 5l4-4" />
-          </svg>
-          <span>Sebelumnya</span>
-        </button>
+            class="flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed">
+              <svg class="w-4 h-4 me-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10" aria-hidden="true">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0l4 4M1 5l4-4" />
+              </svg>
+              <span>Sebelumnya</span>
+          </button>
 
+          <!-- Judul Materi -->
         <h3 id="material-title" class="text-center font-semibold text-gray-800 truncate max-w-[50%]">
           ${text}
         </h3>
-
-        <a href="${nextHref}">
-          <button
-            id="next-button"
-            class="flex items-center bg-[#42A7C3] hover:bg-[#2C6F82] text-white px-4 py-2 rounded"
-          >
-            <span>${buttonLabel}</span>
-            <svg class="w-4 h-4 ms-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10" aria-hidden="true">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-            </svg>
-          </button>
-        </a>
+        
+        <!-- Tombol Selanjutnya -->
+        <a href="/#/quiz-modul">
+        <button
+          id="next-button"
+            class="flex items-center bg-[#42A7C3] hover:bg-[#2C6F82] text-white px-4 py-2 rounded">
+             <span>Selanjutnya</span>
+               <svg class="w-4 h-4 ms-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10" aria-hidden="true">
+                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+              </svg>
+        </button>
+</a>
       </div>
     </div>
   `;
