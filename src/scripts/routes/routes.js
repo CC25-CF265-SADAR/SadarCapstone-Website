@@ -10,7 +10,7 @@ import ModuleIntroPage from '../pages/antitertipu/intro-antitertipu';
 import ModuleDetailPage from '../pages/antitertipu/detailModul/detailAt-page';
 import ModuleLayoutPage from '../pages/antitertipu/layoutMateri/layout-page';
 import QuizMateriPage from '../pages/antitertipu/quizMateri/QuizMateri-page';
-import HasilQuizMateri from '../pages/antitertipu/hasilQuiz/HQMateri-page';
+import QuizResultModulePage from '../pages/antitertipu/hasilQuiz/HQMateri-page';
 
 const routes = {
   '/login': () => new LoginPage(),
@@ -25,7 +25,7 @@ const routes = {
   '/detail-module-penipuan-online': () => new ModuleDetailPage(),
   '/modul-belajar': () => new ModuleLayoutPage(),
   '/quiz-modul': () => new QuizMateriPage(),
-  '/result-module': () => new HasilQuizMateri(), 
+  '/result-module': () => new QuizResultModulePage(), 
 };
 
 export default routes;

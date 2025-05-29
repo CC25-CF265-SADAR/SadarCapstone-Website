@@ -467,3 +467,86 @@ export function generateBreadcrumbTemplate() {
 
   `;
 }
+
+export function generateQuizModuleResultTemplate({
+  totalQuestions,
+  score,
+  date,
+  userAnswers,
+  correctAnswers,
+  questions,
+}) {
+  const isPerfectScore = score === 100;
+  const isPassed = score >= 70;
+
+  return `
+    <section class="result-page w-full max-w-4xl mx-auto p-6 space-y-8">
+      <div class="text-center space-y-2">
+        <h1 class="text-2xl font-bold">Hasil Exam</h1>
+        <p class="text-sm text-gray-500">Tanggal Ujian: ${date}</p>
+        <div class="flex justify-center gap-10 mt-4 text-lg">
+          <div>
+            <div class="text-gray-500">Total soal</div>
+            <div class="text-3xl font-bold">${totalQuestions}</div>
+          </div>
+          <div>
+            <div class="text-gray-500">Score</div>
+            <div class="text-3xl font-bold text-green-500">${score}</div>
+          </div>
+        </div>
+        <p class="text-md font-medium ${
+          isPassed ? 'text-green-600' : 'text-red-600'
+        } mt-2">
+          ${
+            isPerfectScore
+              ? 'Anda telah memahami seluruh materi dengan sangat baik. Selamat!'
+              : isPassed
+              ? 'Selamat! Anda telah lulus dari ujian ini.'
+              : 'Anda belum lulus. Silakan pelajari kembali materi dan coba lagi.'
+          }
+        </p>
+        <div class="mt-6 flex justify-center gap-4">
+          <button id="retry-button" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Coba Lagi
+          </button>
+          <a href="#/module-overview" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
+            Kembali ke Modul
+          </a>
+        </div>
+      </div>
+
+      <div class="space-y-10 mt-6">
+        ${questions
+          .map((question, index) => {
+            const userAnswer = userAnswers[index] || [];
+            const correct = correctAnswers[index] || [];
+
+            return `
+              <div class="border rounded-lg p-4 space-y-3">
+                <h3 class="font-semibold text-md">${index + 1}. ${question.question}</h3>
+                <div class="space-y-2">
+                  ${question.options
+                    .map((option) => {
+                      const isCorrect = correct.includes(option);
+                      const isSelected = userAnswer.includes(option);
+                      const isRightAndSelected = isCorrect && isSelected;
+                      const isWrongAndSelected = !isCorrect && isSelected;
+
+                      let color = '';
+                      if (isRightAndSelected) color = 'bg-green-100 border-green-500 text-green-700';
+                      if (isWrongAndSelected) color = 'bg-red-100 border-red-500 text-red-700';
+
+                      return `
+                        <div class="border rounded-md px-4 py-2 ${color}">
+                          ${option}
+                        </div>`;
+                    })
+                    .join('')}
+                </div>
+              </div>`;
+          })
+          .join('')}
+      </div>
+    </section>
+  `;
+}
