@@ -141,18 +141,25 @@ export function generateModuleSylabusTemplate() {
 
 export function generateModuleNavbarTemplate(moduleTitle) {
   return `
-    <nav class="moduleNavbar flex items-center justify-between p-4 bg-white shadow-md sticky top-0 z-30">
-      <button id="backBtn" class="text-white bg-[#2C6F82] hover:bg-[#244f5a] focus:ring-2 focus:ring-[#2C6F82]/50 focus:outline-none font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center shadow-md">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      
-      <h1 class="text-lg font-semibold">${moduleTitle}</h1>
+    <nav class="bg-white shadow-md sticky top-0 z-30">
+      <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <!-- Tombol Back -->
+        <button id="backBtn" class="text-white bg-[#42A7C3] hover:bg-[#2C6F82] focus:ring-2 focus:ring-[#2C6F82]/50 focus:outline-none rounded-md w-10 h-10 flex items-center justify-center shadow-sm transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
 
-      <button id="toggleSidebar" class="text-2xl text-[#2C6F82] hover:text-[#163741]">
-        &#9776;
-      </button>
+        <!-- Judul Modul -->
+        <h1 class="text-lg font-semibold text-gray-700 truncate max-w-xs sm:max-w-sm md:max-w-md text-center">
+          ${moduleTitle}
+        </h1>
+
+        <!-- Tombol Sidebar -->
+        <button id="toggleSidebar" class="text-2xl text-[#42A7C3] hover:text-[#2C6F82] ring-offset-2 focus:ring-2 focus:ring-[#2C6F82] rounded-md w-10 h-10 flex items-center justify-center transition-all">
+          &#9776;
+        </button>
+      </div>
     </nav>
   `;
 }
@@ -160,17 +167,35 @@ export function generateModuleNavbarTemplate(moduleTitle) {
 export function generateModuleSidebarTemplate(module, currentTopicId) {
   const topicItems = module.topics
     .map((topic) => {
-      const isActive = topic.id === currentTopicId ? 'font-semibold text-blue-700' : '';
-      const check = topic.checkpoint ? '<span class="ml-2 text-green-600">✔</span>' : '';
-      return `<li class="text-sm ${isActive}">${topic.title}${check}</li>`;
+      const isActive = topic.id === currentTopicId
+        ? `font-semibold text-blue-700 bg-blue-50 rounded-md px-4 py-2 flex items-center justify-between
+           shadow-md ring-1 ring-blue-300 scale-105 transition-transform duration-200`
+        : `flex items-center justify-between px-4 py-2 rounded cursor-pointer
+           hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent hover:shadow-sm
+           transition-colors duration-300`;
+
+      const check = topic.checkpoint
+        ? `<svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+           </svg>`
+        : `<span class="w-4 h-4 bg-gray-300 rounded-full inline-block flex-shrink-0"></span>`;
+
+      return `
+        <li class="${isActive}" tabindex="0" role="button">
+          <div class="flex items-center gap-3">
+            ${check}
+            <span class="text-sm">${topic.title}</span>
+          </div>
+        </li>
+      `;
     })
     .join('');
 
   return `
-    <div class="moduleSidebar bg-white rounded-xl p-4 mt-2 mx-2">
-      <h2 class="text-lg font-bold mb-2">Daftar Modul</h2>
+    <div class="moduleSidebar bg-white rounded-xl p-5 mt-2 mx-2">
+      <h2 class="text-lg font-bold mb-4 border-b border-gray-300 pb-3">Daftar Modul</h2>
       ${generateModuleProgressbarTemplate(module.topics)}
-      <ul class="space-y-2 mt-4">${topicItems}</ul>
+      <ul class="space-y-1 mt-4">${topicItems}</ul>
     </div>
   `;
 }
@@ -181,9 +206,19 @@ export function generateModuleProgressbarTemplate(topics) {
   const percent = Math.floor((completed / total) * 100);
 
   return `
-    <div class="moduleProgressBar mb-1 text-sm text-gray-600">${percent}% Selesai</div>
-    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
-      <div class="bg-blue-600 h-2.5 rounded-full" style="width: ${percent}%"></div>
+    <div class="moduleProgressBar mb-3 text-sm text-gray-700 font-semibold flex justify-between items-center">
+      <span>${percent}% Selesai</span>
+      <span class="text-xs text-gray-500">${completed} dari ${total} topik selesai</span>
+    </div>
+    <div class="w-full bg-gray-300 rounded-full h-4 mb-4 overflow-hidden shadow-inner">
+      <div
+        class="h-4 rounded-full transition-all duration-700 ease-in-out"
+        style="
+          width: ${percent}%;
+          background: linear-gradient(90deg, #2C6F82 0%, #42A7C3 70%);
+          box-shadow: 0 0 10px #42A7C3;
+        "
+      ></div>
     </div>
   `;
 }

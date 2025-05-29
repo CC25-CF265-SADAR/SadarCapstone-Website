@@ -14,18 +14,20 @@ class App {
 
   #setupNavigation(url) {
     const isAuthPage = ['/login', '/register', '/forgot-password', '/reset-password'].includes(url);
+    const isModulePage = url.startsWith('/modul-belajar');
 
-    if (isAuthPage) {
-      this.#header.innerHTML = ''; // hide navbar in auth pages
+    if (isAuthPage || isModulePage) {
+      this.#header.innerHTML = ''; // Hapus navbar default
     } else {
       const isLogin = !!getAccessToken();
       this.#header.innerHTML = `
-      <nav>
-        ${isLogin ? generateNavbarAuthTemplate() : generateNavbarTemplate()}
-      </nav>
-    `;
+        <nav>
+          ${isLogin ? generateNavbarAuthTemplate() : generateNavbarTemplate()}
+        </nav>
+      `;
     }
   }
+
 
   async renderPage() {
     const url = getActiveRoute();

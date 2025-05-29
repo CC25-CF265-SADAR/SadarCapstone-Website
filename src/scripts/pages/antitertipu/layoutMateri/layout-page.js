@@ -13,12 +13,14 @@ export default class ModuleLayoutPage {
 
         <div class="flex-1 flex overflow-hidden transition-all duration-300">
           <!-- Sidebar container (toggleable with translate-x) -->
-          <aside id="module-sidebar-wrapper" class="absolute top-19 left-0 w-64 transform -translate-x-full transition-transform duration-300 z-20 h-[calc(100vh-8rem)] bg-white border-r border-[#DFF0F5] overflow-y-auto shadow-md rounded-r-2xl">
+          <aside id="module-sidebar-wrapper" class="absolute top-16 left-0 w-64 transform -translate-x-full transition-transform duration-300 z-20 bg-white border-r border-[#DFF0F5] overflow-y-auto shadow-md rounded-r-2xl" style="height: calc(100vh - 8rem);"
+          >
+
             <!-- Sidebar content injected here -->
           </aside>
 
           <!-- Main content -->
-          <main id="module-content" class="flex-1 overflow-y-auto transition-all duration-300 px-4 pt-4"></main>
+          <main id="module-content" class="flex-1 max-h-screen overflow-y-auto transition-all duration-300 px-4 pt-4"></main>
         </div>
 
         <footer id="module-footer" class="bg-white border-t shadow-sm z-10"></footer>
