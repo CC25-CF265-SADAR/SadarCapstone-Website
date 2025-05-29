@@ -35,6 +35,10 @@ export const login = async ({ email, password, remember }) => {
   // Hapus token sebelumnya
   document.cookie = `${CONFIG.ACCESS_TOKEN_KEY}=; path=/; max-age=0`;
 
+  
+  // Simpan token di localStorage supaya authHeader bisa membaca
+  localStorage.setItem('token', data.token);
+
   // Set max-age tergantung remember
   const maxAge = remember ? 7 * 86400 : 86400; // 7 hari atau 1 hari
   document.cookie = `${CONFIG.ACCESS_TOKEN_KEY}=${data.token}; path=/; max-age=${maxAge}`;
@@ -57,6 +61,9 @@ export const googleLogin = async (id_token, remember = false) => {
 
   // Hapus token sebelumnya
   document.cookie = `${CONFIG.ACCESS_TOKEN_KEY}=; path=/; max-age=0`;
+
+  // Simpan token di localStorage supaya authHeader bisa membaca
+  localStorage.setItem('token', data.token);
 
   // Set token baru di cookie
   const maxAge = remember ? 7 * 86400 : 86400; // 7 hari atau 1 hari
@@ -88,6 +95,7 @@ export const submitNewPassword = async (token, newPassword) => {
 // === AUTH HEADER ===
 const authHeader = () => {
   const token = localStorage.getItem('token');
+  if (!token) return { 'Content-Type': 'application/json' }; // tanpa auth header
   return {
     'Authorization': `Bearer ${token}`,
     'Content-Type': 'application/json',
@@ -97,29 +105,44 @@ const authHeader = () => {
 // === BUAT MODULES ===
 export const fetchModules = async () => {
   const response = await fetch(`${BASE_URL}/modules`, {
-    headers: authHeader(),
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
   });
 
-  if (!response.ok) throw new Error('Gagal mengambil daftar modul');
+  if (!response.ok) {
+    const err = await response.json().catch(() => null);
+    throw new Error(err?.message || 'Gagal mengambil daftar modul');
+  }
   return await response.json();
 };
 
 export const fetchModuleDetail = async (moduleId) => {
+  if (!moduleId) throw new Error('Module ID harus diberikan');
+
   const response = await fetch(`${BASE_URL}/modules/${moduleId}/details`, {
-    headers: authHeader(),
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
   });
 
-  if (!response.ok) throw new Error('Detail modul tidak ditemukan');
+  if (!response.ok) {
+    const err = await response.json().catch(() => null);
+    throw new Error(err?.message || 'Detail modul tidak ditemukan');
+  }
   return await response.json();
 };
 
-// === CONTENT ===
 export const fetchContent = async (contentId) => {
+  if (!contentId) throw new Error('Content ID harus diberikan');
+
   const response = await fetch(`${BASE_URL}/content/${contentId}`, {
+    method: 'GET',
     headers: authHeader(),
   });
 
-  if (!response.ok) throw new Error('Konten tidak ditemukan');
+  if (!response.ok) {
+    const err = await response.json().catch(() => null);
+    throw new Error(err?.message || 'Konten tidak ditemukan');
+  }
   return await response.json();
 };
 

@@ -5,6 +5,13 @@ import {
   generateModuleFooterTemplate,
 } from '../../../templates/template-module.js';
 
+import {
+  fetchModules,
+  fetchModuleDetail,
+  fetchContent,
+} from '../../../data/api.js';
+
+
 export default class ModuleLayoutPage {
   async render() {
     return `
@@ -13,9 +20,7 @@ export default class ModuleLayoutPage {
 
         <div class="flex-1 flex overflow-hidden transition-all duration-300">
           <!-- Sidebar container (toggleable with translate-x) -->
-          <aside id="module-sidebar-wrapper" class="absolute top-16 left-0 w-64 transform -translate-x-full transition-transform duration-300 z-20 bg-white border-r border-[#DFF0F5] overflow-y-auto shadow-md rounded-r-2xl" style="height: calc(100vh - 8rem);"
-          >
-
+          <aside id="module-sidebar-wrapper" class="absolute top-16 left-0 w-64 transform -translate-x-full transition-transform duration-300 z-20 bg-white border-r border-[#DFF0F5] overflow-y-auto shadow-md rounded-r-2xl" style="height: calc(100vh - 8rem);">
             <!-- Sidebar content injected here -->
           </aside>
 
@@ -30,26 +35,30 @@ export default class ModuleLayoutPage {
 
   async afterRender() {
     try {
-      const dummyModule = {
-        title: 'Modul Penipuan Online',
-        topics: [
-          { id: 't1', title: 'Pengantar', contentId: 'dummy-1', checkpoint: true },
-          { id: 't2', title: 'Jenis Penipuan', contentId: 'dummy-2', checkpoint: false },
-        ],
-      };
+      // Ambil daftar modul dari API
+      const modulesData = await fetchModules();
 
-      const dummyContent = {
-        id: 'dummy-1',
-        title: 'Pengantar Penipuan Online',
-        content: 'Ini adalah isi teks pembuka modul.',
-        videoURL: '',
-      };
+      if (!modulesData || modulesData.length === 0) {
+        throw new Error('Tidak ada modul yang tersedia.');
+      }
 
-      document.querySelector('#module-navbar').innerHTML = generateModuleNavbarTemplate(dummyModule.title);
-      document.querySelector('#module-sidebar-wrapper').innerHTML = generateModuleSidebarTemplate(dummyModule, dummyContent.id);
-      document.querySelector('#module-content').innerHTML = generateModuleContentTextTemplate(dummyContent);
-      document.querySelector('#module-footer').innerHTML = generateModuleFooterTemplate(dummyModule, dummyContent);
+      // Ambil modul pertama sebagai default
+      const module = modulesData[0];
 
+      // Ambil detail modul dari API (topics dll)
+      const moduleDetail = await fetchModuleDetail(module.id);
+
+      // Ambil konten topik pertama (default)
+      const firstTopic = moduleDetail.topics[0];
+      const content = await fetchContent(firstTopic.contentId);
+
+      // Render UI dengan data dari API, tidak mengubah susunan UI
+      document.querySelector('#module-navbar').innerHTML = generateModuleNavbarTemplate(moduleDetail.title);
+      document.querySelector('#module-sidebar-wrapper').innerHTML = generateModuleSidebarTemplate(moduleDetail, firstTopic.id);
+      document.querySelector('#module-content').innerHTML = generateModuleContentTextTemplate(content);
+      document.querySelector('#module-footer').innerHTML = generateModuleFooterTemplate(moduleDetail.title);
+
+      // Setup sidebar toggle (fungsi sama seperti sebelumnya)
       const sidebarWrapper = document.querySelector('#module-sidebar-wrapper');
       const contentArea = document.querySelector('#module-content');
 
@@ -59,9 +68,11 @@ export default class ModuleLayoutPage {
         contentArea.classList.toggle('ml-64', !isOpen);
       });
 
+      // Tombol back
       document.querySelector('#backBtn')?.addEventListener('click', () => {
         window.history.back();
       });
+
     } catch (err) {
       document.querySelector('#module-content').innerHTML = `<p class="text-center mt-20 text-red-500">Gagal memuat modul: ${err.message}</p>`;
     }
