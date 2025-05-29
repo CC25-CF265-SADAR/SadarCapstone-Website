@@ -6,5 +6,8 @@ const app = new App({
   content: document.getElementById('main-content'),
 });
 
-window.addEventListener('hashchange', () => app.renderPage());
+window.addEventListener('hashchange', () => {
+  app.renderPage();
+  console.log('hash changed to', location.hash);
+});
 window.addEventListener('load', () => app.renderPage());

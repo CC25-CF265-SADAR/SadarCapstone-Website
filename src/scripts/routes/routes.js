@@ -22,10 +22,10 @@ const routes = {
   '/quiz/take-quiz': () => new QuizPage(),
   '/result': () => new Result(),
   '/module-overview': () => new ModuleIntroPage(),
-  '/detail-module-penipuan-online': () => new ModuleDetailPage(),
+  '/module-overview/detail-module-:moduleId': (moduleId) => new ModuleDetailPage(moduleId),
   '/modul-belajar': () => new ModuleLayoutPage(),
   '/quiz-modul': () => new QuizMateriPage(),
-  '/result-module': () => new HasilQuizMateri(), 
+  '/result-module': () => new HasilQuizMateri(),
 };
 
 export default routes;

@@ -28,19 +28,37 @@ class App {
     }
   }
 
+  matchRoute(url, routes) {
+    for (const routePattern in routes) {
+      const pattern = routePattern.replace(/:[^\s/]+/g, '([^/]+)');
+      const regex = new RegExp(`^${pattern}$`);
+      const match = url.match(regex);
+      if (match) {
+        const params = match.slice(1);
+        return { routeFunc: routes[routePattern], params };
+      }
+    }
+    return null;
+  }
 
   async renderPage() {
     const url = getActiveRoute();
-    const matchedRoute = routes[url] || routes['/404'];
 
-    if (!matchedRoute) return;
+    const matched = this.matchRoute(url, routes);
+
+    if (!matched) {
+      this.#content.innerHTML = '<p>Halaman tidak ditemukan</p>';
+      return;
+    }
+
     this.#setupNavigation(url);
 
-    const page = matchedRoute();
+    const page = matched.params.length ? matched.routeFunc(...matched.params) : matched.routeFunc();
+
     if (!page) return;
 
     this.#content.innerHTML = await page.render();
-    page.afterRender?.();
+    await page.afterRender?.();
   }
 }
 

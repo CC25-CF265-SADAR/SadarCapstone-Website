@@ -3,6 +3,7 @@ import {
   generateModuleTemplate,
 } from '../../templates/template-module';
 import { generateFooterTemplate } from '../../templates/template';
+import { fetchModules } from '../../data/api';
 
 export default class ModuleIntroPage {
   async render() {
@@ -12,50 +13,9 @@ export default class ModuleIntroPage {
               ${generateBreadcrumbTemplate()}
             </div>
             <h1 class="font-semibold text-center text-2xl">Modul Pembelajaran AntiTertipu</h1>
-            <h2 class="font-regular text-base text-center text-gray-500 mt-3 mb-10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
-            <div class="flex flex-row flex-wrap justify-evenly items-center gap-y-10 mb-15">
-                ${generateModuleTemplate({
-                  imageSrc: '/images/modules/modul_penipuan.png',
-                  link: '#/detail-module-penipuan-online',
-                  title: 'Belajar Membedakan Penipuan Online',
-                  description:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                })}
-                ${generateModuleTemplate({
-                  imageSrc: '/images/modules/modul_phising.png',
-                  link: '#/detail-module-penipuan-online',
-                  title: 'Modus Phishing',
-                  description:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                })}
-                ${generateModuleTemplate({
-                  imageSrc: '/images/modules/modul-pharming.png',
-                  link: '#/detail-module-penipuan-online',
-                  title: 'Modus Pharming',
-                  description:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                })}
-                ${generateModuleTemplate({
-                  imageSrc: '/images/modules/modul_sniffing.png',
-                  link: '#/detail-module-penipuan-online',
-                  title: 'Modus Sniffing',
-                  description:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                })}
-                ${generateModuleTemplate({
-                  imageSrc: '/images/modules/modul_social_engineering.png',
-                  link: '#/detail-module-penipuan-online',
-                  title: 'Modus Social Engineering',
-                  description:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                })}
-                ${generateModuleTemplate({
-                  imageSrc: '/images/modules/modul_money_rule.png',
-                  link: '#/detail-module-penipuan-online',
-                  title: 'Modus Money Rule',
-                  description:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                })}
+            <h2 class="font-regular text-base text-center text-gray-500 mt-3 mb-10 px-5">Kenali berbagai modus penipuan online sebelum mereka mengenali Anda. Lindungi diri Anda dari ancaman digital yang bisa menyerang kapan saja.</h2>
+            <div id="modules-container" class="flex flex-row flex-wrap justify-evenly items-center gap-y-10 mb-15">
+                <!-- Modul -->
             </div>
             ${generateFooterTemplate()}
         </section>
@@ -63,6 +23,24 @@ export default class ModuleIntroPage {
   }
 
   async afterRender() {
-    //isi disini...
+    try {
+      const data = await fetchModules();
+      const container = document.getElementById('modules-container');
+
+      container.innerHTML = data
+        .map((modul) =>
+          generateModuleTemplate({
+            imageSrc: `images/modules/${modul.thumbnail}`,
+            link: `#/module-overview/detail-module-${modul.id}`,
+            title: modul.title,
+            description: modul.description,
+          }),
+        )
+        .join('');
+    } catch (error) {
+      console.error('Gagal memuat modul:', error);
+      const container = document.getElementById('modules-container');
+      container.innerHTML = '<p class="text-center text-red-500">Gagal memuat modul.</p>';
+    }
   }
 }
