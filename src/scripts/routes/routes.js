@@ -25,11 +25,7 @@ const routes = {
   '/module-overview/detail-module-:moduleId': (moduleId) => new ModuleDetailPage(moduleId),
   '/modul-belajar': () => new ModuleLayoutPage(),
   '/quiz-modul': () => new QuizMateriPage(),
-<<<<<<< HEAD
-  '/result-module': () => new HasilQuizMateri(),
-=======
-  '/result-module': () => new QuizResultModulePage(), 
->>>>>>> 17b979901a2b5c88a6ed217365c380315e55e6b1
+  '/result-module': () => new QuizResultModulePage(),
 };
 
 export default routes;

@@ -12,7 +12,7 @@ class App {
     this.#header = header;
   }
 
-  #setupNavigation(url) {
+  async #setupNavigation(url) {
     const isAuthPage = ['/login', '/register', '/forgot-password', '/reset-password'].includes(url);
     const isModulePage = url.startsWith('/modul-belajar');
 
@@ -22,7 +22,7 @@ class App {
       const isLogin = !!getAccessToken();
       this.#header.innerHTML = `
         <nav>
-          ${isLogin ? generateNavbarAuthTemplate() : generateNavbarTemplate()}
+          ${isLogin ? await generateNavbarAuthTemplate() : await generateNavbarTemplate()}
         </nav>
       `;
     }

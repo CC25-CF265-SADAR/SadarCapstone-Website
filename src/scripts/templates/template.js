@@ -1,6 +1,22 @@
+import { fetchModules } from '../data/api';
 import { getAccessToken, parseJwt } from '../utils/auth';
 
-export function generateNavbarTemplate() {
+export async function generateNavbarTemplate() {
+  const data = await fetchModules();
+  const modulesList = data
+    .map(
+      (mod) => `
+      <li>
+        <a
+          href="#/module-overview/detail-module-${mod.id}"
+          class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        >
+          ${mod.title}
+        </a>
+      </li>
+    `,
+    )
+    .join('');
   return `
   <div class="bg-[#42A7C3]">
     <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -21,12 +37,7 @@ export function generateNavbarTemplate() {
               </svg>
             </a>
             <ul class="absolute left-0 mt-2 w-56 rounded-md bg-white shadow-xl ring-1 ring-black/5 border border-gray-200 z-50 opacity-0 group-hover:opacity-100 group-hover:visible invisible transition duration-200">
-              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Umum</a></li>
-              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Phising</a></li>
-              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Pharming</a></li>
-              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Sniffing</a></li>
-              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Social Engineering</a></li>
-              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Money Rule</a></li>
+              ${modulesList}
             </ul>
           </li>
           <li>
@@ -68,7 +79,7 @@ export function generateNavbarTemplate() {
   `;
 }
 
-export function generateNavbarAuthTemplate() {
+export async function generateNavbarAuthTemplate() {
   const token = getAccessToken();
   let name = 'User';
   let email = '-';
@@ -82,7 +93,21 @@ export function generateNavbarAuthTemplate() {
       avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0E2148&color=fff`;
     }
   }
-
+  const data = await fetchModules();
+  const modulesList = data
+    .map(
+      (mod) => `
+      <li>
+        <a
+          href="#/module-overview/detail-module-${mod.id}"
+          class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        >
+          ${mod.title}
+        </a>
+      </li>
+    `,
+    )
+    .join('');
   return `
   <div class="bg-[#42A7C3]">
     <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -103,12 +128,7 @@ export function generateNavbarAuthTemplate() {
               </svg>
             </a>
             <ul class="absolute left-0 mt-2 w-56 rounded-md bg-white shadow-xl ring-1 ring-black/5 border border-gray-200 z-50 opacity-0 group-hover:opacity-100 group-hover:visible invisible transition duration-200">
-              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Umum</a></li>
-              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Phising</a></li>
-              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Pharming</a></li>
-              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Sniffing</a></li>
-              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Social Engineering</a></li>
-              <li><a href="#" class="block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AntiTertipu Money Rule</a></li>
+               ${modulesList}
             </ul>
           </li>
           <li>
