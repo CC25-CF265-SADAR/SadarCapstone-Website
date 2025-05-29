@@ -136,137 +136,137 @@ export const moduleQuestions = {
     },
   ],
   
-  'mod-3': [  
-    {
-      id: 'mod-3-q1',
-      type: 'mcq',
-      question: 'Ciri umum penipuan investasi adalah...',
-      options: [
-        'Risiko tinggi dijelaskan secara detail',
-        'Janji keuntungan cepat & tinggi',
-        'Investasi berbasis saham bluechip',
-        'Diawasi OJK',
-      ],
-      answer: 'Janji keuntungan cepat & tinggi',
-      multiple: false
-    },
-    {
-      id: 'mod-3-q2',
-      type: 'mcq',
-      question: 'Ciri umum penipuan investasi adalah...',
-      options: [
-        'Risiko tinggi dijelaskan secara detail',
-        'Janji keuntungan cepat & tinggi',
-        'Investasi berbasis saham bluechip',
-        'Diawasi OJK',
-      ],
-      answer: 'Janji keuntungan cepat & tinggi',
-      multiple: false
-    },
-    {
-      id: 'mod-3-q3',
-      type: 'mcq',
-      question: 'Ciri umum penipuan investasi adalah...',
-      options: [
-        'Risiko tinggi dijelaskan secara detail',
-        'Janji keuntungan cepat & tinggi',
-        'Investasi berbasis saham bluechip',
-        'Diawasi OJK',
-      ],
-      answer: 'Janji keuntungan cepat & tinggi',
-      multiple: false
-    },
-    {
-      id: 'mod-3-q4',
-      type: 'mcq',
-      question: 'Ciri umum penipuan investasi adalah...',
-      options: [
-        'Risiko tinggi dijelaskan secara detail',
-        'Janji keuntungan cepat & tinggi',
-        'Investasi berbasis saham bluechip',
-        'Diawasi OJK',
-      ],
-      answer: 'Janji keuntungan cepat & tinggi',
-      multiple: false
-    },
-    {
-      id: 'mod-3-q5',
-      type: 'mcq',
-      question: 'Ciri umum penipuan investasi adalah...',
-      options: [
-        'Risiko tinggi dijelaskan secara detail',
-        'Janji keuntungan cepat & tinggi',
-        'Investasi berbasis saham bluechip',
-        'Diawasi OJK',
-      ],
-      answer: 'Janji keuntungan cepat & tinggi',
-      multiple: false
-    },
-  ],
+ 'mod-3': [
+  {
+    id: 'mod-3-q1',
+    type: 'mcq',
+    question: 'Apa tujuan utama dari serangan pharming? (Pilih Satu)',
+    options: [
+      'Membantu mempercepat akses internet pengguna.',
+      'Menyederhanakan proses login ke situs resmi.',
+      'Mencuri data pribadi dan keuangan pengguna dengan mengarahkan mereka ke situs palsu.',
+      'Meningkatkan keamanan DNS pengguna.'
+    ],
+    answer: 'Mencuri data pribadi dan keuangan pengguna dengan mengarahkan mereka ke situs palsu.',
+    multiple: false
+  },
+  {
+    id: 'mod-3-q2',
+    type: 'mcq',
+    question: 'Bayangkan Anda ingin mengakses situs resmi bank Anda, dan Anda mengetik sendiri alamatnya di browser. Namun, saat situs terbuka, Anda merasa ada yang aneh. Tampilan situs mirip seperti biasanya, tetapi:\nAlamatnya terlihat benar, namun tidak ada ikon gembok di bilah alamat.\nAnda tidak mendapatkan notifikasi 2FA seperti biasa saat login.\nSetelah login, tampilan halaman rekening kosong atau error.\nApa yang paling mungkin sedang terjadi?',
+    options: [
+      'Koneksi internet Anda sedang buruk, jadi situs tidak memuat dengan sempurna.',
+      'Anda sedang terkena serangan phishing melalui email palsu.',
+      'Anda sedang mengalami serangan pharming yang mengarahkan ke situs palsu meskipun mengetik alamat yang benar.',
+      'Situs bank sedang dalam perbaikan.'
+    ],
+    answer: 'Anda sedang mengalami serangan pharming yang mengarahkan ke situs palsu meskipun mengetik alamat yang benar.',
+    multiple: false
+  },
+  {
+    id: 'mod-3-q3',
+    type: 'mcq',
+    question: 'Langkah awal yang dapat Anda lakukan untuk memastikan situs yang Anda kunjungi tidak palsu?',
+    options: [
+      'Selalu mengetik URL secara manual dan periksa apakah menggunakan HTTPS.',
+      'Klik tautan dari pesan teks untuk mempercepat akses.',
+      'Mengabaikan peringatan dari browser.',
+      'Mematikan antivirus agar tidak terganggu saat browsing.'
+    ],
+    answer: 'Selalu mengetik URL secara manual dan periksa apakah menggunakan HTTPS.',
+    multiple: false
+  },
+  {
+    id: 'mod-3-q4',
+    type: 'mcq',
+    question: 'Mana di antara berikut ini merupakan pencegahan terbaik terhadap pharming? (Pilih semua yang benar)',
+    options: [
+      'Menggunakan DNS publik yang aman.',
+      'Rutin memperbarui perangkat lunak.',
+      'Menggunakan jaringan Wi-Fi publik tanpa VPN.',
+      'Mengaktifkan autentikasi dua faktor di akun penting.'
+    ],
+    answer: ['Menggunakan DNS publik yang aman.', 'Rutin memperbarui perangkat lunak.', 'Mengaktifkan autentikasi dua faktor di akun penting.'],
+    multiple: true
+  },
+  {
+    id: 'mod-3-q5',
+    type: 'mcq',
+    question: 'Anda sedang menggunakan Wi-Fi publik gratis di sebuah kafe. Saat membuka browser dan mengetikkan alamat situs berita favorit Anda, halaman yang muncul adalah halaman login Mandiri Online yang tampak normal. Padahal Anda tidak mengetik alamat Mandiri Online, dan baru saja membuka browser. Halaman itu langsung meminta Anda login ke internet banking. Apa tindakan paling bijak dalam situasi ini?',
+    options: [
+      'Segera login karena tampilan situsnya sudah dikenal.',
+      'Tutup browser, restart perangkat, dan coba lagi nanti.',
+      'Login saja, lalu pastikan mengganti PIN di aplikasi resmi setelahnya.',
+      'Jangan login. Matikan koneksi Wi-Fi publik dan periksa perangkat Anda.'
+    ],
+    answer: 'Jangan login. Matikan koneksi Wi-Fi publik dan periksa perangkat Anda.',
+    multiple: false
+  }
+],
   'mod-4': [  
     {
       id: 'mod-4-q1',
       type: 'mcq',
-      question: 'Ciri umum penipuan investasi adalah...',
+      question: 'Apa yang dimaksud dengan sniffing dalam dunia internet?',
       options: [
-        'Risiko tinggi dijelaskan secara detail',
-        'Janji keuntungan cepat & tinggi',
-        'Investasi berbasis saham bluechip',
-        'Diawasi OJK',
+        'Pemblokiran situs',
+        'Penyadapan data',
+        'membuat jaringan Wi-Fi',
+        'Mengirim email spam',
       ],
-      answer: 'Janji keuntungan cepat & tinggi',
+      answer: 'Penyadapan data',
       multiple: false
     },
     {
       id: 'mod-4-q2',
       type: 'mcq',
-      question: 'Ciri umum penipuan investasi adalah...',
+      question: 'Apa tujuan utama dari tindakan sniffing yang dilakukan oleh hacker?',
       options: [
-        'Risiko tinggi dijelaskan secara detail',
-        'Janji keuntungan cepat & tinggi',
-        'Investasi berbasis saham bluechip',
-        'Diawasi OJK',
+        'Mempercepat koneksi internet pengguna',
+        'Memblokir akses ke situs tertentu',
+        'Memperkuat keamanan jaringan publik',
+        'Menyadap dan mencuri data pribadi pengguna',
       ],
-      answer: 'Janji keuntungan cepat & tinggi',
+      answer: 'Menyadap dan mencuri data pribadi pengguna',
       multiple: false
     },
     {
       id: 'mod-4-q3',
       type: 'mcq',
-      question: 'Ciri umum penipuan investasi adalah...',
+      question: 'Apa tindakan pencegahan paling tepat jika kamu menerima email mencurigakan yang mengatasnamakan sebuah bank dan meminta klik link tertentu?',
       options: [
-        'Risiko tinggi dijelaskan secara detail',
-        'Janji keuntungan cepat & tinggi',
-        'Investasi berbasis saham bluechip',
-        'Diawasi OJK',
+        'Langsung klik untuk memastikan isi link tersebut',
+        'Segera hapus email tanpa tindakan lain',
+        'Balas email untuk memastikan keaslian pesan',
+        'Menghubungi call center resmi bank untuk verifikasi keaslian pesan',
       ],
-      answer: 'Janji keuntungan cepat & tinggi',
+      answer: 'Menghubungi call center resmi bank untuk verifikasi keaslian pesan',
       multiple: false
     },
     {
       id: 'mod-4-q4',
       type: 'mcq',
-      question: 'Ciri umum penipuan investasi adalah...',
+      question: 'Passive sniffing biasanya dilakukan pada perangkat jaringan berikut...',
       options: [
-        'Risiko tinggi dijelaskan secara detail',
-        'Janji keuntungan cepat & tinggi',
-        'Investasi berbasis saham bluechip',
-        'Diawasi OJK',
+        'Switch',
+        'Router',
+        'Hub',
+        'Modem',
       ],
-      answer: 'Janji keuntungan cepat & tinggi',
+      answer: 'Hub',
       multiple: false
     },
     {
       id: 'mod-4-q5',
       type: 'mcq',
-      question: 'Ciri umum penipuan investasi adalah...',
+      question: 'Jika seorang peretas melakukan active sniffing, apa tindakan yang mungkin dilakukan terhadap data yang melewati jaringan?',
       options: [
-        'Risiko tinggi dijelaskan secara detail',
-        'Janji keuntungan cepat & tinggi',
-        'Investasi berbasis saham bluechip',
-        'Diawasi OJK',
+        'Mengubah atau mengganggu paket data yang sedang dikirimkan',
+        'Menghapus seluruh paket data secara otomatis',
+        'Hanya memantau tanpa melakukan intervensi',
+        'Mengirimkan paket data secara terenkripsi kepada korban',
       ],
-      answer: 'Janji keuntungan cepat & tinggi',
+      answer: 'Mengubah atau mengganggu paket data yang sedang dikirimkan',
       multiple: false
     },
   ],
