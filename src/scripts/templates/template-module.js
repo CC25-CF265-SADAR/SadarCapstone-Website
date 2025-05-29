@@ -18,7 +18,15 @@ export function generateModuleTemplate({ imageSrc, title, description, link }) {
     `;
 }
 
-export function generateModuleDetailTemplate(title, description, thumbnail, progress, color) {
+export function generateModuleDetailTemplate(
+  title,
+  description,
+  thumbnail,
+  progress,
+  color,
+  firstContentId,
+  startPage = 1,
+) {
   return `
  <section class="moduleDetail card bg-base-100 w-full max-w-6xl shadow-sm rounded-xl mx-auto">
       <div class="flex flex-col-reverse items-start gap-5 md:flex-row justify-between md:items-center pt-7 pb-9 px-6 md:px-12 rounded-t-xl border-b-2 bg-[#${color}] text-white border-neutral-100 dark:border-white/10" style="background-color: #${color};">
@@ -49,7 +57,7 @@ export function generateModuleDetailTemplate(title, description, thumbnail, prog
         </div>
 
         <div class="card-actions w-full sm:w-auto">
-          <a href="#/modul-belajar" class="block w-full sm:w-auto">
+          <a href="#/modul-belajar/${firstContentId}/pages${startPage}" class="block w-full sm:w-auto">
             <button
               class="btn w-full sm:w-auto px-12 py-6 rounded-md bg-[#${color}] text-white shadow-md shadow-[#${color}] border-transparent hover:shadow-lg focus:ring-4 focus:ring-[#ff625066]" style="background-color: #${color};"
               type="button"
@@ -148,7 +156,7 @@ export function generateModuleSidebarTemplate(module, currentTopicId, userProgre
   // Fungsi untuk menentukan apakah topic sudah selesai
   const isTopicCompleted = (topicId) => {
     if (!userProgress || !userProgress.topicsProgress) return false;
-    const topicProgress = userProgress.topicsProgress.find(t => t.topicId === topicId);
+    const topicProgress = userProgress.topicsProgress.find((t) => t.topicId === topicId);
     return topicProgress ? topicProgress.completed : false;
   };
 
@@ -163,16 +171,18 @@ export function generateModuleSidebarTemplate(module, currentTopicId, userProgre
            transition-colors duration-300`;
 
       // Tampilkan checklist hijau jika checkpoint atau topic sudah selesai
-      const check = topic.checkpoint || isTopicCompleted(topic.id)
-        ? `<svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+      const check =
+        topic.checkpoint || isTopicCompleted(topic.id)
+          ? `<svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
           </svg>`
-        : `<span class="w-4 h-4 bg-gray-300 rounded-full inline-block flex-shrink-0"></span>`;
+          : `<span class="w-4 h-4 bg-gray-300 rounded-full inline-block flex-shrink-0"></span>`;
 
       // Tambahkan indikator progress jika topic sudah selesai tapi bukan checkpoint
-      const progressIndicator = !topic.checkpoint && isTopicCompleted(topic.id)
-        ? `<span class="text-xs text-green-600 ml-2">selesai</span>`
-        : '';
+      const progressIndicator =
+        !topic.checkpoint && isTopicCompleted(topic.id)
+          ? `<span class="text-xs text-green-600 ml-2">selesai</span>`
+          : '';
 
       return `
         <li class="${isActive}" tabindex="0" role="button" data-topic-id="${topic.id}">
@@ -200,11 +210,11 @@ export function generateModuleProgressbarTemplate(topics, userProgress = null) {
 
   let completed = 0;
   if (userProgress && userProgress.topicsProgress) {
-    completed = userProgress.topicsProgress.filter(t => t.completed).length;
+    completed = userProgress.topicsProgress.filter((t) => t.completed).length;
   } else {
-    completed = topics.filter(t => t.checkpoint).length;
+    completed = topics.filter((t) => t.checkpoint).length;
   }
-  
+
   const percent = Math.floor((completed / total) * 100);
 
   return `
@@ -265,7 +275,6 @@ export function generateModuleFooterTemplate(text) {
         </h3>
         
         <!-- Tombol Selanjutnya -->
-        <a href="/#/quiz-modul">
         <button
           id="next-button"
             class="flex items-center bg-[#42A7C3] hover:bg-[#2C6F82] text-white px-4 py-2 rounded">

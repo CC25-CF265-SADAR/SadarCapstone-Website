@@ -27,6 +27,10 @@ export default class ModuleDetailPage {
         { name: 'Overview', href: '#/module-overview' },
         { name: 'Detail Modul' }, // last item, tanpa href dan pakai span
       ];
+      const firstTopic = moduleSylabus.topics[0];
+      const savedPageIndex = localStorage.getItem(`progress-${firstTopic.contentId}`); // misal: "3"
+      const firstContentId = firstTopic.contentId;
+      const startPage = savedPageIndex ? savedPageIndex : 1;
 
       if (!moduleData) {
         return `<p class="text-center text-red-500">Modul tidak ditemukan</p>`;
@@ -44,6 +48,8 @@ export default class ModuleDetailPage {
               `/images/modules/details/${moduleData.thumbnail}`,
               progress,
               moduleData.color,
+              firstContentId,
+              startPage,
             )}
             <h1 class="text-xl md:text-2xl font-semibold text-[#42A7C3] mt-10">Silabus Modul Pembelajaran</h1>
             ${generateModuleSylabusTemplate(moduleSylabus.title, moduleSylabus.topics, progress)}

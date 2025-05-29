@@ -10,19 +10,21 @@ import {
   fetchModuleDetail,
   fetchContent,
   fetchUserProgress,
-  saveUserProgress
+  saveUserProgress,
 } from '../../../data/api.js';
 
 import ModuleLayoutPresenter from './layout-presenter.js';
 
 export default class ModuleLayoutPage {
-  constructor() {
-    this.presenter = new ModuleLayoutPresenter(this, { 
-      fetchModules, 
-      fetchModuleDetail, 
+  constructor(contentId, pageIndex = 1) {
+    this.contentId = contentId;
+    this.pageIndex = pageIndex;
+    this.presenter = new ModuleLayoutPresenter(this, {
+      fetchModules,
+      fetchModuleDetail,
       fetchContent,
       saveUserProgress,
-      fetchUserProgress
+      fetchUserProgress,
     });
   }
 
@@ -40,7 +42,7 @@ export default class ModuleLayoutPage {
   }
 
   async afterRender() {
-    await this.presenter.init();
+    await this.presenter.init(this.contentId, this.pageIndex);
     this.addEventListeners();
   }
 
@@ -59,12 +61,19 @@ export default class ModuleLayoutPage {
 
   renderContent(content, currentPageIndex) {
     const contentArea = document.querySelector('#module-content');
-    if (contentArea) contentArea.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
+    if (contentArea)
+      contentArea.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
   }
 
   renderFooter(moduleTitle, currentIndex, total, nextTopicId) {
     const footer = document.querySelector('#module-footer');
-    if (footer) footer.innerHTML = generateModuleFooterTemplate(moduleTitle, currentIndex, total, nextTopicId);
+    if (footer)
+      footer.innerHTML = generateModuleFooterTemplate(
+        moduleTitle,
+        currentIndex,
+        total,
+        nextTopicId,
+      );
   }
 
   showError(message) {
@@ -79,24 +88,24 @@ export default class ModuleLayoutPage {
   }
 
   addSidebarToggleListener() {
-  document.querySelector('#toggleSidebar')?.addEventListener('click', () => {
-    const sidebarWrapper = document.querySelector('#module-sidebar-wrapper');
-    const contentArea = document.querySelector('#module-content');
-    if (!sidebarWrapper || !contentArea) return;
+    document.querySelector('#toggleSidebar')?.addEventListener('click', () => {
+      const sidebarWrapper = document.querySelector('#module-sidebar-wrapper');
+      const contentArea = document.querySelector('#module-content');
+      if (!sidebarWrapper || !contentArea) return;
 
-    const isHidden = sidebarWrapper.classList.contains('-translate-x-full');
+      const isHidden = sidebarWrapper.classList.contains('-translate-x-full');
 
-    if (isHidden) {
-      // Kalau sidebar sekarang tersembunyi, buka sidebar
-      sidebarWrapper.classList.remove('-translate-x-full');
-      contentArea.classList.add('ml-64'); // Geser konten ke kanan supaya tidak tertutup sidebar
-    } else {
-      // Kalau sidebar sekarang terbuka, tutup sidebar
-      sidebarWrapper.classList.add('-translate-x-full');
-      contentArea.classList.remove('ml-64'); // Kembalikan konten ke posisi semula
-    }
-  });
-}
+      if (isHidden) {
+        // Kalau sidebar sekarang tersembunyi, buka sidebar
+        sidebarWrapper.classList.remove('-translate-x-full');
+        contentArea.classList.add('ml-64'); // Geser konten ke kanan supaya tidak tertutup sidebar
+      } else {
+        // Kalau sidebar sekarang terbuka, tutup sidebar
+        sidebarWrapper.classList.add('-translate-x-full');
+        contentArea.classList.remove('ml-64'); // Kembalikan konten ke posisi semula
+      }
+    });
+  }
 
   addEventListeners() {
     this.addSidebarToggleListener();
@@ -109,9 +118,9 @@ export default class ModuleLayoutPage {
     // Footer next/prev buttons delegation
     document.querySelector('#module-footer')?.addEventListener('click', (event) => {
       if (event.target.closest('#next-button')) {
-        this.presenter.onNextTopic();
+        this.presenter.onNextPage();
       } else if (event.target.closest('#prev-button')) {
-        this.presenter.onPrevTopic();
+        this.presenter.onPrevPage();
       }
     });
   }

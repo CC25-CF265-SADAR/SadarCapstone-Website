@@ -23,9 +23,10 @@ const routes = {
   '/result': () => new Result(),
   '/module-overview': () => new ModuleIntroPage(),
   '/module-overview/detail-module-:moduleId': (moduleId) => new ModuleDetailPage(moduleId),
-  '/modul-belajar': () => new ModuleLayoutPage(),
+  '/modul-belajar/:contentId/pages:pageIndex': (contentId, pageIndex) =>
+    new ModuleLayoutPage(contentId, parseInt(pageIndex)),
   '/quiz-modul': () => new QuizMateriPage(),
-  '/result-module': () => new QuizResultModulePage(), 
+  '/result-module': () => new QuizResultModulePage(),
 };
 
 export default routes;
