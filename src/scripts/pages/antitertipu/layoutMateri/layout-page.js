@@ -67,13 +67,14 @@ export default class ModuleLayoutPage {
 
   renderFooter(moduleTitle, currentIndex, total, nextTopicId) {
     const footer = document.querySelector('#module-footer');
-    if (footer)
+    if (footer) {
       footer.innerHTML = generateModuleFooterTemplate(
-        moduleTitle,
+        this.presenter.content.title,  
         currentIndex,
         total,
-        nextTopicId,
+        nextTopicId
       );
+    }
   }
 
   showError(message) {
@@ -96,13 +97,11 @@ export default class ModuleLayoutPage {
       const isHidden = sidebarWrapper.classList.contains('-translate-x-full');
 
       if (isHidden) {
-        // Kalau sidebar sekarang tersembunyi, buka sidebar
         sidebarWrapper.classList.remove('-translate-x-full');
-        contentArea.classList.add('ml-64'); // Geser konten ke kanan supaya tidak tertutup sidebar
+        contentArea.classList.add('ml-64'); 
       } else {
-        // Kalau sidebar sekarang terbuka, tutup sidebar
         sidebarWrapper.classList.add('-translate-x-full');
-        contentArea.classList.remove('ml-64'); // Kembalikan konten ke posisi semula
+        contentArea.classList.remove('ml-64'); 
       }
     });
   }
@@ -110,12 +109,10 @@ export default class ModuleLayoutPage {
   addEventListeners() {
     this.addSidebarToggleListener();
 
-    // Back button
     document.querySelector('#backBtn')?.addEventListener('click', () => {
       window.history.back();
     });
 
-    // Footer next/prev buttons delegation
     document.querySelector('#module-footer')?.addEventListener('click', (event) => {
       if (event.target.closest('#next-button')) {
         this.presenter.onNextPage();

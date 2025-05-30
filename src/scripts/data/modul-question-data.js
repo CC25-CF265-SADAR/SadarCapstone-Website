@@ -62,7 +62,7 @@ export const moduleQuestions = {
         'Virus yang menyebar melalui flashdisk',
         'Situs streaming film yang meminta login',
       ],
-      answer: ' Petugas palsu menelepon dan memancing korban memberikan OTP',
+      answer: 'Petugas palsu menelepon dan memancing korban memberikan OTP',
       multiple: false
     },
   ],
