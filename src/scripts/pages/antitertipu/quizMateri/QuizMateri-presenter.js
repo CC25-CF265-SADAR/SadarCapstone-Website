@@ -1,24 +1,33 @@
+import { fetchQuestionsByModuleId } from '../../../data/api.js'; // pastikan import api
 import { generateQuizModuleQuestionTemplate } from '../../../templates/template-module.js';
-import { moduleQuestions } from '../../../data/modul-question-data.js';
+
 
 export default class QuizMateriPresenter {
   #currentIndex = 0;
   #userAnswers = [];
   #navigationSetup = false;
+  questions = [];  // Menyimpan pertanyaan yang didapatkan dari API
 
   constructor(view) {
     this.view = view;
+    this.modId = view.modId;
   }
 
   async afterRender() {
-    const modId = this.view.modId || 'mod-1';
-    this.questions = moduleQuestions[modId] || [];
-    this.totalQuestions = this.questions.length;
-    this.#userAnswers = Array(this.totalQuestions).fill(null);
+    try {
+      // Ambil pertanyaan berdasarkan modId dari API
+      const questionsData = await fetchQuestionsByModuleId(this.modId);
+      this.questions = questionsData.questions || [];
+      this.totalQuestions = this.questions.length;
+      this.#userAnswers = Array(this.totalQuestions).fill(null);
 
-    this.#renderCurrentQuestion();
-    this.#updateProgress();
-    this.#setupNavigation(); // pasang listener hanya sekali
+      this.#renderCurrentQuestion();
+      this.#updateProgress();
+      this.#setupNavigation(); 
+    } catch (error) {
+      console.error('Error fetching questions:', error);
+      this.view.showErrorMessage('Tidak dapat mengambil pertanyaan');
+    }
   }
 
   #renderCurrentQuestion() {
@@ -96,9 +105,9 @@ export default class QuizMateriPresenter {
   }
 
   #updateProgress() {
-  const answered = this.#userAnswers.slice(0, this.#currentIndex).filter((a) => a !== null).length;
-  this.view.updateProgress(answered, this.totalQuestions, this.#userAnswers, this.#currentIndex);
-}
+    const answered = this.#userAnswers.slice(0, this.#currentIndex).filter((a) => a !== null).length;
+    this.view.updateProgress(answered, this.totalQuestions, this.#userAnswers, this.#currentIndex);
+  }
 
   #finishQuiz() {
     const correctAnswers = this.questions.map(q => (q.multiple ? q.answer : [q.answer]));

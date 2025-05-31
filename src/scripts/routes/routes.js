@@ -25,7 +25,7 @@ const routes = {
   '/module-overview/detail-module-:moduleId': (moduleId) => new ModuleDetailPage(moduleId),
   '/modul-belajar/:contentId/pages:pageIndex': (contentId, pageIndex) =>
     new ModuleLayoutPage(contentId, parseInt(pageIndex)),
-  '/quiz-modul': () => new QuizMateriPage(),
+  '/quiz-modul/:modId': (modId) => new QuizMateriPage(modId),
   '/result-module': () => new QuizResultModulePage(),
 };
 

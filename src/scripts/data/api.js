@@ -146,6 +146,19 @@ export const fetchContent = async (contentId) => {
   return await response.json();
 };
 
+export const fetchQuestionsByModuleId = async (modId) => {
+  const response = await fetch(`${BASE_URL}/modules/${modId}/questions`, {
+    method: 'GET',
+    headers: authHeader(),
+  });
+
+  if (!response.ok) {
+    const err = await response.json().catch(() => null);
+    throw new Error(err?.message || 'Gagal mengambil pertanyaan modul');
+  }
+  return await response.json(); // Mengembalikan data pertanyaan
+};
+
 // === UTILITY ===
 export const logout = () => {
   localStorage.removeItem('token');

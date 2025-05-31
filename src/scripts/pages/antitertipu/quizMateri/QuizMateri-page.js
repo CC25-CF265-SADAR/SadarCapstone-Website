@@ -3,15 +3,13 @@ import { generateProgressModuleQuizTemplate } from '../../../templates/template-
 import QuizMateriPresenter from './QuizMateri-presenter.js';
 import { setupProfileDropdown } from '../../../utils/navbar-interaction.js';
 import { getLogout } from '../../../utils/auth.js';
-import { moduleQuestions } from '../../../data/modul-question-data.js';
 
 export default class QuizMateriPage {
   constructor() {
+    // Ambil modId dari URL parameters
     const urlParams = new URLSearchParams(window.location.search);
-    this.modId = urlParams.get('modId') || 'mod-1'; // ✅ fallback default
-    this.questions = moduleQuestions[this.modId] || [];
-
-    this.presenter = new QuizMateriPresenter(this);
+    this.modId = urlParams.get('modId') || 'mod-1'; // fallback default
+    this.presenter = new QuizMateriPresenter(this);  // Pass modId ke presenter
   }
 
   async render() {
