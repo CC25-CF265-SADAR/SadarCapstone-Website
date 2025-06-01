@@ -110,7 +110,12 @@ export default class ModuleLayoutPage {
     this.addSidebarToggleListener();
 
     document.querySelector('#backBtn')?.addEventListener('click', () => {
-      window.history.back();
+      const moduleId = this.presenter.moduleDetail?.modId;
+      if (moduleId) {
+        window.location.hash = `#/module-overview/detail-module-${moduleId}`;
+      } else {
+        console.error('Module ID tidak ditemukan');
+      }
     });
 
     document.querySelector('#module-footer')?.addEventListener('click', (event) => {
