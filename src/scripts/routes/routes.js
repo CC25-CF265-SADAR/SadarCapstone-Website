@@ -26,7 +26,7 @@ const routes = {
   '/modul-belajar/:contentId/pages:pageIndex': (contentId, pageIndex) =>
     new ModuleLayoutPage(contentId, parseInt(pageIndex)),
   '/quiz-modul/:modId': (modId) => new QuizMateriPage(modId),
-  '/result-module': () => new QuizResultModulePage(),
+  '/result-module/:modId': (modId) => new QuizResultModulePage(modId),
 };
 
 export default routes;

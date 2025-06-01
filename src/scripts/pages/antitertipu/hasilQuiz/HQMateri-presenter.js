@@ -8,12 +8,20 @@ export default class QuizResultPresenter {
     const userAnswers = JSON.parse(localStorage.getItem('userAnswers')) || [];
     const correctAnswers = JSON.parse(localStorage.getItem('correctAnswers')) || [];
 
+    const flatten = (array) => array.flat();
+
+    // Normalisasi correctAnswers dan userAnswers
+    const normalizedCorrectAnswers = correctAnswers.map(flatten);
+    const normalizedUserAnswers = userAnswers.map(flatten);
+    localStorage.setItem('correctAnswers', JSON.stringify(normalizedCorrectAnswers));
+    localStorage.setItem('userAnswers', JSON.stringify(normalizedUserAnswers));
+
     const totalQuestions = this.questions.length;
     const correctCount = this.questions.reduce((acc, q, i) => {
-      const correct = correctAnswers[i];
-      const user = userAnswers[i];
-      const isCorrect =
-        JSON.stringify((correct || []).sort()) === JSON.stringify((user || []).sort());
+      const correct = normalizedCorrectAnswers[i];
+      const user = normalizedUserAnswers[i];
+      const isCorrect = correct.every((answer) => user.includes(answer));
+
       return acc + (isCorrect ? 1 : 0);
     }, 0);
 

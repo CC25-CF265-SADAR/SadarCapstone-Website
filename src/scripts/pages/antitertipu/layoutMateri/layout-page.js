@@ -69,10 +69,10 @@ export default class ModuleLayoutPage {
     const footer = document.querySelector('#module-footer');
     if (footer) {
       footer.innerHTML = generateModuleFooterTemplate(
-        this.presenter.content.title,  
+        this.presenter.content.title,
         currentIndex,
         total,
-        nextTopicId
+        nextTopicId,
       );
     }
   }
@@ -84,8 +84,8 @@ export default class ModuleLayoutPage {
     }
   }
 
-  navigateToQuiz() {
-    window.location.href = '#/quiz-modul';
+  navigateToQuiz(modId) {
+    window.location.href = `#/quiz-modul/${modId}`; // Kirim modId ke URL
   }
 
   addSidebarToggleListener() {
@@ -98,10 +98,10 @@ export default class ModuleLayoutPage {
 
       if (isHidden) {
         sidebarWrapper.classList.remove('-translate-x-full');
-        contentArea.classList.add('ml-64'); 
+        contentArea.classList.add('ml-64');
       } else {
         sidebarWrapper.classList.add('-translate-x-full');
-        contentArea.classList.remove('ml-64'); 
+        contentArea.classList.remove('ml-64');
       }
     });
   }

@@ -1,12 +1,11 @@
 import { fetchQuestionsByModuleId } from '../../../data/api.js'; // pastikan import api
 import { generateQuizModuleQuestionTemplate } from '../../../templates/template-module.js';
 
-
 export default class QuizMateriPresenter {
   #currentIndex = 0;
   #userAnswers = [];
   #navigationSetup = false;
-  questions = [];  // Menyimpan pertanyaan yang didapatkan dari API
+  questions = []; // Menyimpan pertanyaan yang didapatkan dari API
 
   constructor(view) {
     this.view = view;
@@ -16,6 +15,7 @@ export default class QuizMateriPresenter {
   async afterRender() {
     try {
       // Ambil pertanyaan berdasarkan modId dari API
+      console.log('Fetching questions for modId:', this.modId);
       const questionsData = await fetchQuestionsByModuleId(this.modId);
       this.questions = questionsData.questions || [];
       this.totalQuestions = this.questions.length;
@@ -23,7 +23,7 @@ export default class QuizMateriPresenter {
 
       this.#renderCurrentQuestion();
       this.#updateProgress();
-      this.#setupNavigation(); 
+      this.#setupNavigation();
     } catch (error) {
       console.error('Error fetching questions:', error);
       this.view.showErrorMessage('Tidak dapat mengambil pertanyaan');
@@ -58,7 +58,9 @@ export default class QuizMateriPresenter {
 
       // Tombol NEXT
       if (e.target.closest('#next-button')) {
-        const inputName = multiple ? `question-${currentQuestion.id}[]` : `question-${currentQuestion.id}`;
+        const inputName = multiple
+          ? `question-${currentQuestion.id}[]`
+          : `question-${currentQuestion.id}`;
         const checked = form.querySelectorAll(`input[name="${inputName}"]:checked`);
 
         if (checked.length === 0) {
@@ -68,9 +70,7 @@ export default class QuizMateriPresenter {
 
         this.view.hideErrorMessage();
 
-        const answer = multiple
-          ? Array.from(checked).map(el => el.value)
-          : [checked[0].value];
+        const answer = multiple ? Array.from(checked).map((el) => el.value) : [checked[0].value];
 
         this.#userAnswers[this.#currentIndex] = answer;
 
@@ -105,16 +105,19 @@ export default class QuizMateriPresenter {
   }
 
   #updateProgress() {
-    const answered = this.#userAnswers.slice(0, this.#currentIndex).filter((a) => a !== null).length;
+    const answered = this.#userAnswers
+      .slice(0, this.#currentIndex)
+      .filter((a) => a !== null).length;
     this.view.updateProgress(answered, this.totalQuestions, this.#userAnswers, this.#currentIndex);
   }
 
   #finishQuiz() {
-    const correctAnswers = this.questions.map(q => (q.multiple ? q.answer : [q.answer]));
+    const correctAnswers = this.questions.map((q) => (q.multiple ? q.answer : [q.answer]));
 
     localStorage.setItem('userAnswers', JSON.stringify(this.#userAnswers));
     localStorage.setItem('correctAnswers', JSON.stringify(correctAnswers));
 
-    window.location.href = '/#/result-module';
+    // Arahkan ke halaman hasil quiz dan kirim modId lewat URL
+    window.location.href = `#/result-module/${this.modId}`;
   }
 }

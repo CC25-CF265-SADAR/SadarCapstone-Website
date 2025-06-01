@@ -4,8 +4,9 @@ import QuizResultPresenter from './HQMateri-presenter.js';
 
 export default class QuizResultModulePage {
   constructor() {
-    const urlParams = new URLSearchParams(window.location.search);
-    this.modId = urlParams.get('modId') || 'mod-1';
+    const hash = window.location.hash;
+    const parts = hash.split('/');
+    this.modId = parts[2];
     this.questions = moduleQuestions[this.modId] || [];
     this.presenter = new QuizResultPresenter(this.modId, this.questions);
   }
@@ -26,7 +27,7 @@ export default class QuizResultModulePage {
     const retryButton = document.getElementById('retry-button');
     retryButton?.addEventListener('click', () => {
       this.presenter.clearData();
-      window.location.hash = `#/quiz?modId=${this.modId}`;
+      window.location.hash = `#/quiz-modul/${this.modId}`;
     });
   }
 }

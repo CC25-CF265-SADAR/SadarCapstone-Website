@@ -6,10 +6,11 @@ import { getLogout } from '../../../utils/auth.js';
 
 export default class QuizMateriPage {
   constructor() {
-    // Ambil modId dari URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    this.modId = urlParams.get('modId') || 'mod-1'; // fallback default
-    this.presenter = new QuizMateriPresenter(this);  // Pass modId ke presenter
+    const hash = window.location.hash;
+    const parts = hash.split('/');
+    this.modId = parts[2];
+    console.log('modId:', this.modId);
+    this.presenter = new QuizMateriPresenter(this);
   }
 
   async render() {
@@ -44,30 +45,30 @@ export default class QuizMateriPage {
   }
 
   updateProgress(answeredCount, totalQuestions, userAnswers, currentIndex) {
-  const container = document.getElementById('progress-container');
-  if (container && container.innerHTML.trim() === '') {
-    container.innerHTML = generateProgressModuleQuizTemplate(); // 🛠 render ulang struktur bar
-  }
+    const container = document.getElementById('progress-container');
+    if (container && container.innerHTML.trim() === '') {
+      container.innerHTML = generateProgressModuleQuizTemplate(); // 🛠 render ulang struktur bar
+    }
 
-  const percent = Math.round((answeredCount / totalQuestions) * 100);
+    const percent = Math.round((answeredCount / totalQuestions) * 100);
 
-  const progressBar = document.getElementById('progress-bar');
-  if (progressBar) {
-    progressBar.style.width = `${percent}%`;
-  }
+    const progressBar = document.getElementById('progress-bar');
+    if (progressBar) {
+      progressBar.style.width = `${percent}%`;
+    }
 
-  const progressText = document.getElementById('progress-text');
-  if (progressText) {
-    progressText.textContent = `${answeredCount}/${totalQuestions} telah dijawab`;
-  }
+    const progressText = document.getElementById('progress-text');
+    if (progressText) {
+      progressText.textContent = `${answeredCount}/${totalQuestions} telah dijawab`;
+    }
 
-  const dots = document.querySelectorAll('#progress-dots span');
+    const dots = document.querySelectorAll('#progress-dots span');
     dots.forEach((dot, index) => {
       dot.className =
         'w-2 h-2 rounded-full inline-block ' +
         (index < answeredCount ? 'bg-[#FFEA7F]' : 'bg-[#42A7C3]');
     });
-}
+  }
 
   showErrorMessage() {
     const err = document.getElementById('error-message');

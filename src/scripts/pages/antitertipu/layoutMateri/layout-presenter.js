@@ -99,8 +99,8 @@ export default class ModuleLayoutPresenter {
       const nextContentId = this.moduleDetail.topics[this.currentTopicIndex].contentId;
       this.content = await this.api.fetchContent(nextContentId);
     } else {
-      // Semua konten habis, lanjut ke quiz
-      this.view.navigateToQuiz();
+      // Semua konten habis, lanjut ke quiz sesuai modId
+      this.view.navigateToQuiz(this.moduleDetail.modId);
       return;
     }
 
