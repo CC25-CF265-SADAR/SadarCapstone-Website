@@ -73,7 +73,7 @@ export function generateModuleDetailTemplate(
 
 export function generateVideoPlayer(url) {
   return `
-        <section class="videoPlayer flex justify-center">
+        <section class="videoPlayer flex justify-center my-4 aspect-w-16 aspect-h-9">
           <iframe
             class="w-4xl h-[450px] border border-gray-200 rounded-2xl dark:border-gray-700"
             src=${url}
@@ -241,14 +241,15 @@ export function generateModuleContentTextTemplate(content, currentPageIndex) {
 
   return `
     <article class="moduleContentText prose max-w-none px-20 py-6">
-      <h2 class="text-2xl font-bold mb-4">${content.title}</h2>
-      <section class="mb-6">
-        <p class="text-base mb-2">${page.text}</p>
         ${
-          page.imageURL
-            ? `<img src="${page.imageURL}" alt="Gambar halaman" class="max-w-full rounded-md" />`
-            : ''
+          page.videoURL ? generateVideoPlayer(page.videoURL) : ""
         }
+      <h2 class="text-3xl font-bold my-4 text-start">${content.title}</h2>
+      <section class="mb-6">
+        ${
+          page.imageURL ? `<img src="${page.imageURL}" alt="Gambar halaman" class="w-full rounded-md mb-4" />` : ""
+        }
+        <p class="text-base mb-2">${page.text}</p>
       </section>
     </article>
   `;
