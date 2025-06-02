@@ -535,7 +535,7 @@ export function generateQuizFooterTemplate() {
     `;
 }
 
-export function generateModuleFooterTemplate() {
+export function generateResultTypeTemplate() {
   return `
         //isi disini...
     `;

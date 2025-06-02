@@ -100,7 +100,7 @@ export default class ModuleLayoutPresenter {
       this.content = await this.api.fetchContent(nextContentId);
     } else {
       // Semua konten habis, lanjut ke quiz
-      this.view.navigateToQuiz();
+      this.view.navigateToQuiz(this.moduleDetail.modId);
       return;
     }
 
