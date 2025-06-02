@@ -72,11 +72,12 @@ export function generateModuleDetailTemplate(
 }
 
 export function generateVideoPlayer(url) {
+  const embedUrl = url.includes('watch?v=') ? url.replace('watch?v=', 'embed/') : url;
   return `
         <section class="videoPlayer flex justify-center my-4 aspect-w-16 aspect-h-9">
           <iframe
             class="w-4xl h-[450px] border border-gray-200 rounded-2xl dark:border-gray-700"
-            src=${url}
+            src=${embedUrl}
             title="YouTube video player"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -241,13 +242,13 @@ export function generateModuleContentTextTemplate(content, currentPageIndex) {
 
   return `
     <article class="moduleContentText prose max-w-none px-20 py-6">
-        ${
-          page.videoURL ? generateVideoPlayer(page.videoURL) : ""
-        }
+        ${page.videoURL ? generateVideoPlayer(page.videoURL) : ''}
       <h2 class="text-3xl font-bold my-4 text-start">${content.title}</h2>
       <section class="mb-6">
         ${
-          page.imageURL ? `<img src="${page.imageURL}" alt="Gambar halaman" class="w-full rounded-md mb-4" />` : ""
+          page.imageURL
+            ? `<img src="${page.imageURL}" alt="Gambar halaman" class="w-full rounded-md mb-4" />`
+            : ''
         }
         <p class="text-base mb-2">${page.text}</p>
       </section>
