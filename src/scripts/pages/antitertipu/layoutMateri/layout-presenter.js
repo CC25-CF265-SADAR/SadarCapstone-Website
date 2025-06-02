@@ -92,11 +92,12 @@ export default class ModuleLayoutPresenter {
       // Masih ada halaman berikutnya di konten ini
       this.pageIndex++;
     } else if (this.currentTopicIndex + 1 < this.moduleDetail.topics.length) {
+      await this.saveProgress();
       // Pindah ke konten berikutnya, mulai dari halaman 1
       this.currentTopicIndex++;
       this.pageIndex = 1;
-
       const nextContentId = this.moduleDetail.topics[this.currentTopicIndex].contentId;
+      
       this.content = await this.api.fetchContent(nextContentId);
     } else {
       // Semua konten habis, lanjut ke quiz
@@ -123,8 +124,6 @@ export default class ModuleLayoutPresenter {
       this.moduleDetail.topics.length,
       this.getNextTopicId(),
     );
-
-    await this.saveProgress();
   }
 
   async onPrevPage() {
@@ -161,6 +160,6 @@ export default class ModuleLayoutPresenter {
       this.getNextTopicId(),
     );
 
-    await this.saveProgress();
+    // await this.saveProgress();
   }
 }

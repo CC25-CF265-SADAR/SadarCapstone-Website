@@ -155,9 +155,9 @@ export function generateModuleNavbarTemplate(moduleTitle) {
 export function generateModuleSidebarTemplate(module, currentTopicId, userProgress = null) {
   // Fungsi untuk menentukan apakah topic sudah selesai
   const isTopicCompleted = (topicId) => {
-    if (!userProgress || !userProgress.topicsProgress) return false;
-    const topicProgress = userProgress.topicsProgress.find((t) => t.topicId === topicId);
-    return topicProgress ? topicProgress.completed : false;
+    if (!userProgress || !userProgress.data.topicsProgress) return false;
+    const topicProgress = userProgress.data.topicsProgress.find((t) => t.topicId === topicId);
+    return topicProgress ? topicProgress.checkpoint : false;
   };
 
   const topicItems = module.topics
@@ -169,10 +169,10 @@ export function generateModuleSidebarTemplate(module, currentTopicId, userProgre
           : `flex items-center justify-between px-4 py-2 rounded cursor-pointer
            hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent hover:shadow-sm
            transition-colors duration-300`;
+      const isCompleted = isTopicCompleted(topic.id);
 
-      // Tampilkan checklist hijau jika checkpoint atau topic sudah selesai
       const check =
-        topic.checkpoint || isTopicCompleted(topic.id)
+        topic.checkpoint && isCompleted
           ? `<svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
           </svg>`
@@ -180,16 +180,16 @@ export function generateModuleSidebarTemplate(module, currentTopicId, userProgre
 
       // Tambahkan indikator progress jika topic sudah selesai tapi bukan checkpoint
       const progressIndicator =
-        !topic.checkpoint && isTopicCompleted(topic.id)
+        !topic.checkpoint && isCompleted
           ? `<span class="text-xs text-green-600 ml-2">selesai</span>`
           : '';
 
       return `
         <li class="${isActive}" tabindex="0" role="button" data-topic-id="${topic.id}">
           <div class="flex items-center gap-3">
-            ${check}
-            <span class="text-sm">${topic.title}</span>
-            ${progressIndicator}
+             ${check}
+             <span class="text-sm">${topic.title}</span>
+             ${progressIndicator}
           </div>
         </li>
       `;
@@ -209,8 +209,8 @@ export function generateModuleProgressbarTemplate(topics, userProgress = null) {
   const total = topics.length;
 
   let completed = 0;
-  if (userProgress && userProgress.topicsProgress) {
-    completed = userProgress.topicsProgress.filter((t) => t.completed).length;
+  if (userProgress && userProgress.data.topicsProgress) {
+    completed = userProgress.data.topicsProgress.filter((t) => t.checkpoint).length;
   } else {
     completed = topics.filter((t) => t.checkpoint).length;
   }
