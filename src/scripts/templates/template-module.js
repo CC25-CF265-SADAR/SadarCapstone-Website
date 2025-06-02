@@ -241,13 +241,13 @@ export function generateModuleContentTextTemplate(content, currentPageIndex) {
   if (!page) return '<p>Halaman tidak ditemukan.</p>';
 
   return `
-    <article class="moduleContentText prose max-w-none px-20 py-6">
+    <article class="moduleContentText prose max-w-none px-20 py-6 bg-cover bg-center" style="background-image: url('/images/bg-mind.jpg');">
         ${page.videoURL ? generateVideoPlayer(page.videoURL) : ''}
       <h2 class="text-3xl font-bold my-4 text-start">${content.title}</h2>
       <section class="mb-6">
         ${
           page.imageURL
-            ? `<img src="${page.imageURL}" alt="Gambar halaman" class="w-full rounded-md mb-4" />`
+            ? `<img src="${page.imageURL}" alt="Gambar halaman" class="w-full max-w-4xl rounded-md mb-4" />`
             : ''
         }
         <p class="text-base mb-2">${page.text}</p>
