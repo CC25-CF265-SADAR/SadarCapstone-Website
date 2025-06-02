@@ -241,7 +241,7 @@ export function generateModuleContentTextTemplate(content, currentPageIndex) {
   if (!page) return '<p>Halaman tidak ditemukan.</p>';
 
   return `
-    <article class="moduleContentText prose max-w-none px-20 py-6 bg-cover bg-center" style="background-image: url('/images/bg-mind.jpg');">
+    <article class="moduleContentText prose max-w-none px-20 py-6 bg-cover bg-center">
         ${page.videoURL ? generateVideoPlayer(page.videoURL) : ''}
       <h2 class="text-3xl font-bold my-4 text-start">${content.title}</h2>
       <section class="mb-6">
