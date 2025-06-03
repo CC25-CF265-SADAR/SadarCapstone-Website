@@ -27,7 +27,7 @@ export async function generateNavbarTemplate() {
       <nav class="hidden md:flex justify-center flex-1">
         <ul class="flex items-center gap-6 text-sm">
           <li>
-            <a class="text-base font-semibold text-white transition hover:text-[#163741]" href="#">CekAjaDulu</a>
+            <a class="text-base font-semibold text-white transition hover:text-[#163741]" href="#/link-checking/cek-umum">CekAjaDulu</a>
           </li>
           <li class="relative group">
             <a href="#/module-overview" class="flex items-center gap-1 text-base font-semibold text-white transition hover:text-[#163741] focus:outline-none">
@@ -118,7 +118,7 @@ export async function generateNavbarAuthTemplate() {
       <nav class="hidden md:flex justify-center flex-1">
         <ul class="flex items-center gap-6 text-sm">
           <li>
-            <a class="text-base font-semibold text-white transition hover:text-[#163741]" href="#">CekAjaDulu</a>
+            <a class="text-base font-semibold text-white transition hover:text-[#163741]" href="#/link-checking/cek-umum">CekAjaDulu</a>
           </li>
           <li class="relative group">
               <a href="#/module-overview" class="flex items-center gap-1 text-base font-semibold text-white transition hover:text-[#163741] focus:outline-none">
