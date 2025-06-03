@@ -1,5 +1,6 @@
 import { fetchQuestionsByModuleId } from '../../../data/api.js'; // pastikan import api
 import { generateQuizModuleQuestionTemplate } from '../../../templates/template-module.js';
+import { saveUserAnswers } from '../../../data/api.js';
 
 export default class QuizMateriPresenter {
   #currentIndex = 0;
@@ -112,12 +113,58 @@ export default class QuizMateriPresenter {
   }
 
   #finishQuiz() {
-    const correctAnswers = this.questions.map((q) => (q.multiple ? q.answer : [q.answer]));
+  const correctAnswers = this.questions.map((q) => (q.multiple ? q.answer : [q.answer]));
+  const score = this.#calculateScore(correctAnswers);
 
-    localStorage.setItem('userAnswers', JSON.stringify(this.#userAnswers));
-    localStorage.setItem('correctAnswers', JSON.stringify(correctAnswers));
-
-    // Arahkan ke halaman hasil quiz dan kirim modId lewat URL
-    window.location.href = `#/result-module/${this.modId}`;
+  // Ambil userId dari token
+  const token = localStorage.getItem('token');
+  let userId = '';
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    userId = payload.id || payload._id;
+  } catch (error) {
+    console.error('Error decoding token:', error);
+    throw new Error("Invalid token format");
   }
+
+  // Pastikan data yang dikirim sesuai dengan schema
+  const data = {
+    modId: this.modId,
+    userId,
+    questions: this.questions, // Kirim pertanyaan lengkap
+    userAnswers: this.#userAnswers,
+    score,
+    totalQuestions: this.totalQuestions
+  };
+
+  // Tambahkan error handling yang lebih baik
+  saveUserAnswers(data)
+    .then(response => {
+      console.log('Answers saved successfully:', response);
+      window.location.href = `#/result-module/${this.modId}`;
+    })
+    .catch(error => {
+      console.error('Error saving answers:', error);
+      this.view.showErrorMessage(`Gagal menyimpan jawaban: ${error.message}`);
+    });
+}
+
+#calculateScore(correctAnswers) {
+  let correctCount = 0;
+
+  this.#userAnswers.forEach((userAnswer, index) => {
+    const correct = correctAnswers[index];
+    
+    const isCorrect = Array.isArray(correct)
+      ? correct.every(answer => userAnswer.includes(answer)) 
+      : correct === userAnswer[0]; 
+
+    if (isCorrect) {
+      correctCount++;
+    }
+  });
+
+  return Math.round((correctCount / this.totalQuestions) * 100); 
+}
+
 }

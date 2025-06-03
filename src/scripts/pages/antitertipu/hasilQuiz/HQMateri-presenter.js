@@ -1,45 +1,63 @@
+import { fetchResultByUserId, fetchQuestionsByModuleId } from '../../../data/api.js';
+
 export default class QuizResultPresenter {
-  constructor(modId, questions) {
+  constructor(modId) {
     this.modId = modId;
-    this.questions = questions;
+    this.userId = this.getUserId();
   }
 
-  getResultData() {
-    const userAnswers = JSON.parse(localStorage.getItem('userAnswers')) || [];
-    const correctAnswers = JSON.parse(localStorage.getItem('correctAnswers')) || [];
+  async getResultData() {
+    try {
+      const resultData = await fetchResultByUserId(this.modId);
 
-    const flatten = (array) => array.flat();
+      // Cek hasil kuis
+      if (!resultData || !Array.isArray(resultData.answers)) {
+        throw new Error('Data hasil kuis tidak ditemukan atau rusak.');
+      }
 
-    // Normalisasi correctAnswers dan userAnswers
-    const normalizedCorrectAnswers = correctAnswers.map(flatten);
-    const normalizedUserAnswers = userAnswers.map(flatten);
-    localStorage.setItem('correctAnswers', JSON.stringify(normalizedCorrectAnswers));
-    localStorage.setItem('userAnswers', JSON.stringify(normalizedUserAnswers));
+      // Ambil pertanyaan dari localStorage atau API
+      let questions = JSON.parse(localStorage.getItem('questions'));
 
-    const totalQuestions = this.questions.length;
-    const correctCount = this.questions.reduce((acc, q, i) => {
-      const correct = normalizedCorrectAnswers[i];
-      const user = normalizedUserAnswers[i];
-      const isCorrect = correct.every((answer) => user.includes(answer));
+      if (!questions || !Array.isArray(questions)) {
+        const fetched = await fetchQuestionsByModuleId(this.modId);
+        if (!Array.isArray(fetched)) {
+          throw new Error('Gagal mengambil daftar pertanyaan.');
+        }
+        questions = fetched;
+        localStorage.setItem('questions', JSON.stringify(questions)); // opsional
+      }
 
-      return acc + (isCorrect ? 1 : 0);
-    }, 0);
+      // Ekstrak dan ubah struktur
+      const userAnswers = resultData.answers.map((a) => a.selected || []);
+      const correctAnswers = resultData.answers.map((a) => a.correct || []);
 
-    const score = Math.round((correctCount / totalQuestions) * 100);
-    const date = new Date().toLocaleString('id-ID', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    });
-
-    return { score, totalQuestions, userAnswers, correctAnswers, date };
+      return {
+        totalQuestions: resultData.totalQuestions || questions.length,
+        score: resultData.score || 0,
+        date: new Date(resultData.date).toLocaleDateString(),
+        userAnswers,
+        correctAnswers,
+        questions,
+      };
+    } catch (error) {
+      console.error('Error in getResultData():', error);
+      return {
+        error: true,
+        message: error.message || 'Terjadi kesalahan saat mengambil hasil kuis',
+      };
+    }
   }
 
-  clearData() {
-    localStorage.removeItem('userAnswers');
-    localStorage.removeItem('correctAnswers');
+  getUserId() {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.id || payload._id;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
+    }
   }
 }
