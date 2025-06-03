@@ -54,6 +54,7 @@ export default class ModuleLayoutPresenter {
         this.currentTopicIndex,
         this.moduleDetail.topics.length,
         this.getNextTopicId(),
+        this.pageIndex,
       );
       this.view.renderNavbar(this.moduleTitle);
       this.view.renderContent(this.content, this.pageIndex - 1);
@@ -155,6 +156,7 @@ export default class ModuleLayoutPresenter {
       this.currentTopicIndex,
       this.moduleDetail.topics.length,
       this.getNextTopicId(),
+      this.pageIndex,
     );
   }
 
@@ -186,6 +188,7 @@ export default class ModuleLayoutPresenter {
       this.currentTopicIndex,
       this.moduleDetail.topics.length,
       this.getNextTopicId(),
+      this.pageIndex,
     );
   }
 }

@@ -75,7 +75,7 @@ export default class ModuleLayoutPage {
     const isIntroQuiz = content.title?.toLowerCase().includes('kuis evaluasi');
 
     if (isIntroQuiz) {
-      contentArea.innerHTML = generateIntroQuizTemplate(this.moduleTitle);
+      contentArea.innerHTML = generateIntroQuizTemplate(this.presenter.moduleTitle);
 
       // Aktifkan tombol setelah render
       document.querySelector('#start-quiz-button')?.addEventListener('click', () => {
@@ -94,18 +94,20 @@ export default class ModuleLayoutPage {
     contentArea.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
   }
 
-  renderFooter(moduleTitle, currentIndex, total, nextTopicId) {
+  renderFooter(moduleTitle, currentIndex, total, nextTopicId, pageIndex) {
     const footer = document.querySelector('#module-footer');
-
     const isIntroQuiz = this.presenter.content?.title?.toLowerCase().includes('kuis evaluasi');
+    const isFirstPage = currentIndex === 0 && pageIndex === 1;
 
     if (footer) {
       footer.innerHTML = generateModuleFooterTemplate(
         this.presenter.content.title,
-        isIntroQuiz // ini nilai untuk hideNext
+        isIntroQuiz,      // hideNext
+        isFirstPage        // hidePrev
       );
     }
   }
+
 
   showError(message) {
     const contentArea = document.querySelector('#module-content');

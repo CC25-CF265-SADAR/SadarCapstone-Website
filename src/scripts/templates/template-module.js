@@ -301,36 +301,39 @@ export function generateModuleContentTextTemplate(content, currentPageIndex) {
   `;
 }
 
-export function generateModuleFooterTemplate(text, hideNext = false) {
+export function generateModuleFooterTemplate(text, hideNext = false, hidePrev = false) {
   const nextButtonClass = hideNext ? 'hidden' : 'flex items-center bg-[#42A7C3] hover:bg-[#2C6F82] text-white px-4 py-2 rounded';
+  const prevButtonClass = hidePrev ? 'hidden' : 'flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed';
+
+  const justifyClass = hideNext && hidePrev
+    ? 'justify-center'
+    : hideNext || hidePrev
+    ? 'justify-between'
+    : 'justify-between';
 
   return `
     <div class="fixed bottom-0 left-10 right-10 bg-white border-t border-gray-300 px-4 py-3 z-50">
-      <div class="max-w-5xl mx-auto flex items-center justify-between text-sm sm:text-base font-medium text-gray-800">
-
+      <div class="max-w-5xl mx-auto relative flex items-center ${justifyClass} text-sm sm:text-base font-medium text-gray-800">
+        
         <!-- Tombol Sebelumnya -->
-        <button
-          id="prev-button"
-          class="flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed">
-            <svg class="w-4 h-4 me-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10" aria-hidden="true">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0l4 4M1 5l4-4" />
-            </svg>
-            <span>Sebelumnya</span>
+        <button id="prev-button" class="${prevButtonClass}">
+          <svg class="w-4 h-4 me-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0l4 4M1 5l4-4" />
+          </svg>
+          <span>Sebelumnya</span>
         </button>
 
         <!-- Judul Materi -->
-        <h3 id="material-title" class="text-center font-semibold text-gray-800 truncate max-w-[50%]">
+        <h3 id="material-title" class="absolute left-1/2 transform -translate-x-1/2 font-semibold text-gray-800 truncate max-w-[60%] text-center">
           ${text}
         </h3>
-        
+
         <!-- Tombol Selanjutnya -->
-        <button
-          id="next-button"
-          class="${nextButtonClass}">
-           <span>Selanjutnya</span>
-             <svg class="w-4 h-4 ms-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10" aria-hidden="true">
-                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-            </svg>
+        <button id="next-button" class="${nextButtonClass} ${hidePrev ? 'ml-auto' : ''}">
+          <span>Selanjutnya</span>
+          <svg class="w-4 h-4 ms-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+          </svg>
         </button>
       </div>
     </div>
@@ -339,13 +342,30 @@ export function generateModuleFooterTemplate(text, hideNext = false) {
 
 export function generateIntroQuizTemplate(modTitle) {
   return `
-    <div class="p-6 text-center">
-      <h2 class="text-2xl font-bold mb-4">Waktunya Menguji Pemahamanmu!</h2>
-      <p class="mb-4">Kamu telah menyelesaikan semua topik di modul <strong>${modTitle}</strong>. Sekarang saatnya mengerjakan kuis evaluasi untuk menguji pemahamanmu.</p>
-      <button id="start-quiz-button" class="bg-[#42A7C3] text-white px-6 py-3 rounded hover:bg-[#2C6F82]">
-        Mulai Kuis
+    <section class="min-h-[60vh] flex flex-col items-center justify-center bg-white text-center p-6">
+      <img
+        src="/images/yeyy.gif"
+        alt="Quiz Time"
+        class="w-36 mb-2 animate-bounce"
+      />
+
+      <h2 class="text-4xl font-extrabold text-[#2C6F82] mb-4 drop-shadow-sm">
+        Waktunya Menguji Pemahamanmu!
+      </h2>
+
+      <p class="text-lg text-black max-w-2xl mb-6 px-4 leading-relaxed">
+        Kamu telah menyelesaikan semua topik di modul
+        <span class="text-[#42A7C3] font-semibold">"${modTitle}"</span>.
+        Sekarang saatnya mengerjakan <strong>kuis evaluasi</strong> untuk melihat seberapa jauh kamu memahami materi ini.
+      </p>
+
+      <button
+        id="start-quiz-button"
+        class="bg-[#42A7C3] hover:bg-[#2C6F82] text-white text-base px-6 py-3 rounded-full font-semibold shadow-md transition-transform transform hover:scale-105"
+      >
+        🚀 Mulai Kuis Sekarang
       </button>
-    </div>
+    </section>
   `;
 }
 
