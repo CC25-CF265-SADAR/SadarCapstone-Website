@@ -440,7 +440,6 @@ export function generateBreadcrumbTemplate(items = []) {
 export function generateQuizModuleResultTemplate({
   totalQuestions,
   score,
-  date,
   userAnswers,
   correctAnswers,
   questions,
@@ -451,8 +450,6 @@ export function generateQuizModuleResultTemplate({
   return `
     <section class="result-page w-full max-w-4xl mx-auto p-6 space-y-8">
       <div class="text-center space-y-2">
-        <h1 class="text-2xl font-bold">Hasil Exam</h1>
-        <p class="text-sm text-gray-500">Tanggal Ujian: ${date}</p>
         <div class="flex justify-center gap-10 mt-4 text-lg">
           <div>
             <div class="text-gray-500">Total soal</div>
@@ -468,8 +465,8 @@ export function generateQuizModuleResultTemplate({
             isPerfectScore
               ? 'Anda telah memahami seluruh materi dengan sangat baik. Selamat!'
               : isPassed
-                ? 'Selamat! Anda telah lulus dari ujian ini.'
-                : 'Anda belum lulus. Silakan pelajari kembali materi dan coba lagi.'
+              ? 'Selamat! Anda telah lulus dari ujian ini.'
+              : 'Anda belum lulus. Silakan pelajari kembali materi dan coba lagi.'
           }
         </p>
         <div class="mt-6 flex justify-center gap-4">
@@ -488,32 +485,50 @@ export function generateQuizModuleResultTemplate({
             const userAnswer = userAnswers[index] || [];
             const correct = correctAnswers[index] || [];
 
+            const normalizedCorrect = correct.map(c => String(c).trim().toLowerCase());
+            const normalizedUser = userAnswer.map(u => String(u).trim().toLowerCase());
+
+            const isQuestionCorrect = normalizedCorrect.length === normalizedUser.length && 
+                                     normalizedCorrect.every(val => normalizedUser.includes(val));
+
             return `
-              <div class="border rounded-lg p-4 space-y-3">
-                <h3 class="font-semibold text-md">${index + 1}. ${question.question}</h3>
+              <div class="border rounded-lg p-4 space-y-3 ${isQuestionCorrect ? 'border-green-200' : 'border-red-200'}">
+                <div class="flex justify-between items-start">
+                  <h3 class="font-semibold text-md">${index + 1}. ${question.question}</h3>
+                  <span class="text-sm px-2 py-1 rounded ${isQuestionCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                    ${isQuestionCorrect ? 'Benar' : 'Salah'}
+                  </span>
+                </div>
                 <div class="space-y-2">
-                  ${question.options
-                    .map((option) => {
-                      const isCorrect = correct.includes(option);
-                      const isSelected = userAnswer.includes(option);
-                      const isRightAndSelected = isCorrect && isSelected;
-                      const isWrongAndSelected = !isCorrect && isSelected;
+                  ${(question.options || []).map((option) => {
+                    const normalizedOption = String(option).trim().toLowerCase();
+                    const isCorrectAnswer = normalizedCorrect.includes(normalizedOption);
+                    const isUserAnswer = normalizedUser.includes(normalizedOption);
 
-                      let color = '';
-                      if (isRightAndSelected)
+                    // Hanya beri warna jika option dipilih user
+                    let color = '';
+                    let icon = '';
+                    if (isUserAnswer) {
+                      if (isCorrectAnswer) {
                         color = 'bg-green-100 border-green-500 text-green-700';
-                      if (isWrongAndSelected) color = 'bg-red-100 border-red-500 text-red-700';
+                        icon = '<span class="float-right text-green-600">✓</span>';
+                      } else {
+                        color = 'bg-red-100 border-red-500 text-red-700';
+                        icon = '<span class="float-right text-red-600">✗</span>';
+                      }
+                    } else {
+                      color = 'bg-white border-gray-200';
+                    }
 
-                      return `
-                        <div class="border rounded-md px-4 py-2 ${color}">
-                          ${option}
-                        </div>`;
-                    })
-                    .join('')}
+                    return `
+                      <div class="border rounded-md px-4 py-2 ${color}">
+                        ${option}
+                        ${icon}
+                      </div>`;
+                  }).join('')}
                 </div>
               </div>`;
-          })
-          .join('')}
+          }).join('')}
       </div>
     </section>
   `;

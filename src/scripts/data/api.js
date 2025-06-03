@@ -160,47 +160,35 @@ export const fetchQuestionsByModuleId = async (modId) => {
 };
 
 export const saveUserAnswers = async (data) => {
-  const { modId, answers, score, totalQuestions, token } = data;
-  
-  try{
-      const response = await fetch(`${BASE_URL}/modules/\${modId}/questions/save`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ answers, score, totalQuestions }),
-    });
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Gagal menyimpan jawaban');
-    }
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    console.error('saveUserAnswers error:', error);
-    throw error;
-  }
+  const { modId, token, ...body } = data;
+  return fetch(`${BASE_URL}/modules/${modId}/questions/save`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(body)
+  })
+  .then((res) => {
+    if (!res.ok) return res.json().then(err => Promise.reject(err));
+    return res.json();
+  });
 };
 
 export const fetchResultByUserId = async (modId, token) => {
-  try {
-    const response = await fetch(`/modules/\${modId}/results`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      },
-    });
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Gagal mengambil hasil');
-    }
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    console.error('fetchResultByUserId error:', error);
-    throw error;
+  const res = await fetch(`${BASE_URL}/modules/${modId}/results`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || 'Gagal mengambil hasil kuis');
   }
+
+  return await res.json();
 };
 
 // === UTILITY ===

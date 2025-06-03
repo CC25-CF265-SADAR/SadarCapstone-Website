@@ -1,54 +1,53 @@
+import {
+  fetchResultByUserId,
+  fetchQuestionsByModuleId,
+} from '../../../data/api.js';
 import { generateQuizModuleResultTemplate } from '../../../templates/template-module.js';
-import QuizResultPresenter from './HQMateri-presenter.js';
 
 export default class QuizResultModulePage {
-  constructor() {
-    const hash = window.location.hash;
-    const parts = hash.split('/');
-    this.modId = parts[2];
-    this.presenter = new QuizResultPresenter(this.modId);
+  constructor(modId) {
+    this.modId = modId;
   }
 
   async render() {
-    return `
-      <div class="container mx-auto px-4 py-8">
-        <div id="result-container" class="bg-white rounded-lg shadow-md p-6"></div>
-        <div id="loading-message" class="text-center py-8">
-          <p>Memuat hasil kuis...</p>
-        </div>
-        <div id="error-message" class="hidden text-center py-8 text-red-500"></div>
-      </div>
-    `;
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return `<p class="text-red-500 text-center">Token tidak ditemukan. Silakan login kembali.</p>`;
+    }
+
+    try {
+      const resultData = await fetchResultByUserId(this.modId, token);
+      const questionData = await fetchQuestionsByModuleId(this.modId, token);
+      const questions = questionData.questions || [];
+
+      const userAnswers = resultData.answers.map((ans) =>
+        Array.isArray(ans.userAnswer) ? ans.userAnswer : [String(ans.userAnswer)]
+      );
+
+      const correctAnswers = questions.map((q) =>
+        Array.isArray(q.answer) ? q.answer : [String(q.answer)]
+      );
+
+      return generateQuizModuleResultTemplate({
+        totalQuestions: resultData.totalQuestions,
+        score: resultData.score,
+        date: new Date(resultData.createdAt).toLocaleDateString(),
+        userAnswers,
+        correctAnswers,
+        questions,
+      });
+    } catch (error) {
+      console.error('❌ Gagal mengambil hasil kuis:', error);
+      return `<p class="text-red-500 text-center">Gagal mengambil hasil kuis: ${error.message}</p>`;
+    }
   }
 
   async afterRender() {
-    const container = document.getElementById('result-container');
-    const loading = document.getElementById('loading-message');
-    const errorDiv = document.getElementById('error-message');
-
-    try {
-      const resultData = await this.presenter.getResultData();
-      
-      if (resultData.error) {
-        throw new Error(resultData.message);
-      }
-
-      loading.classList.add('hidden');
-      container.innerHTML = generateQuizModuleResultTemplate({
-        ...resultData,
-        modId: this.modId
+    const retryBtn = document.getElementById('retry-button');
+    if (retryBtn) {
+      retryBtn.addEventListener('click', () => {
+        window.location.href = `#/quiz-modul/${this.modId}`;
       });
-
-      const retryButton = document.getElementById('retry-button');
-      retryButton?.addEventListener('click', () => {
-        window.location.hash = `#/quiz-modul/${this.modId}`;
-      });
-
-    } catch (error) {
-      loading.classList.add('hidden');
-      errorDiv.classList.remove('hidden');
-      errorDiv.textContent = error.message || 'Terjadi kesalahan saat memuat hasil kuis';
-      console.error('Error:', error);
     }
   }
 }

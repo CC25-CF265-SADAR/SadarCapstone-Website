@@ -1,12 +1,11 @@
-import { fetchQuestionsByModuleId } from '../../../data/api.js'; // pastikan import api
+import { fetchQuestionsByModuleId, saveUserAnswers } from '../../../data/api.js';
 import { generateQuizModuleQuestionTemplate } from '../../../templates/template-module.js';
-import { saveUserAnswers } from '../../../data/api.js';
 
 export default class QuizMateriPresenter {
   #currentIndex = 0;
   #userAnswers = [];
   #navigationSetup = false;
-  questions = []; // Menyimpan pertanyaan yang didapatkan dari API
+  questions = [];
 
   constructor(view) {
     this.view = view;
@@ -15,12 +14,11 @@ export default class QuizMateriPresenter {
 
   async afterRender() {
     try {
-      // Ambil pertanyaan berdasarkan modId dari API
       console.log('Fetching questions for modId:', this.modId);
       const questionsData = await fetchQuestionsByModuleId(this.modId);
       this.questions = questionsData.questions || [];
       this.totalQuestions = this.questions.length;
-      this.#userAnswers = Array(this.totalQuestions).fill(null);
+      this.#userAnswers = Array(this.totalQuestions).fill([]);
 
       this.#renderCurrentQuestion();
       this.#updateProgress();
@@ -35,10 +33,7 @@ export default class QuizMateriPresenter {
     const currentQuestion = this.questions[this.#currentIndex];
     if (!currentQuestion) return;
 
-    // Ambil jawaban yang sudah dipilih untuk soal ini (array)
     const selectedAnswers = this.#userAnswers[this.#currentIndex] || [];
-
-    // Generate template dengan jawaban yang sudah dipilih
     const template = generateQuizModuleQuestionTemplate(currentQuestion, selectedAnswers);
     const isLast = this.#currentIndex === this.totalQuestions - 1;
 
@@ -57,7 +52,7 @@ export default class QuizMateriPresenter {
       const form = document.querySelector('form');
       if (!form) return;
 
-      // Tombol NEXT
+      // NEXT
       if (e.target.closest('#next-button')) {
         const inputName = multiple
           ? `question-${currentQuestion.id}[]`
@@ -70,9 +65,7 @@ export default class QuizMateriPresenter {
         }
 
         this.view.hideErrorMessage();
-
-        const answer = multiple ? Array.from(checked).map((el) => el.value) : [checked[0].value];
-
+        const answer = multiple ? Array.from(checked).map(el => el.value) : [checked[0].value];
         this.#userAnswers[this.#currentIndex] = answer;
 
         if (this.#currentIndex < this.totalQuestions - 1) {
@@ -84,7 +77,6 @@ export default class QuizMateriPresenter {
         }
       }
 
-      // Tombol PREVIOUS
       if (e.target.closest('#prev-button')) {
         if (this.#currentIndex > 0) {
           this.#currentIndex--;
@@ -93,7 +85,6 @@ export default class QuizMateriPresenter {
         }
       }
 
-      // Klik bulatan progress
       if (e.target.dataset.goto) {
         const index = parseInt(e.target.dataset.goto);
         if (!isNaN(index)) {
@@ -106,65 +97,54 @@ export default class QuizMateriPresenter {
   }
 
   #updateProgress() {
-    const answered = this.#userAnswers
-      .slice(0, this.#currentIndex)
-      .filter((a) => a !== null).length;
+    const answered = this.#userAnswers.filter(ans => ans && ans.length > 0).length;
     this.view.updateProgress(answered, this.totalQuestions, this.#userAnswers, this.#currentIndex);
   }
 
   #finishQuiz() {
-  const correctAnswers = this.questions.map((q) => (q.multiple ? q.answer : [q.answer]));
-  const score = this.#calculateScore(correctAnswers);
+    const correctAnswers = this.questions.map(q => (q.multiple ? q.answer : [q.answer]));
+    const score = this.#calculateScore(correctAnswers);
 
-  // Ambil userId dari token
-  const token = localStorage.getItem('token');
-  let userId = '';
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    userId = payload.id || payload._id;
-  } catch (error) {
-    console.error('Error decoding token:', error);
-    throw new Error("Invalid token format");
+    const answers = this.questions.map((question, index) => ({
+      questionId: question.id.trim(),
+      userAnswer: this.#userAnswers[index] || [],
+    }));
+
+    const data = {
+      modId: this.modId.trim(),
+      answers,
+      score,
+      totalQuestions: this.totalQuestions,
+      token: localStorage.getItem('token'), 
+    };
+
+    console.log('Sending data:', data);
+    saveUserAnswers(data)
+      .then(response => {
+        console.log('Answers saved successfully:', response);
+        window.location.href = `#/result-module/${this.modId}`;
+      })
+      .catch(error => {
+        console.error('Error saving answers:', error);
+        this.view.showErrorMessage(`Gagal menyimpan jawaban: ${error.message}`);
+      });
   }
 
-  // Pastikan data yang dikirim sesuai dengan schema
-  const data = {
-    modId: this.modId,
-    userId,
-    questions: this.questions, // Kirim pertanyaan lengkap
-    userAnswers: this.#userAnswers,
-    score,
-    totalQuestions: this.totalQuestions
-  };
-
-  // Tambahkan error handling yang lebih baik
-  saveUserAnswers(data)
-    .then(response => {
-      console.log('Answers saved successfully:', response);
-      window.location.href = `#/result-module/${this.modId}`;
-    })
-    .catch(error => {
-      console.error('Error saving answers:', error);
-      this.view.showErrorMessage(`Gagal menyimpan jawaban: ${error.message}`);
-    });
-}
-
-#calculateScore(correctAnswers) {
+  #calculateScore(correctAnswers) {
   let correctCount = 0;
-
   this.#userAnswers.forEach((userAnswer, index) => {
     const correct = correctAnswers[index];
-    
-    const isCorrect = Array.isArray(correct)
-      ? correct.every(answer => userAnswer.includes(answer)) 
-      : correct === userAnswer[0]; 
 
-    if (isCorrect) {
-      correctCount++;
-    }
+    const normalizedUser = (userAnswer || []).map(ans => String(ans).trim().toLowerCase());
+const normalizedCorrect = (correct || []).map(ans => String(ans).trim().toLowerCase());
+
+    const isCorrect =
+      normalizedCorrect.length === normalizedUser.length &&
+      normalizedCorrect.every(ans => normalizedUser.includes(ans));
+
+    if (isCorrect) correctCount++;
   });
 
-  return Math.round((correctCount / this.totalQuestions) * 100); 
+  return Math.round((correctCount / this.totalQuestions) * 100);
 }
-
 }
