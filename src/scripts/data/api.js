@@ -209,11 +209,15 @@ export const logout = () => {
 };
 
 // === PROGRESS ===
-export const saveUserProgress = async ({ moduleId, topicsProgress }) => {
-    const response = await fetch(`${BASE_URL}/progress`, {
+// === PROGRESS ===
+export const saveUserProgress = async ({ moduleId, topicsProgress, checkQuiz }) => {
+  const response = await fetch(`${BASE_URL}/progress`, {
     method: 'POST',
-    headers: authHeader(),
-    body: JSON.stringify({ moduleId, topicsProgress }),
+    headers: {
+      ...authHeader(),
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ moduleId, topicsProgress, checkQuiz }), // Kirim checkQuiz
   });
 
   if (!response.ok) {
@@ -224,8 +228,8 @@ export const saveUserProgress = async ({ moduleId, topicsProgress }) => {
   return await response.json();
 };
 
-export const fetchUserProgress = async (moduleId) => {
-  const response = await fetch(`${BASE_URL}/progress/${moduleId}`, {
+export const fetchUserProgress = async () => {
+  const response = await fetch(`${BASE_URL}/progress`, {
     method: 'GET',
     headers: authHeader(),
   });
@@ -236,4 +240,22 @@ export const fetchUserProgress = async (moduleId) => {
   }
 
   return await response.json();
+};
+
+export const checkAndUpdateQuizStatus = async (userId, moduleId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/progress/${userId}/${moduleId}/update-checkquiz`, {
+      method: 'GET',
+      headers: authHeader(),
+    });
+
+    if (response.ok) {
+      console.log('Quiz status berhasil diperbarui');
+    } else {
+      const err = await response.json();
+      console.error('Gagal memperbarui quiz status:', err.message);
+    }
+  } catch (error) {
+    console.error('Gagal memperbarui quiz status:', error);
+  }
 };
