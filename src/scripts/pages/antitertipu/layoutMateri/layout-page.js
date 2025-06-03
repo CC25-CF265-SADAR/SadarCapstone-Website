@@ -3,6 +3,7 @@ import {
   generateModuleSidebarTemplate,
   generateModuleContentTextTemplate,
   generateModuleFooterTemplate,
+  generateIntroQuizTemplate,
 } from '../../../templates/template-module.js';
 
 import {
@@ -71,6 +72,21 @@ export default class ModuleLayoutPage {
     const contentArea = document.querySelector('#module-content');
     if (contentArea)
       contentArea.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
+    if (content.id.includes('intro-quiz') || content.title.toLowerCase().includes('quiz evaluasi')) {
+      contentArea.innerHTML = generateIntroQuizTemplate(this.moduleTitle);
+      // Tambahkan event listener di sini
+      document.querySelector('#start-quiz-button')?.addEventListener('click', () => {
+        const modId = this.presenter.moduleDetail?.modId;
+        if (modId) {
+          window.location.hash = `#/quiz-modul/${modId}`;
+        } else {
+          console.error('Module ID tidak ditemukan untuk quiz');
+        }
+      });
+
+    } else {
+      contentArea.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
+    }
   }
 
   renderFooter(moduleTitle, currentIndex, total, nextTopicId) {

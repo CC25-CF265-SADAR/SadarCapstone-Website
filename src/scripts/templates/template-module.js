@@ -303,6 +303,18 @@ export function generateModuleFooterTemplate(text) {
   `;
 }
 
+export function generateIntroQuizTemplate(modTitle) {
+  return `
+    <div class="p-6 text-center">
+      <h2 class="text-2xl font-bold mb-4">Waktunya Menguji Pemahamanmu!</h2>
+      <p class="mb-4">Kamu telah menyelesaikan semua topik di modul <strong>${modTitle}</strong>. Sekarang saatnya mengerjakan kuis evaluasi untuk menguji pemahamanmu.</p>
+      <button id="start-quiz-button" class="bg-[#42A7C3] text-white px-6 py-3 rounded hover:bg-[#2C6F82]">
+        Mulai Kuis
+      </button>
+    </div>
+  `;
+}
+
 export function generateProgressModuleQuizTemplate() {
   const dots = Array(5)
     .fill(`<span class="w-2 h-2 rounded-full bg-[#42A7C3] opacity-100 inline-block"></span>`)
