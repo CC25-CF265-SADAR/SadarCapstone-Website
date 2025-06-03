@@ -415,11 +415,51 @@ export function generateFooterTemplate() {
     `;
 }
 
-export function generateScamTypeTemplate() {
+export function generateScamTypeTemplate({
+  title,
+  subtitle1,
+  content1,
+  subtitle2,
+  content2,
+  subtitle3,
+  content3,
+  subtitle4,
+  content4,
+}) {
   return `
-        <section>
-          <img src="images/background-type.svg">
-        </section>
+<section class="relative flex flex-col items-center justify-center gap-8 mb-12 px-4 py-18">
+  <!-- Background Image -->
+  <img src="images/background-type.svg" alt="Background" class="absolute w-contain h-full object-cover z-0 opacity-100 pointer-events-none" />
+
+
+  <!-- Foreground Content -->
+  <div class="relative z-10">
+    <h1 class="text-center mb-5 text-2xl font-semibold text-[#1F2937]">${title}</h1>
+
+    <section class="flex flex-wrap justify-center gap-10">
+      <div class="max-w-md text-center p-4">
+        <h2 class="text-xl font-medium">${subtitle1}</h2>
+        <p class="text-base text-gray-600">${content1}</p>
+      </div>
+      <div class="max-w-md text-center p-4">
+        <h2 class="text-xl font-medium">${subtitle2}</h2>
+        <p class="text-base text-gray-600">${content2}</p>
+      </div>
+    </section>
+
+    <section class="flex flex-wrap justify-center gap-10 mt-6">
+      <div class="max-w-md text-center p-4">
+        <h2 class="text-xl font-medium">${subtitle3}</h2>
+        <p class="text-base text-gray-600">${content3}</p>
+      </div>
+      <div class="max-w-md text-center p-4">
+        <h2 class="text-xl font-medium">${subtitle4}</h2>
+        <p class="text-base text-gray-600">${content4}</p>
+      </div>
+    </section>
+  </div>
+</section>
+
     `;
 }
 
@@ -608,49 +648,6 @@ export function generateResultTypeTemplate() {
   return `
         //isi disini...
     `;
-}
-
-export function generateLinkCheckTemplate() {
-  return `<section class="flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
-            <div class="cekLink flex flex-col gap-2 justify-center items-center mt-12 p-10 rounded-xl border border-gray-200 shadow-sm">
-              <h1 class="text-2xl sm:text-3xl font-semibold text-[#42A7C3]">Cek Link Mencurigakan</h1>
-              <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Masukkan tautan yang ingin diperiksa. Kami  akan membantu anda  untuk mengetahui keamanan tautan tersebut.</h2>
-              <form class="flex flex-row content-stretch w-full max-w-xl">
-                <label for="search" class="sr-only">Search</label>
-                <div class="relative flex-grow">
-                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                    </svg>
-                  </div>
-                  <input type="search" id="search" class="block w-full py-4 pl-10 text-md text-gray-900 border border-[#42A7C3] rounded-l-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required />
-                </div>
-
-                <button type="submit" class="text-white bg-[#42A7C3] hover:bg-[#378BA2] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-r-lg text-md px-7 py-4 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                  Cek Link
-                </button>
-              </form>
-            </div>
-        </section>`;
-}
-export function generateSpamCheckTemplate() {
-  return `
-  <section class="flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
-      <div class="cekLink flex flex-col gap-2 justify-center items-center mt-12 p-5 sm:p-10 rounded-xl border border-gray-200 shadow-sm w-full max-w-4xl">
-        <h1 class="text-2xl sm:text-3xl font-semibold text-[#42A7C3] text-center">Cek Pesan Spam</h1>
-        <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
-        <form class="flex flex-col gap-3 items-end w-full">
-          <label for="search" class="sr-only">Search</label>
-          <textarea id="search" class="border border-[#42A7C3] rounded-lg w-full p-4 sm:p-5 field-sizing-fixed resize-none" rows="8" placeholder="Masukkan pesan disini..." required></textarea>
-          <button type="submit" class="text-white bg-[#42A7C3] hover:bg-[#378BA2] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md sm:text-md px-5 sm:px-7 py-2.5 sm:py-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Cek Pesan
-          </button>
-        </form>
-      </div>
-    </section>
-  `;
 }
 
 export function generateProgressQuizTemplate() {

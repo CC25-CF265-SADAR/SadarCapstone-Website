@@ -1,4 +1,8 @@
-import { generateTabCekAjaDuluTemplate, markCurrentTabActive } from '../../../templates/template';
+import {
+  generateFooterTemplate,
+  generateTabCekAjaDuluTemplate,
+  markCurrentTabActive,
+} from '../../../templates/template';
 
 export default class CekUmumPage {
   async render() {
@@ -37,6 +41,7 @@ export default class CekUmumPage {
         </form>
       </div>
     </section>
+    ${generateFooterTemplate()}
     `;
   }
 
