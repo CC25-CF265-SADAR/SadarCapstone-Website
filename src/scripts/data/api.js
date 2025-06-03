@@ -159,17 +159,65 @@ export const fetchQuestionsByModuleId = async (modId) => {
   return await response.json(); // Mengembalikan data pertanyaan
 };
 
+export const saveUserAnswers = async (data) => {
+  const { modId, answers, score, totalQuestions, token } = data;
+  
+  try{
+      const response = await fetch(`${BASE_URL}/modules/\${modId}/questions/save`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ answers, score, totalQuestions }),
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Gagal menyimpan jawaban');
+    }
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('saveUserAnswers error:', error);
+    throw error;
+  }
+};
+
+export const fetchResultByUserId = async (modId, token) => {
+  try {
+    const response = await fetch(`/modules/\${modId}/results`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Gagal mengambil hasil');
+    }
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('fetchResultByUserId error:', error);
+    throw error;
+  }
+};
+
 // === UTILITY ===
 export const logout = () => {
   localStorage.removeItem('token');
 };
 
 // === PROGRESS ===
-export const saveUserProgress = async ({ moduleId, topicsProgress }) => {
-    const response = await fetch(`${BASE_URL}/progress`, {
+// === PROGRESS ===
+export const saveUserProgress = async ({ moduleId, topicsProgress, checkQuiz }) => {
+  const response = await fetch(`${BASE_URL}/progress`, {
     method: 'POST',
-    headers: authHeader(),
-    body: JSON.stringify({ moduleId, topicsProgress }),
+    headers: {
+      ...authHeader(),
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ moduleId, topicsProgress, checkQuiz }), // Kirim checkQuiz
   });
 
   if (!response.ok) {
@@ -180,8 +228,8 @@ export const saveUserProgress = async ({ moduleId, topicsProgress }) => {
   return await response.json();
 };
 
-export const fetchUserProgress = async (moduleId) => {
-  const response = await fetch(`${BASE_URL}/progress/${moduleId}`, {
+export const fetchUserProgress = async () => {
+  const response = await fetch(`${BASE_URL}/progress`, {
     method: 'GET',
     headers: authHeader(),
   });
@@ -192,4 +240,22 @@ export const fetchUserProgress = async (moduleId) => {
   }
 
   return await response.json();
+};
+
+export const checkAndUpdateQuizStatus = async (userId, moduleId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/progress/${userId}/${moduleId}/update-checkquiz`, {
+      method: 'GET',
+      headers: authHeader(),
+    });
+
+    if (response.ok) {
+      console.log('Quiz status berhasil diperbarui');
+    } else {
+      const err = await response.json();
+      console.error('Gagal memperbarui quiz status:', err.message);
+    }
+  } catch (error) {
+    console.error('Gagal memperbarui quiz status:', error);
+  }
 };
