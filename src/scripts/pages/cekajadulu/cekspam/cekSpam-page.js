@@ -1,4 +1,9 @@
-import { generateTabCekAjaDuluTemplate, markCurrentTabActive } from '../../../templates/template';
+import {
+  generateScamTypeTemplate,
+  generateSpamCheckTemplate,
+  generateTabCekAjaDuluTemplate,
+  markCurrentTabActive,
+} from '../../../templates/template';
 
 export default class CekSpamPage {
   async render() {
@@ -6,7 +11,7 @@ export default class CekSpamPage {
     <section class="mt-5 mx-12">
       <div id="tab-container"></div>
     </section>
-        //isi template disini
+    ${generateSpamCheckTemplate()}
     `;
   }
 

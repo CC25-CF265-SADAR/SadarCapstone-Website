@@ -417,7 +417,9 @@ export function generateFooterTemplate() {
 
 export function generateScamTypeTemplate() {
   return `
-        //isi disini...
+        <section>
+          <img src="images/background-type.svg">
+        </section>
     `;
 }
 
@@ -539,7 +541,7 @@ export function generateTabCekAjaDuluTemplate() {
   return `
         <div class="inline-flex rounded-md shadow-xs gap-3" role="group">
         <a href="#/link-checking/cek-umum" data-tab="cek-umum"
-          class="tab-link group flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg 
+          class="tab-link group flex items-center flex-col text-center md:flex-row gap-2 px-4 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg 
           hover:bg-[#42A7C3] hover:text-white focus:z-10 focus:ring-1 focus:ring-[#42A7C3] focus:bg-[#42A7C3] focus:text-white 
           aria-[current=page]:bg-[#42A7C3] aria-[current=page]:text-white
           dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
@@ -548,7 +550,7 @@ export function generateTabCekAjaDuluTemplate() {
         </a>
 
         <a href="#/link-checking/cek-spam" data-tab="cek-spam" 
-          class="tab-link group flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg 
+          class="tab-link group flex items-center flex-col text-center md:flex-row gap-2 px-4 py-3 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg 
           hover:bg-[#42A7C3] hover:text-white focus:z-10 focus:ring-1 focus:ring-[#42A7C3] focus:bg-[#42A7C3] focus:text-white dark:border-white 
           aria-[current=page]:bg-[#42A7C3] aria-[current=page]:text-white
           dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
@@ -558,7 +560,7 @@ export function generateTabCekAjaDuluTemplate() {
         </a>
 
         <a href="#/link-checking/cek-link" data-tab="cek-link"
-          class="tab-link group flex items-center gap-2 px-4 py-3 px-4 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg 
+          class="tab-link group flex items-center flex-col text-center md:flex-row  gap-2 px-4 py-3 px-4 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg 
           hover:bg-[#42A7C3] hover:text-white focus:z-10 focus:ring-1 focus:ring-[#42A7C3] focus:bg-[#42A7C3] focus:text-white dark:border-white 
           aria-[current=page]:bg-[#42A7C3] aria-[current=page]:text-white
           dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
@@ -609,10 +611,10 @@ export function generateResultTypeTemplate() {
 }
 
 export function generateLinkCheckTemplate() {
-  return `<section class="flex flex-col justify-center items-center">
+  return `<section class="flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
             <div class="cekLink flex flex-col gap-2 justify-center items-center mt-12 p-10 rounded-xl border border-gray-200 shadow-sm">
-              <h1 class="text-3xl font-semibold text-[#42A7C3]">Cek Link Mencurigakan</h1>
-              <h2 class="text-lg font-regular text-gray-600 mb-5">Masukkan tautan yang ingin diperiksa. Kami  akan membantu anda  untuk mengetahui keamanan tautan tersebut.</h2>
+              <h1 class="text-2xl sm:text-3xl font-semibold text-[#42A7C3]">Cek Link Mencurigakan</h1>
+              <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Masukkan tautan yang ingin diperiksa. Kami  akan membantu anda  untuk mengetahui keamanan tautan tersebut.</h2>
               <form class="flex flex-row content-stretch w-full max-w-xl">
                 <label for="search" class="sr-only">Search</label>
                 <div class="relative flex-grow">
@@ -623,15 +625,32 @@ export function generateLinkCheckTemplate() {
                         d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                     </svg>
                   </div>
-                  <input type="search" id="search" class="block w-full py-4 pl-10 text-sm text-gray-900 border border-[#42A7C3] rounded-l-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required />
+                  <input type="search" id="search" class="block w-full py-4 pl-10 text-md text-gray-900 border border-[#42A7C3] rounded-l-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required />
                 </div>
 
-                <button type="submit" class="text-white bg-[#42A7C3] hover:bg-[#378BA2] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-r-lg text-sm px-7 py-4 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <button type="submit" class="text-white bg-[#42A7C3] hover:bg-[#378BA2] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-r-lg text-md px-7 py-4 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                   Cek Link
                 </button>
               </form>
             </div>
         </section>`;
+}
+export function generateSpamCheckTemplate() {
+  return `
+  <section class="flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
+      <div class="cekLink flex flex-col gap-2 justify-center items-center mt-12 p-5 sm:p-10 rounded-xl border border-gray-200 shadow-sm w-full max-w-4xl">
+        <h1 class="text-2xl sm:text-3xl font-semibold text-[#42A7C3] text-center">Cek Pesan Spam</h1>
+        <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
+        <form class="flex flex-col gap-3 items-end w-full">
+          <label for="search" class="sr-only">Search</label>
+          <textarea id="search" class="border border-[#42A7C3] rounded-lg w-full p-4 sm:p-5 field-sizing-fixed resize-none" rows="8" placeholder="Masukkan pesan disini..." required></textarea>
+          <button type="submit" class="text-white bg-[#42A7C3] hover:bg-[#378BA2] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md sm:text-md px-5 sm:px-7 py-2.5 sm:py-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Cek Pesan
+          </button>
+        </form>
+      </div>
+    </section>
+  `;
 }
 
 export function generateProgressQuizTemplate() {

@@ -1,5 +1,6 @@
 import {
   generateLinkCheckTemplate,
+  generateScamTypeTemplate,
   generateTabCekAjaDuluTemplate,
   markCurrentTabActive,
 } from '../../../templates/template';
@@ -7,9 +8,9 @@ import {
 export default class CekLinkPage {
   async render() {
     return `
-    <section class="mt-5 mx-12">
-      <div id="tab-container"></div>
-    </section>
+      <section class="mt-5 mx-12">
+        <div id="tab-container"></div>
+      </section>
         ${generateLinkCheckTemplate()}
     `;
   }
