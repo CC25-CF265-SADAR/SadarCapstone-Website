@@ -258,7 +258,7 @@ export function generateModuleProgressbarTemplate(topics, userProgress = null, m
     const topicsProgress = getTopicsProgressForModule(userProgress, moduleId);
     completed = topicsProgress.filter((t) => t.checkpoint).length;
   } else {
-    completed = topics.filter((t) => t.checkpoint).length;
+    completed = 0;
   }
 
   const percent = Math.floor((completed / total) * 100);
