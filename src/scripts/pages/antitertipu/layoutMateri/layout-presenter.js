@@ -79,18 +79,30 @@ export default class ModuleLayoutPresenter {
   }
 
   async saveProgress() {
-    const progressPayload = this.moduleDetail.topics.map((topic, index) => ({
-      topicId: topic.id,
-      checkpoint: index <= this.currentTopicIndex,
-    }));
+    const currentModuleId = this.moduleDetail.modId;
 
-    const checkQuiz = this.isQuizCompleted(); // Cek apakah user sudah mengerjakan quiz
+    // Ambil progress sebelumnya dari state
+    const existingProgress = this.userProgress?.data?.modulesProgress?.find(
+      (m) => m.moduleId === currentModuleId
+    );
+
+    const mergedProgress = this.moduleDetail.topics.map((topic, index) => {
+      const topicId = topic.id;
+      const alreadyCheckpointed = existingProgress?.topicsProgress?.find((t) => t.topicId === topicId)?.checkpoint;
+      const nowCheckpoint = index <= this.currentTopicIndex;
+      return {
+        topicId,
+        checkpoint: alreadyCheckpointed || nowCheckpoint, // ambil yang lebih "jauh"
+      };
+    });
+
+    const checkQuiz = this.isQuizCompleted();
 
     try {
       await this.api.saveUserProgress({
-        moduleId: this.moduleDetail.modId,
-        topicsProgress: progressPayload,
-        checkQuiz: checkQuiz, // Sertakan checkQuiz
+        moduleId: currentModuleId,
+        topicsProgress: mergedProgress,
+        checkQuiz,
       });
     } catch (err) {
       console.error('Gagal menyimpan progress:', err.message);
