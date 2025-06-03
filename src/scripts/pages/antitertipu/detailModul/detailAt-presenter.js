@@ -14,12 +14,31 @@ export default class ModuleDetailPresenter {
     return await fetchModuleDetail(this.moduleId);
   }
 
-  async getUserProgress() {
+  async getTopicProgressArray() {
     try {
       const progressResponse = await fetchUserProgress(this.moduleId);
-      return progressResponse.progress || 0;
+      const topicsProgress =
+        progressResponse.data?.modulesProgress?.find((mod) => mod.moduleId === this.moduleId)
+          ?.topicsProgress || [];
+
+      // Hasilkan array [100, 0, 100, dst]
+      return topicsProgress.map((tp) => (tp.checkpoint ? 100 : 0));
     } catch {
-      return 0;
+      return [];
+    }
+  }
+  async getNextIncompleteTopicId() {
+    try {
+      const progressResponse = await fetchUserProgress(this.moduleId);
+      const topicsProgress =
+        progressResponse.data?.modulesProgress?.find((mod) => mod.moduleId === this.moduleId)
+          ?.topicsProgress || [];
+
+      const next = topicsProgress.find((tp) => tp.checkpoint === false);
+      return next?.topicId || null;
+    } catch (err) {
+      console.warn('Gagal ambil topik belum selesai:', err.message);
+      return null;
     }
   }
 }

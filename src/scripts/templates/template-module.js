@@ -51,7 +51,7 @@ export function generateModuleDetailTemplate(
       <div class="card-body flex flex-col sm:flex-row justify-between items-center px-6 md:px-12 py-6 gap-6 sm:gap-0">
         <div class="flex flex-row gap-5 items-center w-full sm:w-auto">
           <div class="w-full sm:w-xl h-6 bg-gray-200 rounded-full dark:bg-gray-700">
-            <div class="h-6 bg-[#${color}] rounded-full dark:bg-blue-500" style="width:${progress}%" style="background-color: #${color};"></div>
+            <div class="h-6 rounded-full dark:bg-blue-500" style="width:${progress}%; background-color: #${color};"></div>
           </div>
           <p class="text-lg font-semibold text-[#${color}] whitespace-nowrap" style="color: #${color};">${progress}%</p>
         </div>
@@ -95,37 +95,72 @@ export function generateModuleSylabusTemplate(title, topics = [], progress = [])
       </h2>
       <ul class="text-base sm:text-lg font-regular px-0 sm:px-0">
         ${topics
-          .map(
-            (topic, index) => `
-          <li class="flex flex-row items-center gap-4 mt-4 px-5">
-            <div class="relative w-7 h-7 flex-shrink-0">
-              <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-                <circle
-                  cx="18" cy="18" r="16"
-                  fill="none"
-                  class="stroke-current text-gray-200 dark:text-neutral-700"
-                  stroke-width="3"
-                ></circle>
-                <circle
-                  cx="18" cy="18" r="16"
-                  fill="none"
-                  class="stroke-current text-[#378BA2] dark:text-blue-500"
-                  stroke-width="3"
-                  stroke-dasharray="${progress[index] || 100}"
-                  stroke-dashoffset="100"
-                  stroke-linecap="round"
-                ></circle>
+          .map((topic, index) => {
+            const href = resolveTopicHref(index, topics, progress);
+            const percent = progress[index] || 0;
+            const strokeDash = percent;
+            const icon =
+              percent === 100
+                ? `
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-6 h-6 fill-current text-green-700">
+                <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/>
               </svg>
-            </div>
-            <a href="#" class="hover:underline text-sm sm:text-base">
-              ${topic.title}
-            </a>
-          </li>`,
-          )
+            `
+                : `
+              <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-gray-200 dark:text-neutral-700"
+                    stroke-width="3"
+                  ></circle>
+                  <circle
+                    cx="18" cy="18" r="16"
+                    fill="none"
+                    class="stroke-current text-[#378BA2] dark:text-blue-500"
+                    stroke-width="3"
+                    stroke-dasharray="${strokeDash} 100"
+                    stroke-dashoffset="0"
+                    stroke-linecap="round"
+                  ></circle>
+                </svg>
+              `;
+            return `
+              <li class="flex flex-row items-center gap-4 mt-4 px-5">
+                <div class="relative w-7 h-7 flex-shrink-0">
+                  ${icon}
+                </div>
+                <a href="${href}" class="hover:underline text-sm sm:text-base">
+                  ${topic.title}
+                </a>
+              </li>
+            `;
+          })
           .join('')}
       </ul>
     </section>
   `;
+}
+
+function resolveTopicHref(index, topics, progressArray) {
+  const isFirstTime = progressArray.every((p) => p === 0);
+
+  if (isFirstTime) {
+    return `#/modul-belajar/${topics[0].contentId}/pages1`;
+  }
+
+  const isAccessible = progressArray.slice(0, index).every((p) => p === 100);
+
+  if (isAccessible) {
+    return `#/modul-belajar/${topics[index].contentId}/pages1`;
+  }
+
+  const nextIncompleteIndex = progressArray.findIndex((p) => p !== 100);
+  if (nextIncompleteIndex !== -1) {
+    return `#/modul-belajar/${topics[nextIncompleteIndex].contentId}/pages1`;
+  }
+
+  return `#/modul-belajar/${topics[0].contentId}/pages1`;
 }
 
 export function generateModuleNavbarTemplate(moduleTitle) {
@@ -155,15 +190,13 @@ export function generateModuleNavbarTemplate(moduleTitle) {
 
 export function getTopicsProgressForModule(userProgress, moduleId) {
   if (!userProgress || !userProgress.data?.modulesProgress) return [];
-  const moduleProgress = userProgress.data.modulesProgress.find(
-    (mod) => mod.moduleId === moduleId
-  );
+  const moduleProgress = userProgress.data.modulesProgress.find((mod) => mod.moduleId === moduleId);
   return moduleProgress ? moduleProgress.topicsProgress : [];
 }
 
 export function generateModuleSidebarTemplate(module, currentTopicId, userProgress = null) {
   // Fungsi untuk menentukan apakah topic sudah selesai
-  const topicsProgress = getTopicsProgressForModule(userProgress, module.modId); 
+  const topicsProgress = getTopicsProgressForModule(userProgress, module.modId);
 
   const isTopicCompleted = (topicId) => {
     const topicProgress = topicsProgress.find((t) => t.topicId === topicId);
@@ -477,8 +510,8 @@ export function generateQuizModuleResultTemplate({
             isPerfectScore
               ? 'Anda telah memahami seluruh materi dengan sangat baik. Selamat!'
               : isPassed
-              ? 'Selamat! Anda telah lulus dari ujian ini.'
-              : 'Anda belum lulus. Silakan pelajari kembali materi dan coba lagi.'
+                ? 'Selamat! Anda telah lulus dari ujian ini.'
+                : 'Anda belum lulus. Silakan pelajari kembali materi dan coba lagi.'
           }
         </p>
         <div class="mt-6 flex justify-center gap-4">
@@ -497,11 +530,12 @@ export function generateQuizModuleResultTemplate({
             const userAnswer = userAnswers[index] || [];
             const correct = correctAnswers[index] || [];
 
-            const normalizedCorrect = correct.map(c => String(c).trim().toLowerCase());
-            const normalizedUser = userAnswer.map(u => String(u).trim().toLowerCase());
+            const normalizedCorrect = correct.map((c) => String(c).trim().toLowerCase());
+            const normalizedUser = userAnswer.map((u) => String(u).trim().toLowerCase());
 
-            const isQuestionCorrect = normalizedCorrect.length === normalizedUser.length && 
-                                     normalizedCorrect.every(val => normalizedUser.includes(val));
+            const isQuestionCorrect =
+              normalizedCorrect.length === normalizedUser.length &&
+              normalizedCorrect.every((val) => normalizedUser.includes(val));
 
             return `
               <div class="border rounded-lg p-4 space-y-3 ${isQuestionCorrect ? 'border-green-200' : 'border-red-200'}">
@@ -512,35 +546,38 @@ export function generateQuizModuleResultTemplate({
                   </span>
                 </div>
                 <div class="space-y-2">
-                  ${(question.options || []).map((option) => {
-                    const normalizedOption = String(option).trim().toLowerCase();
-                    const isCorrectAnswer = normalizedCorrect.includes(normalizedOption);
-                    const isUserAnswer = normalizedUser.includes(normalizedOption);
+                  ${(question.options || [])
+                    .map((option) => {
+                      const normalizedOption = String(option).trim().toLowerCase();
+                      const isCorrectAnswer = normalizedCorrect.includes(normalizedOption);
+                      const isUserAnswer = normalizedUser.includes(normalizedOption);
 
-                    // Hanya beri warna jika option dipilih user
-                    let color = '';
-                    let icon = '';
-                    if (isUserAnswer) {
-                      if (isCorrectAnswer) {
-                        color = 'bg-green-100 border-green-500 text-green-700';
-                        icon = '<span class="float-right text-green-600">✓</span>';
+                      // Hanya beri warna jika option dipilih user
+                      let color = '';
+                      let icon = '';
+                      if (isUserAnswer) {
+                        if (isCorrectAnswer) {
+                          color = 'bg-green-100 border-green-500 text-green-700';
+                          icon = '<span class="float-right text-green-600">✓</span>';
+                        } else {
+                          color = 'bg-red-100 border-red-500 text-red-700';
+                          icon = '<span class="float-right text-red-600">✗</span>';
+                        }
                       } else {
-                        color = 'bg-red-100 border-red-500 text-red-700';
-                        icon = '<span class="float-right text-red-600">✗</span>';
+                        color = 'bg-white border-gray-200';
                       }
-                    } else {
-                      color = 'bg-white border-gray-200';
-                    }
 
-                    return `
+                      return `
                       <div class="border rounded-md px-4 py-2 ${color}">
                         ${option}
                         ${icon}
                       </div>`;
-                  }).join('')}
+                    })
+                    .join('')}
                 </div>
               </div>`;
-          }).join('')}
+          })
+          .join('')}
       </div>
     </section>
   `;
