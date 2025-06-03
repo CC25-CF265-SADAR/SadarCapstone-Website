@@ -21,8 +21,6 @@ export default class ModuleIntroPage {
       { name: 'Overview', href: '#/module-overview' },
     ];
     return `
-    ${generateTabCekAjaDuluTemplate()}
-    ${generateLinkCheckTemplate()}
         <section class="flex flex-col mt-8">
             <div class="mx-12">
               ${generateBreadcrumbTemplate(breadcrumbItems)}
