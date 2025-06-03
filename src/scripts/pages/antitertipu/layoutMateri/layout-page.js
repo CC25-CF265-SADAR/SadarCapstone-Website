@@ -70,11 +70,14 @@ export default class ModuleLayoutPage {
 
   renderContent(content, currentPageIndex) {
     const contentArea = document.querySelector('#module-content');
-    if (contentArea)
-      contentArea.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
-    if (content.id.includes('intro-quiz') || content.title.toLowerCase().includes('quiz evaluasi')) {
+    if (!contentArea) return;
+
+    const isIntroQuiz = content.title?.toLowerCase().includes('kuis evaluasi');
+
+    if (isIntroQuiz) {
       contentArea.innerHTML = generateIntroQuizTemplate(this.moduleTitle);
-      // Tambahkan event listener di sini
+
+      // Aktifkan tombol setelah render
       document.querySelector('#start-quiz-button')?.addEventListener('click', () => {
         const modId = this.presenter.moduleDetail?.modId;
         if (modId) {
@@ -84,19 +87,22 @@ export default class ModuleLayoutPage {
         }
       });
 
-    } else {
-      contentArea.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
+      return; // STOP, jangan render konten biasa!
     }
+
+    // Konten biasa
+    contentArea.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
   }
 
   renderFooter(moduleTitle, currentIndex, total, nextTopicId) {
     const footer = document.querySelector('#module-footer');
+
+    const isIntroQuiz = this.presenter.content?.title?.toLowerCase().includes('kuis evaluasi');
+
     if (footer) {
       footer.innerHTML = generateModuleFooterTemplate(
         this.presenter.content.title,
-        currentIndex,
-        total,
-        nextTopicId,
+        isIntroQuiz // ini nilai untuk hideNext
       );
     }
   }

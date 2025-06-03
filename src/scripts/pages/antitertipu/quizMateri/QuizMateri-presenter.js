@@ -1,4 +1,4 @@
-import { fetchQuestionsByModuleId, saveUserAnswers } from '../../../data/api.js';
+import { fetchQuestionsByModuleId, saveUserAnswers, saveUserProgress, fetchModuleDetail, fetchUserProgress } from '../../../data/api.js';
 import { generateQuizModuleQuestionTemplate } from '../../../templates/template-module.js';
 
 export default class QuizMateriPresenter {
@@ -101,6 +101,20 @@ export default class QuizMateriPresenter {
     this.view.updateProgress(answered, this.totalQuestions, this.#userAnswers, this.#currentIndex);
   }
 
+  async #fetchModuleDetailAndMarkIntroQuiz() {
+    const response = await fetch(`https://localhost:9001/modules/${this.modId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Gagal mengambil data modul');
+    }
+
+    return await response.json(); // return moduleDetail berisi list topics
+  }
+
   #finishQuiz() {
     const correctAnswers = this.questions.map(q => (q.multiple ? q.answer : [q.answer]));
     const score = this.#calculateScore(correctAnswers);
@@ -120,10 +134,37 @@ export default class QuizMateriPresenter {
 
     console.log('Sending data:', data);
     saveUserAnswers(data)
-      .then(response => {
+      .then(async (response) => {
         console.log('Answers saved successfully:', response);
+
+        const [moduleDetail, userProgressData] = await Promise.all([
+          fetchModuleDetail(this.modId),
+          fetchUserProgress(this.modId),
+        ]);
+
+        const existingProgress = userProgressData?.data?.modulesProgress?.find(
+          (m) => m.moduleId === this.modId
+        );
+
+        const topicsProgress = moduleDetail.topics.map((topic) => {
+        const oldProgress = existingProgress?.topicsProgress?.find(t => t.topicId === topic.id)?.checkpoint;
+
+        const isIntroQuiz = topic.title.toLowerCase().includes('kuis evaluasi');
+        return {
+          topicId: topic.id,
+          checkpoint: oldProgress || isIntroQuiz, // Pertahankan yang lama + tandai intro quiz
+          };
+        });
+
+        await saveUserProgress({
+          moduleId: this.modId,
+          topicsProgress,
+          checkQuiz: true,
+        });
+
         window.location.href = `#/result-module/${this.modId}`;
       })
+
       .catch(error => {
         console.error('Error saving answers:', error);
         this.view.showErrorMessage(`Gagal menyimpan jawaban: ${error.message}`);
