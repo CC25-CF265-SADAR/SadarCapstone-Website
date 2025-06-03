@@ -12,6 +12,7 @@ import ModuleLayoutPage from '../pages/antitertipu/layoutMateri/layout-page';
 import QuizMateriPage from '../pages/antitertipu/quizMateri/QuizMateri-page';
 import QuizResultModulePage from '../pages/antitertipu/hasilQuiz/HQMateri-page';
 import CekLinkPage from '../pages/cekajadulu/ceklink/ceklink-page';
+import CekSpamPage from '../pages/cekajadulu/cekspam/cekSpam-page';
 
 const routes = {
   '/login': () => new LoginPage(),
@@ -28,7 +29,9 @@ const routes = {
     new ModuleLayoutPage(contentId, parseInt(pageIndex)),
   '/quiz-modul/:modId': (modId) => new QuizMateriPage(modId),
   '/result-module/:modId': (modId) => new QuizResultModulePage(modId),
-  '/link-checking': () => new CekLinkPage(),
+  '/link-checking/cek-umum': () => new CekLinkPage(),
+  '/link-checking/cek-link': () => new CekLinkPage(),
+  '/link-checking/cek-spam': () => new CekSpamPage(),
 };
 
 export default routes;

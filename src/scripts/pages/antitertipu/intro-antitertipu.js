@@ -2,7 +2,11 @@ import {
   generateBreadcrumbTemplate,
   generateModuleTemplate,
 } from '../../templates/template-module';
-import { generateFooterTemplate } from '../../templates/template';
+import {
+  generateFooterTemplate,
+  generateLinkCheckTemplate,
+  generateTabCekAjaDuluTemplate,
+} from '../../templates/template';
 import { fetchModules } from '../../data/api';
 
 export default class ModuleIntroPage {
@@ -17,6 +21,8 @@ export default class ModuleIntroPage {
       { name: 'Overview', href: '#/module-overview' },
     ];
     return `
+    ${generateTabCekAjaDuluTemplate()}
+    ${generateLinkCheckTemplate()}
         <section class="flex flex-col mt-8">
             <div class="mx-12">
               ${generateBreadcrumbTemplate(breadcrumbItems)}
@@ -26,6 +32,7 @@ export default class ModuleIntroPage {
             <div id="modules-container" class="flex flex-row flex-wrap justify-evenly items-center gap-y-10 mb-15">
                 <!-- Modul -->
             </div>
+            
             ${generateFooterTemplate()}
         </section>
     `;

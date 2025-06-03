@@ -535,10 +535,103 @@ export function generateQuizFooterTemplate() {
     `;
 }
 
+export function generateTabCekAjaDuluTemplate() {
+  return `
+        <div class="inline-flex rounded-md shadow-xs gap-3" role="group">
+        <a href="#/link-checking/cek-umum" data-tab="cek-umum"
+          class="tab-link group flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg 
+          hover:bg-[#42A7C3] hover:text-white focus:z-10 focus:ring-1 focus:ring-[#42A7C3] focus:bg-[#42A7C3] focus:text-white 
+          aria-[current=page]:bg-[#42A7C3] aria-[current=page]:text-white
+          dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+          <svg class="icon-default block w-6 h-6 fill-current " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M220.6 130.3l-67.2 28.2V43.2L98.7 233.5l54.7-24.2v130.3l67.2-209.3zm-83.2-96.7l-1.3 4.7-15.2 52.9C80.6 106.7 52 145.8 52 191.5c0 52.3 34.3 95.9 83.4 105.5v53.6C57.5 340.1 0 272.4 0 191.6c0-80.5 59.8-147.2 137.4-158zm311.4 447.2c-11.2 11.2-23.1 12.3-28.6 10.5-5.4-1.8-27.1-19.9-60.4-44.4-33.3-24.6-33.6-35.7-43-56.7-9.4-20.9-30.4-42.6-57.5-52.4l-9.7-14.7c-24.7 16.9-53 26.9-81.3 28.7l2.1-6.6 15.9-49.5c46.5-11.9 80.9-54 80.9-104.2 0-54.5-38.4-102.1-96-107.1V32.3C254.4 37.4 320 106.8 320 191.6c0 33.6-11.2 64.7-29 90.4l14.6 9.6c9.8 27.1 31.5 48 52.4 57.4s32.2 9.7 56.8 43c24.6 33.2 42.7 54.9 44.5 60.3s.7 17.3-10.5 28.5zm-9.9-17.9c0-4.4-3.6-8-8-8s-8 3.6-8 8 3.6 8 8 8 8-3.6 8-8z"/></svg>
+          Cek Umum (?)
+        </a>
+
+        <a href="#/link-checking/cek-spam" data-tab="cek-spam" 
+          class="tab-link group flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg 
+          hover:bg-[#42A7C3] hover:text-white focus:z-10 focus:ring-1 focus:ring-[#42A7C3] focus:bg-[#42A7C3] focus:text-white dark:border-white 
+          aria-[current=page]:bg-[#42A7C3] aria-[current=page]:text-white
+          dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+          <svg class="icon-default block w-5 h-5 fill-current group-hover:hidden group-focus:hidden group-aria-[current=page]:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm56 256c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z"/></svg>
+          <svg class="icon-hover hidden w-5 h-5 fill-current group-hover:block group-focus:block group-aria-[current=page]:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM112 256l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+          Cek Pesan Spam
+        </a>
+
+        <a href="#/link-checking/cek-link" data-tab="cek-link"
+          class="tab-link group flex items-center gap-2 px-4 py-3 px-4 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg 
+          hover:bg-[#42A7C3] hover:text-white focus:z-10 focus:ring-1 focus:ring-[#42A7C3] focus:bg-[#42A7C3] focus:text-white dark:border-white 
+          aria-[current=page]:bg-[#42A7C3] aria-[current=page]:text-white
+          dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+          <svg class="icon-default block w-5 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"/></svg>
+          Cek Link
+        </a>
+      </div>    
+  `;
+}
+
+export function markCurrentTabActive() {
+  const currentPath = window.location.hash;
+  const tabLinks = document.querySelectorAll('#tab-container a[data-tab]');
+
+  tabLinks.forEach((link) => {
+    const tab = link.getAttribute('data-tab');
+    const isActive = currentPath.includes(tab);
+
+    // Tambahkan / hapus kelas untuk warna aktif
+    if (isActive) {
+      link.classList.add('!bg-[#42A7C3]', '!text-white');
+      link.classList.remove('text-gray-800');
+    } else {
+      link.classList.remove('bg-[#42A7C3]', 'text-white');
+      link.classList.add('text-gray-800');
+    }
+
+    // Tampilkan ikon hover saat aktif
+    const iconDefault = link.querySelector('.icon-default');
+    const iconHover = link.querySelector('.icon-hover');
+
+    if (iconDefault && iconHover) {
+      if (isActive) {
+        iconDefault.classList.add('hidden');
+        iconHover.classList.remove('hidden');
+      } else {
+        iconDefault.classList.remove('hidden');
+        iconHover.classList.add('hidden');
+      }
+    }
+  });
+}
+
 export function generateResultTypeTemplate() {
   return `
         //isi disini...
     `;
+}
+
+export function generateLinkCheckTemplate() {
+  return `<section class="flex flex-col justify-center items-center">
+            <div class="cekLink flex flex-col gap-2 justify-center items-center mt-12 p-10 rounded-xl border border-gray-200 shadow-sm">
+              <h1 class="text-3xl font-semibold text-[#42A7C3]">Cek Link Mencurigakan</h1>
+              <h2 class="text-lg font-regular text-gray-600 mb-5">Masukkan tautan yang ingin diperiksa. Kami  akan membantu anda  untuk mengetahui keamanan tautan tersebut.</h2>
+              <form class="flex flex-row content-stretch w-full max-w-xl">
+                <label for="search" class="sr-only">Search</label>
+                <div class="relative flex-grow">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                  </div>
+                  <input type="search" id="search" class="block w-full py-4 pl-10 text-sm text-gray-900 border border-[#42A7C3] rounded-l-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required />
+                </div>
+
+                <button type="submit" class="text-white bg-[#42A7C3] hover:bg-[#378BA2] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-r-lg text-sm px-7 py-4 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  Cek Link
+                </button>
+              </form>
+            </div>
+        </section>`;
 }
 
 export function generateProgressQuizTemplate() {
