@@ -114,14 +114,7 @@ export default class Homepage {
                             Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam nec tortor massa. Praesent cursus porttitor egestas.
                         </p>
                         <div class="flex flex-row gap-6">
-                            <a href="#" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
-                                Lihat Fitur
-                                <svg class="w-3.5 h-3.5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                </svg>
-                            </a>
-                            <a href="#" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
+                            <a href="#/link-checking/cek-umum" onclick="window.scrollTo(0, 0)"  class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
                                 Lihat Fitur
                                 <svg class="w-3.5 h-3.5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -138,7 +131,7 @@ export default class Homepage {
                             <p class="text-gray-500 dark:text-gray-400 mb-3">
                             Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.
                             </p>
-                            <a href="#" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
+                            <a href="#/module-overview" onclick="window.scrollTo(0, 0)" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
                             Lihat Fitur
                             <svg class="w-3.5 h-3.5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -155,7 +148,7 @@ export default class Homepage {
                             <p class="text-gray-500 dark:text-gray-400 mb-3">
                             Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.
                             </p>
-                            <a href="#" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
+                            <a href="#/quiz" onclick="window.scrollTo(0, 0)" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
                             Lihat Fitur
                             <svg class="w-3.5 h-3.5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
