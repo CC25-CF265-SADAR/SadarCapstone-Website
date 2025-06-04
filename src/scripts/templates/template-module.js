@@ -287,29 +287,34 @@ export function generateModuleContentTextTemplate(content, currentPageIndex) {
 
   return `
     <article class="moduleContentText prose max-w-none px-20 py-6 bg-cover bg-center">
-        ${page.videoURL ? generateVideoPlayer(page.videoURL) : ''}
       <h2 class="text-3xl font-bold my-4 text-start">${content.title}</h2>
+      <p class="text-base mb-2">${page.text}</p>
       <section class="mb-6">
         ${
           page.imageURL
             ? `<img src="${page.imageURL}" alt="Gambar halaman" class="w-full max-w-4xl rounded-md mb-4" />`
             : ''
         }
-        <p class="text-base mb-2">${page.text}</p>
       </section>
+      ${page.videoURL ? generateVideoPlayer(page.videoURL) : ''}
     </article>
   `;
 }
 
 export function generateModuleFooterTemplate(text, hideNext = false, hidePrev = false) {
-  const nextButtonClass = hideNext ? 'hidden' : 'flex items-center bg-[#42A7C3] hover:bg-[#2C6F82] text-white px-4 py-2 rounded';
-  const prevButtonClass = hidePrev ? 'hidden' : 'flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed';
+  const nextButtonClass = hideNext
+    ? 'hidden'
+    : 'flex items-center bg-[#42A7C3] hover:bg-[#2C6F82] text-white px-4 py-2 rounded';
+  const prevButtonClass = hidePrev
+    ? 'hidden'
+    : 'flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed';
 
-  const justifyClass = hideNext && hidePrev
-    ? 'justify-center'
-    : hideNext || hidePrev
-    ? 'justify-between'
-    : 'justify-between';
+  const justifyClass =
+    hideNext && hidePrev
+      ? 'justify-center'
+      : hideNext || hidePrev
+        ? 'justify-between'
+        : 'justify-between';
 
   return `
     <div class="fixed bottom-0 left-10 right-10 bg-white border-t border-gray-300 px-4 py-3 z-50">

@@ -10,7 +10,7 @@ export default class CekUmumPage {
     <section class="mt-5 mx-12">
       <div id="tab-container"></div>
     </section>
-    <section class="flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
+    <section class="flex flex-col justify-center items-center mb-12 px-4 sm:px-6 lg:px-8">
       <div class="cekLink flex flex-col gap-2 justify-center items-center p-8 mt-12 p-5 sm:p-10 rounded-xl border border-gray-200 shadow-sm w-full max-w-4xl">
         <h1 class="text-2xl sm:text-3xl font-semibold text-[#42A7C3] text-center">🖼️ Unggah Gambar untuk Cek Penipuan</h1>
         <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Unggah tangkapan layar atau gambar yang berisi tautan atau pesan mencurigakan dan dapatkan analisis keamanan secara cepat.</h2>
