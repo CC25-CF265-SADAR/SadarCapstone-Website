@@ -26,6 +26,7 @@ export default class CekSpamPage {
         <div id="spam-result" class="mt-4 w-full text-center text-md text-gray-700"></div>
       </div>
     </section>
+    
     ${generateScamTypeTemplate({
       title: 'Jenis Pesan Spam',
       subtitle1: 'Pesan Hadiah Palsu',

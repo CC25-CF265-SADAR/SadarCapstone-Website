@@ -35,3 +35,18 @@ export const processScreenshot = async ({ imageFile }) => {
 
   return await response.json();
 };
+
+export const detectLink = async ({ url }) => {
+  const response = await fetch(`${BASE_URL_LINK}/api/predict`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ url }),
+  });
+
+  if (!response.ok) {
+    const errorMessage = data?.detail?.[0]?.msg || 'Deteksi link gagal. Pastikan format URL benar.';
+    throw new Error(errorMessage);
+  }
+
+  return await response.json();
+};

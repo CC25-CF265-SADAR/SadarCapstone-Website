@@ -4,7 +4,7 @@ import {
   generateTabCekAjaDuluTemplate,
   markCurrentTabActive,
 } from '../../../templates/template';
-
+import CekLinkPresenter from './ceklink-presenter';
 export default class CekLinkPage {
   async render() {
     return `
@@ -32,6 +32,9 @@ export default class CekLinkPage {
                   Cek Link
                 </button>
               </form>
+              <div id="loading-indicator" class="hidden mt-4 text-gray-500">🔍 Sedang memproses link...</div>
+              <div id="link-result" class="hidden mt-4 text-center p-4 bg-gray-100 border rounded text-gray-800"></div>
+
             </div>
         </section>
         ${generateScamTypeTemplate({
@@ -56,5 +59,51 @@ export default class CekLinkPage {
   async afterRender() {
     document.getElementById('tab-container').innerHTML = generateTabCekAjaDuluTemplate();
     markCurrentTabActive();
+
+    const form = document.querySelector('form');
+    const input = document.getElementById('search');
+    const loading = document.getElementById('loading-indicator');
+    const resultBox = document.getElementById('link-result');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    const presenter = new CekLinkPresenter({
+      onResult: ({ url, prediction, probability }) => {
+        loading.classList.add('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Cek Link';
+        resultBox.classList.remove('hidden');
+
+        resultBox.innerHTML = `
+        <p><strong>URL:</strong> ${url}</p>
+        <p><strong>Status:</strong> ${prediction}</p>
+        <p><strong>Probabilitas Phishing:</strong> ${(probability * 100).toFixed(2)}%</p>
+      `;
+      },
+      onError: (message) => {
+        loading.classList.add('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Cek Link';
+        resultBox.classList.remove('hidden');
+        resultBox.innerHTML = `<p class="text-red-600">❌ ${message}</p>`;
+      },
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const url = input.value.trim();
+
+      if (!url) {
+        alert('Masukkan link terlebih dahulu.');
+        return;
+      }
+
+      // Reset UI
+      loading.classList.remove('hidden');
+      resultBox.classList.add('hidden');
+      submitBtn.disabled = true;
+      // submitBtn.textContent = 'Memproses...';
+
+      await presenter.processLink(url);
+    });
   }
 }
