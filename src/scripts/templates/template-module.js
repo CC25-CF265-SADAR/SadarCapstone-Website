@@ -208,14 +208,14 @@ export function generateModuleSidebarTemplate(module, currentTopicId, userProgre
 
   const topicItems = module.topics
     .map((topic) => {
-      const isActive =
-        topic.id === currentTopicId
-          ? `font-semibold text-blue-700 bg-blue-50 rounded-md px-4 py-2 flex items-center justify-between
-           shadow-md ring-1 ring-blue-300 scale-105 transition-transform duration-200`
-          : `flex items-center justify-between px-4 py-2 rounded cursor-pointer
-           hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent hover:shadow-sm
-           transition-colors duration-300`;
       const isCompleted = isTopicCompleted(topic.id);
+      const baseClass = `flex items-center justify-between px-4 py-2 rounded transition-colors duration-300`;
+      const clickableHover = `cursor-pointer hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent hover:shadow-sm`;
+      const lockedHover = `cursor-not-allowed hover:bg-gradient-to-r hover:from-red-100 hover:to-transparent`;
+      const listItemClass =
+        topic.id === currentTopicId
+          ? `font-semibold text-blue-700 bg-blue-50 rounded-md px-4 py-2 flex items-center justify-between shadow-md ring-1 ring-blue-300 scale-105 transition-transform duration-200`
+          : `${baseClass} ${isCompleted ? clickableHover : lockedHover}`;
 
       const check = isCompleted
         ? `<svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
@@ -230,11 +230,13 @@ export function generateModuleSidebarTemplate(module, currentTopicId, userProgre
           : '';
 
       return `
-        <li class="${isActive}" tabindex="0" role="button" data-topic-id="${topic.id}">
+        <li class="${listItemClass}" tabindex="0" role="button"
+          data-topic-id="${topic.id}"
+          ${isCompleted ? `data-content-id="${topic.contentId}"` : ''}>
           <div class="flex items-center gap-3">
-             ${check}
-             <span class="text-sm">${topic.title}</span>
-             ${progressIndicator}
+            ${check}
+            <span class="text-sm">${topic.title}</span>
+            ${progressIndicator}
           </div>
         </li>
       `;
@@ -286,16 +288,24 @@ export function generateModuleContentTextTemplate(content, currentPageIndex) {
   if (!page) return '<p>Halaman tidak ditemukan.</p>';
 
   return `
-    <article class="moduleContentText prose max-w-none px-20 py-6 bg-cover bg-center">
-      <h2 class="text-3xl font-bold my-4 text-start">${content.title}</h2>
-      <p class="text-base mb-2">${page.text}</p>
-      <section class="mb-6">
-        ${
-          page.imageURL
-            ? `<img src="${page.imageURL}" alt="Gambar halaman" class="w-full max-w-4xl rounded-md mb-4" />`
-            : ''
-        }
-      </section>
+    <article class="moduleContentText prose max-w-none px-6 md:px-20 py-6 bg-cover bg-center">
+      <h2 class="text-3xl font-bold my-4 text-start text-[#2C6F82]">${content.title}</h2>
+      <p class="text-base mb-6 leading-relaxed text-gray-800">${page.text}</p>
+      
+      ${
+        page.imageURL
+          ? `
+            <div class="flex justify-center mb-6">
+              <img 
+                src="${page.imageURL}" 
+                alt="Gambar Ilustrasi" 
+                class="rounded-xl shadow-md max-w-[600px] w-full object-contain" 
+              />
+            </div>
+          `
+          : ''
+      }
+
       ${page.videoURL ? generateVideoPlayer(page.videoURL) : ''}
     </article>
   `;
@@ -312,32 +322,30 @@ export function generateModuleFooterTemplate(text, hideNext = false, hidePrev = 
   const justifyClass =
     hideNext && hidePrev
       ? 'justify-center'
-      : hideNext || hidePrev
-        ? 'justify-between'
-        : 'justify-between';
+      : 'justify-between';
 
   return `
-    <div class="fixed bottom-0 left-10 right-10 bg-white border-t border-gray-300 px-4 py-3 z-50">
-      <div class="max-w-5xl mx-auto relative flex items-center ${justifyClass} text-sm sm:text-base font-medium text-gray-800">
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 px-4 py-3 z-50">
+      <div class="max-w-5xl mx-auto relative flex items-center ${justifyClass} text-sm sm:text-base font-medium text-gray-800 gap-2">
         
         <!-- Tombol Sebelumnya -->
         <button id="prev-button" class="${prevButtonClass}">
-          <svg class="w-4 h-4 me-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0l4 4M1 5l4-4" />
+          <svg class="w-5 h-5 sm:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
           </svg>
-          <span>Sebelumnya</span>
+          <span class="hidden sm:inline">Sebelumnya</span>
         </button>
 
         <!-- Judul Materi -->
-        <h3 id="material-title" class="absolute left-1/2 transform -translate-x-1/2 font-semibold text-gray-800 truncate max-w-[60%] text-center">
+        <h3 id="material-title" class="absolute left-1/2 transform -translate-x-1/2 font-semibold text-gray-800 truncate max-w-[60%] text-center text-xs sm:text-sm md:text-base">
           ${text}
         </h3>
 
         <!-- Tombol Selanjutnya -->
         <button id="next-button" class="${nextButtonClass} ${hidePrev ? 'ml-auto' : ''}">
-          <span>Selanjutnya</span>
-          <svg class="w-4 h-4 ms-2" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+          <span class="hidden sm:inline">Selanjutnya</span>
+          <svg class="w-5 h-5 sm:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
         </button>
       </div>

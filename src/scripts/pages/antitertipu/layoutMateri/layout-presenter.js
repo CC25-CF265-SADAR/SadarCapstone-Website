@@ -110,6 +110,29 @@ export default class ModuleLayoutPresenter {
     }
   }
 
+  async loadContent(contentId, pageIndex = 1) {
+    this.pageIndex = pageIndex;
+    const topicIndex = this.moduleDetail.topics.findIndex((topic) => topic.contentId === contentId);
+    if (topicIndex === -1) return;
+
+    this.currentTopicIndex = topicIndex;
+    this.content = await this.api.fetchContent(contentId);
+
+    this.view.renderContent(this.content, this.pageIndex - 1);
+    this.view.renderFooter(
+      this.moduleTitle,
+      this.currentTopicIndex,
+      this.moduleDetail.topics.length,
+      this.getNextTopicId(),
+      this.pageIndex,
+    );
+    this.view.renderSidebar(
+      this.moduleDetail,
+      this.moduleDetail.topics[this.currentTopicIndex].id,
+      this.userProgress,
+    );
+  }
+
   async onNextPage() {
     const totalPages = this.content.pages.length;
 
@@ -140,7 +163,20 @@ export default class ModuleLayoutPresenter {
 
     // Update URL
     const currentContentId = this.moduleDetail.topics[this.currentTopicIndex].contentId;
-    window.location.hash = `#/modul-belajar/${currentContentId}/pages${this.pageIndex}`;
+    this.view.renderContent(this.content, this.pageIndex - 1);
+    this.view.renderFooter(
+      this.moduleTitle,
+      this.currentTopicIndex,
+      this.moduleDetail.topics.length,
+      this.getNextTopicId(),
+      this.pageIndex,
+    );
+    this.view.renderSidebar(
+      this.moduleDetail,
+      this.moduleDetail.topics[this.currentTopicIndex].id,
+      this.userProgress,
+    );
+
 
     // Render ulang konten
     this.view.renderContent(this.content, this.pageIndex - 1);
@@ -173,7 +209,19 @@ export default class ModuleLayoutPresenter {
     }
 
     const currentContentId = this.moduleDetail.topics[this.currentTopicIndex].contentId;
-    window.location.hash = `#/modul-belajar/${currentContentId}/pages${this.pageIndex}`;
+    this.view.renderContent(this.content, this.pageIndex - 1);
+    this.view.renderFooter(
+      this.moduleTitle,
+      this.currentTopicIndex,
+      this.moduleDetail.topics.length,
+      this.getNextTopicId(),
+      this.pageIndex,
+    );
+    this.view.renderSidebar(
+      this.moduleDetail,
+      this.moduleDetail.topics[this.currentTopicIndex].id,
+      this.userProgress,
+    );
 
     this.view.renderContent(this.content, this.pageIndex - 1);
 

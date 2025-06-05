@@ -34,16 +34,16 @@ export default class ModuleLayoutPage {
       <div class="relative min-h-screen bg-white flex flex-col">
         <!-- Navbar sticky -->
         <header id="module-navbar" class="sticky top-0 z-30 bg-white shadow-md"></header>
-        
         <!-- Container utama -->
         <div class="flex-1 flex overflow-hidden" style="padding-bottom: 80px"> <!-- Beri space untuk footer -->
           <!-- Sidebar (tidak diubah dari yang sudah bekerja) -->
-          <aside id="module-sidebar-wrapper" class="absolute top-16 left-0 w-64 transform -translate-x-full transition-transform duration-300 z-20 bg-white border-r border-[#DFF0F5] overflow-y-auto shadow-md rounded-r-2xl" style="height: calc(100vh - 8rem);"></aside>
-          
+          <aside id="module-sidebar-wrapper"
+            class="fixed top-16 left-0 w-full sm:w-64 transform -translate-x-full transition-transform duration-300 z-30 bg-white border-r border-[#DFF0F5] overflow-y-auto shadow-md rounded-r-2xl h-[calc(100vh-8rem)]">
+          </aside>
+
           <!-- Konten utama -->
           <main id="module-content" class="flex-1 overflow-y-auto px-4 pt-4"></main>
         </div>
-        
         <!-- Footer fixed di bawah -->
         <footer id="module-footer" class="fixed bottom-0 left-0 right-0 bg-white shadow-sm z-20 h-20"></footer>
       </div>
@@ -65,6 +65,19 @@ export default class ModuleLayoutPage {
     if (sidebar) {
       sidebar.innerHTML = generateModuleSidebarTemplate(moduleDetail, currentTopicId, userProgress);
       this.addSidebarToggleListener();
+  
+      document.querySelector('#module-sidebar-wrapper')?.addEventListener('click', (event) => {
+        const listItem = event.target.closest('li[data-content-id]');
+        if (!listItem) return;
+
+        const contentId = listItem.getAttribute('data-content-id');
+        if (contentId) {
+          // Reset pageIndex ke 1 saat kembali
+          this.contentId = contentId;
+          this.pageIndex = 1;
+          this.presenter.loadContent(contentId, 1); // load tanpa reload
+        }
+      });
     }
   }
 
@@ -72,26 +85,36 @@ export default class ModuleLayoutPage {
     const contentArea = document.querySelector('#module-content');
     if (!contentArea) return;
 
-    const isIntroQuiz = content.title?.toLowerCase().includes('kuis evaluasi');
+    // Tampilkan animasi loading sementara
+    contentArea.innerHTML = `
+      <div class="flex justify-center items-center h-60 animate-pulse text-gray-400">
+        <p>Sedang memuat konten...</p>
+      </div>
+    `;
 
-    if (isIntroQuiz) {
-      contentArea.innerHTML = generateIntroQuizTemplate(this.presenter.moduleTitle);
+    // Tunggu sedikit agar user bisa lihat efek loading (tidak wajib, bisa dihapus)
+    setTimeout(() => {
+      const isIntroQuiz = content.title?.toLowerCase().includes('kuis evaluasi');
 
-      // Aktifkan tombol setelah render
-      document.querySelector('#start-quiz-button')?.addEventListener('click', () => {
-        const modId = this.presenter.moduleDetail?.modId;
-        if (modId) {
-          window.location.hash = `#/quiz-modul/${modId}`;
-        } else {
-          console.error('Module ID tidak ditemukan untuk quiz');
-        }
-      });
+      if (isIntroQuiz) {
+        contentArea.innerHTML = generateIntroQuizTemplate(this.presenter.moduleTitle);
 
-      return; // STOP, jangan render konten biasa!
-    }
+        // Aktifkan tombol setelah render
+        document.querySelector('#start-quiz-button')?.addEventListener('click', () => {
+          const modId = this.presenter.moduleDetail?.modId;
+          if (modId) {
+            window.location.hash = `#/quiz-modul/${modId}`;
+          } else {
+            console.error('Module ID tidak ditemukan untuk quiz');
+          }
+        });
 
-    // Konten biasa
-    contentArea.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
+        return;
+      }
+
+      // Render halaman konten biasa
+      contentArea.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
+    }, 200); // 200ms untuk efek halus, bisa kamu sesuaikan
   }
 
   renderFooter(moduleTitle, currentIndex, total, nextTopicId, pageIndex) {
@@ -121,22 +144,23 @@ export default class ModuleLayoutPage {
   }
 
   addSidebarToggleListener() {
-    document.querySelector('#toggleSidebar')?.addEventListener('click', () => {
-      const sidebarWrapper = document.querySelector('#module-sidebar-wrapper');
-      const contentArea = document.querySelector('#module-content');
-      if (!sidebarWrapper || !contentArea) return;
+  document.querySelector('#toggleSidebar')?.addEventListener('click', () => {
+    const sidebarWrapper = document.querySelector('#module-sidebar-wrapper');
+    const contentArea = document.querySelector('#module-content');
+    if (!sidebarWrapper || !contentArea) return;
 
-      const isHidden = sidebarWrapper.classList.contains('-translate-x-full');
+    const isMobile = window.innerWidth < 640; // Tailwind sm breakpoint
+    const isHidden = sidebarWrapper.classList.contains('-translate-x-full');
 
-      if (isHidden) {
-        sidebarWrapper.classList.remove('-translate-x-full');
-        contentArea.classList.add('ml-64');
-      } else {
-        sidebarWrapper.classList.add('-translate-x-full');
-        contentArea.classList.remove('ml-64');
-      }
-    });
-  }
+    if (isHidden) {
+      sidebarWrapper.classList.remove('-translate-x-full');
+      if (!isMobile) contentArea.classList.add('ml-64');
+    } else {
+      sidebarWrapper.classList.add('-translate-x-full');
+      if (!isMobile) contentArea.classList.remove('ml-64');
+    }
+  });
+}
 
   addEventListeners() {
     this.addSidebarToggleListener();
