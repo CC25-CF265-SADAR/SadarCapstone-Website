@@ -42,7 +42,9 @@ export default class ModuleLayoutPage {
           </aside>
 
           <!-- Konten utama -->
-          <main id="module-content" class="flex-1 overflow-y-auto px-4 pt-4"></main>
+          <main id="module-content" class="flex-1 overflow-y-auto px-4 pt-4">
+            <div id="module-content-inner"></div>
+          </main>
         </div>
         <!-- Footer fixed di bawah -->
         <footer id="module-footer" class="fixed bottom-0 left-0 right-0 bg-white shadow-sm z-20 h-20"></footer>
@@ -71,50 +73,30 @@ export default class ModuleLayoutPage {
         if (!listItem) return;
 
         const contentId = listItem.getAttribute('data-content-id');
-        if (contentId) {
-          // Reset pageIndex ke 1 saat kembali
+        if (contentId && contentId !== this.contentId) {
           this.contentId = contentId;
           this.pageIndex = 1;
-          this.presenter.loadContent(contentId, 1); // load tanpa reload
+          this.presenter.loadContent(contentId, 1);
         }
       });
     }
   }
 
   renderContent(content, currentPageIndex) {
-    const contentArea = document.querySelector('#module-content');
-    if (!contentArea) return;
+    const container = document.querySelector('#module-content-inner');
+    if (!container) return;
 
-    // Tampilkan animasi loading sementara
-    contentArea.innerHTML = `
-      <div class="flex justify-center items-center h-60 animate-pulse text-gray-400">
-        <p>Sedang memuat konten...</p>
-      </div>
-    `;
+    const isIntroQuiz = content.title?.toLowerCase().includes('kuis evaluasi');
+    if (isIntroQuiz) {
+      container.innerHTML = generateIntroQuizTemplate(this.presenter.moduleTitle);
+      document.querySelector('#start-quiz-button')?.addEventListener('click', () => {
+        const modId = this.presenter.moduleDetail?.modId;
+        if (modId) window.location.hash = `#/quiz-modul/${modId}`;
+      });
+      return;
+    }
 
-    // Tunggu sedikit agar user bisa lihat efek loading (tidak wajib, bisa dihapus)
-    setTimeout(() => {
-      const isIntroQuiz = content.title?.toLowerCase().includes('kuis evaluasi');
-
-      if (isIntroQuiz) {
-        contentArea.innerHTML = generateIntroQuizTemplate(this.presenter.moduleTitle);
-
-        // Aktifkan tombol setelah render
-        document.querySelector('#start-quiz-button')?.addEventListener('click', () => {
-          const modId = this.presenter.moduleDetail?.modId;
-          if (modId) {
-            window.location.hash = `#/quiz-modul/${modId}`;
-          } else {
-            console.error('Module ID tidak ditemukan untuk quiz');
-          }
-        });
-
-        return;
-      }
-
-      // Render halaman konten biasa
-      contentArea.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
-    }, 200); // 200ms untuk efek halus, bisa kamu sesuaikan
+    container.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
   }
 
   renderFooter(moduleTitle, currentIndex, total, nextTopicId, pageIndex) {

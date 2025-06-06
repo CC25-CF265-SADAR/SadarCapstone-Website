@@ -116,21 +116,37 @@ export default class ModuleLayoutPresenter {
     if (topicIndex === -1) return;
 
     this.currentTopicIndex = topicIndex;
-    this.content = await this.api.fetchContent(contentId);
 
-    this.view.renderContent(this.content, this.pageIndex - 1);
-    this.view.renderFooter(
-      this.moduleTitle,
-      this.currentTopicIndex,
-      this.moduleDetail.topics.length,
-      this.getNextTopicId(),
-      this.pageIndex,
-    );
-    this.view.renderSidebar(
-      this.moduleDetail,
-      this.moduleDetail.topics[this.currentTopicIndex].id,
-      this.userProgress,
-    );
+    // Tampilkan loading hanya sekali
+    const container = document.querySelector('#module-content-inner');
+    if (container) {
+      container.innerHTML = `
+        <div class="flex justify-center items-center h-60 animate-pulse text-gray-400">
+          <p>Sedang memuat konten...</p>
+        </div>
+      `;
+    }
+
+    try {
+      this.content = await this.api.fetchContent(contentId);
+
+      // Setelah fetch selesai, baru render
+      this.view.renderContent(this.content, this.pageIndex - 1);
+      this.view.renderFooter(
+        this.moduleTitle,
+        this.currentTopicIndex,
+        this.moduleDetail.topics.length,
+        this.getNextTopicId(),
+        this.pageIndex,
+      );
+      this.view.renderSidebar(
+        this.moduleDetail,
+        this.moduleDetail.topics[this.currentTopicIndex].id,
+        this.userProgress,
+      );
+    } catch (err) {
+      this.view.showError('Gagal memuat konten baru');
+    }
   }
 
   async onNextPage() {

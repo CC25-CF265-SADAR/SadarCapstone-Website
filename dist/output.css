@@ -1661,9 +1661,6 @@
   .h-60 {
     height: calc(var(--spacing) * 60);
   }
-  .h-64 {
-    height: calc(var(--spacing) * 64);
-  }
   .h-80 {
     height: calc(var(--spacing) * 80);
   }
@@ -2445,9 +2442,6 @@
   }
   .pt-15 {
     padding-top: calc(var(--spacing) * 15);
-  }
-  .pb-1 {
-    padding-bottom: calc(var(--spacing) * 1);
   }
   .pb-3 {
     padding-bottom: calc(var(--spacing) * 3);
