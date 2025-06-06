@@ -7,8 +7,13 @@ import {
 import HomePresenter from './homepage-presenter.js';
 import { setupProfileDropdown } from '../../utils/navbar-interaction.js';
 import { getLogout } from '../../utils/auth.js';
+import { faqList } from '../../data/faq-data.js';
 
 export default class Homepage {
+  constructor() {
+    this.presenter = new HomePresenter(this);
+  }
+
   async render() {
     return `
             <section class="hero-image">
@@ -166,224 +171,22 @@ export default class Homepage {
             
             <section class="faq bg-white font-jakarta flex items-center py-12 px-18">
                 <div class="w-full">
-                    <!-- Judul dan Deskripsi aaa ga ngomitt -->
                     <h2 class="text-4xl font-semibold text-center text-black mb-2">Pertanyaan yang Sering Diajukan</h2>
-                    <p class="text-base text-[#6D7280] text-center max-w-xl mx-auto mb-6">Temukan jawaban dari pertanyaan umum seputar fitur dan layanan kami.</p>
+                    <p class="text-base text-[#6D7280] text-center max-w-xl mx-auto mb-6">
+                    Temukan jawaban dari pertanyaan umum seputar fitur dan layanan kami.
+                    </p>
 
                     <!-- Tabs Kategori -->
-                    <div class="flex justify-center space-x-2 mb-8 flex items-center">
-                    <button class="px-4 py-2 border border-[#42A7C3] bg-[#42A7C3] text-white text-sm font-regular rounded-4xl">Semua</button>
-                    <button class="px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm font-regular rounded-4xl hover:bg-gray-200">Deteksi</button>
-                    <button class="px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm font-regular rounded-4xl hover:bg-gray-200">Modul Edukasi</button>
-                    <button class="px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm font-regular rounded-4xl hover:bg-gray-200">Simulasi</button>
-                    <button class="px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm font-regular rounded-4xl hover:bg-gray-200">penipuan</button>
+                    <div class="flex justify-center space-x-2 mb-8">
+                    <button data-category="all" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-[#42A7C3] text-white text-sm rounded-4xl">Semua</button>
+                    <button data-category="deteksi" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm rounded-4xl hover:bg-gray-200">Deteksi</button>
+                    <button data-category="modul edukasi" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm rounded-4xl hover:bg-gray-200">Modul Edukasi</button>
+                    <button data-category="simulasi" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm rounded-4xl hover:bg-gray-200">Simulasi</button>
+                    <button data-category="penipuan" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm rounded-4xl hover:bg-gray-200">Penipuan</button>
                     </div>
 
-                    <div class="space-y-4">
-                    <details class="group border border-gray-200 rounded-2xl p-6 bg-white open:bg-[#DFF0F5] transition-colors duration-100">
-                        <summary class="flex items-center justify-between cursor-pointer">
-                        <h3 class="text-xl font-medium text-gray-900">
-                            Bagaimana bila link terketuk saat ingin menyalinnya?
-                        </h3>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="block size-5 shrink-0 group-open:hidden"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="hidden size-5 shrink-0 group-open:block"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
-                        </summary>
-                        <p class="mt-4 text-gray-700 text-base leading-relaxed">
-                        makanya ati ati lah pak, macam mana pula kau. hehe ntar ganti
-                        </p>
-                    </details>
-
-                    <div class="space-y-4">
-                    <details class="group border border-gray-200 rounded-2xl p-6 bg-white open:bg-[#DFF0F5] transition-colors duration-100">
-                        <summary class="flex items-center justify-between cursor-pointer">
-                        <h3 class="text-xl font-medium text-gray-900">
-                            Bagaimana bila link terketuk saat ingin menyalinnya?
-                        </h3>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="block size-5 shrink-0 group-open:hidden"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="hidden size-5 shrink-0 group-open:block"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
-                        </summary>
-                        <p class="mt-4 text-gray-700 text-base leading-relaxed">
-                        makanya ati ati lah pak, macam mana pula kau. hehe ntar ganti
-                        </p>
-                    </details>
-
-                    <div class="space-y-4">
-                    <details class="group border border-gray-200 rounded-2xl p-6 bg-white open:bg-[#DFF0F5] transition-colors duration-100">
-                        <summary class="flex items-center justify-between cursor-pointer">
-                        <h3 class="text-xl font-medium text-gray-900">
-                            Bagaimana bila link terketuk saat ingin menyalinnya?
-                        </h3>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="block size-5 shrink-0 group-open:hidden"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="hidden size-5 shrink-0 group-open:block"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
-                        </summary>
-                        <p class="mt-4 text-gray-700 text-base leading-relaxed">
-                        makanya ati ati lah pak, macam mana pula kau. hehe ntar ganti
-                        </p>
-                    </details>
-
-                    <div class="space-y-4">
-                    <details class="group border border-gray-200 rounded-2xl p-6 bg-white open:bg-[#DFF0F5] transition-colors duration-100">
-                        <summary class="flex items-center justify-between cursor-pointer">
-                        <h3 class="text-xl font-medium text-gray-900">
-                            Bagaimana bila link terketuk saat ingin menyalinnya?
-                        </h3>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="block size-5 shrink-0 group-open:hidden"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="hidden size-5 shrink-0 group-open:block"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
-                        </summary>
-                        <p class="mt-4 text-gray-700 text-base leading-relaxed">
-                        makanya ati ati lah pak, macam mana pula kau. hehe ntar ganti
-                        </p>
-                    </details>
-
-                    <div class="space-y-4">
-                    <details class="group border border-gray-200 rounded-2xl p-6 bg-white open:bg-[#DFF0F5] transition-colors duration-100">
-                        <summary class="flex items-center justify-between cursor-pointer">
-                        <h3 class="text-xl font-medium text-gray-900">
-                            Bagaimana bila link terketuk saat ingin menyalinnya?
-                        </h3>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="block size-5 shrink-0 group-open:hidden"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="hidden size-5 shrink-0 group-open:block"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
-                        </summary>
-                        <p class="mt-4 text-gray-700 text-base leading-relaxed">
-                        makanya ati ati lah pak, macam mana pula kau. hehe ntar ganti
-                        </p>
-                    </details>
-                    </div>
+                    <!-- Container FAQ -->
+                    <div id="faq-content" class="space-y-4"></div>
                 </div>
             </section>
 
@@ -401,5 +204,42 @@ export default class Homepage {
         location.reload(); // agar render ulang navbar
       }
     });
+    
+    this.presenter.setFAQData(faqList);
+    this.presenter.renderFAQ('all');
+
+    document.querySelectorAll('.faq-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const category = btn.dataset.category;
+
+        document.querySelectorAll('.faq-tab').forEach(tab => {
+          tab.classList.remove('bg-[#42A7C3]', 'text-white');
+          tab.classList.add('bg-white', 'text-gray-600');
+        });
+
+        btn.classList.remove('bg-white', 'text-gray-600');
+        btn.classList.add('bg-[#42A7C3]', 'text-white');
+
+        this.presenter.renderFAQ(category);
+      });
+    });
+  }
+
+  renderFAQList(filteredFaq) {
+    const container = document.getElementById('faq-content');
+    container.innerHTML = filteredFaq.map(faq => `
+      <details class="group border border-gray-200 rounded-2xl p-6 bg-white open:bg-[#DFF0F5] transition-colors duration-100">
+        <summary class="flex items-center justify-between cursor-pointer">
+          <h3 class="text-xl font-medium text-gray-900">${faq.question}</h3>
+          <svg xmlns="http://www.w3.org/2000/svg" class="block size-5 shrink-0 group-open:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9" />
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="hidden size-5 shrink-0 group-open:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9" />
+          </svg>
+        </summary>
+        <p class="mt-4 text-gray-700 text-base leading-relaxed">${faq.answer}</p>
+      </details>
+    `).join('');
   }
 }
