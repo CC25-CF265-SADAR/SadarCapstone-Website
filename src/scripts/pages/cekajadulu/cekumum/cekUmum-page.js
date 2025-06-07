@@ -184,16 +184,40 @@ export default class CekUmumPage {
     });
   }
 
-  renderResult({ prediction, probability, keywords, smsText, urls }) {
+  renderResult({ prediction, probability, keywords, smsText, urls, phishingResults }) {
     const resultContainer = document.getElementById('result-container');
     resultContainer.classList.remove('hidden');
 
-    document.getElementById('sms-text').textContent = smsText || 'Tidak ada teks terdeteksi.';
-    document.getElementById('url-list').innerHTML = urls
-      .map((url) => `<li><a href="${url}" target="_blank">${url}</a></li>`)
-      .join('');
-    document.getElementById('prediction').textContent =
-      `Hasil: ${prediction} (${(probability * 100).toFixed(2)}%)\nKata kunci: ${keywords.join(', ')}`;
+    resultContainer.innerHTML = `
+      <p class="font-semibold text-[#374151] mb-2 text-lg">📩 Pesan Terdeteksi:</p>
+      <p class="text-gray-800 mb-6">${smsText || 'Tidak ada teks terdeteksi.'}</p>
+
+      <div class="bg-white border border-gray-200 rounded-md p-5 w-full mb-4">
+        <h4 class="text-md font-semibold text-gray-800 mb-3">🔗 Deteksi Link</h4>
+        <div class="space-y-3">
+          ${urls.map((url) => {
+            const result = phishingResults?.find(r => r.url === url);
+            const label = result
+              ? `<span class="ml-3 inline-block px-2 py-0.5 text-xs font-medium text-red-800 bg-red-100 rounded-md">
+                  ${result.predicted_type} – ${(result.probability * 100).toFixed(1)}%
+                </span>`
+              : '';
+            return `
+              <div class="flex justify-between items-center bg-[#F9FAFB] px-3 py-2 rounded-md border border-gray-100">
+                <a href="${url}" target="_blank" class="text-blue-700 underline break-all">${url}</a>
+                ${label}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+
+      <div class="bg-white border border-gray-200 rounded-md p-5 w-full">
+        <h4 class="text-md font-semibold text-gray-800 mb-3">📃 Deteksi Spam</h4>
+        <p class="font-bold text-gray-800 mb-1">${prediction} (${(probability * 100).toFixed(1)}%)</p>
+        <p class="text-sm text-gray-700">🔍 Kata kunci: ${keywords.join(', ')}</p>
+      </div>
+    `;
   }
 
   showError(message) {
