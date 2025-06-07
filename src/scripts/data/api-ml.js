@@ -3,6 +3,7 @@ import CONFIG from '../config';
 const BASE_URL_SPAM = CONFIG.BASE_URL_SPAM;
 const BASE_URL_OCR = CONFIG.BASE_URL_OCR;
 const BASE_URL_LINK = CONFIG.BASE_URL_LINK;
+const BASE_URL_QR = CONFIG.BASE_URL_QR;
 
 export const detectSpam = async ({ text }) => {
   const response = await fetch(`${BASE_URL_SPAM}/predict`, {
@@ -50,3 +51,21 @@ export const detectLink = async ({ url }) => {
 
   return await response.json();
 };
+
+export const processQr = async ({ imageFile }) => {
+  const formData = new FormData();
+  formData.append('image', imageFile);
+
+  const response = await fetch(`${BASE_URL_QR}/process_qr_code/`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Gagal memproses QR code');
+  }
+
+  return await response.json();
+};
+
