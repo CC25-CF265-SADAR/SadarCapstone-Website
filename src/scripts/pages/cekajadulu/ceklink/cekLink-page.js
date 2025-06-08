@@ -4,7 +4,7 @@ import {
   generateTabCekAjaDuluTemplate,
   markCurrentTabActive,
 } from '../../../templates/template';
-import CekLinkPresenter from './ceklink-presenter';
+import CekLinkPresenter from './cekLink-presenter';
 export default class CekLinkPage {
   async render() {
     return `

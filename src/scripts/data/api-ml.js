@@ -68,4 +68,3 @@ export const processQr = async ({ imageFile }) => {
 
   return await response.json();
 };
-

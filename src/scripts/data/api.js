@@ -247,3 +247,62 @@ export const checkAndUpdateQuizStatus = async (userId, moduleId) => {
     console.error('Gagal memperbarui quiz status:', error);
   }
 };
+
+// === LEADERBOARD ===
+export const recordPhishingLink = async (url) => {
+  const response = await fetch(`${BASE_URL}/leaderboard/phishing`, {
+    method: 'POST',
+    headers: authHeader(),
+    body: JSON.stringify({ url }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Gagal mencatat link phishing');
+  }
+
+  return await response.json();
+};
+
+export const recordSpamKeywords = async (keywords) => {
+  const response = await fetch(`${BASE_URL}/leaderboard/spam`, {
+    method: 'POST',
+    headers: authHeader(),
+    body: JSON.stringify({ keywords }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Gagal mencatat keyword spam');
+  }
+
+  return await response.json();
+};
+
+export const fetchPhishingLeaderboard = async (monthOnly = false) => {
+  const response = await fetch(`${BASE_URL}/leaderboard/phishing?monthOnly=${monthOnly}`, {
+    method: 'GET',
+    headers: authHeader(),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Gagal mengambil leaderboard phishing');
+  }
+
+  return await response.json();
+};
+
+export const fetchSpamLeaderboard = async (monthOnly = false) => {
+  const response = await fetch(`${BASE_URL}/leaderboard/spam?monthOnly=${monthOnly}`, {
+    method: 'GET',
+    headers: authHeader(),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Gagal mengambil leaderboard spam');
+  }
+
+  return await response.json();
+};

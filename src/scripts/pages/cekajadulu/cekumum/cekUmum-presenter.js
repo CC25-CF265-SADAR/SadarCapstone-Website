@@ -1,4 +1,14 @@
 import { processScreenshot, detectLink } from '../../../data/api-ml';
+import { recordPhishingLink, recordSpamKeywords } from '../../../data/api';
+
+function isValidHttpUrl(string) {
+  try {
+    const url = new URL(string);
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  } catch (_) {
+    return false;
+  }
+}
 
 export default class CekUmumPresenter {
   constructor({ onResult, onError }) {
@@ -27,27 +37,43 @@ export default class CekUmumPresenter {
         keywords = spamResult.explanation.map((item) => item[0]);
       }
 
-      // Jika ada URL, lakukan deteksi phishing juga (gunakan yang pertama saja untuk sekarang)
-      let phishingResults = [];
-      if (urls.length > 0) {
-        phishingResults = await Promise.all(
-          urls.map(async (url) => {
-            try {
-              const result = await detectLink({ url });
-              return {
-                url,
-                predicted_type: result.predicted_type,
-                probability: result.phishing_probability,
-              };
-            } catch (e) {
-              return {
-                url,
-                predicted_type: 'Gagal mendeteksi',
-                probability: 0,
-              };
+      // Deteksi phishing link
+      const phishingResults = await Promise.allSettled(
+        urls.map(async (url) => {
+          try {
+            const result = await detectLink({ url });
+            if (
+              isValidHttpUrl(url) &&
+              result.predicted_type?.toLowerCase() === 'phishing'
+            ) {
+              try {
+                await recordPhishingLink(url);
+              } catch (e) {
+                console.warn(`Gagal mencatat ke leaderboard untuk: ${url}`, e.message);
+              }
             }
-          })
-        );
+            return {
+              url,
+              predicted_type: result.predicted_type,
+              probability: result.phishing_probability,
+            };
+          } catch (e) {
+            return {
+              url,
+              predicted_type: 'Gagal mendeteksi',
+              probability: 0,
+            };
+          }
+        })
+      );
+
+      const validResults = phishingResults
+        .filter((res) => res.status === 'fulfilled' || res.value)
+        .map((res) => res.value || res);
+
+      // ⬇️ Catat keywords spam (jika ada)
+      if (keywords.length > 0) {
+        await recordSpamKeywords(keywords);
       }
 
       // Kirim ke UI
@@ -57,7 +83,7 @@ export default class CekUmumPresenter {
         keywords,
         smsText,
         urls,
-        phishingResults,
+        phishingResults: validResults,
       });
 
     } catch (err) {

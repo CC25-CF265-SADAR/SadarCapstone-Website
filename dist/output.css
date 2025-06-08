@@ -246,48 +246,6 @@
   }
 }
 @layer utilities {
-  .drawer-side {
-    pointer-events: none;
-    visibility: hidden;
-    position: fixed;
-    inset-inline-start: calc(0.25rem * 0);
-    top: calc(0.25rem * 0);
-    z-index: 1;
-    grid-column-start: 1;
-    grid-row-start: 1;
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    grid-template-rows: repeat(1, minmax(0, 1fr));
-    align-items: flex-start;
-    justify-items: start;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    overscroll-behavior: contain;
-    opacity: 0%;
-    transition: opacity 0.2s ease-out 0.1s allow-discrete, visibility 0.3s ease-out 0.1s allow-discrete;
-    height: 100vh;
-    height: 100dvh;
-    > .drawer-overlay {
-      position: sticky;
-      top: calc(0.25rem * 0);
-      cursor: pointer;
-      place-self: stretch;
-      background-color: oklch(0% 0 0 / 40%);
-    }
-    > * {
-      grid-column-start: 1;
-      grid-row-start: 1;
-    }
-    > *:not(.drawer-overlay) {
-      will-change: transform;
-      transition: translate 0.3s ease-out;
-      translate: -100%;
-      [dir="rtl"] & {
-        translate: 100%;
-      }
-    }
-  }
   .drawer-open {
     > .drawer-side {
       overflow-y: auto;
@@ -317,28 +275,6 @@
         pointer-events: auto;
         visibility: visible;
       }
-    }
-  }
-  .drawer-toggle {
-    position: fixed;
-    height: calc(0.25rem * 0);
-    width: calc(0.25rem * 0);
-    appearance: none;
-    opacity: 0%;
-    &:checked {
-      & ~ .drawer-side {
-        pointer-events: auto;
-        visibility: visible;
-        overflow-y: auto;
-        opacity: 100%;
-        & > *:not(.drawer-overlay) {
-          translate: 0%;
-        }
-      }
-    }
-    &:focus-visible ~ .drawer-content label.drawer-button {
-      outline: 2px solid;
-      outline-offset: 2px;
     }
   }
   .tab {
@@ -1773,11 +1709,6 @@
   .col-span-2 {
     grid-column: span 2 / span 2;
   }
-  .drawer-content {
-    grid-column-start: 2;
-    grid-row-start: 1;
-    min-width: calc(0.25rem * 0);
-  }
   .float-right {
     float: right;
   }
@@ -2417,9 +2348,6 @@
   .w-full {
     width: 100%;
   }
-  .w-max {
-    width: max-content;
-  }
   .max-w-2xl {
     max-width: var(--container-2xl);
   }
@@ -2860,9 +2788,6 @@
   .border-\[\#DFF0F5\] {
     border-color: #DFF0F5;
   }
-  .border-blue-200 {
-    border-color: var(--color-blue-200);
-  }
   .border-gray-100 {
     border-color: var(--color-gray-100);
   }
@@ -2919,18 +2844,6 @@
   }
   .bg-\[\#E0E0E0\] {
     background-color: #E0E0E0;
-  }
-  .bg-\[\#EAF9F5\] {
-    background-color: #EAF9F5;
-  }
-  .bg-\[\#ECFDF5\] {
-    background-color: #ECFDF5;
-  }
-  .bg-\[\#F0F9FF\] {
-    background-color: #F0F9FF;
-  }
-  .bg-\[\#F5F8FA\] {
-    background-color: #F5F8FA;
   }
   .bg-\[\#F9FAFB\] {
     background-color: #F9FAFB;
@@ -3024,9 +2937,6 @@
   }
   .p-2\.5 {
     padding: calc(var(--spacing) * 2.5);
-  }
-  .p-3 {
-    padding: calc(var(--spacing) * 3);
   }
   .p-4 {
     padding: calc(var(--spacing) * 4);
@@ -3252,9 +3162,6 @@
   .text-wrap {
     text-wrap: wrap;
   }
-  .break-words {
-    overflow-wrap: break-word;
-  }
   .break-all {
     word-break: break-all;
   }
@@ -3350,9 +3257,6 @@
   }
   .text-white {
     color: var(--color-white);
-  }
-  .italic {
-    font-style: italic;
   }
   .underline {
     text-decoration-line: underline;
@@ -3472,10 +3376,6 @@
   .ease-in-out {
     --tw-ease: var(--ease-in-out);
     transition-timing-function: var(--ease-in-out);
-  }
-  .ease-out {
-    --tw-ease: var(--ease-out);
-    transition-timing-function: var(--ease-out);
   }
   .select-none {
     -webkit-user-select: none;
@@ -3877,11 +3777,6 @@
       color: var(--color-white);
     }
   }
-  .sm\:mt-0 {
-    @media (width >= 40rem) {
-      margin-top: calc(var(--spacing) * 0);
-    }
-  }
   .sm\:grid {
     @media (width >= 40rem) {
       display: grid;
@@ -3942,19 +3837,9 @@
       flex-direction: row;
     }
   }
-  .sm\:items-center {
-    @media (width >= 40rem) {
-      align-items: center;
-    }
-  }
   .sm\:items-end {
     @media (width >= 40rem) {
       align-items: flex-end;
-    }
-  }
-  .sm\:justify-between {
-    @media (width >= 40rem) {
-      justify-content: space-between;
     }
   }
   .sm\:justify-center {

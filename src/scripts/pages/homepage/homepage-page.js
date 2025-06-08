@@ -1,6 +1,6 @@
 import {
   generateFooterTemplate,
-  generateLeaderboardTemplate,
+  generateLeaderboardLinkTemplate,
   generateModuleTemplate,
   generateModuleDetailTemplate,
 } from '../../templates/template.js';
@@ -8,6 +8,7 @@ import HomePresenter from './homepage-presenter.js';
 import { setupProfileDropdown } from '../../utils/navbar-interaction.js';
 import { getLogout } from '../../utils/auth.js';
 import { faqList } from '../../data/faq-data.js';
+import { fetchPhishingLeaderboard } from '../../data/api.js';
 
 export default class Homepage {
   constructor() {
@@ -166,7 +167,7 @@ export default class Homepage {
             </section>
 
             <section class="leaderboard">
-                ${generateLeaderboardTemplate()}
+                ${generateLeaderboardLinkTemplate()}
             </section>
             
             <section class="faq bg-white font-jakarta flex items-center py-12 px-18">
@@ -222,6 +223,45 @@ export default class Homepage {
 
         this.presenter.renderFAQ(category);
       });
+    });
+
+    const renderPhishingLeaderboard = async (monthOnly = false) => {
+      const listEl = document.getElementById('leaderboard-list');
+      if (!listEl) return;
+
+      try {
+        const data = await fetchPhishingLeaderboard(monthOnly);
+        listEl.innerHTML = data.map((item, idx) => `
+          <li class="flex items-start gap-3 p-4 border rounded-xl bg-white shadow-sm">
+            <div class="w-12 h-12 rounded-lg bg-[#FFF1AA] text-[#2C6F82] text-xl font-bold flex items-center justify-center">${idx + 1}</div>
+            <div>
+              <h3 class="text-xl text-gray-800 font-regular">${item.url}</h3>
+              <p class="text-base font-regular text-gray-500">telah dicari sebanyak ${item.count} kali</p>
+            </div>
+          </li>
+        `).join('');
+      } catch (err) {
+        listEl.innerHTML = `<li class="text-red-500">Gagal memuat leaderboard: ${err.message}</li>`;
+      }
+    };
+
+    // 🟦 Render default (semua data)
+    renderPhishingLeaderboard(false);
+
+    // 🟦 Setup tombol filter
+    const btnAll = document.getElementById('btn-leaderboard-all');
+    const btnMonth = document.getElementById('btn-leaderboard-month');
+
+    btnAll?.addEventListener('click', () => {
+      btnAll.classList.add('bg-[#42A7C3]', 'text-white');
+      btnMonth.classList.remove('bg-[#42A7C3]', 'text-white');
+      renderPhishingLeaderboard(false);
+    });
+
+    btnMonth?.addEventListener('click', () => {
+      btnMonth.classList.add('bg-[#42A7C3]', 'text-white');
+      btnAll.classList.remove('bg-[#42A7C3]', 'text-white');
+      renderPhishingLeaderboard(true);
     });
   }
 
