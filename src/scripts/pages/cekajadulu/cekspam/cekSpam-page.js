@@ -3,8 +3,10 @@ import {
   generateScamTypeTemplate,
   generateTabCekAjaDuluTemplate,
   markCurrentTabActive,
+  generateLeaderboardSpamTemplate,
 } from '../../../templates/template';
 import CekSpamPresenter from './cekSpam-presenter';
+import { fetchSpamLeaderboard } from '../../../data/api';
 
 export default class CekSpamPage {
   async render() {
@@ -42,6 +44,7 @@ export default class CekSpamPage {
       content4:
         'Berisi ancaman menyebarkan data pribadi atau rekaman palsu, lalu meminta uang agar ancaman tidak dijalankan.',
     })}
+    ${generateLeaderboardSpamTemplate()}
     ${generateFooterTemplate()}
     `;
   }
@@ -81,5 +84,45 @@ export default class CekSpamPage {
       resultDiv.innerHTML = '<span class="text-gray-400">Memproses...</span>';
       presenter.handleTextSubmit(input.value);
     });
+
+    const renderSpamLeaderboard = async (monthOnly = false) => {
+      const listEl = document.getElementById('spam-leaderboard-list');
+      if (!listEl) return;
+
+      try {
+        const data = await fetchSpamLeaderboard(monthOnly);
+        listEl.innerHTML = data.map((item, idx) => `
+          <li class="flex items-start gap-3 p-4 border rounded-xl bg-white shadow-sm">
+            <div class="w-12 h-12 rounded-lg bg-[#FFF1AA] text-[#2C6F82] text-xl font-bold flex items-center justify-center">${idx + 1}</div>
+            <div>
+              <h3 class="text-xl text-gray-800 font-regular">${item.keyword}</h3>
+              <p class="text-base font-regular text-gray-500">kata ini telah muncul sebanyak ${item.count} kali</p>
+            </div>
+          </li>
+        `).join('');
+      } catch (err) {
+        listEl.innerHTML = `<li class="text-red-500">Gagal memuat leaderboard: ${err.message}</li>`;
+      }
+    };
+
+    // panggil default
+    renderSpamLeaderboard(false);
+
+    // event toggle
+    document.getElementById('btn-spam-leaderboard-all')?.addEventListener('click', () => {
+      document.getElementById('btn-spam-leaderboard-all').classList.add('bg-[#42A7C3]', 'text-white');
+      document.getElementById('btn-spam-leaderboard-month').classList.remove('bg-[#42A7C3]', 'text-white');
+      renderSpamLeaderboard(false);
+    });
+
+    document.getElementById('btn-spam-leaderboard-month')?.addEventListener('click', () => {
+      document.getElementById('btn-spam-leaderboard-month').classList.add('bg-[#42A7C3]', 'text-white');
+      document.getElementById('btn-spam-leaderboard-all').classList.remove('bg-[#42A7C3]', 'text-white');
+      renderSpamLeaderboard(true);
+    });
+
+    setInterval(() => {
+      renderSpamLeaderboard(false); // atau true kalau untuk bulan ini
+    }, 1000);
   }
 }

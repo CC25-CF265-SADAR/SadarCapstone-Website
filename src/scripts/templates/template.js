@@ -214,6 +214,33 @@ export function generateLeaderboardLinkTemplate() {
   `;
 }
 
+export function generateLeaderboardSpamTemplate() {
+  return `
+    <section class="leaderboard flex flex-col md:flex-row gap-8 px-4 md:px-16 py-10">
+      <div class="md:w-1/2 flex justify-center md:justify-start items-center">
+        <div>
+          <h2 class="text-4xl md:text-4xl font-semibold text-black">Kata-Kata Spam yang<br/>Sering Muncul</h2>
+          <p class="mt-4 text-gray-500 text-base">
+            Berikut merupakan kata-kata yang sering muncul dalam pesan mencurigakan. 
+            Waspadalah terhadap kata-kata seperti ini saat menerima pesan tak dikenal.
+          </p>
+        </div>
+      </div>
+
+      <div class="md:w-1/2">
+        <div class="flex gap-2 justify-end mb-4">
+          <button id="btn-spam-leaderboard-all" class="px-4 py-1 border border-[#42A7C3] bg-[#42A7C3] text-white text-base font-regular rounded-4xl">semua</button>
+          <button id="btn-spam-leaderboard-month" class="px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-base font-regular rounded-4xl hover:bg-gray-200">bulan ini</button>
+        </div>
+
+        <ul id="spam-leaderboard-list" class="space-y-3">
+          <!-- Item leaderboard spam akan dimasukkan di sini -->
+        </ul>
+      </div>
+    </section>
+  `;
+}
+
 export function generateFooterTemplate() {
   return `
         <footer class="bg-[#DFF0F5] font-jakarta text-[#858995] px-18 pt-12 pb-6">

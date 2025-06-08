@@ -1,4 +1,14 @@
 import { detectLink } from '../../../data/api-ml';
+import { recordPhishingLink } from '../../../data/api';
+
+function isValidHttpUrl(string) {
+  try {
+    const url = new URL(string);
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  } catch (_) {
+    return false;
+  }
+}
 
 export default class CekLinkPresenter {
   constructor({ onResult, onError }) {
@@ -15,6 +25,16 @@ export default class CekLinkPresenter {
         prediction: result.predicted_type,
         probability: result.phishing_probability,
       });
+
+      // ✅ Cek jika hasil deteksi adalah phishing dan URL valid
+      if (
+        result.predicted_type?.toLowerCase() === 'phishing' &&
+        isValidHttpUrl(result.url)
+      ) {
+        await recordPhishingLink(result.url);
+        console.log('[recorded to leaderboard]', result.url);
+      }
+
     } catch (error) {
       this.onError(error.message);
     }

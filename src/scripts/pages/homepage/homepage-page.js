@@ -254,15 +254,27 @@ export default class Homepage {
 
     btnAll?.addEventListener('click', () => {
       btnAll.classList.add('bg-[#42A7C3]', 'text-white');
+      btnAll.classList.remove('bg-white', 'text-gray-600');
+
       btnMonth.classList.remove('bg-[#42A7C3]', 'text-white');
+      btnMonth.classList.add('bg-white', 'text-gray-600');
+
       renderPhishingLeaderboard(false);
     });
 
     btnMonth?.addEventListener('click', () => {
       btnMonth.classList.add('bg-[#42A7C3]', 'text-white');
+      btnMonth.classList.remove('bg-white', 'text-gray-600');
+    
       btnAll.classList.remove('bg-[#42A7C3]', 'text-white');
+      btnAll.classList.add('bg-white', 'text-gray-600');
+
       renderPhishingLeaderboard(true);
     });
+
+    setInterval(() => {
+      renderPhishingLeaderboard(false);
+    }, 1000);
   }
 
   renderFAQList(filteredFaq) {

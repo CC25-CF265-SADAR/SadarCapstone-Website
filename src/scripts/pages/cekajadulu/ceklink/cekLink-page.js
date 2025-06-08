@@ -3,8 +3,11 @@ import {
   generateScamTypeTemplate,
   generateTabCekAjaDuluTemplate,
   markCurrentTabActive,
+  generateLeaderboardLinkTemplate,
 } from '../../../templates/template';
 import CekLinkPresenter from './cekLink-presenter';
+import { fetchPhishingLeaderboard } from '../../../data/api';
+
 export default class CekLinkPage {
   async render() {
     return `
@@ -34,12 +37,16 @@ export default class CekLinkPage {
               </form>
               <div id="loading-indicator" class="hidden mt-4 text-gray-500">🔍 Sedang memproses link...</div>
               <div id="link-result" class="hidden mt-4 text-center p-4 bg-gray-100 border rounded text-gray-800"></div>
-
             </div>
         </section>
         ${generateScamTypeTemplate({
+<<<<<<< HEAD
           title: 'Jenis Link Mencurigakan',
           subtitle1: 'Link Phishing Login Palsu',
+=======
+          title: 'Jenis Pesan Spammm',
+          subtitle1: 'Pesan Hadiah Palsu',
+>>>>>>> d6ef0c7 (leaderboard done)
           content1:
             'Biasanya menyerupai halaman login bank, email, atau e-wallet. Jika kamu login di sana, data kamu bisa dicuri.',
           subtitle2: 'Link Undian Hadiah / Giveaway Bohongan',
@@ -52,6 +59,7 @@ export default class CekLinkPage {
           content4:
             'Link download aplikasi (APK) dari sumber tidak resmi, biasanya dikirim lewat pesan WA/SMS. Bisa mencuri data atau ambil alih HP kamu.',
         })}
+        ${generateLeaderboardLinkTemplate()}
         ${generateFooterTemplate()}
     `;
   }
@@ -105,5 +113,53 @@ export default class CekLinkPage {
 
       await presenter.processLink(url);
     });
+
+    const renderPhishingLeaderboard = async (monthOnly = false) => {
+      const listEl = document.getElementById('leaderboard-list');
+      if (!listEl) return;
+
+      try {
+        const data = await fetchPhishingLeaderboard(monthOnly);
+        listEl.innerHTML = data.map((item, idx) => `
+          <li class="flex items-start gap-3 p-4 border rounded-xl bg-white shadow-sm">
+            <div class="w-12 h-12 rounded-lg bg-[#FFF1AA] text-[#2C6F82] text-xl font-bold flex items-center justify-center">${idx + 1}</div>
+            <div>
+              <h3 class="text-xl text-gray-800 font-regular">${item.url}</h3>
+              <p class="text-base font-regular text-gray-500">telah dicari sebanyak ${item.count} kali</p>
+            </div>
+          </li>
+        `).join('');
+      } catch (err) {
+        listEl.innerHTML = `<li class="text-red-500">Gagal memuat leaderboard: ${err.message}</li>`;
+      }
+    };
+    
+    renderPhishingLeaderboard(false);
+    
+    const btnAll = document.getElementById('btn-leaderboard-all');
+    const btnMonth = document.getElementById('btn-leaderboard-month');
+
+    btnAll?.addEventListener('click', () => {
+      btnAll.classList.add('bg-[#42A7C3]', 'text-white');
+      btnAll.classList.remove('bg-white', 'text-gray-600');
+
+      btnMonth.classList.remove('bg-[#42A7C3]', 'text-white');
+      btnMonth.classList.add('bg-white', 'text-gray-600');
+
+      renderPhishingLeaderboard(false);
+    });
+
+    btnMonth?.addEventListener('click', () => {
+      btnMonth.classList.add('bg-[#42A7C3]', 'text-white');
+      btnMonth.classList.remove('bg-white', 'text-gray-600');
+    
+      btnAll.classList.remove('bg-[#42A7C3]', 'text-white');
+      btnAll.classList.add('bg-white', 'text-gray-600');
+
+      renderPhishingLeaderboard(true);
+    });
+    setInterval(() => {
+      renderPhishingLeaderboard(false);
+    }, 1000);
   }
 }
