@@ -46,6 +46,20 @@ export default class ModuleLayoutPage {
             <div id="module-content-inner"></div>
           </main>
         </div>
+
+        <!-- Modal sesi habis -->
+        <div id="session-expired-modal" class="fixed inset-0 z-50 hidden bg-gray-200 bg-opacity-40 flex items-center justify-center">
+          <div class="bg-white p-6 rounded-lg shadow-md max-w-sm w-full text-center">
+            <h2 class="text-lg font-semibold text-gray-900">Sesi Anda telah berakhir</h2>
+              <p class="text-sm text-gray-600 mt-2">Harap masuk lagi.</p>
+              <div class="mt-4">
+                <button id="ok-button" class="px-4 py-2 bg-[#42A7C3] hover:bg-[#2C6F82] text-white rounded focus:outline-none">
+                OK
+                </button>
+              </div>
+          </div>
+        </div>
+
         <!-- Footer fixed di bawah -->
         <footer id="module-footer" class="fixed bottom-0 left-0 right-0 bg-white shadow-sm z-20 h-20"></footer>
       </div>
@@ -100,17 +114,12 @@ export default class ModuleLayoutPage {
   }
 
   renderSessionExpired() {
-    const main = document.querySelector('main');
-      main.innerHTML = `
-      <div class="text-center text-red-600 mt-16 space-y-4">
-        <p class="text-xl">Sesi Anda telah berakhir. Silakan login ulang.</p>
-        <button id="relogin-btn" class="bg-[#42A7C3] text-white px-4 py-2 rounded hover:hover:bg-[#2C6F82]">
-        Login Ulang
-        </button>
-      </div>
-    `;
+    const modal = document.querySelector('#session-expired-modal');
+    if (!modal) return;
 
-    document.querySelector('#relogin-btn').addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    const okBtn = document.querySelector('#ok-button');
+    okBtn.addEventListener('click', () => {
       localStorage.removeItem('token');
       window.location.href = '/#/login';
     });
