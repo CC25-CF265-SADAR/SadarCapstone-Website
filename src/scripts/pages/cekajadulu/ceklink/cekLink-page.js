@@ -40,13 +40,8 @@ export default class CekLinkPage {
             </div>
         </section>
         ${generateScamTypeTemplate({
-<<<<<<< HEAD
-          title: 'Jenis Link Mencurigakan',
-          subtitle1: 'Link Phishing Login Palsu',
-=======
           title: 'Jenis Pesan Spammm',
           subtitle1: 'Pesan Hadiah Palsu',
->>>>>>> d6ef0c7 (leaderboard done)
           content1:
             'Biasanya menyerupai halaman login bank, email, atau e-wallet. Jika kamu login di sana, data kamu bisa dicuri.',
           subtitle2: 'Link Undian Hadiah / Giveaway Bohongan',
