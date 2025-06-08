@@ -20,11 +20,9 @@ class App {
       this.#header.innerHTML = ''; // Hapus navbar default
     } else {
       const isLogin = !!getAccessToken();
-      this.#header.innerHTML = `
-        <nav>
-          ${isLogin ? await generateNavbarAuthTemplate() : await generateNavbarTemplate()}
-        </nav>
-      `;
+      this.#header.innerHTML = isLogin
+      ? await generateNavbarAuthTemplate()
+      : await generateNavbarTemplate();
     }
   }
 

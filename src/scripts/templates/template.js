@@ -5,74 +5,76 @@ export async function generateNavbarTemplate() {
   const currentHash = window.location.hash;
   const data = await fetchModules();
 
-  const modulesList = data
-    .map((mod) => {
-      const isActive = currentHash.includes(`detail-module-${mod.id}`);
-      return `
-        <li>
-          <a
-            href="#/module-overview/detail-module-${mod.id}"
-            class="block rounded-md px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100'}"
-          >
-            ${mod.title}
-          </a>
-        </li>`;
-    }).join('');
+  const modulesList = data.map((mod) => {
+    const isActive = currentHash.includes(`detail-module-${mod.id}`);
+    return `
+      <li>
+        <a href="#/module-overview/detail-module-${mod.id}"
+          class="block rounded-md px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">
+          ${mod.title}
+        </a>
+      </li>`;
+  }).join('');
 
   return `
-<header class="sticky top-0 z-50 bg-[#42A7C3] shadow-md">
-  <nav>
-    <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
-      <!-- Logo -->
-      <a class="text-white font-bold text-lg" href="#">Logo Sadar</a>
+  <header class="sticky top-0 z-50 bg-[#42A7C3] shadow-md">
+    <nav>
+      <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <!-- Logo -->
+        <a class="text-white font-bold text-lg" href="#">Logo Sadar</a>
 
-      <!-- Desktop Menu -->
-      <ul class="hidden md:flex items-center gap-6 text-sm">
-        <li>
-          <a href="#/link-checking/cek-umum" class="text-base font-semibold ${currentHash === '#/link-checking/cek-umum' ? 'text-[#163741]' : 'text-white hover:text-[#163741]'}">CekAjaDulu</a>
-        </li>
-        <li class="relative group">
-          <a href="#/module-overview" class="flex items-center gap-1 text-base font-semibold ${currentHash.startsWith('#/module-overview') ? 'text-[#163741]' : 'text-white hover:text-[#163741]'}">
-            AntiTertipu
-            <svg class="w-4 h-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        <!-- Desktop Menu -->
+        <ul class="hidden md:flex items-center gap-6 text-sm">
+          <li>
+            <a href="#/link-checking/cek-umum"
+              class="text-base font-semibold ${currentHash === '#/link-checking/cek-umum' ? 'text-[#163741]' : 'text-white hover:text-[#163741]'}">CekAjaDulu</a>
+          </li>
+          <li class="relative group">
+            <a href="#/module-overview"
+              class="flex items-center gap-1 text-base font-semibold ${currentHash.startsWith('#/module-overview') ? 'text-[#163741]' : 'text-white hover:text-[#163741]'}">
+              AntiTertipu
+              <svg class="w-4 h-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+            <ul class="absolute left-0 mt-2 w-56 rounded-md bg-white shadow-xl ring-1 ring-black/5 border border-gray-200 z-50 opacity-0 group-hover:opacity-100 group-hover:visible invisible transition duration-200">
+              ${modulesList}
+            </ul>
+          </li>
+          <li>
+            <a href="#/quiz"
+              class="text-base font-semibold ${currentHash === '#/quiz' ? 'text-[#163741]' : 'text-white hover:text-[#163741]'}">TipuMeter</a>
+          </li>
+        </ul>
+
+        <!-- Desktop Button -->
+        <div class="hidden md:flex gap-2 ml-6">
+          <a href="#/login" class="text-sm font-medium text-white bg-[#2C6F82] px-4 py-2 rounded hover:bg-[#1e5566]">Login</a>
+          <a href="#/register" class="text-sm font-medium text-[#2C6F82] bg-white px-4 py-2 rounded hover:bg-gray-100">Register</a>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <div class="relative md:hidden flex items-center">
+          <input type="checkbox" id="menu-toggle" class="peer hidden">
+          <label for="menu-toggle" class="cursor-pointer rounded bg-white p-2.5 text-gray-600 z-50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
-          </a>
-          <ul class="absolute left-0 mt-2 w-56 rounded-md bg-white shadow-xl ring-1 ring-black/5 border border-gray-200 z-50 opacity-0 group-hover:opacity-100 group-hover:visible invisible transition duration-200">
-            ${modulesList}
-          </ul>
-        </li>
-        <li>
-          <a href="#/quiz" class="text-base font-semibold ${currentHash === '#/quiz' ? 'text-[#163741]' : 'text-white hover:text-[#163741]'}">TipuMeter</a>
-        </li>
-      </ul>
-      <div class="hidden md:flex gap-2 ml-6">
-        <a href="#/login" class="text-sm font-medium text-white bg-[#2C6F82] px-4 py-2 rounded hover:bg-[#1e5566]">Login</a>
-        <a href="#/register" class="text-sm font-medium text-[#2C6F82] bg-white px-4 py-2 rounded hover:bg-gray-100">Register</a>
-      </div>
-
-      <!-- Mobile toggle -->
-      <div class="relative md:hidden flex items-center">
-        <input type="checkbox" id="menu-toggle" class="peer hidden">
-        <label for="menu-toggle" class="cursor-pointer rounded bg-white p-2.5 text-gray-600 z-50">
-          <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </label>
-        <div class="peer-checked:flex hidden absolute right-0 top-full mt-2 w-56 flex-col gap-2 rounded-md bg-white p-4 shadow-lg z-40">
-          <a href="#/link-checking/cek-umum" class="block rounded-md px-4 py-2 text-sm ${currentHash === '#/link-checking/cek-umum' ? 'bg-gray-200 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">CekAjaDulu</a>
-          <a href="#/module-overview" class="block rounded-md px-4 py-2 text-sm ${currentHash.startsWith('#/module-overview') ? 'bg-gray-200 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">AntiTertipu</a>
-          <a href="#/quiz" class="block rounded-md px-4 py-2 text-sm ${currentHash === '#/quiz' ? 'bg-gray-200 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">TipuMeter</a>
-          <div class="border-t pt-2 mt-2 flex flex-col gap-2">
-            <a href="#/login" class="text-sm font-medium text-white bg-[#2C6F82] px-4 py-2 rounded text-center">Login</a>
-            <a href="#/register" class="text-sm font-medium text-[#2C6F82] border border-[#2C6F82] px-4 py-2 rounded text-center hover:bg-gray-100">Register</a>
+          </label>
+          <div class="peer-checked:flex hidden absolute right-0 top-full mt-2 w-56 flex-col gap-2 rounded-md bg-white p-4 shadow-lg z-40">
+            <a href="#/link-checking/cek-umum" class="block rounded-md px-4 py-2 text-sm ${currentHash === '#/link-checking/cek-umum' ? 'bg-gray-200 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">CekAjaDulu</a>
+            <a href="#/module-overview" class="block rounded-md px-4 py-2 text-sm ${currentHash.startsWith('#/module-overview') ? 'bg-gray-200 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">AntiTertipu</a>
+            <a href="#/quiz" class="block rounded-md px-4 py-2 text-sm ${currentHash === '#/quiz' ? 'bg-gray-200 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">TipuMeter</a>
+            <div class="border-t pt-2 mt-2 flex flex-col gap-2">
+              <a href="#/login" class="text-sm font-medium text-white bg-[#2C6F82] px-4 py-2 rounded text-center">Login</a>
+              <a href="#/register" class="text-sm font-medium text-[#2C6F82] border border-[#2C6F82] px-4 py-2 rounded text-center hover:bg-gray-100">Register</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </nav>
-</header>
-`;
+    </nav>
+  </header>
+  `;
 }
 
 export async function generateNavbarAuthTemplate() {
@@ -104,73 +106,76 @@ export async function generateNavbarAuthTemplate() {
   }).join('');
 
   return `
-<header class="sticky top-0 z-50 bg-[#42A7C3] shadow-md">
-  <nav>
-    <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
-      <a class="text-white font-bold text-lg" href="#">Logo Sadar</a>
+  <header class="sticky top-0 z-50 bg-[#42A7C3] shadow-md">
+    <nav>
+      <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <a class="text-white font-bold text-lg" href="#">Logo Sadar</a>
 
-      <!-- Desktop Menu -->
-      <ul class="hidden md:flex items-center gap-6 text-sm">
-        <li>
-          <a href="#/link-checking/cek-umum" class="text-base font-semibold ${currentHash === '#/link-checking/cek-umum' ? 'text-[#163741]' : 'text-white hover:text-[#163741]'}">CekAjaDulu</a>
-        </li>
-        <li class="relative group">
-          <a href="#/module-overview" class="flex items-center gap-1 text-base font-semibold ${currentHash.startsWith('#/module-overview') ? 'text-[#163741]' : 'text-white hover:text-[#163741]'}">
-            AntiTertipu
-            <svg class="w-4 h-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        <!-- Desktop Menu -->
+        <ul class="hidden md:flex items-center gap-6 text-sm">
+          <li>
+            <a href="#/link-checking/cek-umum"
+              class="text-base font-semibold ${currentHash === '#/link-checking/cek-umum' ? 'text-[#163741]' : 'text-white hover:text-[#163741]'}">CekAjaDulu</a>
+          </li>
+          <li class="relative group">
+            <a href="#/module-overview"
+              class="flex items-center gap-1 text-base font-semibold ${currentHash.startsWith('#/module-overview') ? 'text-[#163741]' : 'text-white hover:text-[#163741]'}">
+              AntiTertipu
+              <svg class="w-4 h-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+            <ul class="absolute left-0 mt-2 w-56 rounded-md bg-white shadow-xl ring-1 ring-black/5 border border-gray-200 z-50 opacity-0 group-hover:opacity-100 group-hover:visible invisible transition duration-200">
+              ${modulesList}
+            </ul>
+          </li>
+          <li>
+            <a href="#/quiz"
+              class="text-base font-semibold ${currentHash === '#/quiz' ? 'text-[#163741]' : 'text-white hover:text-[#163741]'}">TipuMeter</a>
+          </li>
+        </ul>
+
+        <!-- Desktop Profile -->
+        <div class="relative hidden md:flex items-center">
+          <button type="button" id="user-menu-button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300">
+            <span class="sr-only">Open user menu</span>
+            <img class="w-8 h-8 rounded-full" src="${avatarUrl}" alt="${name}" />
+          </button>
+          <div id="user-dropdown" class="absolute right-0 top-full mt-2 z-50 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow">
+            <div class="px-4 py-3">
+              <span class="block text-sm text-gray-900">${name}</span>
+              <span class="block text-sm text-gray-500 truncate">${email}</span>
+            </div>
+            <ul class="py-2">
+              <li>
+                <a href="#" id="logout-btn" class="block px-4 py-2 text-sm text-red-500 hover:bg-gray-100">Sign out</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Mobile -->
+        <div class="relative md:hidden flex items-center">
+          <input type="checkbox" id="menu-toggle" class="peer hidden">
+          <label for="menu-toggle" class="cursor-pointer rounded bg-white p-2.5 text-gray-600 z-50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
-          </a>
-          <ul class="absolute left-0 mt-2 w-56 rounded-md bg-white shadow-xl ring-1 ring-black/5 border border-gray-200 z-50 opacity-0 group-hover:opacity-100 group-hover:visible invisible transition duration-200">
-            ${modulesList}
-          </ul>
-        </li>
-        <li>
-          <a href="#/quiz" class="text-base font-semibold ${currentHash === '#/quiz' ? 'text-[#163741]' : 'text-white hover:text-[#163741]'}">TipuMeter</a>
-        </li>
-      </ul>
-
-      <!-- Profile -->
-      <div class="relative hidden md:flex items-center">
-        <button type="button" id="user-menu-button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300">
-          <span class="sr-only">Open user menu</span>
-          <img class="w-8 h-8 rounded-full" src="${avatarUrl}" alt="${name}" />
-        </button>
-        <div id="user-dropdown" class="absolute right-0 top-full mt-2 z-50 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow">
-          <div class="px-4 py-3">
-            <span class="block text-sm text-gray-900">${name}</span>
-            <span class="block text-sm text-gray-500 truncate">${email}</span>
-          </div>
-          <ul class="py-2">
-            <li>
-              <a href="#" id="logout-btn" class="block px-4 py-2 text-sm text-red-500 hover:bg-gray-100">Sign out</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Mobile -->
-      <div class="relative md:hidden flex items-center">
-        <input type="checkbox" id="menu-toggle" class="peer hidden">
-        <label for="menu-toggle" class="cursor-pointer rounded bg-white p-2.5 text-gray-600 z-50">
-          <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </label>
-        <div class="peer-checked:flex hidden absolute right-0 top-full mt-2 w-56 flex-col gap-2 rounded-md bg-white p-4 shadow-lg z-40">
-          <a href="#/link-checking/cek-umum" class="block rounded-md px-4 py-2 text-sm ${currentHash === '#/link-checking/cek-umum' ? 'bg-gray-200 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">CekAjaDulu</a>
-          <a href="#/module-overview" class="block rounded-md px-4 py-2 text-sm ${currentHash.startsWith('#/module-overview') ? 'bg-gray-200 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">AntiTertipu</a>
-          <a href="#/quiz" class="block rounded-md px-4 py-2 text-sm ${currentHash === '#/quiz' ? 'bg-gray-200 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">TipuMeter</a>
-          <div class="border-t pt-2 mt-2 flex flex-col gap-2">
-            <span class="text-sm font-medium text-[#2C6F82] text-center">Hi, ${name}</span>
-            <a href="#" id="logout-btn" class="text-sm font-medium text-white bg-[#2C6F82] px-4 py-2 rounded text-center">Logout</a>
+          </label>
+          <div class="peer-checked:flex hidden absolute right-0 top-full mt-2 w-56 flex-col gap-2 rounded-md bg-white p-4 shadow-lg z-40">
+            <a href="#/link-checking/cek-umum" class="block rounded-md px-4 py-2 text-sm ${currentHash === '#/link-checking/cek-umum' ? 'bg-gray-200 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">CekAjaDulu</a>
+            <a href="#/module-overview" class="block rounded-md px-4 py-2 text-sm ${currentHash.startsWith('#/module-overview') ? 'bg-gray-200 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">AntiTertipu</a>
+            <a href="#/quiz" class="block rounded-md px-4 py-2 text-sm ${currentHash === '#/quiz' ? 'bg-gray-200 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">TipuMeter</a>
+            <div class="border-t pt-2 mt-2 flex flex-col gap-2">
+              <span class="text-sm font-medium text-[#2C6F82] text-center">Hi, ${name}</span>
+              <a href="#" id="logout-btn" class="text-sm font-medium text-white bg-[#2C6F82] px-4 py-2 rounded text-center">Logout</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </nav>
-</header>
-`;
+    </nav>
+  </header>
+  `;
 }
 
 export function generateLeaderboardLinkTemplate() {
