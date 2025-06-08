@@ -14,7 +14,7 @@ export default class CekLinkPage {
       <section class="flex flex-col justify-center items-center px-4 mb-12 sm:px-6 lg:px-8">
             <div class="cekLink flex flex-col gap-2 justify-center items-center mt-12 p-10 rounded-xl border border-gray-200 shadow-sm">
               <h1 class="text-2xl sm:text-3xl font-semibold text-[#42A7C3]">Cek Link Mencurigakan</h1>
-              <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Masukkan tautan yang ingin diperiksa. Kami  akan membantu anda  untuk mengetahui keamanan tautan tersebut.</h2>
+              <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Masukkan tautan mencurigakan untuk mengetahui apakah link tersebut aman, berisiko phishing, atau bagian dari modus penipuan.</h2>
               <form class="flex flex-row content-stretch w-full max-w-xl">
                 <label for="search" class="sr-only">Search</label>
                 <div class="relative flex-grow">
@@ -38,19 +38,19 @@ export default class CekLinkPage {
             </div>
         </section>
         ${generateScamTypeTemplate({
-          title: 'Jenis Pesan Spam',
-          subtitle1: 'Pesan Hadiah Palsu',
+          title: 'Jenis Link Mencurigakan',
+          subtitle1: 'Link Phishing Login Palsu',
           content1:
-            'Mengklaim kamu menang hadiah dari brand besar, padahal kamu tidak pernah ikut undian. Biasanya minta data pribadi atau transfer “biaya admin”.',
-          subtitle2: 'Pesan Hadiah Palsu',
+            'Biasanya menyerupai halaman login bank, email, atau e-wallet. Jika kamu login di sana, data kamu bisa dicuri.',
+          subtitle2: 'Link Undian Hadiah / Giveaway Bohongan',
           content2:
-            'Mengklaim kamu menang hadiah dari brand besar, padahal kamu tidak pernah ikut undian. Biasanya minta data pribadi atau transfer “biaya admin”.',
-          subtitle3: 'Pesan Hadiah Palsu',
+            'Link ini menawarkan hadiah menggiurkan dari brand besar. Biasanya minta data pribadi atau uang “biaya admin”.',
+          subtitle3: 'Link Paket Palsu',
           content3:
-            'Mengklaim kamu menang hadiah dari brand besar, padahal kamu tidak pernah ikut undian. Biasanya minta data pribadi atau transfer “biaya admin”.',
-          subtitle4: 'Pesan Hadiah Palsu',
+            'Mengaku dari JNE, J&T, atau ekspedisi lain, menyuruh klik untuk lacak paket atau bayar ongkir. Sering disisipkan malware atau phising.',
+          subtitle4: 'Link Aplikasi Palsu',
           content4:
-            'Mengklaim kamu menang hadiah dari brand besar, padahal kamu tidak pernah ikut undian. Biasanya minta data pribadi atau transfer “biaya admin”.',
+            'Link download aplikasi (APK) dari sumber tidak resmi, biasanya dikirim lewat pesan WA/SMS. Bisa mencuri data atau ambil alih HP kamu.',
         })}
         ${generateFooterTemplate()}
     `;

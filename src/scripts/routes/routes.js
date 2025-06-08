@@ -11,7 +11,7 @@ import ModuleDetailPage from '../pages/antitertipu/detailModul/detailAt-page';
 import ModuleLayoutPage from '../pages/antitertipu/layoutMateri/layout-page';
 import QuizMateriPage from '../pages/antitertipu/quizMateri/QuizMateri-page';
 import QuizResultModulePage from '../pages/antitertipu/hasilQuiz/HQMateri-page';
-import CekLinkPage from '../pages/cekajadulu/ceklink/ceklink-page';
+import CekLinkPage from '../pages/cekajadulu/ceklink/cekLink-page';
 import CekSpamPage from '../pages/cekajadulu/cekspam/cekSpam-page';
 import CekUmumPage from '../pages/cekajadulu/cekumum/cekUmum-page';
 

@@ -15,7 +15,7 @@ export default class CekSpamPage {
     <section class="flex flex-col justify-center items-center px-4 mb-12 sm:px-6 lg:px-8">
       <div class="cekLink flex flex-col gap-2 justify-center items-center mt-12 p-5 sm:p-10 rounded-xl border border-gray-200 shadow-sm w-full max-w-4xl">
         <h1 class="text-2xl sm:text-3xl font-semibold text-[#42A7C3] text-center">Cek Pesan Spam</h1>
-        <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
+        <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Salin dan tempel pesan mencurigakan di sini untuk mengetahui apakah itu termasuk spam, penipuan, atau hanya pesan biasa yang tidak berbahaya.</h2>
         <form id="spam-form" class="flex flex-col gap-3 items-end w-full">
           <label for="search" class="sr-only">Search</label>
           <textarea id="search" class="border border-[#42A7C3] rounded-lg w-full p-4 sm:p-5 field-sizing-fixed resize-none" rows="8" placeholder="Masukkan pesan disini..." required></textarea>
@@ -32,15 +32,15 @@ export default class CekSpamPage {
       subtitle1: 'Pesan Hadiah Palsu',
       content1:
         'Mengklaim kamu menang hadiah dari brand besar, padahal kamu tidak pernah ikut undian. Biasanya minta data pribadi atau transfer “biaya admin”.',
-      subtitle2: 'Pesan Hadiah Palsu',
+      subtitle2: 'Pesan OTP Palsu',
       content2:
-        'Mengklaim kamu menang hadiah dari brand besar, padahal kamu tidak pernah ikut undian. Biasanya minta data pribadi atau transfer “biaya admin”.',
-      subtitle3: 'Pesan Hadiah Palsu',
+        'Berisi permintaan kode OTP dengan alasan verifikasi ulang atau keamanan, padahal bertujuan mengambil alih akun digital kamu.',
+      subtitle3: 'Pesan Phishing dari Lembaga Palsu',
       content3:
-        'Mengklaim kamu menang hadiah dari brand besar, padahal kamu tidak pernah ikut undian. Biasanya minta data pribadi atau transfer “biaya admin”.',
-      subtitle4: 'Pesan Hadiah Palsu',
+        'Mengaku dari bank, e-commerce, atau kurir, lalu menyertakan link palsu untuk mencuri data login atau informasi pribadi.',
+      subtitle4: 'Pesan Ancaman atau Pemerasan',
       content4:
-        'Mengklaim kamu menang hadiah dari brand besar, padahal kamu tidak pernah ikut undian. Biasanya minta data pribadi atau transfer “biaya admin”.',
+        'Berisi ancaman menyebarkan data pribadi atau rekaman palsu, lalu meminta uang agar ancaman tidak dijalankan.',
     })}
     ${generateFooterTemplate()}
     `;
