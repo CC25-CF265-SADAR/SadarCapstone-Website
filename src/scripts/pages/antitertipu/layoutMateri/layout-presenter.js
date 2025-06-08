@@ -59,7 +59,11 @@ export default class ModuleLayoutPresenter {
       this.view.renderNavbar(this.moduleTitle);
       this.view.renderContent(this.content, this.pageIndex - 1);
     } catch (err) {
-      this.view.showError(err.message);
+      if (err.message === 'Expired token') {
+        this.view.renderSessionExpired();
+      } else {
+        this.view.showError(err.message);
+      }
     }
   }
 

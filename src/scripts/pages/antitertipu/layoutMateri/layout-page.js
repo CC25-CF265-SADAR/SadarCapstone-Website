@@ -99,6 +99,23 @@ export default class ModuleLayoutPage {
     container.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
   }
 
+  renderSessionExpired() {
+    const main = document.querySelector('main');
+      main.innerHTML = `
+      <div class="text-center text-red-600 mt-16 space-y-4">
+        <p class="text-xl">Sesi Anda telah berakhir. Silakan login ulang.</p>
+        <button id="relogin-btn" class="bg-[#42A7C3] text-white px-4 py-2 rounded hover:hover:bg-[#2C6F82]">
+        Login Ulang
+        </button>
+      </div>
+    `;
+
+    document.querySelector('#relogin-btn').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      window.location.href = '/#/login';
+    });
+  }
+
   renderFooter(moduleTitle, currentIndex, total, nextTopicId, pageIndex) {
     const footer = document.querySelector('#module-footer');
     const isIntroQuiz = this.presenter.content?.title?.toLowerCase().includes('kuis evaluasi');

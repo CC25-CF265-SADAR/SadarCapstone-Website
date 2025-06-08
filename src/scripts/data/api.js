@@ -139,10 +139,15 @@ export const fetchContent = async (contentId) => {
     headers: authHeader(),
   });
 
+  if (response.status === 401) {
+    throw new Error('Expired token');
+  }
+
   if (!response.ok) {
     const err = await response.json().catch(() => null);
     throw new Error(err?.message || 'Konten tidak ditemukan');
   }
+
   return await response.json();
 };
 
