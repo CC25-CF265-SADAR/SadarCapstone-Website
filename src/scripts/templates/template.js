@@ -800,33 +800,50 @@ export function generateResultTemplate(characterData, recommendedModules) {
 
       <div class="mt-12">
         <h3 class="text-xl font-semibold mb-2">Rekomendasi Modul Belajar</h3>
-        <p class="text-gray-600 mb-6">
-          Wah, sepertinya kamu perlu memperkuat pemahaman soal topik-topik berikut ini.
-          Yuk pelajari lebih lanjut lewat modul di bawah ini.
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          ${recommendedModules
-            .map(
-              (module) => `
-            <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow hover:shadow-lg transition">
-              <img src="/images/modules/${module.image}" alt="${module.title}" class="w-12 h-12 object-contain"/>
-              <div>
-                <h4 class="text-lg font-semibold mb-1">${module.title}</h4>
-                <p class="text-sm text-gray-600 mb-2">${module.description}</p>
-                <a href="${module.link}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-[#2C6F82] bg-[#DFF0F5] rounded-lg hover:bg-[#2C6F82] hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Mulai Belajar
-                  <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          `,
-            )
-            .join('')}
-        </div>
-      </div>
 
+        ${
+          recommendedModules.length === 0
+            ? `
+            <p class="text-green-700 font-medium mb-6">
+              🎉 Selamat! Kamu berhasil menjawab semua pertanyaan dengan benar.
+              Saat ini kamu sudah paham dengan materi simulasi ini.
+            </p>
+          `
+            : `
+            <p class="text-gray-600 mb-6">
+              Wah, sepertinya kamu perlu memperkuat pemahaman soal topik-topik berikut ini.
+              Yuk pelajari lebih lanjut lewat modul di bawah ini.
+            </p>
+          `
+        }
+
+        ${
+          recommendedModules.length > 0
+            ? `
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                ${recommendedModules
+                  .map(
+                    (module) => `
+                    <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow hover:shadow-lg transition">
+                      <img src="/images/modules/${module.image}" alt="${module.title}" class="w-12 h-12 object-contain"/>
+                      <div>
+                        <h4 class="text-lg font-semibold mb-1">${module.title}</h4>
+                        <p class="text-sm text-gray-600 mb-2">${module.description}</p>
+                        <a href="${module.link}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-[#2C6F82] bg-[#DFF0F5] rounded-lg hover:bg-[#2C6F82] hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
+                        Mulai Belajar
+                          <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
+                  `,
+                  )
+                  .join('')}
+              </div>
+            `
+            : ''
+        }
       <!-- Tombol Kembali -->
       <div class="mt-10 text-center">
         <button id="btn-back-home" class=" text-base bg-[#42A7C3] text-white px-8 py-2 rounded-lg hover:bg-[#2C6F82] transition">
