@@ -18,7 +18,7 @@ export default class Homepage {
   async render() {
     return `
             <section class="hero-image">
-                <section class="overflow-hidden bg-white sm:grid sm:grid-cols-2">
+                <section class="bg-white sm:grid sm:grid-cols-2">
                   <div class="p-8 md:p-12 lg:px-16 lg:py-24">
                       <div class="mx-auto max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
                         <h2 class="text-2xl font-semibold text-gray-900 md:text-3xl">
@@ -74,7 +74,7 @@ export default class Homepage {
                  </article>
             </section>
 
-            <section class="info-2 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 lg:gap-12 max-w-screen-xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-hidden">
+            <section class="info-2 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 lg:gap-12 max-w-screen-xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <article class="flex flex-col gap-6 w-full lg:w-3/5 text-center lg:text-left">
                     <h1 class="font-bold text-3xl sm:text-4xl leading-snug">
                     <span class="text-[#42A7C3]">Korban</span> Penipuan Online
