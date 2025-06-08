@@ -109,18 +109,32 @@ export default class CekSpamPage {
     renderSpamLeaderboard(false);
 
     // event toggle
-    document.getElementById('btn-spam-leaderboard-all')?.addEventListener('click', () => {
-      document.getElementById('btn-spam-leaderboard-all').classList.add('bg-[#42A7C3]', 'text-white');
-      document.getElementById('btn-spam-leaderboard-month').classList.remove('bg-[#42A7C3]', 'text-white');
+    const btnAll = document.getElementById('btn-spam-leaderboard-all');
+    const btnMonth = document.getElementById('btn-spam-leaderboard-month');
+
+    btnAll?.addEventListener('click', () => {
+      // Aktifkan btnAll
+      btnAll.classList.add('bg-[#42A7C3]', 'text-white');
+      btnAll.classList.remove('bg-white', 'text-gray-600', 'hover:bg-[#DFF0F5]', 'hover:text-[#2C6F82]');
+
+      // Nonaktifkan btnMonth
+      btnMonth.classList.remove('bg-[#42A7C3]', 'text-white');
+      btnMonth.classList.add('bg-white', 'text-gray-600', 'hover:bg-[#DFF0F5]', 'hover:text-[#2C6F82]');
+
       renderSpamLeaderboard(false);
     });
 
-    document.getElementById('btn-spam-leaderboard-month')?.addEventListener('click', () => {
-      document.getElementById('btn-spam-leaderboard-month').classList.add('bg-[#42A7C3]', 'text-white');
-      document.getElementById('btn-spam-leaderboard-all').classList.remove('bg-[#42A7C3]', 'text-white');
+    btnMonth?.addEventListener('click', () => {
+      // Aktifkan btnMonth
+      btnMonth.classList.add('bg-[#42A7C3]', 'text-white');
+      btnMonth.classList.remove('bg-white', 'text-gray-600', 'hover:bg-[#DFF0F5]', 'hover:text-[#2C6F82]');
+
+      // Nonaktifkan btnAll
+      btnAll.classList.remove('bg-[#42A7C3]', 'text-white');
+      btnAll.classList.add('bg-white', 'text-gray-600', 'hover:bg-[#DFF0F5]', 'hover:text-[#2C6F82]');
+
       renderSpamLeaderboard(true);
     });
-
     setInterval(() => {
       renderSpamLeaderboard(false); // atau true kalau untuk bulan ini
     }, 1000);

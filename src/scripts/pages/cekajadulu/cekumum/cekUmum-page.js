@@ -15,7 +15,7 @@ export default class CekUmumPage {
     <section class="flex flex-col justify-center items-center mb-12 px-4 sm:px-6 lg:px-8">
       <div class="cekLink flex flex-col gap-2 justify-center items-center p-8 mt-12 p-5 sm:p-10 rounded-xl border border-gray-200 shadow-sm w-full max-w-4xl">
         <h1 class="text-2xl sm:text-3xl font-semibold text-[#42A7C3] text-center">🖼️ Unggah Gambar untuk Cek Penipuan</h1>
-        <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Unggah tangkapan layar atau gambar yang berisi tautan atau pesan mencurigakan dan dapatkan analisis keamanan secara cepat.</h2>
+        <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Unggah tangkapan layar atau gambar yang berisi pesan, tautan hingga QR code mencurigakan dan dapatkan analisis keamanan secara cepat.</h2>
         <form class="flex flex-col gap-3 items-center sm:items-end w-full">
           <div id="drop" class="flex items-center justify-center w-full">
               <label for="dropzone-file" class="flex flex-col items-center justify-center w-full pb-3 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
@@ -38,7 +38,7 @@ export default class CekUmumPage {
           </div>
 
           <div class="text-center w-full">
-            <h1 id="ambil" class="text-gray-600 mb-3">Atau ambil foto langsung</h1>
+            <h1 id="ambil" class="text-gray-600 mb-3">Atau ambil gambar</h1>
             <label for="camera-input" class="text-[#42A7C3] flex flex-row items-center justify-center gap-2 bg-white border border-[#42A7C3] hover:bg-[#DFF0F5] hover:text-[#2C6F82] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md sm:text-md px-5 sm:px-7 py-2.5 sm:py-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               <svg class="w-5 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M149.1 64.8L138.7 96 64 96C28.7 96 0 124.7 0 160L0 416c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64l-74.7 0L362.9 64.8C356.4 45.2 338.1 32 317.4 32L194.6 32c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>
               Buka Kamera
@@ -188,9 +188,28 @@ export default class CekUmumPage {
     const resultContainer = document.getElementById('result-container');
     resultContainer.classList.remove('hidden');
 
+    // Deteksi apakah ada hasil dari QR code
+    const qrUrl = urls.find(url => smsText?.includes(url) && smsText?.toLowerCase().includes('qr code'));
+
     resultContainer.innerHTML = `
-      <p class="font-semibold text-[#374151] mb-2 text-lg">📩 Pesan Terdeteksi:</p>
-      <p class="text-gray-800 mb-6">${smsText || 'Tidak ada teks terdeteksi.'}</p>
+      ${qrUrl
+        ? `
+          <div class="flex items-center gap-3 bg-blue-50 border border-blue-200 text-blue-700 rounded-md px-4 py-3 mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z"/>
+            </svg>
+            <p class="text-sm font-medium">Gambar ini mengandung QR code yang mengarah ke: <span class="font-semibold underline">${qrUrl}</span></p>
+          </div>
+        ` : ''
+      }
+
+      ${smsText?.replace(/\s+/g, '').length > 0
+        ? `
+          <p class="font-semibold text-[#374151] mb-2 text-lg">📩 Pesan Terdeteksi:</p>
+          <p class="text-gray-800 mb-6 whitespace-pre-line">${smsText}</p>
+        `
+        : ''
+      }
 
       <div class="bg-white border border-gray-200 rounded-md p-5 w-full mb-4">
         <h4 class="text-md font-semibold text-gray-800 mb-3">🔗 Deteksi Link</h4>

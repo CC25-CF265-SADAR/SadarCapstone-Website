@@ -1,4 +1,4 @@
-import { processScreenshot, detectLink } from '../../../data/api-ml';
+import { processScreenshot, detectLink, processQr } from '../../../data/api-ml';
 import { recordPhishingLink, recordSpamKeywords } from '../../../data/api';
 
 function isValidHttpUrl(string) {
@@ -17,73 +17,94 @@ export default class CekUmumPresenter {
   }
 
   async handleSubmit(imageFile) {
+    console.log('[DEBUG] Mulai handleSubmit, file:', imageFile.name);
     try {
-      const response = await processScreenshot({ imageFile });
+      // Jalankan paralel (QR + OCR)
+      const [qrResponse, ocrResponse] = await Promise.allSettled([
+        processQr({ imageFile }),
+        processScreenshot({ imageFile }),
+      ]);
 
-      // Hasil dari model spam
-      const spamResult = response?.spam_detection_results?.[0]?.detection_result;
-      const smsText = response?.llm_extraction?.potential_sms_content || '';
-      const urls = response?.llm_extraction?.extracted_urls?.map((item) => item.url) || [];
-
-      // Inisialisasi prediksi
+      let urls = [];
+      let phishingResults = [];
+      let smsText = '';
       let prediction = '';
       let probability = 0;
       let keywords = [];
 
-      // Jika ada spam
-      if (spamResult) {
-        prediction = spamResult.prediction;
-        probability = spamResult.probability;
-        keywords = spamResult.explanation.map((item) => item[0]);
+      // ✳️ Proses QR jika sukses
+      if (qrResponse.status === 'fulfilled' && qrResponse.value?.decoded_url) {
+        const decodedUrl = qrResponse.value.decoded_url;
+        console.log('[DEBUG] QR Detected:', decodedUrl);
+        urls.push(decodedUrl);
+        smsText += `Ditemukan QR code yang mengarah ke: ${decodedUrl}\n`;
       }
 
-      // Deteksi phishing link
-      const phishingResults = await Promise.allSettled(
-        urls.map(async (url) => {
-          try {
-            const result = await detectLink({ url });
-            if (
-              isValidHttpUrl(url) &&
-              result.predicted_type?.toLowerCase() === 'phishing'
-            ) {
-              try {
-                await recordPhishingLink(url);
-              } catch (e) {
-                console.warn(`Gagal mencatat ke leaderboard untuk: ${url}`, e.message);
-              }
+      // ✳️ Proses OCR jika sukses
+      if (ocrResponse.status === 'fulfilled') {
+        const result = ocrResponse.value;
+
+        const spamResult = result?.spam_detection_results?.[0]?.detection_result;
+        smsText += result?.llm_extraction?.potential_sms_content || '';
+        const extracted = result?.llm_extraction?.extracted_urls?.map(u => u.url) || [];
+        urls.push(...extracted);
+
+        if (spamResult) {
+          prediction = spamResult.prediction;
+          probability = spamResult.probability;
+          keywords = spamResult.explanation.map((item) => item[0]);
+        }
+      }
+
+      // ✅ Hilangkan duplikat URL
+      urls = [...new Set(urls)];
+
+      // Deteksi phishing untuk semua URL
+      const phishingResultPromises = urls.map(async (url) => {
+        try {
+          const result = await detectLink({ url });
+          if (
+            isValidHttpUrl(url) &&
+            result.predicted_type?.toLowerCase() === 'phishing'
+          ) {
+            try {
+              await recordPhishingLink(url);
+            } catch (e) {
+              console.warn(`Gagal mencatat ke leaderboard untuk: ${url}`, e.message);
             }
-            return {
-              url,
-              predicted_type: result.predicted_type,
-              probability: result.phishing_probability,
-            };
-          } catch (e) {
-            return {
-              url,
-              predicted_type: 'Gagal mendeteksi',
-              probability: 0,
-            };
           }
-        })
-      );
+          return {
+            url,
+            predicted_type: result.predicted_type,
+            probability: result.phishing_probability,
+          };
+        } catch (e) {
+          return {
+            url,
+            predicted_type: 'Gagal mendeteksi',
+            probability: 0,
+          };
+        }
+      });
 
-      const validResults = phishingResults
-        .filter((res) => res.status === 'fulfilled' || res.value)
-        .map((res) => res.value || res);
+      const settled = await Promise.allSettled(phishingResultPromises);
+      phishingResults = settled
+        .filter((res) => res.status === 'fulfilled')
+        .map((res) => res.value);
 
-      // ⬇️ Catat keywords spam (jika ada)
+      // Rekam spam keyword
       if (keywords.length > 0) {
         await recordSpamKeywords(keywords);
       }
 
-      // Kirim ke UI
+      // Kirim ke tampilan
       this.onResult({
         prediction,
         probability,
         keywords,
         smsText,
         urls,
-        phishingResults: validResults,
+        phishingResults,
       });
 
     } catch (err) {

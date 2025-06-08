@@ -25,6 +25,7 @@
     --color-green-700: oklch(52.7% 0.154 150.069);
     --color-green-800: oklch(44.8% 0.119 151.328);
     --color-blue-50: oklch(97% 0.014 254.604);
+    --color-blue-200: oklch(88.2% 0.059 254.128);
     --color-blue-300: oklch(80.9% 0.105 251.813);
     --color-blue-500: oklch(62.3% 0.214 259.815);
     --color-blue-600: oklch(54.6% 0.245 262.881);
@@ -1512,6 +1513,9 @@
   .ml-5 {
     margin-left: calc(var(--spacing) * 5);
   }
+  .ml-6 {
+    margin-left: calc(var(--spacing) * 6);
+  }
   .ml-64 {
     margin-left: calc(var(--spacing) * 64);
   }
@@ -2275,6 +2279,9 @@
   .border-\[\#DFF0F5\] {
     border-color: #DFF0F5;
   }
+  .border-blue-200 {
+    border-color: var(--color-blue-200);
+  }
   .border-gray-100 {
     border-color: var(--color-gray-100);
   }
@@ -2646,6 +2653,9 @@
   .whitespace-nowrap {
     white-space: nowrap;
   }
+  .whitespace-pre-line {
+    white-space: pre-line;
+  }
   .\!text-white {
     color: var(--color-white) !important;
   }
@@ -2669,6 +2679,9 @@
   }
   .text-\[\#378BA2\] {
     color: #378BA2;
+  }
+  .text-\[\#163741\] {
+    color: #163741;
   }
   .text-\[\#374151\] {
     color: #374151;
@@ -2954,6 +2967,13 @@
       }
     }
   }
+  .hover\:bg-\[\#1e5566\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #1e5566;
+      }
+    }
+  }
   .hover\:bg-\[\#2C6F82\] {
     &:hover {
       @media (hover: hover) {
@@ -3225,11 +3245,6 @@
     &:focus {
       --tw-outline-style: none;
       outline-style: none;
-    }
-  }
-  .active\:bg-gray-200 {
-    &:active {
-      background-color: var(--color-gray-200);
     }
   }
   .disabled\:cursor-not-allowed {
