@@ -18,6 +18,15 @@ export async function generateNavbarTemplate() {
     })
     .join('');
 
+  document.addEventListener('click', (event) => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuContainer = document.querySelector('.peer-checked\\:flex'); // Menu yang muncul saat toggle
+
+    if (!menuToggle.contains(event.target) && !menuContainer.contains(event.target)) {
+      menuToggle.checked = false;
+    }
+  });
+
   return `
   <header class="sticky top-0 z-50 bg-[#42A7C3] shadow-md">
     <nav>
@@ -61,7 +70,7 @@ export async function generateNavbarTemplate() {
           <input type="checkbox" id="menu-toggle" class="peer hidden">
           <label for="menu-toggle" class="cursor-pointer rounded bg-white p-2.5 text-gray-600 z-50">
             <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </label>
           <div class="peer-checked:flex hidden absolute right-0 top-full mt-2 w-56 flex-col gap-2 rounded-md bg-white p-4 shadow-lg z-40">
@@ -109,6 +118,15 @@ export async function generateNavbarAuthTemplate() {
       </li>`;
     })
     .join('');
+
+  document.addEventListener('click', (event) => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuContainer = document.querySelector('.peer-checked\\:flex'); // Container menu
+
+    if (!menuToggle.contains(event.target) && !menuContainer.contains(event.target)) {
+      menuToggle.checked = false; // Menutup menu dengan menghapus status checked
+    }
+  });
 
   return `
   <header class="sticky top-0 z-50 bg-[#42A7C3] shadow-md">
