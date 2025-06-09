@@ -552,9 +552,9 @@ export function generateQuizModuleResultTemplate({
           <button id="retry-button" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
             Coba Lagi
           </button>
-          <a href="#/module-overview" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
+          <button id="module-button" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
             Kembali ke Modul
-          </a>
+          </button>
         </div>
       </div>
 

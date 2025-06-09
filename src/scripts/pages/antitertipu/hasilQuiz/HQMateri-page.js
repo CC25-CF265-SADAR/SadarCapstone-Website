@@ -49,5 +49,11 @@ export default class QuizResultModulePage {
         window.location.href = `#/quiz-modul/${this.modId}`;
       });
     }
+    const moduleBtn = document.getElementById('module-button');
+    if (moduleBtn) {
+      moduleBtn.addEventListener('click', () => {
+        window.location.href = `#/module-overview/${this.moduleId}`;
+      });
+    }
   }
 }

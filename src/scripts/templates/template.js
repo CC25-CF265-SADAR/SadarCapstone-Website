@@ -18,12 +18,18 @@ export async function generateNavbarTemplate() {
     })
     .join('');
 
+
+  // Menambahkan event listener untuk menutup menu jika klik di luar
   document.addEventListener('click', (event) => {
     const menuToggle = document.getElementById('menu-toggle');
-    const menuContainer = document.querySelector('.peer-checked\\:flex'); // Menu yang muncul saat toggle
+    const menuContainer = document.querySelector('.peer-checked\\:flex'); // Container menu ketika toggle diaktifkan
 
-    if (!menuToggle.contains(event.target) && !menuContainer.contains(event.target)) {
-      menuToggle.checked = false;
+    // Mengecek jika elemen menuToggle dan menuContainer ada di DOM
+    if (menuToggle && menuContainer) {
+      // Jika klik di luar menu toggle dan menu container, maka tutup menu
+      if (!menuToggle.contains(event.target) && !menuContainer.contains(event.target)) {
+        menuToggle.checked = false; // Menutup menu dengan menghapus status checked
+      }
     }
   });
 
@@ -119,12 +125,16 @@ export async function generateNavbarAuthTemplate() {
     })
     .join('');
 
+  // Event listener untuk menutup menu ketika klik di luar menu toggle
   document.addEventListener('click', (event) => {
     const menuToggle = document.getElementById('menu-toggle');
-    const menuContainer = document.querySelector('.peer-checked\\:flex'); // Container menu
+    const menuContainer = document.querySelector('.peer-checked\\:flex'); // Container menu ketika toggle aktif
 
-    if (!menuToggle.contains(event.target) && !menuContainer.contains(event.target)) {
-      menuToggle.checked = false; // Menutup menu dengan menghapus status checked
+    // Mengecek jika elemen menuToggle dan menuContainer ada di DOM
+    if (menuToggle && menuContainer) {
+      if (!menuToggle.contains(event.target) && !menuContainer.contains(event.target)) {
+        menuToggle.checked = false;
+      }
     }
   });
 
