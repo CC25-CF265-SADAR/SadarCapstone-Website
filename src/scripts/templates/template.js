@@ -5,23 +5,26 @@ export async function generateNavbarTemplate() {
   const currentHash = window.location.hash;
   const data = await fetchModules();
 
-  const modulesList = data.map((mod) => {
-    const isActive = currentHash.includes(`detail-module-${mod.id}`);
-    return `
+  const modulesList = data
+    .map((mod) => {
+      const isActive = currentHash.includes(`detail-module-${mod.id}`);
+      return `
       <li>
         <a href="#/module-overview/detail-module-${mod.id}"
           class="block rounded-md px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">
           ${mod.title}
         </a>
       </li>`;
-  }).join('');
+    })
+    .join('');
 
   return `
   <header class="sticky top-0 z-50 bg-[#42A7C3] shadow-md">
     <nav>
       <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <!-- Logo -->
-        <a class="text-white font-bold text-lg" href="#">Logo Sadar</a>
+        <a href="#">
+          <img src="images/logo-sadar.svg" alt="logo sadar" class="h-full p-2 object-contain" />
+        </a>
 
         <!-- Desktop Menu -->
         <ul class="hidden md:flex items-center gap-6 text-sm">
@@ -94,22 +97,26 @@ export async function generateNavbarAuthTemplate() {
   }
 
   const data = await fetchModules();
-  const modulesList = data.map(mod => {
-    const isActive = currentHash.includes(`detail-module-${mod.id}`);
-    return `
+  const modulesList = data
+    .map((mod) => {
+      const isActive = currentHash.includes(`detail-module-${mod.id}`);
+      return `
       <li>
         <a href="#/module-overview/detail-module-${mod.id}" 
           class="block rounded-md px-4 py-2 text-sm ${isActive ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100'}">
           ${mod.title}
         </a>
       </li>`;
-  }).join('');
+    })
+    .join('');
 
   return `
   <header class="sticky top-0 z-50 bg-[#42A7C3] shadow-md">
     <nav>
       <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a class="text-white font-bold text-lg" href="#">Logo Sadar</a>
+        <a href="#">
+          <img src="images/logo-sadar.svg" alt="logo sadar" class="h-full p-2 object-contain" />
+        </a>
 
         <!-- Desktop Menu -->
         <ul class="hidden md:flex items-center gap-6 text-sm">
