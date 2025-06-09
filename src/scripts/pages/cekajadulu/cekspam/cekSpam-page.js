@@ -68,71 +68,71 @@ export default class CekSpamPage {
 
         resultDiv.innerHTML = `
          <div class="flex flex-col justify-center items-center mt-0 p-4 rounded-lg border text-black
-  ${isSpam ? 'border-red-300 bg-[#FFF8F8]' : 'border-green-300 bg-[#F8FFF9]'}">
+            ${isSpam ? 'border-red-300 bg-[#FFF8F8]' : 'border-green-300 bg-[#F8FFF9]'}">
   
-  <!-- Ikon & Judul -->
-  <div class="flex flex-col gap-3 justify-center items-center text-center md:gap-3">
-    <div class="flex flex-row justify-center items-center gap-3 flex-wrap text-center">
-      <svg class="${isSpam ? 'fill-red-700' : 'fill-green-700'} h-6 w-6 md:h-8 md:w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-        <path d="${isSpam ? 'M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z' : 'M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z'}"/>
-      </svg>
-      <p class="text-lg font-semibold md:text-xl">
-        ${isSpam ? 'Hati-Hati, Pesan Ini Terindikasi SPAM' : 'Pesan Terindikasi Aman'}
-      </p>
-    </div>
+        <!-- Ikon & Judul -->
+        <div class="flex flex-col gap-3 justify-center items-center text-center md:gap-3">
+          <div class="flex flex-row justify-center items-center gap-3 flex-wrap text-center">
+            <svg class="${isSpam ? 'fill-red-700' : 'fill-green-700'} h-6 w-6 md:h-8 md:w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="${isSpam ? 'M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z' : 'M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z'}"/>
+            </svg>
+            <p class="text-lg font-semibold md:text-xl">
+              ${isSpam ? 'Hati-Hati, Pesan Ini Terindikasi SPAM' : 'Pesan Terindikasi Aman'}
+            </p>
+          </div>
 
-    <!-- Deskripsi -->
-    <p class="max-w-2xl text-center text-md font-base px-4">
-      ${
-        isSpam
-          ? 'Pesan ini memiliki pola yang sering digunakan dalam penipuan digital. Waspadalah terhadap janji hadiah, permintaan data, atau tautan yang tidak jelas.'
-          : 'Pesan ini tidak terindikasi sebagai spam dan aman untuk dibaca atau dibagikan. Namun, tetaplah waspada terhadap informasi yang mencurigakan atau tautan yang tidak dikenal.'
-      }
-    </p>
+          <!-- Deskripsi -->
+          <p class="max-w-2xl text-center text-md font-base px-4">
+            ${
+              isSpam
+                ? 'Pesan ini memiliki pola yang sering digunakan dalam penipuan digital. Waspadalah terhadap janji hadiah, permintaan data, atau tautan yang tidak jelas.'
+                : 'Pesan ini tidak terindikasi sebagai spam dan aman untuk dibaca atau dibagikan. Namun, tetaplah waspada terhadap informasi yang mencurigakan atau tautan yang tidak dikenal.'
+            }
+          </p>
 
-    <!-- Bagian Gauge + Kata Kunci -->
-    <div class="flex flex-col lg:flex-row items-center justify-center gap-6 w-full mt-2">
-      
-      <!-- Gauge Component -->
-      <div class="relative w-[180px] h-[90px] overflow-hidden flex-shrink-0">
-        <svg class="w-full h-[180px] rotate-180" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="18" cy="18" r="16" fill="none"
-            class="stroke-current text-gray-200 dark:text-neutral-700"
-            stroke-width="1.5" stroke-dasharray="50 100" stroke-linecap="round" />
-          <circle cx="18" cy="18" r="16" fill="none"
-            class="stroke-current ${isSpam ? 'text-red-700 dark:text-red-700' : 'text-green-700 dark:text-green-700'}"
-            stroke-width="2" stroke-dasharray="${probability / 2} 100" stroke-linecap="round" />
-        </svg>
+          <!-- Bagian Gauge + Kata Kunci -->
+          <div class="flex flex-col lg:flex-row items-center justify-center gap-6 w-full mt-2">
+            
+            <!-- Gauge Component -->
+            <div class="relative w-[180px] h-[90px] overflow-hidden flex-shrink-0">
+              <svg class="w-full h-[180px] rotate-180" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="18" cy="18" r="16" fill="none"
+                  class="stroke-current text-gray-200 dark:text-neutral-700"
+                  stroke-width="1.5" stroke-dasharray="50 100" stroke-linecap="round" />
+                <circle cx="18" cy="18" r="16" fill="none"
+                  class="stroke-current ${isSpam ? 'text-red-700 dark:text-red-700' : 'text-green-700 dark:text-green-700'}"
+                  stroke-width="2" stroke-dasharray="${probability / 2} 100" stroke-linecap="round" />
+              </svg>
 
-        <!-- Value Text -->
-        <div class="absolute top-[36px] left-1/2 transform -translate-x-1/2 text-center">
-          <span class="text-3xl font-bold ${isSpam ? 'text-red-700 dark:text-red-700' : 'text-green-700 dark:text-green-700'}">
-            ${probability}%
-          </span>
-          <span class="text-sm block ${isSpam ? 'text-red-700 dark:text-red-700' : 'text-green-700 dark:text-green-700'}">
-            Probabilitas
-          </span>
+              <!-- Value Text -->
+              <div class="absolute top-[36px] left-1/2 transform -translate-x-1/2 text-center">
+                <span class="text-3xl font-bold ${isSpam ? 'text-red-700 dark:text-red-700' : 'text-green-700 dark:text-green-700'}">
+                  ${probability}%
+                </span>
+                <span class="text-sm block ${isSpam ? 'text-red-700 dark:text-red-700' : 'text-green-700 dark:text-green-700'}">
+                  Probabilitas
+                </span>
+              </div>
+            </div>
+
+            <!-- Kata Kunci -->
+            <div class="flex flex-col items-center sm:items-start gap-2">
+              <h3 class="text-md font-semibold">Kata Kunci:</h3>
+              <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
+                ${keywords
+                  .map(
+                    (keyword) => `
+                    <p class="text-md font-semibold ${isSpam ? 'text-red-700 bg-[#FFD6D6]' : 'text-green-700 bg-[#D3FFC6]'} w-fit px-4 py-2 rounded-lg">
+                      ${keyword}
+                    </p>
+                  `,
+                  )
+                  .join('')}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- Kata Kunci -->
-      <div class="flex flex-col items-center sm:items-start gap-2">
-        <h3 class="text-md font-semibold">Kata Kunci:</h3>
-        <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
-          ${keywords
-            .map(
-              (keyword) => `
-              <p class="text-md font-semibold ${isSpam ? 'text-red-700 bg-[#FFD6D6]' : 'text-green-700 bg-[#D3FFC6]'} w-fit px-4 py-2 rounded-lg">
-                ${keyword}
-              </p>
-            `,
-            )
-            .join('')}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
         `;
         periksaLagi.classList.remove('hidden');
