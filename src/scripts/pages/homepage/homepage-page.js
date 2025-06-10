@@ -172,9 +172,9 @@ export default class Homepage {
             
             <section class="faq bg-white font-jakarta flex items-center py-12 px-18 my-10">
                 <div class="w-full">
-                    <h2 class="text-4xl font-semibold text-center text-black mb-2">Pertanyaan yang Sering Diajukan</h2>
-                    <p class="text-base text-[#6D7280] text-center max-w-xl mx-auto mb-6">
-                    Temukan jawaban dari pertanyaan umum seputar fitur dan layanan kami.
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-center text-black mb-2">Pertanyaan yang Sering Diajukan</h2>
+                    <p class="text-base sm:text-lg md:text-xl text-[#6D7280] text-center max-w-xl mx-auto mb-6">
+                      Temukan jawaban dari pertanyaan umum seputar fitur dan layanan kami.
                     </p>
 
                     <!-- Tabs Kategori -->
@@ -236,14 +236,16 @@ export default class Homepage {
         listEl.innerHTML = data
           .map(
             (item, idx) => `
-          <li class="flex items-start gap-3 p-4 border rounded-xl bg-white shadow-sm">
-            <div class="w-12 h-12 rounded-lg bg-[#FFF1AA] text-[#2C6F82] text-xl font-bold flex items-center justify-center">${idx + 1}</div>
-            <div>
-              <h3 class="text-xl text-gray-800 font-regular">${item.url}</h3>
-              <p class="text-base font-regular text-gray-500">telah dicari sebanyak ${item.count} kali</p>
-            </div>
-          </li>
-        `,
+            <li class="flex items-start gap-3 p-4 border border-gray-300 rounded-xl bg-white shadow-sm">
+              <div class="w-12 h-12 rounded-lg bg-[#FFF1AA] text-[#2C6F82] text-xl font-bold flex items-center justify-center flex-shrink-0">${idx + 1}</div>
+              <div class="flex-1 min-w-0 overflow-hidden">
+                <h3 class="text-sm sm:text-base md:text-xl text-gray-800 font-regular break-words">
+                  ${item.url}
+                </h3>
+                <p class="text-sm sm:text-base font-regular text-gray-500 mt-1">telah dicari sebanyak ${item.count} kali</p>
+              </div>
+            </li>
+          `
           )
           .join('');
       } catch (err) {
@@ -251,36 +253,40 @@ export default class Homepage {
       }
     };
 
-    // 🟦 Render default (semua data)
+    // Render awal
     renderPhishingLeaderboard(false);
 
-    // 🟦 Setup tombol filter
+    // Setup tombol filter
     const btnAll = document.getElementById('btn-leaderboard-all');
     const btnMonth = document.getElementById('btn-leaderboard-month');
 
     btnAll?.addEventListener('click', () => {
       btnAll.classList.add('bg-[#42A7C3]', 'text-white');
       btnAll.classList.remove('bg-white', 'text-gray-600');
-
       btnMonth.classList.remove('bg-[#42A7C3]', 'text-white');
       btnMonth.classList.add('bg-white', 'text-gray-600');
-
       renderPhishingLeaderboard(false);
     });
 
     btnMonth?.addEventListener('click', () => {
       btnMonth.classList.add('bg-[#42A7C3]', 'text-white');
       btnMonth.classList.remove('bg-white', 'text-gray-600');
-
       btnAll.classList.remove('bg-[#42A7C3]', 'text-white');
       btnAll.classList.add('bg-white', 'text-gray-600');
-
       renderPhishingLeaderboard(true);
     });
 
-    setInterval(() => {
-      renderPhishingLeaderboard(false);
-    }, 1000);
+    // Ganti interval 1 detik menjadi 30 detik atau 1 menit
+      const POLLING_INTERVAL = 5000; // 30 detik
+
+      const pollLeaderboard = () => {
+        const activeFilter = document.getElementById('btn-leaderboard-month')?.classList.contains('bg-[#42A7C3]');
+        renderPhishingLeaderboard(activeFilter);
+        setTimeout(pollLeaderboard, POLLING_INTERVAL); // Rekursif dengan setTimeout
+      };
+
+      // Mulai polling setelah render pertama
+      pollLeaderboard();
   }
 
   renderFAQList(filteredFaq) {

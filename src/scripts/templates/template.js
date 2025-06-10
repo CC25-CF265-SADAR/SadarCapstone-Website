@@ -215,11 +215,11 @@ export async function generateNavbarAuthTemplate() {
 
 export function generateLeaderboardLinkTemplate() {
   return `
-    <section class="leaderboard flex flex-col md:flex-row gap-8 px-4 md:px-16 py-10">
+    <section class="leaderboard flex flex-col md:flex-row gap-8 px-4 sm:px-6 md:px-16 py-10">
       <div class="md:w-1/2 flex justify-center md:justify-start items-center">
         <div>
-          <h2 class="text-4xl md:text-4xl font-semibold text-black">Tautan Mencurigakan yang<br/>Sering dicari</h2>
-          <p class="mt-4 text-gray-500 text-base">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-black">Tautan Mencurigakan yang<br/>Sering dicari</h2>
+          <p class="text-base sm:text-lg md:text-xl text-gray-500">
             Berikut merupakan tautan mencurigakan yang paling sering dicari oleh pengguna. 
             Berhati-hatilah setiap kali mengunjungi tautan mencurigakan yang belum anda ketahui secara pasti keamanannya.
           </p>
@@ -232,7 +232,7 @@ export function generateLeaderboardLinkTemplate() {
           <button id="btn-leaderboard-month" class="px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-base font-regular rounded-4xl hover:bg-gray-200">bulan ini</button>
         </div>
 
-        <ul id="leaderboard-list" class="space-y-3">
+        <ul id="leaderboard-list" class="space-y-3 w-full">
           <!-- Item leaderboard akan dimasukkan di sini -->
         </ul>
       </div>
@@ -245,8 +245,8 @@ export function generateLeaderboardSpamTemplate() {
     <section class="leaderboard flex flex-col md:flex-row gap-8 px-4 md:px-16 py-10">
       <div class="md:w-1/2 flex justify-center md:justify-start items-center">
         <div>
-          <h2 class="text-4xl md:text-4xl font-semibold text-black">Kata-Kata Spam yang<br/>Sering Muncul</h2>
-          <p class="mt-4 text-gray-500 text-base">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-black">Kata-Kata Spam yang<br/>Sering Muncul</h2>
+          <p class="text-base sm:text-lg md:text-xl text-gray-500">
             Berikut merupakan kata-kata yang sering muncul dalam pesan mencurigakan. 
             Waspadalah terhadap kata-kata seperti ini saat menerima pesan tak dikenal.
           </p>
