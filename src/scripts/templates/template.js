@@ -18,7 +18,6 @@ export async function generateNavbarTemplate() {
     })
     .join('');
 
-
   // Menambahkan event listener untuk menutup menu jika klik di luar
   document.addEventListener('click', (event) => {
     const menuToggle = document.getElementById('menu-toggle');
@@ -242,7 +241,7 @@ export function generateLeaderboardLinkTemplate() {
 
 export function generateLeaderboardSpamTemplate() {
   return `
-    <section class="leaderboard flex flex-col md:flex-row gap-8 px-4 md:px-16 py-10">
+    <section data-aos="zoom-in" data-aos-delay="300" class="leaderboard flex flex-col md:flex-row gap-8 px-4 md:px-16 py-10">
       <div class="md:w-1/2 flex justify-center md:justify-start items-center">
         <div>
           <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-black">Kata-Kata Spam yang<br/>Sering Muncul</h2>
@@ -432,7 +431,7 @@ export function generateScamTypeTemplate({
   content4,
 }) {
   return `
-<section class="relative flex flex-col items-center justify-center gap-8 mb-12 px-4 py-18">
+<section data-aos="zoom-in" data-aos-delay="400" class="relative flex flex-col items-center justify-center gap-8 mb-12 px-4 py-18">
   <!-- Background Image -->
   <img src="images/background-type.svg" alt="Background" class="absolute w-contain h-full object-cover z-0 opacity-100 pointer-events-none" />
 
@@ -816,7 +815,8 @@ export function generateResultTemplate(characterData, recommendedModules) {
                   .map(
                     (trait) => `
                   <span class="px-4 py-2 border border-[#42A7C3] bg-white text-[#42A7C3] text-sm font-regular rounded-4xl">${trait}</span>
-                `)
+                `,
+                  )
                   .join('')}
               </div>
             </div>
@@ -873,7 +873,8 @@ export function generateResultTemplate(characterData, recommendedModules) {
                         </a>
                       </div>
                     </div>
-                  `)
+                  `,
+                  )
                   .join('')}
               </div>
             `
@@ -898,21 +899,24 @@ export function generateResultTemplate(characterData, recommendedModules) {
   if (shareButton) {
     if (navigator.share) {
       shareButton.addEventListener('click', () => {
-        navigator.share({
-          title: `${characterData.name} - Hasil Quiz`,
-          text: `Cek hasil quiz saya di ${characterData.name}!`,
-          url: window.location.href,
-        }).catch((error) => {
-          console.log('Error sharing:', error);
-        });
+        navigator
+          .share({
+            title: `${characterData.name} - Hasil Quiz`,
+            text: `Cek hasil quiz saya di ${characterData.name}!`,
+            url: window.location.href,
+          })
+          .catch((error) => {
+            console.log('Error sharing:', error);
+          });
       });
     } else {
       shareButton.addEventListener('click', () => {
-        navigator.clipboard.writeText(window.location.href)
+        navigator.clipboard
+          .writeText(window.location.href)
           .then(() => {
             alert('Link hasil quiz berhasil disalin ke clipboard!');
           })
-          .catch(err => {
+          .catch((err) => {
             console.error('Gagal menyalin link:', err);
             const textArea = document.createElement('textarea');
             textArea.value = window.location.href;

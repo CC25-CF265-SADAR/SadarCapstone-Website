@@ -9,6 +9,8 @@ import { setupProfileDropdown } from '../../utils/navbar-interaction.js';
 import { getLogout } from '../../utils/auth.js';
 import { faqList } from '../../data/faq-data.js';
 import { fetchPhishingLeaderboard } from '../../data/api.js';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default class Homepage {
   constructor() {
@@ -20,7 +22,7 @@ export default class Homepage {
       <div class="max-w-screen-xl ">
             <section class="hero-image">
                 <section class="bg-white sm:grid sm:grid-cols-2">
-                  <div class="p-8 md:p-12 lg:px-16 lg:py-24">
+                  <div data-aos="fade-right" data-aos-delay="200" class="p-8 md:p-12 lg:px-16 lg:py-24">
                       <div class="mx-auto max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
                         <h2 class="text-2xl font-semibold text-gray-900 md:text-3xl">
                         SADAR: Saring, Amankan, Deteksi, Anti-Rugi
@@ -45,14 +47,14 @@ export default class Homepage {
                 </div>
             </div>
             
-            <img
+            <img data-aos="fade-left" data-aos-delay="200"
             alt="image"
             src="https://www.kba.one/files/images/20240427-20210825094845000000datasecurity11.jpg"
             class="mt-5 h-80 w-full object-cover sm:h-full"/>
             </section>
             </section>
 
-            <section class="info-1 font-jakarta px-4 sm:px-6 lg:px-8 py-8 max-w-screen-xl my-12">
+            <section data-aos="zoom-in-up" data-aos-delay="300" class="info-1 font-jakarta px-4 sm:px-6 lg:px-8 py-8 max-w-screen-xl my-12">
                 <h1 class="font-semibold text-2xl sm:text-3xl text-center mb-3 md:mb-10 py-8">
                     <span class="text-[#42A7C3]">Pertumbuhan Penetrasi Internet</span> di Indonesia
                 </h1>
@@ -75,7 +77,7 @@ export default class Homepage {
                  </article>
             </section>
 
-            <section class="info-2 flex flex-col lg:flex-row lg:gap-10 items-center lg:items-start justify-between px-8 my-12">
+            <section data-aos="zoom-in-up" data-aos-delay="300" class="info-2 flex flex-col lg:flex-row lg:gap-10 items-center lg:items-start justify-between px-8 my-12">
                 <article class="flex flex-col gap-4 max-w-xl mx-auto lg:mx-0 text-center lg:text-left px-8">
                     <h1 class="font-semibold text-2xl sm:text-3xl">
                     <span class="text-[#42A7C3]">Korban</span> Penipuan Online
@@ -104,9 +106,10 @@ export default class Homepage {
                     src="images/background_type.svg"
                     alt="Background sadar"
                     class="absolute w-full h-full object-cover"
+                    data-aos="fade-up" data-aos-delay="300"
                 />
                 
-                <article class="text-white flex flex-col gap-4 z-10 mt-10 px-4 text-center">
+                <article data-aos="fade-up" data-aos-delay="300" class="text-white flex flex-col gap-4 z-10 mt-10 px-4 text-center">
                     <h1 class="text-2xl sm:text-3xl font-bold">SADAR Mulai Dari Sekarang!</h1>
                     <p class="text-md md:text-lg max-w-xl md:max-w-2xl mx-auto">
                     Gunakan layanan kami untuk meningkatkan pengalaman Anda dalam menjaga informasi dan data dari penipuan online
@@ -115,7 +118,7 @@ export default class Homepage {
 
                 <section class="sadar-feature-detail z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-6 pb-12">
                     <!-- CekAjaDulu -->
-                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 flex flex-col gap-5">
+                    <div data-aos="zoom-in" data-aos-delay="600" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 flex flex-col gap-5">
                       <img src="images/ikon-cekajadulu.svg" class="w-[72px] h-[72px]" alt="Ikon CekAjaDulu" />
                       <h2 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">CekAjaDulu</h2>
                       <p class="text-gray-500 dark:text-gray-400">
@@ -133,7 +136,7 @@ export default class Homepage {
                     </div>
 
                     <!-- TipuMeter -->
-                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 flex flex-col gap-5">
+                    <div data-aos="zoom-in" data-aos-delay="800" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 flex flex-col gap-5">
                       <img src="images/ikon-tipumeter.svg" class="w-[72px] h-[72px]" alt="Ikon TipuMeter" />
                       <h2 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">TipuMeter</h2>
                       <p class="text-gray-500 dark:text-gray-400">
@@ -149,7 +152,7 @@ export default class Homepage {
                     </div>
 
                     <!-- AntiTertipu -->
-                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 flex flex-col gap-5">
+                    <div data-aos="zoom-in" data-aos-delay="1000" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 flex flex-col gap-5">
                       <img src="images/ikon-antitertipu.svg" class="w-[72px] h-[72px]" alt="Ikon Antitertipu" />
                       <h2 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">Antitertipu</h2>
                       <p class="text-gray-500 dark:text-gray-400">
@@ -166,11 +169,11 @@ export default class Homepage {
                   </section>
             </section>
 
-            <section class="my-10">
+            <section class="my-10" data-aos="zoom-in-up" data-aos-delay="300">
                 ${generateLeaderboardLinkTemplate()}
             </section>
             
-            <section class="faq bg-white font-jakarta flex items-center py-12 px-18 my-10">
+            <section data-aos="zoom-in-up" data-aos-delay="300" class="faq bg-white font-jakarta flex items-center py-12 px-18 my-10">
               <div class="w-full">
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-center text-black mb-2">Pertanyaan yang Sering Diajukan</h2>
                 <p class="text-base sm:text-lg md:text-xl text-[#6D7280] text-center max-w-xl mx-auto mb-6">
@@ -178,7 +181,7 @@ export default class Homepage {
                 </p>
 
                 <!-- Tabs Kategori -->
-                <div class="flex flex-wrap justify-center space-x-2 mb-8">
+                <div data-aos="zoom-in-up" data-aos-delay="300" class="flex flex-wrap justify-center space-x-2 mb-8">
                   <button data-category="all" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-[#42A7C3] text-white text-sm sm:text-base rounded-4xl mb-2 sm:mb-0">Semua</button>
                   <button data-category="deteksi" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm sm:text-base rounded-4xl mb-2 sm:mb-0 hover:bg-gray-200">Deteksi</button>
                   <button data-category="modul edukasi" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm sm:text-base rounded-4xl mb-2 sm:mb-0 hover:bg-gray-200">Modul Edukasi</button>
@@ -187,7 +190,7 @@ export default class Homepage {
                 </div>
 
                 <!-- Container FAQ -->
-                <div id="faq-content" class="space-y-4"></div>
+                <div id="faq-content" class="space-y-4" data-aos="zoom-in-up" data-aos-delay="300"></div>
               </div>
             </section>
 
@@ -276,19 +279,21 @@ export default class Homepage {
       renderPhishingLeaderboard(true);
     });
 
-    // Ganti interval 1 detik menjadi 30 detik atau 1 menit
-    const POLLING_INTERVAL = 5000; // 30 detik
+    const POLLING_INTERVAL = 5000;
 
     const pollLeaderboard = () => {
       const activeFilter = document
         .getElementById('btn-leaderboard-month')
         ?.classList.contains('bg-[#42A7C3]');
       renderPhishingLeaderboard(activeFilter);
-      setTimeout(pollLeaderboard, POLLING_INTERVAL); // Rekursif dengan setTimeout
+      setTimeout(pollLeaderboard, POLLING_INTERVAL);
     };
 
-    // Mulai polling setelah render pertama
     pollLeaderboard();
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
   }
 
   renderFAQList(filteredFaq) {

@@ -5,6 +5,8 @@ import {
 } from '../../../templates/template';
 import CekUmumPresenter from './cekUmum-presenter';
 import Camera from '../../../utils/camera';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default class CekUmumPage {
   async render() {
@@ -12,7 +14,7 @@ export default class CekUmumPage {
     <section class="mt-5 mx-12">
       <div id="tab-container"></div>
     </section>
-    <section class="flex flex-col justify-center items-center mb-12 px-4 sm:px-6 lg:px-8">
+    <section data-aos="zoom-in" data-aos-delay="300"class="flex flex-col justify-center items-center mb-12 px-4 sm:px-6 lg:px-8">
       <div class="cekLink flex flex-col gap-2 justify-center items-center p-8 mt-12 p-5 sm:p-10 rounded-xl border border-gray-200 shadow-sm w-full max-w-4xl">
         <h1 class="text-2xl sm:text-3xl font-semibold text-[#42A7C3] text-center">🖼️ Unggah Gambar untuk Cek Penipuan</h1>
         <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Unggah tangkapan layar atau gambar yang berisi pesan, tautan hingga QR code mencurigakan dan dapatkan analisis keamanan secara cepat.</h2>
@@ -182,7 +184,7 @@ export default class CekUmumPage {
         alert('Silakan unggah gambar terlebih dahulu.');
         return;
       }
-      
+
       const loading = document.getElementById('loading-indicator');
       const resultContainer = document.getElementById('result-container');
       const submitBtn = form.querySelector('button[type="submit"]');
@@ -192,7 +194,7 @@ export default class CekUmumPage {
       submitBtn.disabled = true;
       submitBtn.textContent = 'Memproses...';
       form.classList.add('hidden');
-      
+
       try {
         await presenter.handleSubmit(selectedImageFile);
       } catch (err) {
@@ -204,6 +206,10 @@ export default class CekUmumPage {
         submitBtn.textContent = 'Cek Sekarang';
       }
     });
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
   }
 
   renderResult({ prediction, probability, keywords, smsText, urls, phishingResults }) {
@@ -212,7 +218,9 @@ export default class CekUmumPage {
     resultContainer.classList.remove('hidden');
 
     // Deteksi apakah ada hasil dari QR code
-    const qrUrl = urls.find(url => smsText?.includes(url) && smsText?.toLowerCase().includes('qr code'));
+    const qrUrl = urls.find(
+      (url) => smsText?.includes(url) && smsText?.toLowerCase().includes('qr code'),
+    );
 
     resultContent.innerHTML = `
       <!-- Penjelasan Umum -->
@@ -238,8 +246,9 @@ export default class CekUmumPage {
         </div>
       </div>
 
-      ${qrUrl
-        ? `
+      ${
+        qrUrl
+          ? `
           <div class="flex items-start gap-3 bg-blue-50 border border-blue-200 text-blue-700 rounded-md px-4 py-3 mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z"/>
@@ -249,11 +258,13 @@ export default class CekUmumPage {
               <p class="text-sm">Gambar ini mengandung QR code yang mengarah ke: <span class="font-semibold underline break-all">${qrUrl}</span></p>
             </div>
           </div>
-        ` : ''
+        `
+          : ''
       }
 
-      ${smsText?.replace(/\s+/g, '').length > 0
-        ? `
+      ${
+        smsText?.replace(/\s+/g, '').length > 0
+          ? `
           <div class="bg-white border border-gray-200 rounded-md p-5 w-full mb-6">
             <h4 class="text-md font-semibold text-gray-800 mb-3 flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
@@ -266,11 +277,12 @@ export default class CekUmumPage {
             </div>
           </div>
         `
-        : ''
+          : ''
       }
 
-      ${urls.length > 0
-        ? `
+      ${
+        urls.length > 0
+          ? `
           <div class="bg-white border border-gray-200 rounded-md p-5 w-full mb-6">
             <h4 class="text-md font-semibold text-gray-800 mb-3 flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
@@ -279,19 +291,18 @@ export default class CekUmumPage {
               Tautan Terdeteksi
             </h4>
             <div class="space-y-3">
-              ${urls.map((url) => {
-                const result = phishingResults?.find(r => r.url === url);
-                const isPhishing = result?.predicted_type?.toLowerCase() === 'phishing';
-                const label = result
-                  ? `<span class="ml-3 inline-block px-2 py-0.5 text-xs font-medium rounded-md ${
-                      isPhishing 
-                        ? 'text-red-800 bg-red-100' 
-                        : 'text-green-800 bg-green-100'
-                    }">
+              ${urls
+                .map((url) => {
+                  const result = phishingResults?.find((r) => r.url === url);
+                  const isPhishing = result?.predicted_type?.toLowerCase() === 'phishing';
+                  const label = result
+                    ? `<span class="ml-3 inline-block px-2 py-0.5 text-xs font-medium rounded-md ${
+                        isPhishing ? 'text-red-800 bg-red-100' : 'text-green-800 bg-green-100'
+                      }">
                       ${result.predicted_type} – ${(result.probability * 100).toFixed(1)}%
                     </span>`
-                  : '';
-                return `
+                    : '';
+                  return `
                   <div class="flex justify-between items-center bg-[#F9FAFB] px-3 py-2 rounded-md border ${
                     isPhishing ? 'border-red-100' : 'border-gray-100'
                   }">
@@ -299,15 +310,17 @@ export default class CekUmumPage {
                     ${label}
                   </div>
                 `;
-              }).join('')}
+                })
+                .join('')}
             </div>
           </div>
         `
-        : ''
+          : ''
       }
 
-      ${keywords.length > 0
-        ? `
+      ${
+        keywords.length > 0
+          ? `
           <div class="bg-white border border-gray-200 rounded-md p-5 w-full">
             <h4 class="text-md font-semibold text-gray-800 mb-3 flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
@@ -317,8 +330,8 @@ export default class CekUmumPage {
             </h4>
             <div class="flex items-center gap-3 mb-3">
               <span class="px-3 py-1 rounded-full text-sm font-medium ${
-                prediction.toLowerCase() === 'spam' 
-                  ? 'bg-red-100 text-red-800' 
+                prediction.toLowerCase() === 'spam'
+                  ? 'bg-red-100 text-red-800'
                   : 'bg-green-100 text-green-800'
               }">
                 ${prediction} (${(probability * 100).toFixed(1)}%)
@@ -328,18 +341,22 @@ export default class CekUmumPage {
             <div>
               <p class="text-sm font-medium text-gray-700 mb-1">Kata kunci yang terdeteksi:</p>
               <div class="flex flex-wrap gap-2">
-                ${keywords.map(keyword => `
+                ${keywords
+                  .map(
+                    (keyword) => `
                   <span class="px-2 py-1 ${
-                    prediction.toLowerCase() === 'spam' 
-                      ? 'bg-red-100 text-red-800' 
+                    prediction.toLowerCase() === 'spam'
+                      ? 'bg-red-100 text-red-800'
                       : 'bg-green-100 text-green-800'
                   } text-xs rounded-md">${keyword}</span>
-                `).join('')}
+                `,
+                  )
+                  .join('')}
               </div>
             </div>
           </div>
         `
-        : ''
+          : ''
       }
 
       <div class="mt-6 bg-amber-50 border-l-4 border-amber-400 p-4">
@@ -368,7 +385,7 @@ export default class CekUmumPage {
   showError(message) {
     const resultContainer = document.getElementById('result-container');
     const resultContent = document.getElementById('result-content');
-    
+
     resultContent.innerHTML = `
       <div class="bg-red-50 border-l-4 border-red-400 p-4">
         <div class="flex">
@@ -386,7 +403,7 @@ export default class CekUmumPage {
         </div>
       </div>
     `;
-    
+
     resultContainer.classList.remove('hidden');
     document.getElementById('loading-indicator').classList.add('hidden');
     document.getElementById('input-form').querySelector('button[type="submit"]').disabled = false;

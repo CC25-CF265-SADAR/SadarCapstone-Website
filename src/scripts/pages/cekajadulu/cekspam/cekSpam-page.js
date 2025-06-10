@@ -7,6 +7,8 @@ import {
 } from '../../../templates/template';
 import CekSpamPresenter from './cekSpam-presenter';
 import { fetchSpamLeaderboard } from '../../../data/api';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default class CekSpamPage {
   async render() {
@@ -14,7 +16,7 @@ export default class CekSpamPage {
     <section class="mt-5 mx-12">
       <div id="tab-container"></div>
     </section>
-    <section class="flex flex-col justify-center items-center px-4 mb-12 sm:px-6 lg:px-8">
+    <section data-aos="zoom-in" data-aos-delay="300" class="flex flex-col justify-center items-center px-4 mb-12 sm:px-6 lg:px-8">
       <div class="cekLink flex flex-col gap-2 justify-center items-center mt-12 p-5 sm:p-10 rounded-xl border border-gray-200 shadow-sm w-full max-w-4xl">
         <h1 class="text-2xl sm:text-3xl font-semibold text-[#42A7C3] text-center">Cek Pesan Spam</h1>
         <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Unggah pesan untuk mendeteksi potensi spam atau penipuan secara instan.</h2>
@@ -185,7 +187,7 @@ export default class CekSpamPage {
                 <p class="text-sm sm:text-base font-regular text-gray-500 mt-1">kata ini telah muncul sebanyak ${item.count} kali</p>
               </div>
             </li>
-          `
+          `,
           )
           .join('');
       } catch (err) {
@@ -194,7 +196,9 @@ export default class CekSpamPage {
     };
 
     // Render awal
-    const initialFilter = document.getElementById('btn-spam-leaderboard-month')?.classList.contains('bg-[#42A7C3]');
+    const initialFilter = document
+      .getElementById('btn-spam-leaderboard-month')
+      ?.classList.contains('bg-[#42A7C3]');
     renderSpamLeaderboard(initialFilter);
 
     // Setup tombol filter
@@ -203,30 +207,55 @@ export default class CekSpamPage {
 
     btnAll?.addEventListener('click', () => {
       btnAll.classList.add('bg-[#42A7C3]', 'text-white');
-      btnAll.classList.remove('bg-white', 'text-gray-600', 'hover:bg-[#DFF0F5]', 'hover:text-[#2C6F82]');
+      btnAll.classList.remove(
+        'bg-white',
+        'text-gray-600',
+        'hover:bg-[#DFF0F5]',
+        'hover:text-[#2C6F82]',
+      );
       btnMonth.classList.remove('bg-[#42A7C3]', 'text-white');
-      btnMonth.classList.add('bg-white', 'text-gray-600', 'hover:bg-[#DFF0F5]', 'hover:text-[#2C6F82]');
+      btnMonth.classList.add(
+        'bg-white',
+        'text-gray-600',
+        'hover:bg-[#DFF0F5]',
+        'hover:text-[#2C6F82]',
+      );
       renderSpamLeaderboard(false);
     });
 
     btnMonth?.addEventListener('click', () => {
       btnMonth.classList.add('bg-[#42A7C3]', 'text-white');
-      btnMonth.classList.remove('bg-white', 'text-gray-600', 'hover:bg-[#DFF0F5]', 'hover:text-[#2C6F82]');
+      btnMonth.classList.remove(
+        'bg-white',
+        'text-gray-600',
+        'hover:bg-[#DFF0F5]',
+        'hover:text-[#2C6F82]',
+      );
       btnAll.classList.remove('bg-[#42A7C3]', 'text-white');
-      btnAll.classList.add('bg-white', 'text-gray-600', 'hover:bg-[#DFF0F5]', 'hover:text-[#2C6F82]');
+      btnAll.classList.add(
+        'bg-white',
+        'text-gray-600',
+        'hover:bg-[#DFF0F5]',
+        'hover:text-[#2C6F82]',
+      );
       renderSpamLeaderboard(true);
     });
 
-    // Polling dengan interval 5 detik
-    const POLLING_INTERVAL = 5000; // 5 detik
+    const POLLING_INTERVAL = 5000;
 
     const pollSpamLeaderboard = () => {
-      const activeFilter = document.getElementById('btn-spam-leaderboard-month')?.classList.contains('bg-[#42A7C3]');
+      const activeFilter = document
+        .getElementById('btn-spam-leaderboard-month')
+        ?.classList.contains('bg-[#42A7C3]');
       renderSpamLeaderboard(activeFilter);
       setTimeout(pollSpamLeaderboard, POLLING_INTERVAL);
     };
 
-    // Mulai polling
     pollSpamLeaderboard();
+
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
   }
 }

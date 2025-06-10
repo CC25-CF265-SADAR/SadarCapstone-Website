@@ -7,6 +7,8 @@ import {
 } from '../../../templates/template';
 import CekLinkPresenter from './cekLink-presenter';
 import { fetchPhishingLeaderboard } from '../../../data/api';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default class CekLinkPage {
   async render() {
@@ -14,7 +16,7 @@ export default class CekLinkPage {
       <section class="mt-5 mx-12">
         <div id="tab-container"></div>
       </section>
-      <section class="flex flex-col justify-center items-center px-4 mb-12 sm:px-6 lg:px-8">
+      <section data-aos="zoom-in" data-aos-delay="300" class="flex flex-col justify-center items-center px-4 mb-12 sm:px-6 lg:px-8">
             <div class="cekLink flex flex-col gap-2 justify-center items-center mt-12 p-10 rounded-xl border border-gray-200 shadow-sm">
               <h1 class="text-2xl sm:text-3xl font-semibold text-[#42A7C3]">Cek Link Mencurigakan</h1>
               <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Masukkan tautan mencurigakan untuk mengetahui apakah link tersebut aman, berisiko phishing, atau bagian dari modus penipuan.</h2>
@@ -182,7 +184,7 @@ export default class CekLinkPage {
                 <p class="text-sm sm:text-base font-regular text-gray-500 mt-1">telah dicari sebanyak ${item.count} kali</p>
               </div>
             </li>
-          `
+          `,
           )
           .join('');
       } catch (err) {
@@ -213,16 +215,21 @@ export default class CekLinkPage {
       renderPhishingLeaderboard(true);
     });
 
-    // Ganti interval 1 detik menjadi 30 detik atau 1 menit
-      const POLLING_INTERVAL = 5000; // 30 detik
+    const POLLING_INTERVAL = 5000;
 
-      const pollLeaderboard = () => {
-        const activeFilter = document.getElementById('btn-leaderboard-month')?.classList.contains('bg-[#42A7C3]');
-        renderPhishingLeaderboard(activeFilter);
-        setTimeout(pollLeaderboard, POLLING_INTERVAL); // Rekursif dengan setTimeout
-      };
+    const pollLeaderboard = () => {
+      const activeFilter = document
+        .getElementById('btn-leaderboard-month')
+        ?.classList.contains('bg-[#42A7C3]');
+      renderPhishingLeaderboard(activeFilter);
+      setTimeout(pollLeaderboard, POLLING_INTERVAL);
+    };
 
-      // Mulai polling setelah render pertama
-      pollLeaderboard();
+    pollLeaderboard();
+
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
   }
 }
