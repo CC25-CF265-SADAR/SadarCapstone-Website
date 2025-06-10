@@ -80,9 +80,9 @@ export default class ModuleLayoutPage {
     const sidebar = document.querySelector('#module-sidebar-wrapper');
     if (sidebar) {
       sidebar.innerHTML = generateModuleSidebarTemplate(moduleDetail, currentTopicId, userProgress);
-      this.addSidebarToggleListener();
-  
-      document.querySelector('#module-sidebar-wrapper')?.addEventListener('click', (event) => {
+      
+      // Menambahkan listener untuk klik pada sidebar
+      sidebar.addEventListener('click', (event) => {
         const listItem = event.target.closest('li[data-content-id]');
         if (!listItem) return;
 
@@ -90,9 +90,30 @@ export default class ModuleLayoutPage {
         if (contentId && contentId !== this.contentId) {
           this.contentId = contentId;
           this.pageIndex = 1;
+
+          // Menutup sidebar jika sudah pindah halaman
+          this.handleSidebarToggle(); // Menutup sidebar saat topik baru dipilih
+
           this.presenter.loadContent(contentId, 1);
         }
       });
+    }
+  }
+
+  handleSidebarToggle() {
+    const sidebarWrapper = document.querySelector('#module-sidebar-wrapper');
+    const contentArea = document.querySelector('#module-content');
+    if (!sidebarWrapper || !contentArea) return;
+
+    const isMobile = window.innerWidth < 640; // Tailwind sm breakpoint
+    const isHidden = sidebarWrapper.classList.contains('-translate-x-full');
+
+    if (isHidden) {
+      sidebarWrapper.classList.remove('-translate-x-full');
+      if (!isMobile) contentArea.classList.add('ml-64');
+    } else {
+      sidebarWrapper.classList.add('-translate-x-full');
+      if (!isMobile) contentArea.classList.remove('ml-64');
     }
   }
 
@@ -110,7 +131,12 @@ export default class ModuleLayoutPage {
       return;
     }
 
-    container.innerHTML = generateModuleContentTextTemplate(content, currentPageIndex);
+    // Modifikasi bagian konten dengan kelas responsif
+    container.innerHTML = `
+      <div class="text-sm sm:text-base md:text-lg lg:text-xl">
+        ${generateModuleContentTextTemplate(content, currentPageIndex)}
+      </div>
+    `;
   }
 
   renderSessionExpired() {
@@ -152,26 +178,16 @@ export default class ModuleLayoutPage {
   }
 
   addSidebarToggleListener() {
-  document.querySelector('#toggleSidebar')?.addEventListener('click', () => {
-    const sidebarWrapper = document.querySelector('#module-sidebar-wrapper');
-    const contentArea = document.querySelector('#module-content');
-    if (!sidebarWrapper || !contentArea) return;
-
-    const isMobile = window.innerWidth < 640; // Tailwind sm breakpoint
-    const isHidden = sidebarWrapper.classList.contains('-translate-x-full');
-
-    if (isHidden) {
-      sidebarWrapper.classList.remove('-translate-x-full');
-      if (!isMobile) contentArea.classList.add('ml-64');
-    } else {
-      sidebarWrapper.classList.add('-translate-x-full');
-      if (!isMobile) contentArea.classList.remove('ml-64');
+    const toggleButton = document.querySelector('#toggleSidebar');
+    if (toggleButton) {
+      toggleButton.addEventListener('click', () => {
+        this.handleSidebarToggle(); // Panggil handleSidebarToggle saat tombol toggle ditekan
+      });
     }
-  });
-}
+  }
 
   addEventListeners() {
-    this.addSidebarToggleListener();
+    this.addSidebarToggleListener();  // Pastikan toggle tetap berfungsi setelah pindah halaman
 
     document.querySelector('#backBtn')?.addEventListener('click', () => {
       const moduleId = this.presenter.moduleDetail?.modId;
