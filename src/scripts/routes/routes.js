@@ -14,6 +14,7 @@ import QuizResultModulePage from '../pages/antitertipu/hasilQuiz/HQMateri-page';
 import CekLinkPage from '../pages/cekajadulu/ceklink/cekLink-page';
 import CekSpamPage from '../pages/cekajadulu/cekspam/cekSpam-page';
 import CekUmumPage from '../pages/cekajadulu/cekumum/cekUmum-page';
+import { checkAuthenticatedRoute } from '../utils/auth';
 
 const routes = {
   '/login': () => new LoginPage(),
@@ -26,8 +27,9 @@ const routes = {
   '/result': () => new Result(),
   '/module-overview': () => new ModuleIntroPage(),
   '/module-overview/detail-module-:moduleId': (moduleId) => new ModuleDetailPage(moduleId),
-  '/modul-belajar/:contentId/pages:pageIndex': (contentId, pageIndex) =>
-    new ModuleLayoutPage(contentId, parseInt(pageIndex)),
+  '/modul-belajar/:contentId/pages:pageIndex': checkAuthenticatedRoute(
+    (contentId, pageIndex) => new ModuleLayoutPage(contentId, parseInt(pageIndex)),
+  ),
   '/quiz-modul/:modId': (modId) => new QuizMateriPage(modId),
   '/result-module/:modId': (modId) => new QuizResultModulePage(modId),
   '/link-checking/cek-umum': () => new CekUmumPage(),
