@@ -11,11 +11,15 @@
   justify-content: space-around;
 }
 
-body,
-html {
+.sticky-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+body, html {
   margin: 0;
   padding: 0;
-  height: 100%;
 }
 
 .quiz-page {

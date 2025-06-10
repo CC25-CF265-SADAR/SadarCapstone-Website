@@ -279,11 +279,11 @@ export function generateFooterTemplate() {
           <div>
             <h4 class="font-semibold mb-6 text-xl text-[#2C6F82]">Perusahaan</h4>
             <ul class="space-y-3 text-base">
-              <li><a href="#" onclick="window.scrollTo(0, 0)">Beranda</a></li>
-              <li><a href="#/link-checking/cek-umum" onclick="window.scrollTo(0, 0)">CekAjaDulu</a></li>
-              <li><a href="#/module-overview" onclick="window.scrollTo(0, 0)">AntiTertipu</a></li>
-              <li><a href="#/quiz" onclick="window.scrollTo(0, 0)">TipuMeter</a></li>
-              <li><a href="#" onclick="window.scrollTo(0, 0)">Tentang</a></li>
+              <li><a href="#">Beranda</a></li>
+              <li><a href="#">CekAjaDulu</a></li>
+              <li><a href="#">AntiTertipu</a></li>
+              <li><a href="#">TipuMeter</a></li>
+              <li><a href="#">Tentang</a></li>
             </ul>
           </div>
           <div class="space-y-2">
@@ -532,10 +532,8 @@ export function generateTabCekAjaDuluTemplate() {
           hover:bg-[#42A7C3] hover:text-white focus:z-10 focus:ring-1 focus:ring-[#42A7C3] focus:bg-[#42A7C3] focus:text-white 
           aria-[current=page]:bg-[#42A7C3] aria-[current=page]:text-white
           dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
-          <svg class="icon-default block w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M4 4h7V2H4c-1.1 0-2 .9-2 2v7h2V4zm6 9l-4 5h12l-3-4-2.03 2.71L10 13zm7-4.5c0-.83-.67-1.5-1.5-1.5S14 7.67 14 8.5s.67 1.5 1.5 1.5S17 9.33 17 8.5zM20 2h-7v2h7v7h2V4c0-1.1-.9-2-2-2zm0 18h-7v2h7c1.1 0 2-.9 2-2v-7h-2v7zM4 13H2v7c0 1.1.9 2 2 2h7v-2H4v-7z"/>
-          </svg>
-          Cek Lewat Gambar
+          <svg class="icon-default block w-6 h-6 fill-current " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M220.6 130.3l-67.2 28.2V43.2L98.7 233.5l54.7-24.2v130.3l67.2-209.3zm-83.2-96.7l-1.3 4.7-15.2 52.9C80.6 106.7 52 145.8 52 191.5c0 52.3 34.3 95.9 83.4 105.5v53.6C57.5 340.1 0 272.4 0 191.6c0-80.5 59.8-147.2 137.4-158zm311.4 447.2c-11.2 11.2-23.1 12.3-28.6 10.5-5.4-1.8-27.1-19.9-60.4-44.4-33.3-24.6-33.6-35.7-43-56.7-9.4-20.9-30.4-42.6-57.5-52.4l-9.7-14.7c-24.7 16.9-53 26.9-81.3 28.7l2.1-6.6 15.9-49.5c46.5-11.9 80.9-54 80.9-104.2 0-54.5-38.4-102.1-96-107.1V32.3C254.4 37.4 320 106.8 320 191.6c0 33.6-11.2 64.7-29 90.4l14.6 9.6c9.8 27.1 31.5 48 52.4 57.4s32.2 9.7 56.8 43c24.6 33.2 42.7 54.9 44.5 60.3s.7 17.3-10.5 28.5zm-9.9-17.9c0-4.4-3.6-8-8-8s-8 3.6-8 8 3.6 8 8 8 8-3.6 8-8z"/></svg>
+          Cek Umum (?)
         </a>
 
         <a href="#/link-checking/cek-spam" data-tab="cek-spam" 
