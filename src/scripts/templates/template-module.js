@@ -426,8 +426,8 @@ export function generateQuizModuleQuestionTemplate(
         ${options
           .map(
             (option, index) => `
-              <label class="peer-checked:border-yellow-400 block border border-gray-300 rounded-lg px-4 py-3 cursor-pointer hover:border-yellow-400 transition-all flex items-center gap-3">
-                <input
+            <label class="peer-checked:border-yellow-400 block border border-gray-300 rounded-lg px-4 py-3 cursor-pointer hover:border-yellow-400 transition-all flex items-center gap-3 w-full">
+              <input
                 type="${inputType}"
                 name="${inputName}"
                 value="${option}"
@@ -435,22 +435,11 @@ export function generateQuizModuleQuestionTemplate(
                 class="peer hidden"
                 ${selectedAnswers.includes(option) ? 'checked' : ''}
               />
-              <span class="
-                block w-5 h-5 border-2
-                ${multiple ? 'rounded-md' : 'rounded-full'}
-                border-gray-300
-                peer-checked:border-yellow-400
-                relative
-              ">
-                <span class="
-                  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-                  ${multiple ? 'w-2 h-2' : 'w-2.5 h-2.5 rounded-full'}
-                  bg-yellow-400 scale-0 peer-checked:scale-100
-                  transition-transform duration-200
-                "></span>
+              <span class="flex-shrink-0 block w-5 h-5 border-2 ${multiple ? 'rounded-md' : 'rounded-full'} border-gray-300 peer-checked:border-yellow-400 relative">
+                <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${multiple ? 'w-2 h-2' : 'w-2.5 h-2.5 rounded-full'} bg-yellow-400 scale-0 peer-checked:scale-100 transition-transform duration-200"></span>
               </span>
-                <span class="text-md font-regular text-[#000000]">${option}</span>
-              </label>
+              <span class="text-md font-regular text-[#000000] leading-tight">${option}</span>
+            </label>
             `,
           )
           .join('')}
