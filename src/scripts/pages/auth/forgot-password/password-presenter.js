@@ -1,9 +1,8 @@
 import { requestResetPassword } from '../../../data/api';
 
 export default class ForgotPasswordPresenter {
-  constructor() {
+  constructor(onSuccess, onError) {
     const form = document.getElementById('forgotForm');
-    const messageBox = document.getElementById('forgotMessage');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -11,9 +10,9 @@ export default class ForgotPasswordPresenter {
 
       try {
         const data = await requestResetPassword(email);
-        messageBox.textContent = data.message;
+        onSuccess(data.message);
       } catch (err) {
-        messageBox.textContent = 'Terjadi kesalahan saat mengirim permintaan.';
+        onError('Terjadi kesalahan saat mengirim permintaan.');
       }
     });
   }

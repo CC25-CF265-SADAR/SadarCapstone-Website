@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import ForgotPasswordPresenter from './password-presenter';
 
 export default class ForgotPasswordPage {
@@ -23,6 +24,46 @@ export default class ForgotPasswordPage {
   }
 
   afterRender() {
-    new ForgotPasswordPresenter();
+    new ForgotPasswordPresenter(
+      (message) => {
+        if (message.toLowerCase().includes('pastikan email Anda telah terdaftar')) {
+          // Swal jika email tidak ditemukan
+          Swal.fire({
+            icon: 'warning',
+            title: 'Email tidak ditemukan',
+            text: message,
+            confirmButtonText: 'Coba Lagi',
+            customClass: {
+              confirmButton: 'bg-[#378BA2] hover:bg-[#2C6F82] text-white px-4 py-2 rounded-lg',
+            },
+            buttonsStyling: false,
+          });
+        } else {
+          Swal.fire({
+            icon: 'success',
+            title: 'Silahkan cek inbox Anda',
+            text: message,
+            confirmButtonText: 'OK',
+            customClass: {
+              confirmButton: 'bg-[#378BA2] hover:bg-[#2C6F82] text-white px-4 py-2 rounded-lg',
+            },
+            buttonsStyling: false,
+          });
+        }
+      },
+
+      (errorMessage) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Gagal',
+          text: errorMessage,
+          confirmButtonText: 'Coba lagi',
+          customClass: {
+            confirmButton: 'bg-[#378BA2] hover:bg-[#2C6F82] text-white px-4 py-2 rounded-lg',
+          },
+          buttonsStyling: false,
+        });
+      },
+    );
   }
 }
