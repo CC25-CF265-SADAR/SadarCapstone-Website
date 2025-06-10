@@ -1880,9 +1880,6 @@
   .h-80 {
     height: calc(var(--spacing) * 80);
   }
-  .h-90 {
-    height: calc(var(--spacing) * 90);
-  }
   .h-\[72px\] {
     height: 72px;
   }
@@ -1984,9 +1981,6 @@
   }
   .w-65 {
     width: calc(var(--spacing) * 65);
-  }
-  .w-80 {
-    width: calc(var(--spacing) * 80);
   }
   .w-\[72px\] {
     width: 72px;

@@ -103,9 +103,9 @@ export default class Homepage {
                 <img
                     src="images/background_type.svg"
                     alt="Background sadar"
-                    class="absolute inset-0 -z-10 w-full h-full object-cover"
+                    class="absolute w-full h-full object-cover"
                 />
-
+                
                 <article class="text-white flex flex-col gap-4 z-10 mt-10 px-4 text-center">
                     <h1 class="text-2xl sm:text-3xl font-bold">SADAR Mulai Dari Sekarang!</h1>
                     <p class="text-md md:text-lg max-w-xl md:max-w-2xl mx-auto">
@@ -245,7 +245,7 @@ export default class Homepage {
                 <p class="text-sm sm:text-base font-regular text-gray-500 mt-1">telah dicari sebanyak ${item.count} kali</p>
               </div>
             </li>
-          `
+          `,
           )
           .join('');
       } catch (err) {
@@ -277,16 +277,18 @@ export default class Homepage {
     });
 
     // Ganti interval 1 detik menjadi 30 detik atau 1 menit
-      const POLLING_INTERVAL = 5000; // 30 detik
+    const POLLING_INTERVAL = 5000; // 30 detik
 
-      const pollLeaderboard = () => {
-        const activeFilter = document.getElementById('btn-leaderboard-month')?.classList.contains('bg-[#42A7C3]');
-        renderPhishingLeaderboard(activeFilter);
-        setTimeout(pollLeaderboard, POLLING_INTERVAL); // Rekursif dengan setTimeout
-      };
+    const pollLeaderboard = () => {
+      const activeFilter = document
+        .getElementById('btn-leaderboard-month')
+        ?.classList.contains('bg-[#42A7C3]');
+      renderPhishingLeaderboard(activeFilter);
+      setTimeout(pollLeaderboard, POLLING_INTERVAL); // Rekursif dengan setTimeout
+    };
 
-      // Mulai polling setelah render pertama
-      pollLeaderboard();
+    // Mulai polling setelah render pertama
+    pollLeaderboard();
   }
 
   renderFAQList(filteredFaq) {
