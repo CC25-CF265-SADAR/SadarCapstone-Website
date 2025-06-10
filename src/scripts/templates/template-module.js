@@ -362,11 +362,11 @@ export function generateIntroQuizTemplate(modTitle) {
         class="w-36 mb-2 animate-bounce"
       />
 
-      <h2 class="text-4xl font-extrabold text-[#2C6F82] mb-4 drop-shadow-sm">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#2C6F82] mb-4 drop-shadow-sm">
         Waktunya Menguji Pemahamanmu!
       </h2>
 
-      <p class="text-lg text-black max-w-2xl mb-6 px-4 leading-relaxed">
+      <p class="text-base sm:text-lg md:text-xl text-black max-w-2xl mb-6 px-4 leading-relaxed">
         Kamu telah menyelesaikan semua topik di modul
         <span class="text-[#42A7C3] font-semibold">"${modTitle}"</span>.
         Sekarang saatnya mengerjakan <strong>kuis evaluasi</strong> untuk melihat seberapa jauh kamu memahami materi ini.
@@ -374,7 +374,7 @@ export function generateIntroQuizTemplate(modTitle) {
 
       <button
         id="start-quiz-button"
-        class="bg-[#42A7C3] hover:bg-[#2C6F82] text-white text-base px-6 py-3 rounded-full font-semibold shadow-md transition-transform transform hover:scale-105"
+        class="bg-[#42A7C3] hover:bg-[#2C6F82] text-white text-base sm:text-lg md:text-xl px-6 py-3 rounded-full font-semibold shadow-md transition-transform transform hover:scale-105"
       >
         🚀 Mulai Kuis Sekarang
       </button>
