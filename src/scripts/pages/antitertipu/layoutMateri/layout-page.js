@@ -131,9 +131,9 @@ export default class ModuleLayoutPage {
       return;
     }
 
-    // Modifikasi bagian konten dengan kelas responsif
+    // Menambahkan kelas responsif font dengan ukuran yang lebih kecil untuk desktop
     container.innerHTML = `
-      <div class="text-sm sm:text-base md:text-lg lg:text-xl">
+      <div class="text-sm sm:text-base md:text-lg lg:text-lg">
         ${generateModuleContentTextTemplate(content, currentPageIndex)}
       </div>
     `;

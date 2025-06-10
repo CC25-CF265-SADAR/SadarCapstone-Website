@@ -289,9 +289,8 @@ export function generateModuleContentTextTemplate(content, currentPageIndex) {
 
   return `
     <article class="moduleContentText prose max-w-none px-6 md:px-20 py-6 bg-cover bg-center">
-      <h2 class="text-3xl font-bold my-4 text-start text-[#2C6F82]">${content.title}</h2>
-      <p class="text-base mb-6 leading-relaxed text-gray-800">${page.text}</p>
-      
+      <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-3xl font-bold my-4 text-start text-[#2C6F82]">${content.title}</h2>
+      <p class="text-base sm:text-lg md:text-lg lg:text-lg mb-6 leading-relaxed text-gray-800">${page.text}</p>
       ${
         page.imageURL
           ? `
