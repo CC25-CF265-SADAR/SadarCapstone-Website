@@ -2,14 +2,17 @@ import LoginPresenter from './login-presenter';
 import { googleLogin } from '../../../data/api';
 import CONFIG from '../../../config';
 import Swal from 'sweetalert2';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 export default class LoginPage {
   #presenter = null;
 
   async render() {
     return `
       <section class="login-container bg-[#378BA2] w-full min-h-screen flex flex-col justify-start items-center p-8 gap-8 md:pt-12">
-        <img src="images/logo-sadar.svg" class="w-[180px] h-auto" alt="Logo"">
-        <div class="w-full max-w-lg p-8 bg-white border border-gray-200 rounded-xl shadow-sm sm:p-6 md:p-9 dark:bg-gray-800 dark:border-gray-700">
+        <img data-aos="zoom-in" data-aos-delay="100" src="images/logo-sadar.svg" class="w-[180px] h-auto" alt="Logo"">
+        <div data-aos="zoom-in" data-aos-delay="200" class="w-full max-w-lg p-8 bg-white border border-gray-200 rounded-xl shadow-sm sm:p-6 md:p-9 dark:bg-gray-800 dark:border-gray-700">
             <h1 class="text-xl md:text-3xl font-bold text-[#378BA2] text-center">Masuk Akun</h1>
             <h2 class="text-md md:text-lg font-regular text-gray-500 text-center mt-2">Amankan dirimu, mulai dari sini</h2>
             <form class="space-y-6 mt-7" action="#">
@@ -145,5 +148,9 @@ export default class LoginPage {
         text: 'signin_with',
       });
     }, 300);
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
   }
 }

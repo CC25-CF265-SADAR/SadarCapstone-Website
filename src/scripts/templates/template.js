@@ -1,5 +1,7 @@
 import { fetchModules } from '../data/api';
 import { getAccessToken, parseJwt } from '../utils/auth';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export async function generateNavbarTemplate() {
   const currentHash = window.location.hash;
@@ -804,7 +806,7 @@ export function generateResultTemplate(characterData, recommendedModules) {
   const resultContainer = document.getElementById('app');
   resultContainer.innerHTML = `
     <section class="px-4 py-8 max-w-4xl mx-auto">
-      <div class="flex flex-col md:flex-row items-center gap-6 bg-white rounded-2xl shadow-md p-6">
+      <div data-aos="zoom-in" data-aos-delay="300" class="flex flex-col md:flex-row items-center gap-6 bg-white rounded-2xl shadow-md p-6">
         <img src="/images/character/${characterData.image}" alt="${characterData.name}" class="w-32 h-32 object-contain"/>
         <div class="flex-1">
           <div class="flex justify-between items-start">
@@ -822,7 +824,7 @@ export function generateResultTemplate(characterData, recommendedModules) {
             </div>
             
             <!-- Tombol Bagikan dipindah ke kanan -->
-            <button id="shareButton" class="flex items-center gap-2 bg-[#42A7C3] text-white px-4 py-2 rounded-lg hover:bg-[#2C6F82] transition">
+            <button id="shareButton" class="cursor-pointer flex items-center gap-2 bg-[#42A7C3] text-white px-4 py-2 rounded-lg hover:bg-[#2C6F82] transition">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
               </svg>
@@ -835,28 +837,31 @@ export function generateResultTemplate(characterData, recommendedModules) {
       </div>
 
       <div class="mt-12">
-        <h3 class="text-xl font-semibold mb-2">Rekomendasi Modul Belajar</h3>
+        <div data-aos="zoom-in" data-aos-delay="300">
+          <h3 class="text-xl font-semibold mb-2">Rekomendasi Modul Belajar</h3>
 
-        ${
-          recommendedModules.length === 0
-            ? `
-            <p class="text-green-700 font-medium mb-6">
-              🎉 Selamat! Kamu berhasil menjawab semua pertanyaan dengan benar.
-              Saat ini kamu sudah paham dengan materi simulasi ini.
-            </p>
-          `
-            : `
-            <p class="text-gray-600 mb-6">
-              Wah, sepertinya kamu perlu memperkuat pemahaman soal topik-topik berikut ini.
-              Yuk pelajari lebih lanjut lewat modul di bawah ini.
-            </p>
-          `
-        }
+          ${
+            recommendedModules.length === 0
+              ? `
+              <p class="text-green-700 font-medium mb-6">
+                🎉 Selamat! Kamu berhasil menjawab semua pertanyaan dengan benar.
+                Saat ini kamu sudah paham dengan materi simulasi ini.
+              </p>
+            `
+              : `
+              <p class="text-gray-600 mb-6">
+                Wah, sepertinya kamu perlu memperkuat pemahaman soal topik-topik berikut ini.
+                Yuk pelajari lebih lanjut lewat modul di bawah ini.
+              </p>
+            `
+          }
+        </div>
+        
 
         ${
           recommendedModules.length > 0
             ? `
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div data-aos="zoom-in" data-aos-delay="300" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 ${recommendedModules
                   .map(
                     (module) => `
@@ -884,7 +889,7 @@ export function generateResultTemplate(characterData, recommendedModules) {
 
       <!-- Tombol Kembali -->
       <div class="mt-10 text-center">
-        <button id="btn-back-home" class="text-base bg-[#42A7C3] text-white px-8 py-2 rounded-lg hover:bg-[#2C6F82] transition">
+        <button id="btn-back-home" class="cursor-pointer text-base bg-[#42A7C3] text-white px-8 py-2 rounded-lg hover:bg-[#2C6F82] transition">
           Kembali Ke Beranda
         </button>
       </div>

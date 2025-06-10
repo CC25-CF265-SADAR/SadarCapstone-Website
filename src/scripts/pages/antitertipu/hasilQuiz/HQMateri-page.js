@@ -1,8 +1,7 @@
-import {
-  fetchResultByUserId,
-  fetchQuestionsByModuleId,
-} from '../../../data/api.js';
+import { fetchResultByUserId, fetchQuestionsByModuleId } from '../../../data/api.js';
 import { generateQuizModuleResultTemplate } from '../../../templates/template-module.js';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default class QuizResultModulePage {
   constructor(modId) {
@@ -21,11 +20,11 @@ export default class QuizResultModulePage {
       const questions = questionData.questions || [];
 
       const userAnswers = resultData.answers.map((ans) =>
-        Array.isArray(ans.userAnswer) ? ans.userAnswer : [String(ans.userAnswer)]
+        Array.isArray(ans.userAnswer) ? ans.userAnswer : [String(ans.userAnswer)],
       );
 
       const correctAnswers = questions.map((q) =>
-        Array.isArray(q.answer) ? q.answer : [String(q.answer)]
+        Array.isArray(q.answer) ? q.answer : [String(q.answer)],
       );
 
       return generateQuizModuleResultTemplate({
@@ -50,5 +49,9 @@ export default class QuizResultModulePage {
         window.location.href = `#/quiz-modul/${this.modId}`;
       });
     }
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
   }
 }

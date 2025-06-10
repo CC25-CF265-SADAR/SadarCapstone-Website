@@ -2,10 +2,11 @@ import { generateQuizFooterTemplate, generateQuizNavTemplate } from '../../../te
 import ResultPresenter from './result-presenter';
 import { setupProfileDropdown } from '../../../utils/navbar-interaction';
 import { getLogout } from '../../../utils/auth';
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 export default class ResultPage {
   constructor() {
-    this.presenter = new ResultPresenter(); 
+    this.presenter = new ResultPresenter();
   }
 
   async render() {
@@ -37,6 +38,11 @@ export default class ResultPage {
         location.hash = '/';
         location.reload();
       }
+    });
+
+    AOS.init({
+      duration: 800,
+      once: true,
     });
   }
 }

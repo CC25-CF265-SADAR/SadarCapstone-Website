@@ -1,18 +1,21 @@
 import RegisterPresenter from './register-presenter';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 export default class RegisterPage {
   #presenter = null;
 
   async render() {
     return `
       <section class="login-container flex flex-col items-center gap-0 md:flex-row xl:gap-10">
-        <aside class="hidden flex flex-col items-center justify-start md:block items-start border border-gray-300 rounded-lg border-1 m-5 pt-10 md:px-8 md:pb-15 w-full md:w-1/2 max-w-xl xl:block items-start border border-gray-300 rounded-lg border-1 m-5 pt-10 px-15 pb-15 w-full">
+        <aside data-aos="fade-right" data-aos-delay="300" class="hidden flex flex-col items-center justify-start md:block items-start border border-gray-300 rounded-lg border-1 m-5 pt-10 md:px-8 md:pb-15 w-full md:w-1/2 max-w-xl xl:block items-start border border-gray-300 rounded-lg border-1 m-5 pt-10 px-15 pb-15 w-full">
             <img src="images/logo-sadar-dark.svg" class="w-[150px] h-auto" alt="Logo"">
             <h1 class="text-2xl xl:text-3xl font-bold mt-4 text-center md:text-left">Bergabung dengan SADAR</h1>
             <h2 class="text-lg font-regular text-[#2C6F82] mt-2">Mulai langkahmu melawan penipuan dan ancaman online</h2>
             <img src="images/register-illustration.svg" class="max-w-100 mt-6" alt="ilustasi registrasi">
         </aside>
       
-        <div class="w-full max-w-xl flex flex-col items-center p-8 sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div data-aos="fade-left" data-aos-delay="300" class="w-full max-w-xl flex flex-col items-center p-8 sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
             <img src="images/logo-sadar-dark.svg" class="w-[120px] mt-10 h-auto md:hidden" alt="Logo"">
             <form class="space-y-5" action="#">
                 <h1 class="mt-5 text-2xl text-center font-bold md:text-3xl md:font-medium text-gray-900 dark:text-white">Buat Akun</h1>
@@ -118,6 +121,10 @@ export default class RegisterPage {
 
     [email, password, confirmPassword].forEach((input) => {
       input.addEventListener('input', validateFormFields);
+    });
+    AOS.init({
+      duration: 800,
+      once: true,
     });
   }
 }

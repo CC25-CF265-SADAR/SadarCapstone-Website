@@ -1,10 +1,12 @@
 import Swal from 'sweetalert2';
 import ForgotPasswordPresenter from './password-presenter';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default class ForgotPasswordPage {
   async render() {
     return `
-      <section class="max-w-md md:max-w-lg mt-10 mx-auto mt-20 p-6">
+      <section data-aos="zoom-in" data-aos-delay="100" class="max-w-md md:max-w-lg mt-10 mx-auto mt-20 p-6">
         <h1 class="text-lg md:text-2xl font-bold text-[#378BA2] text-center">Lupa Password?</h1>
         <h2 class="text-sm md:text-base font-regular text-gray-500 text-center mt-2">Masukkan alamat email yang terdaftar dan kami akan mengirimkan tautan untuk mengatur ulang password kamu </h2>
         <form id="forgotForm" class="space-y-4 mt-8">
@@ -65,5 +67,9 @@ export default class ForgotPasswordPage {
         });
       },
     );
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
   }
 }

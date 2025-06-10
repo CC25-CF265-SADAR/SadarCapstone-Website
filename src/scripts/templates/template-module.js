@@ -31,7 +31,7 @@ export function generateModuleDetailTemplate(
   startPage = 1,
 ) {
   return `
- <section class="moduleDetail card bg-base-100 w-full max-w-6xl shadow-sm rounded-xl mx-auto">
+ <section  data-aos="zoom-in" data-aos-delay="200" class="moduleDetail card bg-base-100 w-full max-w-6xl shadow-sm rounded-xl mx-auto">
       <div class="flex flex-col-reverse items-start gap-5 md:flex-row justify-between md:items-center pt-7 pb-9 px-6 md:px-12 rounded-t-xl border-b-2 bg-[#${color}] text-white border-neutral-100 dark:border-white/10" style="background-color: #${color};">
         <article class="w-full md:w-3/5 flex flex-col gap-3">
           <h1 class="text-lg font-semibold">AntiTertipu</h1>
@@ -92,7 +92,7 @@ export function generateVideoPlayer(url) {
 
 export function generateModuleSylabusTemplate(title, topics = [], progress = []) {
   return `
-    <section class="moduleSylabus mb-10 max-w-4xl mx-0 px-0 sm:px-0">
+    <section  data-aos="zoom-in" data-aos-delay="200" class="moduleSylabus mb-10 max-w-4xl mx-0 px-0 sm:px-0">
       <h2 class="text-lg font-semibold mt-5 py-1 px-4 sm:px-4 w-full max-w-xl bg-[#DFF0F5]">
         ${title}
       </h2>
@@ -373,7 +373,7 @@ export function generateIntroQuizTemplate(modTitle) {
 
       <button
         id="start-quiz-button"
-        class="bg-[#42A7C3] hover:bg-[#2C6F82] text-white text-base sm:text-lg md:text-xl px-6 py-3 rounded-full font-semibold shadow-md transition-transform transform hover:scale-105"
+        class="cursor-pointer bg-[#42A7C3] hover:bg-[#2C6F82] text-white text-base sm:text-lg md:text-xl px-6 py-3 rounded-full font-semibold shadow-md transition-transform transform hover:scale-105"
       >
         🚀 Mulai Kuis Sekarang
       </button>
@@ -517,7 +517,7 @@ export function generateQuizModuleResultTemplate({
 
   return `
     <section class="result-page w-full max-w-4xl mx-auto p-6 space-y-8">
-      <div class="text-center space-y-2">
+      <div data-aos="zoom-in" data-aos-delay="300" class="text-center space-y-2">
         <div class="flex justify-center gap-10 mt-4 text-lg">
           <div>
             <div class="text-gray-500">Total soal</div>
@@ -547,7 +547,7 @@ export function generateQuizModuleResultTemplate({
         </div>
       </div>
 
-      <div class="space-y-10 mt-6">
+      <div class="space-y-10 mt-6" data-aos="zoom-in" data-aos-delay="300">
         ${questions
           .map((question, index) => {
             const userAnswer = userAnswers[index] || [];

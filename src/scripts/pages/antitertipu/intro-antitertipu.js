@@ -2,12 +2,10 @@ import {
   generateBreadcrumbTemplate,
   generateModuleTemplate,
 } from '../../templates/template-module';
-import {
-  generateFooterTemplate,
-  generateLinkCheckTemplate,
-  generateTabCekAjaDuluTemplate,
-} from '../../templates/template';
+import { generateFooterTemplate } from '../../templates/template';
 import { fetchModules } from '../../data/api';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default class ModuleIntroPage {
   async render() {
@@ -25,9 +23,9 @@ export default class ModuleIntroPage {
             <div class="mx-12">
               ${generateBreadcrumbTemplate(breadcrumbItems)}
             </div>
-            <h1 class="font-semibold text-center text-xl md:text-2xl">Modul Pembelajaran AntiTertipu</h1>
-            <h2 class="font-regular text-base text-center text-gray-500 mt-3 mb-10 px-5">Kenali berbagai modus penipuan online sebelum mereka mengenali Anda. Lindungi diri Anda dari ancaman digital yang bisa menyerang kapan saja.</h2>
-            <div id="modules-container" class="flex flex-row flex-wrap justify-evenly items-center gap-y-5 md:gap-y-10 mb-15">
+            <h1 data-aos="zoom-in" data-aos-delay="300" class="font-semibold text-center text-xl md:text-2xl">Modul Pembelajaran AntiTertipu</h1>
+            <h2 data-aos="zoom-in" data-aos-delay="300" class="font-regular text-base text-center text-gray-500 mt-3 mb-10 px-5">Kenali berbagai modus penipuan online sebelum mereka mengenali Anda. Lindungi diri Anda dari ancaman digital yang bisa menyerang kapan saja.</h2>
+            <div data-aos="zoom-in" data-aos-delay="300" id="modules-container" class="flex flex-row flex-wrap justify-evenly items-center gap-y-5 md:gap-y-10 mb-15">
                 <!-- Modul -->
             </div>
             
@@ -56,5 +54,9 @@ export default class ModuleIntroPage {
       const container = document.getElementById('modules-container');
       container.innerHTML = '<p class="text-center text-red-500">Gagal memuat modul.</p>';
     }
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
   }
 }

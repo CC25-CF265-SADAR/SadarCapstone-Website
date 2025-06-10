@@ -5,6 +5,8 @@ import {
 } from '../../../templates/template-module';
 import { generateQuizFooterTemplate } from '../../../templates/template';
 import ModuleDetailPresenter from './detailAt-presenter';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default class ModuleDetailPage {
   constructor(moduleId) {
@@ -61,7 +63,7 @@ export default class ModuleDetailPage {
               firstContentId,
               startPage,
             )}
-            <h1 class="text-xl md:text-2xl font-semibold text-[#42A7C3] mt-10">Silabus Modul Pembelajaran</h1>
+            <h1 data-aos="zoom-in" data-aos-delay="300" class="text-xl md:text-2xl font-semibold text-[#42A7C3] mt-10">Silabus Modul Pembelajaran</h1>
             ${generateModuleSylabusTemplate(
               moduleSylabus.title,
               moduleSylabus.topics,
@@ -76,5 +78,10 @@ export default class ModuleDetailPage {
     }
   }
 
-  async afterender() {}
+  async afterRender() {
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
+  }
 }

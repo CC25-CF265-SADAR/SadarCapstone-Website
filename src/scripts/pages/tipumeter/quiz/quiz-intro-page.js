@@ -1,5 +1,7 @@
 import { generateQuizFooterTemplate } from '../../../templates/template.js';
 import { initSwiper } from '../../../utils/swiper.js';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default class QuizIntroPage {
   async render() {
@@ -8,10 +10,10 @@ export default class QuizIntroPage {
         <!-- Gambar background -->
         <img src="background-tipumeter.svg"
             class="w-full object-contain object-bottom h-[420px] z-0 md:h-[500px] md:object-contain lg:h-[620] lg:object-cover"
-            alt="background">
+            alt="background" data-aos="fade-up" data-aos-delay="300" >
 
         <!-- Konten di atas gambar -->
-        <div class="absolute z-10 mb-0 px-4 top-0 left-0 w-full h-fit flex flex-col pt-15 items-center">
+        <div data-aos="zoom-in" data-aos-delay="400" class="absolute z-10 mb-0 px-4 top-0 left-0 w-full h-fit flex flex-col pt-15 items-center">
           <h1 class="mb-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-snug text-gray-900 dark:text-white">
             Seberapa Cermat Kamu Hadapi Penipuan Digital?
           </h1>
@@ -30,7 +32,7 @@ export default class QuizIntroPage {
         </div>
       </div>
 
-      <section class="mt-10 bg-white flex flex-col justify-center dark:bg-gray-900">
+      <section data-aos="zoom-in" data-aos-delay="300" class="mt-10 bg-white flex flex-col justify-center dark:bg-gray-900">
         <h2 class="text-xl sm:text-lg md:text-xl lg:text-2xl font-bold text-center mb-8">
           Temukan Karakter Digitalmu
         </h2>
@@ -120,7 +122,7 @@ export default class QuizIntroPage {
         </article>
       </section>
 
-      <section class="info-kuis flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-16 px-6 md:px-12 lg:px-30 my-10 text-center lg:text-left">
+      <section data-aos="zoom-in" data-aos-delay="300" class="info-kuis flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-16 px-6 md:px-12 lg:px-30 my-10 text-center lg:text-left">
         <img src="cara-kerja.svg" alt="gambar cara kerja" class="max-w-3xs md:max-w-sm lg:max-w-md">
         <article class="flex flex-col items-center text-center lg:items-start lg:text-left gap-5">
           <h2 class="text-2xl font-bold">🎮 Bagaimana cara kerjanya?</h2>
@@ -156,6 +158,10 @@ export default class QuizIntroPage {
     document.getElementById('start-quiz-button')?.addEventListener('click', () => {
       e.preventDefault();
       window.location.href = '/#/quiz/take-quiz';
+    });
+    AOS.init({
+      duration: 800,
+      once: true,
     });
   }
 }

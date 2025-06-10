@@ -1,5 +1,7 @@
 import { generateResultTemplate } from '../templates/template';
 import { recommendationModules } from '../data/recommendation-data';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export function handleQuizResult(userAnswers, correctAnswers) {
   const totalCorrect = calculateCorrectAnswers(userAnswers, correctAnswers);
@@ -13,6 +15,8 @@ export function handleQuizResult(userAnswers, correctAnswers) {
   console.log('Rekomendasi Modul:', recommendedModules);
 
   generateResultTemplate(characterData, recommendedModules);
+
+  AOS.refresh();
 }
 
 function calculateCorrectAnswers(userAnswers, correctAnswers) {
