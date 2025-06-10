@@ -171,24 +171,24 @@ export default class Homepage {
             </section>
             
             <section class="faq bg-white font-jakarta flex items-center py-12 px-18 my-10">
-                <div class="w-full">
-                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-center text-black mb-2">Pertanyaan yang Sering Diajukan</h2>
-                    <p class="text-base sm:text-lg md:text-xl text-[#6D7280] text-center max-w-xl mx-auto mb-6">
-                      Temukan jawaban dari pertanyaan umum seputar fitur dan layanan kami.
-                    </p>
+              <div class="w-full">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-center text-black mb-2">Pertanyaan yang Sering Diajukan</h2>
+                <p class="text-base sm:text-lg md:text-xl text-[#6D7280] text-center max-w-xl mx-auto mb-6">
+                  Temukan jawaban dari pertanyaan umum seputar fitur dan layanan kami.
+                </p>
 
-                    <!-- Tabs Kategori -->
-                    <div class="flex justify-center space-x-2 mb-8">
-                    <button data-category="all" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-[#42A7C3] text-white text-sm rounded-4xl">Semua</button>
-                    <button data-category="deteksi" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm rounded-4xl hover:bg-gray-200">Deteksi</button>
-                    <button data-category="modul edukasi" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm rounded-4xl hover:bg-gray-200">Modul Edukasi</button>
-                    <button data-category="simulasi" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm rounded-4xl hover:bg-gray-200">Simulasi</button>
-                    <button data-category="penipuan" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm rounded-4xl hover:bg-gray-200">Penipuan</button>
-                    </div>
-
-                    <!-- Container FAQ -->
-                    <div id="faq-content" class="space-y-4"></div>
+                <!-- Tabs Kategori -->
+                <div class="flex flex-wrap justify-center space-x-2 mb-8">
+                  <button data-category="all" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-[#42A7C3] text-white text-sm sm:text-base rounded-4xl mb-2 sm:mb-0">Semua</button>
+                  <button data-category="deteksi" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm sm:text-base rounded-4xl mb-2 sm:mb-0 hover:bg-gray-200">Deteksi</button>
+                  <button data-category="modul edukasi" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm sm:text-base rounded-4xl mb-2 sm:mb-0 hover:bg-gray-200">Modul Edukasi</button>
+                  <button data-category="simulasi" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm sm:text-base rounded-4xl mb-2 sm:mb-0 hover:bg-gray-200">Simulasi</button>
+                  <button data-category="penipuan" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm sm:text-base rounded-4xl mb-2 sm:mb-0 hover:bg-gray-200">Penipuan</button>
                 </div>
+
+                <!-- Container FAQ -->
+                <div id="faq-content" class="space-y-4"></div>
+              </div>
             </section>
 
             ${generateFooterTemplate()}
@@ -296,7 +296,7 @@ export default class Homepage {
         (faq) => `
       <details class="group border border-gray-200 rounded-2xl p-6 bg-white open:bg-[#DFF0F5] transition-colors duration-100">
         <summary class="flex items-center justify-between cursor-pointer">
-          <h3 class="text-xl font-medium text-gray-900">${faq.question}</h3>
+          <h3 class="text-xl sm:text-lg md:text-xl font-medium text-gray-900">${faq.question}</h3>
           <svg xmlns="http://www.w3.org/2000/svg" class="block size-5 shrink-0 group-open:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9" />
           </svg>
@@ -304,7 +304,7 @@ export default class Homepage {
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9" />
           </svg>
         </summary>
-        <p class="mt-4 text-gray-700 text-base leading-relaxed">${faq.answer}</p>
+        <p class="mt-4 text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed">${faq.answer}</p>
       </details>
     `,
       )
