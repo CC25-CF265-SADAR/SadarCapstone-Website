@@ -6,7 +6,7 @@ export default class LoginPage {
 
   async render() {
     return `
-      <section class="login-container bg-[#378BA2] w-full h-auto flex flex-col justify-start items-center p-8 gap-8 md:pt-12 h-auto">
+      <section class="login-container bg-[#378BA2] w-full min-h-screen flex flex-col justify-start items-center p-8 gap-8 md:pt-12">
         <img src="images/logo-sadar.svg" class="w-[180px] h-auto" alt="Logo"">
         <div class="w-full max-w-lg p-8 bg-white border border-gray-200 rounded-xl shadow-sm sm:p-6 md:p-9 dark:bg-gray-800 dark:border-gray-700">
             <h1 class="text-xl md:text-3xl font-bold text-[#378BA2] text-center">Masuk Akun</h1>
@@ -33,15 +33,14 @@ export default class LoginPage {
                 <div class="text-sm font-regular text-gray-500 dark:text-gray-300">
                     Belum punya akun? <a href="#/register" class="text-[#378BA2] hover:font-medium hover:underline dark:text-blue-500">Buat akun</a>
                 </div>
+
+                <div class="flex items-center justify-center gap-4 mt-4">
+                  <span class="text-gray-500 text-sm">Atau masuk dengan</span>
+                </div>
+                <button id="google-login" type="button" class="w-full text-md md:text-md flex items-center justify-center mt-3">
+                </button>
             </form>
-
-            <div class="flex items-center justify-center gap-4 mt-4">
-                <span class="text-gray-500 text-sm">Atau masuk dengan</span>
-              </div>
-              <button id="google-login" type="button" class="w-full flex items-center justify-center mt-3">
-              </button>
-
-        </div>
+          </div>
       </section>
     `;
   }
@@ -70,7 +69,7 @@ export default class LoginPage {
         type: 'standard',
         shape: 'rectangular',
         logo_alignment: 'center',
-        width: 500,
+        width: '100%',
         height: 1000,
         text: 'signin_with',
       });
