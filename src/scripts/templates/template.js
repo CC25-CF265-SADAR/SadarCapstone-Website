@@ -279,11 +279,11 @@ export function generateFooterTemplate() {
           <div>
             <h4 class="font-semibold mb-6 text-xl text-[#2C6F82]">Perusahaan</h4>
             <ul class="space-y-3 text-base">
-              <li><a href="#">Beranda</a></li>
-              <li><a href="#">CekAjaDulu</a></li>
-              <li><a href="#">AntiTertipu</a></li>
-              <li><a href="#">TipuMeter</a></li>
-              <li><a href="#">Tentang</a></li>
+              <li><a href="#" onclick="window.scrollTo(0, 0)">Beranda</a></li>
+              <li><a href="#/link-checking/cek-umum" onclick="window.scrollTo(0, 0)">CekAjaDulu</a></li>
+              <li><a href="#/module-overview" onclick="window.scrollTo(0, 0)">AntiTertipu</a></li>
+              <li><a href="#/quiz" onclick="window.scrollTo(0, 0)">TipuMeter</a></li>
+              <li><a href="#" onclick="window.scrollTo(0, 0)">Tentang</a></li>
             </ul>
           </div>
           <div class="space-y-2">
