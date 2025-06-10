@@ -2790,9 +2790,6 @@
   .overflow-hidden {
     overflow: hidden;
   }
-  .overflow-x-auto {
-    overflow-x: auto;
-  }
   .overflow-y-auto {
     overflow-y: auto;
   }
@@ -3289,6 +3286,9 @@
   }
   .text-\[\#2C6F82\] {
     color: #2C6F82;
+  }
+  .text-\[\#5a5f6a\] {
+    color: #5a5f6a;
   }
   .text-\[\#6D7280\] {
     color: #6D7280;
