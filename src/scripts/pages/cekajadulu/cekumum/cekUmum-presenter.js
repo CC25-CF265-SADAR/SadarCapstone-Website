@@ -17,7 +17,6 @@ export default class CekUmumPresenter {
   }
 
   async handleSubmit(imageFile) {
-    console.log('[DEBUG] Mulai handleSubmit, file:', imageFile.name);
     try {
       // Jalankan paralel (QR + OCR)
       const [qrResponse, ocrResponse] = await Promise.allSettled([
@@ -28,19 +27,18 @@ export default class CekUmumPresenter {
       let urls = [];
       let phishingResults = [];
       let smsText = '';
-      let prediction = '';
+      let prediction = 'Tidak terdeteksi';
       let probability = 0;
       let keywords = [];
 
-      // ✳️ Proses QR jika sukses
+      // Proses QR jika sukses
       if (qrResponse.status === 'fulfilled' && qrResponse.value?.decoded_url) {
         const decodedUrl = qrResponse.value.decoded_url;
-        console.log('[DEBUG] QR Detected:', decodedUrl);
         urls.push(decodedUrl);
         smsText += `Ditemukan QR code yang mengarah ke: ${decodedUrl}\n`;
       }
 
-      // ✳️ Proses OCR jika sukses
+      // Proses OCR jika sukses
       if (ocrResponse.status === 'fulfilled') {
         const result = ocrResponse.value;
 
@@ -50,33 +48,26 @@ export default class CekUmumPresenter {
         urls.push(...extracted);
 
         if (spamResult) {
-          prediction = spamResult.prediction;
-          probability = spamResult.probability;
-          keywords = spamResult.explanation.map((item) => item[0]);
+          prediction = spamResult.prediction || prediction;
+          probability = spamResult.probability || probability;
+          keywords = spamResult.explanation?.map((item) => item[0]) || [];
         }
       }
 
-      // ✅ Hilangkan duplikat URL
+      // Hilangkan duplikat URL
       urls = [...new Set(urls)];
 
       // Deteksi phishing untuk semua URL
       const phishingResultPromises = urls.map(async (url) => {
         try {
           const result = await detectLink({ url });
-          if (
-            isValidHttpUrl(url) &&
-            result.predicted_type?.toLowerCase() === 'phishing'
-          ) {
-            try {
-              await recordPhishingLink(url);
-            } catch (e) {
-              console.warn(`Gagal mencatat ke leaderboard untuk: ${url}`, e.message);
-            }
+          if (isValidHttpUrl(url) && result.predicted_type?.toLowerCase() === 'phishing') {
+            await recordPhishingLink(url).catch(e => console.warn(`Gagal mencatat phishing link: ${e.message}`));
           }
           return {
             url,
-            predicted_type: result.predicted_type,
-            probability: result.phishing_probability,
+            predicted_type: result.predicted_type || 'Tidak diketahui',
+            probability: result.phishing_probability || 0,
           };
         } catch (e) {
           return {
@@ -94,21 +85,21 @@ export default class CekUmumPresenter {
 
       // Rekam spam keyword
       if (keywords.length > 0) {
-        await recordSpamKeywords(keywords);
+        await recordSpamKeywords(keywords).catch(e => console.warn(`Gagal mencatat spam keywords: ${e.message}`));
       }
 
       // Kirim ke tampilan
       this.onResult({
-        prediction,
-        probability,
-        keywords,
-        smsText,
-        urls,
-        phishingResults,
+        prediction: prediction || 'Tidak terdeteksi',
+        probability: probability || 0,
+        keywords: keywords || [],
+        smsText: smsText || '',
+        urls: urls || [],
+        phishingResults: phishingResults || [],
       });
 
     } catch (err) {
-      this.onError(err.message);
+      this.onError(err.message || 'Terjadi kesalahan saat memproses gambar');
     }
   }
 }
