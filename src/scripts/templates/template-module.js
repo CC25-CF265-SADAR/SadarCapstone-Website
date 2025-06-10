@@ -1,22 +1,19 @@
 export function generateModuleTemplate({ imageSrc, title, description, link }) {
   return `
-    <section class="moduleCard mx-5 w-auto h-auto gap-x-5 md:w-80 md:h-90 flex flex-row md:flex-col items-start md:items-center gap-y-5 justify-around text-center max-w-sm p-6 bg-white border border-gray-200 rounded-2xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <section class="moduleCard w-80 h-90 flex flex-col items-center gap-y-5 justify-around text-center max-w-sm p-6 bg-white border border-gray-200 rounded-2xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
       <img
-      src="${imageSrc}" alt="ikon" class="w-15 md:w-20"
+      src="${imageSrc}"
       />
-      <div class="flex flex-col md:items-center md:gap-y-5 md:justify-around text-center max-w-sm">
-        <a href="#">
-          <h3 class="mb-2 text-lg text-left md:text-center md:text-xl font-semibold tracking-tight text-gray-900 dark:text-white">${title}</h3>
-        </a>
-        <p class="mb-3 font-normal text-sm text-left md:text-center md:text-base text-gray-700 dark:text-gray-400">${description}</p>
-        <a href="${link}" class="inline-flex items-center px-6 py-3 text-sm w-fit font-medium text-center text-[#2C6F82] bg-[#DFF0F5] rounded-lg hover:bg-[#2C6F82] hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        Mulai Belajar
-          <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-          </svg>
-        </a>
-      </div>
-      
+      <a href="#">
+        <h3 class="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">${title}</h3>
+      </a>
+      <p class="mb-3 font-normal text-base text-gray-700 dark:text-gray-400">${description}</p>
+      <a href="${link}" class="inline-flex items-center px-6 py-3 text-sm font-medium text-center text-[#2C6F82] bg-[#DFF0F5] rounded-lg hover:bg-[#2C6F82] hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+      Mulai Belajar
+        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
+      </a>
     </section>
     `;
 }
@@ -322,7 +319,10 @@ export function generateModuleFooterTemplate(text, hideNext = false, hidePrev = 
     ? 'hidden'
     : 'flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed';
 
-  const justifyClass = hideNext && hidePrev ? 'justify-center' : 'justify-between';
+  const justifyClass =
+    hideNext && hidePrev
+      ? 'justify-center'
+      : 'justify-between';
 
   return `
     <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 px-4 py-3 z-50">
@@ -517,6 +517,7 @@ export function generateBreadcrumbTemplate(items = []) {
 }
 
 export function generateQuizModuleResultTemplate({
+  moduleId,
   totalQuestions,
   score,
   userAnswers,
@@ -552,9 +553,9 @@ export function generateQuizModuleResultTemplate({
           <button id="retry-button" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
             Coba Lagi
           </button>
-          <button id="module-button" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
+          <a href="#/module-overview/detail-module-${moduleId}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
             Kembali ke Modul
-          </button>
+          </a>
         </div>
       </div>
 

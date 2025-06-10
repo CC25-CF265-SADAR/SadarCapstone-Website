@@ -29,6 +29,7 @@ export default class QuizResultModulePage {
       );
 
       return generateQuizModuleResultTemplate({
+        moduleId: this.modId,
         totalQuestions: resultData.totalQuestions,
         score: resultData.score,
         date: new Date(resultData.createdAt).toLocaleDateString(),
@@ -47,12 +48,6 @@ export default class QuizResultModulePage {
     if (retryBtn) {
       retryBtn.addEventListener('click', () => {
         window.location.href = `#/quiz-modul/${this.modId}`;
-      });
-    }
-    const moduleBtn = document.getElementById('module-button');
-    if (moduleBtn) {
-      moduleBtn.addEventListener('click', () => {
-        window.location.href = `#/module-overview/${this.moduleId}`;
       });
     }
   }
