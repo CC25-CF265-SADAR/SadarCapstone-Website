@@ -30,7 +30,7 @@ export default class LoginPage {
                     </div>
                     <a href="#/forgot-password" class="ms-auto text-sm text-[#378BA2] hover:underline dark:text-blue-500">Lupa password?</a>
                 </div>
-                <button type="submit" class="w-full text-white cursor-pointer bg-[#378BA2] hover:bg-[#2C6F82] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-8 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Masuk Sekarang</button>
+                <button type="submit" id="login-btn" disabled class="w-full bg-gray-300 cursor-not-allowed font-medium rounded-lg text-md px-8 py-3 text-center text-white">Masuk Sekarang</button>
                 <div class="text-sm font-regular text-gray-500 dark:text-gray-300">
                     Belum punya akun? <a href="#/register" class="text-[#378BA2] hover:font-medium hover:underline dark:text-blue-500">Buat akun</a>
                 </div>
@@ -48,6 +48,47 @@ export default class LoginPage {
 
   afterRender() {
     this.#presenter = new LoginPresenter();
+    const loginBtn = document.getElementById('login-btn');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+
+    function validateFormFields() {
+      const isFilled = email.value.trim() !== '' && password.value.trim() !== '';
+
+      loginBtn.disabled = !isFilled;
+
+      if (isFilled) {
+        loginBtn.classList.remove('bg-gray-300', 'cursor-not-allowed');
+        loginBtn.classList.add(
+          'bg-[#378BA2]',
+          'hover:bg-[#2C6F82]',
+          'cursor-pointer',
+          'focus:ring-4',
+          'focus:outline-none',
+          'focus:ring-blue-300',
+          'dark:bg-blue-600',
+          'dark:hover:bg-blue-700',
+          'dark:focus:ring-blue-800',
+        );
+      } else {
+        loginBtn.classList.add('bg-gray-300', 'cursor-not-allowed');
+        loginBtn.classList.remove(
+          'bg-[#378BA2]',
+          'hover:bg-[#2C6F82]',
+          'cursor-pointer',
+          'focus:ring-4',
+          'focus:outline-none',
+          'focus:ring-blue-300',
+          'dark:bg-blue-600',
+          'dark:hover:bg-blue-700',
+          'dark:focus:ring-blue-800',
+        );
+      }
+    }
+
+    [email, password].forEach((input) => {
+      input.addEventListener('input', validateFormFields);
+    });
 
     setTimeout(() => {
       window.google.accounts.id.initialize({
