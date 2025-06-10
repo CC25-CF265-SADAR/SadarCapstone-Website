@@ -1,5 +1,5 @@
 import { register } from '../../../data/api';
-
+import Swal from 'sweetalert2';
 export default class RegisterPresenter {
   constructor() {
     this.form = document.querySelector('form');
@@ -11,29 +11,47 @@ export default class RegisterPresenter {
   }
 
   async handleSubmit(event) {
-    event.preventDefault(); // cegah form submit default (reload)
-
+    event.preventDefault();
     const email = this.emailInput.value.trim();
     const password = this.passwordInput.value.trim();
-    const confirmPassword = this.confirmPasswordInput.value.trim();
-
-    if (!email || !password || !confirmPassword) {
-      alert('Semua field wajib diisi!');
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      alert('Password dan konfirmasi password tidak cocok!');
-      return;
-    }
-
     try {
       await register({ email, password });
-      alert('Registrasi berhasil! Silakan login.');
-
-      window.location.hash = '#/login';
+      let timerInterval;
+      Swal.fire({
+        title: 'Registrasi berhasil!',
+        html: 'Silahkan masuk menggunakan akun terdaftar',
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+          timerInterval = setInterval(() => {}, 100);
+        },
+        willClose: () => {
+          clearInterval(timerInterval);
+        },
+      }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+          window.location.hash = '#/login';
+        }
+      });
     } catch (error) {
-      alert(error.message);
+      const errorMessage = error.message || '';
+
+      if (errorMessage.toLowerCase().includes('email')) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Registrasi gagal',
+          text: 'Email sudah terdaftar. Silakan gunakan email lain.',
+          confirmButtonColor: '#d33',
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Terjadi kesalahan',
+          text: errorMessage || 'Gagal melakukan registrasi.',
+          confirmButtonColor: '#d33',
+        });
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 import LoginPresenter from './login-presenter';
 import { googleLogin } from '../../../data/api';
 import CONFIG from '../../../config';
+import Swal from 'sweetalert2';
 export default class LoginPage {
   #presenter = null;
 
@@ -29,7 +30,7 @@ export default class LoginPage {
                     </div>
                     <a href="#/forgot-password" class="ms-auto text-sm text-[#378BA2] hover:underline dark:text-blue-500">Lupa password?</a>
                 </div>
-                <button type="submit" class="w-full text-white bg-[#378BA2] hover:bg-[#2C6F82] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-8 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Masuk Sekarang</button>
+                <button type="submit" class="w-full text-white cursor-pointer bg-[#378BA2] hover:bg-[#2C6F82] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-8 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Masuk Sekarang</button>
                 <div class="text-sm font-regular text-gray-500 dark:text-gray-300">
                     Belum punya akun? <a href="#/register" class="text-[#378BA2] hover:font-medium hover:underline dark:text-blue-500">Buat akun</a>
                 </div>
@@ -55,9 +56,38 @@ export default class LoginPage {
           try {
             const token = await googleLogin(response.credential, true);
             localStorage.setItem('token', token);
-            window.location.href = '#/';
+            window.location.hash = '#/';
+
+            setTimeout(() => {
+              const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                },
+              });
+
+              Toast.fire({
+                icon: 'success',
+                title: 'Berhasil masuk',
+              });
+            }, 300);
           } catch (err) {
-            console.error('Login Google gagal:', err.message);
+            Swal.fire({
+              icon: 'error',
+              title: 'Ups! Login gagal',
+              text: err.message,
+              confirmButtonText: 'Coba lagi',
+              customClass: {
+                confirmButton:
+                  'bg-[#378BA2] hover:bg-[#2C6F82] cursor-pointer text-white font-medium px-5 py-3 rounded-lg',
+              },
+              buttonsStyling: false,
+            });
           }
         },
         auto_select: false,

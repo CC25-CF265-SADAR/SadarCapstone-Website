@@ -1,4 +1,5 @@
 import { login } from '../../../data/api';
+import Swal from 'sweetalert2';
 
 export default class LoginPresenter {
   constructor() {
@@ -24,12 +25,38 @@ export default class LoginPresenter {
 
     try {
       await login({ email, password, remember });
-
-      // Redirect ke homepage dan refresh supaya navbar berubah
       window.location.hash = '#/';
-      window.location.reload();
+
+      setTimeout(() => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Berhasil masuk',
+        });
+      }, 300);
     } catch (error) {
-      alert(error.message);
+      Swal.fire({
+        icon: 'error',
+        title: 'Ups! Login gagal',
+        text: 'Email atau password yang kamu masukkan tidak cocok. Silakan periksa kembali dan coba lagi',
+        confirmButtonText: 'Coba lagi',
+        customClass: {
+          confirmButton:
+            'bg-[#378BA2] hover:bg-[#2C6F82] cursor-pointer text-white font-medium px-5 py-3 rounded-lg',
+        },
+        buttonsStyling: false,
+      });
     }
   }
 }

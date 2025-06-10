@@ -40,6 +40,7 @@
     "idb": "^8.0.3",
     "leaflet": "^1.9.4",
     "sortablejs": "^1.15.6",
+    "sweetalert2": "^11.22.0",
     "swiper": "^11.2.7",
     "tiny-slider": "^2.9.4",
     "workbox-cacheable-response": "^7.3.0",
