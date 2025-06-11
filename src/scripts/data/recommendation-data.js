@@ -8,7 +8,7 @@ export const recommendationModules = [
   {
     title: 'Modul Phishing',
     description: 'Kenali teknik phishing yang sering digunakan dan bagaimana cara melindungi diri dari serangan ini.',
-    image: 'modul_phishing.png',
+    image: 'modul_phising.png',
     link: '#/modul/phishing',
   },
   {

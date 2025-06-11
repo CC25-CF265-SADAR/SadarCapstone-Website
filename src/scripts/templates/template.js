@@ -823,7 +823,6 @@ export function generateResultTemplate(characterData, recommendedModules) {
               </div>
             </div>
             
-            <!-- Tombol Bagikan dipindah ke kanan -->
             <button id="shareButton" class="cursor-pointer flex items-center gap-2 bg-[#42A7C3] text-white px-4 py-2 rounded-lg hover:bg-[#2C6F82] transition">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
@@ -887,7 +886,6 @@ export function generateResultTemplate(characterData, recommendedModules) {
         }
       </div>
 
-      <!-- Tombol Kembali -->
       <div class="mt-10 text-center">
         <button id="btn-back-home" class="cursor-pointer text-base bg-[#42A7C3] text-white px-8 py-2 rounded-lg hover:bg-[#2C6F82] transition">
           Kembali Ke Beranda
@@ -901,43 +899,44 @@ export function generateResultTemplate(characterData, recommendedModules) {
   });
 
   const shareButton = document.getElementById('shareButton');
-  if (shareButton) {
-    if (navigator.share) {
-      shareButton.addEventListener('click', () => {
-        navigator
-          .share({
-            title: `${characterData.name} - Hasil Quiz`,
-            text: `Cek hasil quiz saya di ${characterData.name}!`,
-            url: window.location.href,
-          })
-          .catch((error) => {
-            console.log('Error sharing:', error);
-          });
-      });
-    } else {
-      shareButton.addEventListener('click', () => {
-        navigator.clipboard
-          .writeText(window.location.href)
-          .then(() => {
-            alert('Link hasil quiz berhasil disalin ke clipboard!');
-          })
-          .catch((err) => {
-            console.error('Gagal menyalin link:', err);
-            const textArea = document.createElement('textarea');
-            textArea.value = window.location.href;
-            document.body.appendChild(textArea);
-            textArea.select();
-            try {
-              document.execCommand('copy');
-              alert('Link hasil quiz berhasil disalin!');
-            } catch (err) {
-              alert('Gagal menyalin link, silahkan salin manual: ' + window.location.href);
-            }
-            document.body.removeChild(textArea);
-          });
-      });
+    if (shareButton) {
+      if (navigator.share) {
+        shareButton.addEventListener('click', () => {
+          navigator
+            .share({
+              title: `${characterData.name} - Hasil Quiz`,
+              text: `Cek hasil quiz saya di ${characterData.name}!`,
+              url: `${window.location.origin}/#/quiz`,
+            })
+            .catch((error) => {
+              console.log('Error sharing:', error);
+            });
+        });
+      } else {
+        shareButton.addEventListener('click', () => {
+          const shareUrl = `${window.location.origin}/#/quiz`;
+          navigator.clipboard
+            .writeText(shareUrl)
+            .then(() => {
+              alert('Link hasil quiz berhasil disalin ke clipboard!');
+            })
+            .catch((err) => {
+              console.error('Gagal menyalin link:', err);
+              const textArea = document.createElement('textarea');
+              textArea.value = shareUrl;
+              document.body.appendChild(textArea);
+              textArea.select();
+              try {
+                document.execCommand('copy');
+                alert('Link hasil quiz berhasil disalin!');
+              } catch (err) {
+                alert('Gagal menyalin link, silahkan salin manual: ' + shareUrl);
+              }
+              document.body.removeChild(textArea);
+            });
+        });
+      }
     }
-  }
 }
 
 export function generateQuizResolveTemplate() {}
