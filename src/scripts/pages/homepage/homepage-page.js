@@ -135,22 +135,6 @@ export default class Homepage {
                       </div>
                     </div>
 
-                    <!-- TipuMeter -->
-                    <div data-aos="zoom-in" data-aos-delay="800" class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col gap-5">
-                      <img src="images/ikon-tipumeter.svg" class="w-[72px] h-[72px]" alt="Ikon TipuMeter" />
-                      <h2 class="text-lg md:text-xl font-semibold text-gray-900">TipuMeter</h2>
-                      <p class="text-gray-500">
-                        Fitur gamifikasi berupa simulasi nyata yang mengukur kewaspadaan pengguna terhadap penipuan digital.
-                      </p>
-                      <a href="#/quiz" onclick="window.scrollTo(0, 0)" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
-                        Lihat Fitur
-                        <svg class="w-3.5 h-3.5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M1 5h12m0 0L9 1m4 4L9 9" />
-                        </svg>
-                      </a>
-                    </div>
-
                     <!-- AntiTertipu -->
                     <div data-aos="zoom-in" data-aos-delay="1000" class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col gap-5">
                       <img src="images/ikon-antitertipu.svg" class="w-[72px] h-[72px]" alt="Ikon Antitertipu" />
@@ -159,6 +143,22 @@ export default class Homepage {
                         Platform interaktif yang mengedukasi pengguna tentang penipuan digital melalui materi multimedia dan kuis.
                       </p>
                       <a href="#/module-overview" onclick="window.scrollTo(0, 0)" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
+                        Lihat Fitur
+                        <svg class="w-3.5 h-3.5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 5h12m0 0L9 1m4 4L9 9" />
+                        </svg>
+                      </a>
+                    </div>
+
+                    <!-- TipuMeter -->
+                    <div data-aos="zoom-in" data-aos-delay="800" class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col gap-5">
+                      <img src="images/ikon-tipumeter.svg" class="w-[72px] h-[72px]" alt="Ikon TipuMeter" />
+                      <h2 class="text-lg md:text-xl font-semibold text-gray-900">TipuMeter</h2>
+                      <p class="text-gray-500">
+                        Fitur gamifikasi berupa simulasi nyata yang mengukur kewaspadaan pengguna terhadap penipuan digital.
+                      </p>
+                      <a href="#/quiz" onclick="window.scrollTo(0, 0)" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
                         Lihat Fitur
                         <svg class="w-3.5 h-3.5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
