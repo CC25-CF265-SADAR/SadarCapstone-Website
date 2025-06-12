@@ -28,6 +28,8 @@ class App {
 
   matchRoute(url, routes) {
     for (const routePattern in routes) {
+      if (routePattern === '*') continue;
+
       const pattern = routePattern.replace(/:[^\s/]+/g, '([^/]+)');
       const regex = new RegExp(`^${pattern}$`);
       const match = url.match(regex);
@@ -35,6 +37,10 @@ class App {
         const params = match.slice(1);
         return { routeFunc: routes[routePattern], params };
       }
+    }
+
+    if (routes['*']) {
+      return { routeFunc: routes['*'], params: [] };
     }
     return null;
   }
@@ -48,8 +54,12 @@ class App {
       this.#content.innerHTML = '<p>Halaman tidak ditemukan</p>';
       return;
     }
-
-    this.#setupNavigation(url);
+    const isNotFoundPage = Object.keys(routes).includes('*') && matched.routeFunc === routes['*'];
+    if (!isNotFoundPage) {
+      await this.#setupNavigation(url);
+    } else {
+      this.#header.innerHTML = '';
+    }
 
     const page = matched.params.length ? matched.routeFunc(...matched.params) : matched.routeFunc();
 

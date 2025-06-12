@@ -15,6 +15,7 @@ import CekLinkPage from '../pages/cekajadulu/ceklink/cekLink-page';
 import CekSpamPage from '../pages/cekajadulu/cekspam/cekSpam-page';
 import CekUmumPage from '../pages/cekajadulu/cekumum/cekUmum-page';
 import { checkAuthenticatedRoute } from '../utils/auth';
+import NotFoundPage from '../pages/notfound/notfound-pages';
 
 const routes = {
   '/login': () => new LoginPage(),
@@ -35,6 +36,7 @@ const routes = {
   '/link-checking/cek-umum': () => new CekUmumPage(),
   '/link-checking/cek-link': () => new CekLinkPage(),
   '/link-checking/cek-spam': () => new CekSpamPage(),
+  '*': () => new NotFoundPage(),
 };
 
 export default routes;
