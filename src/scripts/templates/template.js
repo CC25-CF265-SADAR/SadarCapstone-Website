@@ -799,24 +799,34 @@ export function generateQuizQuestionDragdropTemplate({ id, question, options, dr
   `;
 }
 
-export function generateResultTemplate(characterData, recommendedModules) {
+export function generateResultTemplate(characterData = {}, recommendedModules = []) {
   const resultContainer = document.getElementById('app');
+
+  const {
+    name = 'Karakter Tidak Dikenal',
+    image = 'default.png',
+    traits = [],
+    description = 'Tidak ada deskripsi.',
+  } = characterData;
+
   resultContainer.innerHTML = `
     <section class="px-4 py-8 max-w-4xl mx-auto">
       <div data-aos="zoom-in" data-aos-delay="300" class="flex flex-col md:flex-row items-center gap-6 bg-white rounded-2xl shadow-md p-6">
-        <img src="/images/character/${characterData.image}" alt="${characterData.name}" class="w-32 h-32 object-contain"/>
+        <img src="/images/character/${image}" alt="${name}" class="w-32 h-32 object-contain" />
+        
         <div class="flex-1">
           <div class="flex justify-between items-start">
             <div>
-              <h2 class="text-2xl font-bold mb-2">${characterData.name}</h2>
+              <h2 class="text-2xl font-bold mb-2">${name}</h2>
               <div class="flex flex-wrap gap-2 mb-3">
-                ${characterData.traits
-                  .map(
-                    (trait) => `
-                  <span class="px-4 py-2 border border-[#42A7C3] bg-white text-[#42A7C3] text-sm font-regular rounded-4xl">${trait}</span>
-                `,
-                  )
-                  .join('')}
+                ${Array.isArray(traits) && traits.length > 0 ? traits
+                        .map(
+                          (trait) =>
+                            `<span class="px-4 py-2 border border-[#42A7C3] bg-white text-[#42A7C3] text-sm font-regular rounded-4xl">${trait}</span>`,
+                        )
+                        .join('')
+                    : `<span class="text-sm text-gray-400 italic">Tidak ada trait.</span>`
+                }
               </div>
             </div>
             
@@ -828,7 +838,7 @@ export function generateResultTemplate(characterData, recommendedModules) {
             </button>
           </div>
           
-          <p class="text-gray-700">${characterData.description}</p>
+          <p class="text-gray-700">${description}</p>
         </div>
       </div>
 
@@ -838,47 +848,47 @@ export function generateResultTemplate(characterData, recommendedModules) {
 
           ${
             recommendedModules.length === 0
-              ? `
-              <p class="text-green-700 font-medium mb-6">
+              ? `<p class="text-green-700 font-medium mb-6">
                 🎉 Selamat! Kamu berhasil menjawab semua pertanyaan dengan benar.
                 Saat ini kamu sudah paham dengan materi simulasi ini.
-              </p>
-            `
-              : `
-              <p class="text-gray-600 mb-6">
+              </p>`
+              : `<p class="text-gray-600 mb-6">
                 Wah, sepertinya kamu perlu memperkuat pemahaman soal topik-topik berikut ini.
                 Yuk pelajari lebih lanjut lewat modul di bawah ini.
-              </p>
-            `
+              </p>`
           }
         </div>
-        
 
         ${
           recommendedModules.length > 0
-            ? `
-              <div data-aos="zoom-in" data-aos-delay="300" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            ? `<div data-aos="zoom-in" data-aos-delay="300" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 ${recommendedModules
-                  .map(
-                    (module) => `
-                    <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow hover:shadow-lg transition">
-                      <img src="/images/modules/${module.image}" alt="${module.title}" class="w-12 h-12 object-contain"/>
-                      <div>
-                        <h4 class="text-lg font-semibold mb-1">${module.title}</h4>
-                        <p class="text-sm text-gray-600 mb-2">${module.description}</p>
-                        <a href="${module.link}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-[#2C6F82] bg-[#DFF0F5] rounded-lg hover:bg-[#2C6F82] hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
-                        Mulai Belajar
-                          <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                          </svg>
-                        </a>
+                  .map((module) => {
+                    const title = module?.title ?? 'Modul Tidak Diketahui';
+                    const desc = module?.description ?? '';
+                    const link = module?.link ?? '#';
+                    const image = module?.image
+                      ? `<img src="/images/modules/${module.image}" alt="${title}" class="w-12 h-12 object-contain" />`
+                      : '';
+
+                    return `
+                      <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow hover:shadow-lg transition">
+                        ${image}
+                        <div>
+                          <h4 class="text-lg font-semibold mb-1">${title}</h4>
+                          <p class="text-sm text-gray-600 mb-2">${desc}</p>
+                          <a href="${link}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-[#2C6F82] bg-[#DFF0F5] rounded-lg hover:bg-[#2C6F82] hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
+                            Mulai Belajar
+                            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                            </svg>
+                          </a>
+                        </div>
                       </div>
-                    </div>
-                  `,
-                  )
+                    `;
+                  })
                   .join('')}
-              </div>
-            `
+              </div>`
             : ''
         }
       </div>
@@ -891,34 +901,29 @@ export function generateResultTemplate(characterData, recommendedModules) {
     </section>
   `;
 
-  document.getElementById('btn-back-home').addEventListener('click', () => {
+  document.getElementById('btn-back-home')?.addEventListener('click', () => {
     window.location.hash = '';
   });
 
   const shareButton = document.getElementById('shareButton');
   if (shareButton) {
-    if (navigator.share) {
-      shareButton.addEventListener('click', () => {
+    shareButton.addEventListener('click', () => {
+      const shareUrl = `${window.location.origin}/#/quiz`;
+      if (navigator.share) {
         navigator
           .share({
-            title: `${characterData.name} - Hasil Quiz`,
-            text: `Cek hasil quiz saya di ${characterData.name}!`,
-            url: `${window.location.origin}/#/quiz`,
+            title: `${name} - Hasil Quiz`,
+            text: `Cek hasil quiz saya di ${name}!`,
+            url: shareUrl,
           })
           .catch((error) => {
             console.log('Error sharing:', error);
           });
-      });
-    } else {
-      shareButton.addEventListener('click', () => {
-        const shareUrl = `${window.location.origin}/#/quiz`;
+      } else {
         navigator.clipboard
-          .writeText(shareUrl)
-          .then(() => {
-            alert('Link hasil quiz berhasil disalin ke clipboard!');
-          })
-          .catch((err) => {
-            console.error('Gagal menyalin link:', err);
+          ?.writeText(shareUrl)
+          .then(() => alert('Link hasil quiz berhasil disalin ke clipboard!'))
+          .catch(() => {
             const textArea = document.createElement('textarea');
             textArea.value = shareUrl;
             document.body.appendChild(textArea);
@@ -926,13 +931,13 @@ export function generateResultTemplate(characterData, recommendedModules) {
             try {
               document.execCommand('copy');
               alert('Link hasil quiz berhasil disalin!');
-            } catch (err) {
+            } catch {
               alert('Gagal menyalin link, silahkan salin manual: ' + shareUrl);
             }
             document.body.removeChild(textArea);
           });
-      });
-    }
+      }
+    });
   }
 }
 

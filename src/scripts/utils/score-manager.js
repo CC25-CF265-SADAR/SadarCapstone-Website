@@ -144,36 +144,45 @@ function determineCharacter(score) {
 
 function determineRecommendedModules(userAnswers, correctAnswers) {
   const modules = new Set();
-  //ak ubah dikit krna dragdrop revisi dikit
+
   for (let i = 0; i < correctAnswers.length; i++) {
+    const user = userAnswers[i];
     const correct = correctAnswers[i];
-    let isCorrect = false;
 
-    if (typeof correct === 'object' && !Array.isArray(correct)) {
-      const user = Object.fromEntries(
-        Object.entries(userAnswers[i] || {}).map(([k, v]) => [k.toLowerCase(), v]),
-      );
-
-      const zoneLabels = Object.keys(correct);
-      isCorrect = true;
-
-      for (const zone of zoneLabels) {
-        const correctItems = (correct[zone] || []).sort();
-        const userItems = (user[zone.toLowerCase()] || []).sort();
-
-        if (JSON.stringify(correctItems) !== JSON.stringify(userItems)) {
-          isCorrect = false;
-          break;
-        }
-      }
-    } else {
-      isCorrect = JSON.stringify(userAnswers[i]) === JSON.stringify(correct);
-    }
-    if (!isCorrect) {
+    const isEqual = compareAnswer(user, correct);
+    if (!isEqual) {
       const moduleIndex = Math.floor(i / 2);
       modules.add(recommendationModules[moduleIndex]);
     }
   }
 
   return Array.from(modules);
+}
+
+function compareAnswer(a, b) {
+  if (Array.isArray(a) && Array.isArray(b)) {
+    if (a.length !== b.length) return false;
+    const sortedA = [...a].sort();
+    const sortedB = [...b].sort();
+    return sortedA.every((val, idx) => val === sortedB[idx]);
+  }
+
+  if (typeof a === 'object' && typeof b === 'object' && a !== null && b !== null) {
+    const keysA = Object.keys(a)
+      .map((k) => k.toLowerCase())
+      .sort();
+    const keysB = Object.keys(b)
+      .map((k) => k.toLowerCase())
+      .sort();
+    if (keysA.length !== keysB.length) return false;
+    if (!keysA.every((k, idx) => k === keysB[idx])) return false;
+
+    return keysA.every((key) => {
+      const originalKeyA = Object.keys(a).find((k) => k.toLowerCase() === key);
+      const originalKeyB = Object.keys(b).find((k) => k.toLowerCase() === key);
+      return compareAnswer(a[originalKeyA], b[originalKeyB]);
+    });
+  }
+
+  return a === b;
 }

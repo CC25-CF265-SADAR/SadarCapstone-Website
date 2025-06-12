@@ -46,11 +46,12 @@ export default class QuizPresenter {
     document.addEventListener('click', (e) => {
       if (e.target?.id === 'next-button') {
         const currentQuestion = questions[this.#currentIndex];
+        const currentType = currentQuestion.type || ''
         this.view.hideErrorMessage();
 
         let answer;
 
-        if (currentQuestion.type === 'mcq') {
+        if (currentType === 'mcq') {
           const form = document.querySelector('form');
           if (!form) {
             console.warn('Form belum tersedia di DOM.');
@@ -71,13 +72,16 @@ export default class QuizPresenter {
             : [checkedInputs[0].value];
         }
 
-        if (currentQuestion.type === 'dragdrop') {
+        if (currentType === 'dragdrop') {
           const zones = document.querySelectorAll('.drop-zone');
           answer = {};
           let hasDroppedItem = false;
 
           zones.forEach((zone) => {
             const key = zone.getAttribute('data-accept');
+            const readableKey = key
+              .replace(/-/g, ' ')
+              .replace(/\b\w/g, (char) => char.toUpperCase());
             const items = Array.from(zone.querySelectorAll('.draggable')).map((el) =>
               el.textContent.trim(),
             );
@@ -86,7 +90,7 @@ export default class QuizPresenter {
               hasDroppedItem = true;
             }
 
-            answer[key] = items;
+            answer[readableKey] = items;
           });
 
           if (!hasDroppedItem) {
