@@ -14,15 +14,15 @@ export default class QuizIntroPage {
 
         <!-- Konten di atas gambar -->
         <div data-aos="zoom-in" data-aos-delay="400" class="absolute z-10 mb-0 px-4 top-0 left-0 w-full h-fit flex flex-col pt-15 items-center">
-          <h1 class="mb-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-snug text-gray-900 dark:text-white">
+          <h1 class="mb-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-snug text-gray-900">
             Seberapa Cermat Kamu Hadapi Penipuan Digital?
           </h1>
-          <p class="mb-8 text-base sm:text-lg md:text-xl font-normal text-gray-500 sm:px-6 md:px-16 lg:px-48 dark:text-gray-400">
+          <p class="mb-8 text-base sm:text-lg md:text-xl font-normal text-gray-500 sm:px-6 md:px-16 lg:px-48">
             Penipuan siber bisa datang kapan saja lewat pesan WhatsApp, email mencurigakan, hingga iklan palsu di media sosial. Kamu Termasuk yang Waspada atau Ceroboh? Cek disini!
           </p>
           <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
             <a id="start-button" href="#/quiz/take-quiz"
-            class="cursor-pointer w-fit inline-flex items-center px-4 sm:px-5 py-3 sm:py-4 text-sm font-medium text-white bg-[#2C6F82] rounded-lg hover:bg-[#215361] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            class="cursor-pointer w-fit inline-flex items-center px-4 sm:px-5 py-3 sm:py-4 text-sm font-medium text-white bg-[#2C6F82] rounded-lg hover:bg-[#215361] focus:ring-4 focus:outline-none focus:ring-blue-300">
             Mulai Kuis
               <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -32,7 +32,7 @@ export default class QuizIntroPage {
         </div>
       </div>
 
-      <section data-aos="zoom-in" data-aos-delay="300" class="mt-10 bg-white flex flex-col justify-center dark:bg-gray-900">
+      <section data-aos="zoom-in" data-aos-delay="300" class="mt-10 bg-white flex flex-col justify-center">
         <h2 class="text-xl sm:text-lg md:text-xl lg:text-2xl font-bold text-center mb-8">
           Temukan Karakter Digitalmu
         </h2>
@@ -109,13 +109,13 @@ export default class QuizIntroPage {
         </div>
 
         <article class="flex flex-col justify-center items-center my-9 gap-5 px-4 text-center">
-          <p class="max-full text-base sm:text-lg text-gray-700 dark:text-gray-300">
+          <p class="max-full text-base sm:text-lg text-gray-700">
             Setiap keputusan mencerminkan gaya berpikirmu saat menghadapi risiko digital.
           </p>
           <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
             <a id="start-button"
               href="#/quiz/take-quiz"
-              class="cursor-pointer inline-flex items-center justify-center px-6 py-3 text-sm sm:text-base font-medium text-white bg-[#2C6F82] rounded-lg hover:bg-[#215361] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-all duration-200">
+              class="cursor-pointer inline-flex items-center justify-center px-6 py-3 text-sm sm:text-base font-medium text-white bg-[#2C6F82] rounded-lg hover:bg-[#215361] focus:ring-4 focus:outline-none focus:ring-blue-300 transition-all duration-200">
               Mulai Kuis
             </a>
           </div>
@@ -141,7 +141,7 @@ export default class QuizIntroPage {
           <div class="flex flex-col space-y-4 sm:flex-row sm:justify-start sm:space-y-0">
             <a id="start-button"
               href="#/quiz/take-quiz"
-              class="cursor-pointer w-fit inline-flex items-center px-5 py-3 text-sm font-medium text-center text-white bg-[#2C6F82] rounded-lg hover:bg-[#215361] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              class="cursor-pointer w-fit inline-flex items-center px-5 py-3 text-sm font-medium text-center text-white bg-[#2C6F82] rounded-lg hover:bg-[#215361] focus:ring-4 focus:outline-none focus:ring-blue-300">
             Mulai Kuis
             </a>
           </div>

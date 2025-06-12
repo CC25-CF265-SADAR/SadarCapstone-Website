@@ -21,8 +21,8 @@ class App {
     } else {
       const isLogin = !!getAccessToken();
       this.#header.innerHTML = isLogin
-      ? await generateNavbarAuthTemplate()
-      : await generateNavbarTemplate();
+        ? await generateNavbarAuthTemplate()
+        : await generateNavbarTemplate();
     }
   }
 

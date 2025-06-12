@@ -1,15 +1,15 @@
 export function generateModuleTemplate({ imageSrc, title, description, link }) {
   return `
-     <section class="moduleCard mx-5 w-auto h-auto gap-x-5 md:w-80 md:h-90 flex flex-row md:flex-col items-start md:items-center gap-y-5 justify-around text-center max-w-sm p-6 bg-white border border-gray-200 rounded-2xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+     <section class="moduleCard mx-5 w-auto h-auto gap-x-5 md:w-80 md:h-90 flex flex-row md:flex-col items-start md:items-center gap-y-5 justify-around text-center max-w-sm p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
       <img
       src="${imageSrc}" alt="ikon" class="w-15 md:w-20"
       />
       <div class="flex flex-col md:items-center md:gap-y-5 md:justify-around text-center max-w-sm">
         <a href="#">
-          <h3 class="mb-2 text-lg text-left md:text-center md:text-xl font-semibold tracking-tight text-gray-900 dark:text-white">${title}</h3>
+          <h3 class="mb-2 text-lg text-left md:text-center md:text-xl font-semibold tracking-tight text-gray-900">${title}</h3>
         </a>
-        <p class="mb-3 font-normal text-sm text-left md:text-center md:text-base text-gray-700 dark:text-gray-400">${description}</p>
-        <a href="${link}" class="inline-flex items-center px-6 py-3 text-sm w-fit font-medium text-center text-[#2C6F82] bg-[#DFF0F5] rounded-lg hover:bg-[#2C6F82] hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <p class="mb-3 font-normal text-sm text-left md:text-center md:text-base text-gray-700">${description}</p>
+        <a href="${link}" class="inline-flex items-center px-6 py-3 text-sm w-fit font-medium text-center text-[#2C6F82] bg-[#DFF0F5] rounded-lg hover:bg-[#2C6F82] hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
         Mulai Belajar
           <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -31,8 +31,8 @@ export function generateModuleDetailTemplate(
   startPage = 1,
 ) {
   return `
- <section  data-aos="zoom-in" data-aos-delay="200" class="moduleDetail card bg-base-100 w-full max-w-6xl shadow-sm rounded-xl mx-auto">
-      <div class="flex flex-col-reverse items-start gap-5 md:flex-row justify-between md:items-center pt-7 pb-9 px-6 md:px-12 rounded-t-xl border-b-2 bg-[#${color}] text-white border-neutral-100 dark:border-white/10" style="background-color: #${color};">
+ <section data-aos="zoom-in" data-aos-delay="200" class="moduleDetail card bg-base-100 w-full max-w-6xl shadow-sm rounded-xl mx-auto">
+      <div class="flex flex-col-reverse items-start gap-5 md:flex-row justify-between md:items-center pt-7 pb-9 px-6 md:px-12 rounded-t-xl border-b-2 bg-[#${color}] text-white border-neutral-100" style="background-color: #${color};">
         <article class="w-full md:w-3/5 flex flex-col gap-3">
           <h1 class="text-lg font-semibold">AntiTertipu</h1>
           <h2 class="text-2xl font-semibold">${title}</h2>
@@ -51,10 +51,10 @@ export function generateModuleDetailTemplate(
         >
       </div>
 
-      <div class="card-body flex flex-col sm:flex-row justify-between items-center px-6 md:px-12 py-6 gap-6 sm:gap-0">
+      <div class="card-body bg-white flex flex-col sm:flex-row justify-between items-center px-6 md:px-12 py-6 gap-6 sm:gap-0">
         <div class="flex flex-row gap-5 items-center w-full sm:w-auto">
-          <div class="w-full sm:w-xl h-6 bg-gray-200 rounded-full dark:bg-gray-700">
-            <div class="h-6 rounded-full dark:bg-blue-500" style="width:${progress}%; background-color: #${color};"></div>
+          <div class="w-full sm:w-xl h-6 bg-gray-200 rounded-full">
+            <div class="h-6 rounded-full" style="width:${progress}%; background-color: #${color};"></div>
           </div>
           <p class="text-lg font-semibold text-[#${color}] whitespace-nowrap" style="color: #${color};">${progress}%</p>
         </div>
@@ -79,7 +79,7 @@ export function generateVideoPlayer(url) {
   return `
         <section class="videoPlayer flex justify-center my-4 aspect-w-16 aspect-h-9">
           <iframe
-            class="w-4xl h-[450px] border border-gray-200 rounded-2xl dark:border-gray-700"
+            class="w-4xl h-[450px] border border-gray-200 rounded-2xl"
             src=${embedUrl}
             title="YouTube video player"
             frameborder="0"
@@ -114,13 +114,13 @@ export function generateModuleSylabusTemplate(title, topics = [], progress = [])
                   <circle
                     cx="18" cy="18" r="16"
                     fill="none"
-                    class="stroke-current text-gray-200 dark:text-neutral-700"
+                    class="stroke-current text-gray-200"
                     stroke-width="3"
                   ></circle>
                   <circle
                     cx="18" cy="18" r="16"
                     fill="none"
-                    class="stroke-current text-[#378BA2] dark:text-blue-500"
+                    class="stroke-current text-[#378BA2]"
                     stroke-width="3"
                     stroke-dasharray="${strokeDash} 100"
                     stroke-dashoffset="0"
@@ -492,8 +492,8 @@ export function generateBreadcrumbTemplate(items = []) {
                 }
                 ${
                   isLast
-                    ? `<span class="ms-1 text-sm font-medium text-[#378BA2] md:ms-2 dark:text-gray-400">${item.name}</span>`
-                    : `<a href="${item.href}" class="ms-1 text-sm font-medium text-gray-400 hover:underline hover:text-[#378BA2] md:ms-2 dark:text-gray-400 dark:hover:text-white">${item.name}</a>`
+                    ? `<span class="ms-1 text-sm font-medium text-[#378BA2] md:ms-2">${item.name}</span>`
+                    : `<a href="${item.href}" class="ms-1 text-sm font-medium text-gray-400 hover:underline hover:text-[#378BA2] md:ms-2">${item.name}</a>`
                 }
               </li>
             `;

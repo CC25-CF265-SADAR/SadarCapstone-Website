@@ -118,10 +118,10 @@ export default class Homepage {
 
                 <section class="sadar-feature-detail z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-6 pb-12">
                     <!-- CekAjaDulu -->
-                    <div data-aos="zoom-in" data-aos-delay="600" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 flex flex-col gap-5">
+                    <div data-aos="zoom-in" data-aos-delay="600" class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col gap-5">
                       <img src="images/ikon-cekajadulu.svg" class="w-[72px] h-[72px]" alt="Ikon CekAjaDulu" />
-                      <h2 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">CekAjaDulu</h2>
-                      <p class="text-gray-500 dark:text-gray-400">
+                      <h2 class="text-lg md:text-xl font-semibold text-gray-900">CekAjaDulu</h2>
+                      <p class="text-gray-500">
                         Sistem cerdas berbasis machine learning dan NLP untuk mendeteksi pesan spam dan tautan phising.
                       </p>
                       <div class="flex flex-row gap-6">
@@ -136,10 +136,10 @@ export default class Homepage {
                     </div>
 
                     <!-- TipuMeter -->
-                    <div data-aos="zoom-in" data-aos-delay="800" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 flex flex-col gap-5">
+                    <div data-aos="zoom-in" data-aos-delay="800" class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col gap-5">
                       <img src="images/ikon-tipumeter.svg" class="w-[72px] h-[72px]" alt="Ikon TipuMeter" />
-                      <h2 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">TipuMeter</h2>
-                      <p class="text-gray-500 dark:text-gray-400">
+                      <h2 class="text-lg md:text-xl font-semibold text-gray-900">TipuMeter</h2>
+                      <p class="text-gray-500">
                         Fitur gamifikasi berupa simulasi nyata yang mengukur kewaspadaan pengguna terhadap penipuan digital.
                       </p>
                       <a href="#/quiz" onclick="window.scrollTo(0, 0)" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">
@@ -152,10 +152,10 @@ export default class Homepage {
                     </div>
 
                     <!-- AntiTertipu -->
-                    <div data-aos="zoom-in" data-aos-delay="1000" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 flex flex-col gap-5">
+                    <div data-aos="zoom-in" data-aos-delay="1000" class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col gap-5">
                       <img src="images/ikon-antitertipu.svg" class="w-[72px] h-[72px]" alt="Ikon Antitertipu" />
-                      <h2 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">Antitertipu</h2>
-                      <p class="text-gray-500 dark:text-gray-400">
+                      <h2 class="text-lg md:text-xl font-semibold text-gray-900">Antitertipu</h2>
+                      <p class="text-gray-500">
                         Platform interaktif yang mengedukasi pengguna tentang penipuan digital melalui materi multimedia dan kuis.
                       </p>
                       <a href="#/module-overview" onclick="window.scrollTo(0, 0)" class="inline-flex font-medium items-center text-[#42A7C3] hover:underline">

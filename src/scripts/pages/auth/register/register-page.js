@@ -15,29 +15,29 @@ export default class RegisterPage {
             <img src="images/register-illustration.svg" class="max-w-100 mt-6" alt="ilustasi registrasi">
         </aside>
       
-        <div data-aos="fade-left" data-aos-delay="300" class="w-full max-w-xl flex flex-col items-center p-8 sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div data-aos="fade-left" data-aos-delay="300" class="w-full max-w-xl flex flex-col items-center p-8 sm:p-6 md:p-8">
             <img src="images/logo-sadar-dark.svg" class="w-[120px] mt-10 h-auto md:hidden" alt="Logo"">
             <form class="space-y-5" action="#">
-                <h1 class="mt-5 text-2xl text-center font-bold md:text-3xl md:font-medium text-gray-900 dark:text-white">Buat Akun</h1>
+                <h1 class="mt-5 text-2xl text-center font-bold md:text-3xl md:font-medium text-gray-900">Buat Akun</h1>
                 <h2 class="text-center md:text-md md:font-regular text-gray-500">Daftarkan dirimu dan jadi bagian dari gerakan SADAR</h2>
                 <div>
-                    <label for="email" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Email</label>
-                    <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required />
+                    <label for="email" class="block mb-2 text-md font-medium text-gray-900">Email</label>
+                    <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@company.com" required />
                 </div>
                 <div>
-                    <label for="password" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Password</label>
-                    <input type="password" id="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
+                    <label for="password" class="block mb-2 text-md font-medium text-gray-900">Password</label>
+                    <input type="password" id="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
                     <p id="password-msg" class="mt-1 text-sm text-red-500 hidden">Password minimal 8 karakter</p>
                 </div>
                 <div>
-                    <label for="confirm_password" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Konfirmasi password</label>
-                    <input type="password" id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+                    <label for="confirm_password" class="block mb-2 text-md font-medium text-gray-900">Konfirmasi password</label>
+                    <input type="password" id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="•••••••••" required />
                     <p id="confirm-msg" class="mt-1 text-sm text-red-500 hidden">Password tidak cocok</p>
                 </div>
                 
                 <button type="submit" id="register-btn" disabled class="w-full bg-gray-300 cursor-not-allowed font-medium rounded-lg text-md px-5 py-2.5 text-center text-white">Daftar Sekarang</button>
-                <div class="text-sm font-regular text-gray-500 dark:text-gray-300">
-                    Sudah punya akun? <a href="#/login" class="text-[#378BA2] hover:font-medium hover:underline dark:text-blue-500">Masuk akun</a>
+                <div class="text-sm font-regular text-gray-500">
+                    Sudah punya akun? <a href="#/login" class="text-[#378BA2] hover:font-medium hover:underline">Masuk akun</a>
                 </div>
             </form>
         </div>
@@ -99,9 +99,6 @@ export default class RegisterPage {
           'focus:ring-4',
           'focus:outline-none',
           'focus:ring-blue-300',
-          'dark:bg-blue-600',
-          'dark:hover:bg-blue-700',
-          'dark:focus:ring-blue-800',
         );
       } else {
         registerBtn.classList.add('bg-gray-300', 'cursor-not-allowed');
@@ -112,9 +109,6 @@ export default class RegisterPage {
           'focus:ring-4',
           'focus:outline-none',
           'focus:ring-blue-300',
-          'dark:bg-blue-600',
-          'dark:hover:bg-blue-700',
-          'dark:focus:ring-blue-800',
         );
       }
     }
