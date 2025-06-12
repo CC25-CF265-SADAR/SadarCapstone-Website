@@ -1,0 +1,152 @@
+{
+  "id": "/#/",
+  "start_url": "/#/",
+  "scope": "/",
+  "name": "SADAR: Saring, Amankan, Deteksi, Anti-Rugi",
+  "short_name": "SADAR",
+  "description": "Platform edukatif dan deteksi penipuan digital dengan modul belajar, detektor otomatis, dan simulasi interaktif.",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#42A7C3",
+  "icons": [
+    {
+      "src": "images/icons/maskable-icon-x144.png",
+      "type": "image/png",
+      "sizes": "144x144",
+      "purpose": "any"
+    },
+    {
+      "src": "images/icons/maskable-icon-x48.png",
+      "type": "image/png",
+      "sizes": "48x48",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/icons/maskable-icon-x96.png",
+      "type": "image/png",
+      "sizes": "96x96",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/icons/maskable-icon-x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/icons/maskable-icon-x384.png",
+      "type": "image/png",
+      "sizes": "384x384",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/icons/maskable-icon-x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "images/screenshots/Sadar_001.png",
+      "sizes": "1918x1068",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshots/Sadar_002.png",
+      "sizes": "1918x1068",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshots/Sadar_003.png",
+      "sizes": "1918x1068",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshots/Sadar_004.png",
+      "sizes": "1918x1068",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshots/Sadar_005.png",
+      "sizes": "1918x1068",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshots/Sadar_006.png",
+      "sizes": "809x1600",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/screenshots/Sadar_007.png",
+      "sizes": "809x1600",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/screenshots/Sadar_008.png",
+      "sizes": "809x1600",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/screenshots/Sadar_009.png",
+      "sizes": "809x1600",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/screenshots/Sadar_010.png",
+      "sizes": "809x1600",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Cek Penipuan Lewat Gambar",
+      "short_name": "Cek Aja Dulu",
+      "description": "Cek penipuan link phising atau pesan spam",
+      "url": "/?source=pwa#/link-checking/cek-umum",
+      "icons": [
+        {
+          "src": "images/icons/cekajadulu-icon-x512.png",
+          "type": "image/png",
+          "sizes": "512x512"
+        }
+      ]
+    },
+    {
+      "name": "Modul Pembelajaran Penipuan Online",
+      "short_name": "Anti Tertipu",
+      "description": "Belajar materi penipuan online untuk menambah pengetahuan",
+      "url": "/?source=pwa#/module-overview",
+      "icons": [
+        {
+          "src": "images/icons/antitertipu-icon-x512.png",
+          "type": "image/png",
+          "sizes": "512x512"
+        }
+      ]
+    },
+    {
+      "name": "Simulasi Kuis Interaktif",
+      "short_name": "Tipu Meter",
+      "description": "Ukur kemampuanmu dalam menghadapi penipuan online dengan skenario interaktif",
+      "url": "/?source=pwa#/quiz",
+      "icons": [
+        {
+          "src": "images/icons/tipumeter-icon-x512.png",
+          "type": "image/png",
+          "sizes": "512x512"
+        }
+      ]
+    }
+  ]
+}
