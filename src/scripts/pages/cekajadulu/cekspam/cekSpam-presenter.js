@@ -1,7 +1,6 @@
 import { detectSpam } from '../../../data/api-ml';
 import { recordSpamKeywords } from '../../../data/api';
 
-
 class CekSpamPresenter {
   constructor({ onResult, onError }) {
     this.onResult = onResult;

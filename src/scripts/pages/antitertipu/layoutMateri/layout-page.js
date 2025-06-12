@@ -73,7 +73,7 @@ export default class ModuleLayoutPage {
     const sidebar = document.querySelector('#module-sidebar-wrapper');
     if (sidebar) {
       sidebar.innerHTML = generateModuleSidebarTemplate(moduleDetail, currentTopicId, userProgress);
-      
+
       sidebar.addEventListener('click', (event) => {
         const listItem = event.target.closest('li[data-content-id]');
         if (!listItem) return;
@@ -150,11 +150,10 @@ export default class ModuleLayoutPage {
       footer.innerHTML = generateModuleFooterTemplate(
         this.presenter.content.title,
         isIntroQuiz,
-        isFirstPage
+        isFirstPage,
       );
     }
   }
-
 
   showError(message) {
     const contentArea = document.querySelector('#module-content');

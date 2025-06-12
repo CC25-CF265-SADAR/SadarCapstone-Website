@@ -1,19 +1,22 @@
 export const recommendationModules = [
   {
     title: 'Belajar Membedakan Penipuan Online',
-    description: 'Pelajari cara membedakan informasi asli dan palsu serta mengenali modus penipuan umum.',
+    description:
+      'Pelajari cara membedakan informasi asli dan palsu serta mengenali modus penipuan umum.',
     image: 'modul_penipuan.png',
     link: '#/module-overview/detail-module-mod-1',
   },
   {
     title: 'Modul Phishing',
-    description: 'Kenali teknik phishing yang sering digunakan dan bagaimana cara melindungi diri dari serangan ini.',
+    description:
+      'Kenali teknik phishing yang sering digunakan dan bagaimana cara melindungi diri dari serangan ini.',
     image: 'modul_phising.png',
     link: '#/module-overview/detail-module-mod-2',
   },
   {
     title: 'Modul Pharming',
-    description: 'Pelajari bagaimana situs palsu dibuat untuk mencuri datamu dan cara mendeteksinya.',
+    description:
+      'Pelajari bagaimana situs palsu dibuat untuk mencuri datamu dan cara mendeteksinya.',
     image: 'modul-pharming.png',
     link: '#/module-overview/detail-module-mod-3',
   },
@@ -25,13 +28,15 @@ export const recommendationModules = [
   },
   {
     title: 'Modul Money Rule',
-    description: 'Pelajari pola-pola penipuan terkait transfer uang, janji imbalan, atau hadiah palsu.',
+    description:
+      'Pelajari pola-pola penipuan terkait transfer uang, janji imbalan, atau hadiah palsu.',
     image: 'modul_money_rule.png',
     link: '#/module-overview/detail-module-mod-5',
   },
   {
     title: 'Modul Sniffing',
-    description: 'Ketahui bagaimana data bisa disadap di jaringan dan cara melindungi koneksi pribadimu.',
+    description:
+      'Ketahui bagaimana data bisa disadap di jaringan dan cara melindungi koneksi pribadimu.',
     image: 'modul_sniffing.png',
     link: '#/module-overview/detail-module-mod-6',
   },

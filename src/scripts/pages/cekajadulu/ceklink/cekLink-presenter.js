@@ -26,14 +26,10 @@ export default class CekLinkPresenter {
         probability: result.phishing_probability,
       });
 
-      if (
-        result.predicted_type?.toLowerCase() === 'phishing' &&
-        isValidHttpUrl(result.url)
-      ) {
+      if (result.predicted_type?.toLowerCase() === 'phishing' && isValidHttpUrl(result.url)) {
         await recordPhishingLink(result.url);
         console.log('[recorded to leaderboard]', result.url);
       }
-
     } catch (error) {
       this.onError(error.message);
     }

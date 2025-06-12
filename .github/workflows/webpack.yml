@@ -2,7 +2,7 @@ name: Deploy Sadar Website
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
   build:

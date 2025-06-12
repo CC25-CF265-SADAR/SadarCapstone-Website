@@ -96,7 +96,7 @@ const authHeader = () => {
 export const fetchModules = async () => {
   const response = await fetch(`${BASE_URL}/modules`, {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 'Content-Type': 'application/json' },
   });
 
   if (!response.ok) {
@@ -162,10 +162,9 @@ export const saveUserAnswers = async (data) => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
     },
-    body: JSON.stringify(body)
-  })
-  .then((res) => {
-    if (!res.ok) return res.json().then(err => Promise.reject(err));
+    body: JSON.stringify(body),
+  }).then((res) => {
+    if (!res.ok) return res.json().then((err) => Promise.reject(err));
     return res.json();
   });
 };

@@ -11,9 +11,11 @@ export default class HomePresenter {
   renderFAQ(category) {
     let filtered;
     if (category === 'all') {
-      filtered = this.faqData.filter(faq => faq.category.toLowerCase() === 'semua');
+      filtered = this.faqData.filter((faq) => faq.category.toLowerCase() === 'semua');
     } else {
-      filtered = this.faqData.filter(faq => faq.category.toLowerCase() === category.toLowerCase());
+      filtered = this.faqData.filter(
+        (faq) => faq.category.toLowerCase() === category.toLowerCase(),
+      );
     }
     this.view.renderFAQList(filtered);
   }

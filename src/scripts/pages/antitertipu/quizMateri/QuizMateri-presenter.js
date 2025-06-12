@@ -1,4 +1,10 @@
-import { fetchQuestionsByModuleId, saveUserAnswers, saveUserProgress, fetchModuleDetail, fetchUserProgress } from '../../../data/api.js';
+import {
+  fetchQuestionsByModuleId,
+  saveUserAnswers,
+  saveUserProgress,
+  fetchModuleDetail,
+  fetchUserProgress,
+} from '../../../data/api.js';
 import { generateQuizModuleQuestionTemplate } from '../../../templates/template-module.js';
 
 export default class QuizMateriPresenter {
@@ -65,7 +71,7 @@ export default class QuizMateriPresenter {
         }
 
         this.view.hideErrorMessage();
-        const answer = multiple ? Array.from(checked).map(el => el.value) : [checked[0].value];
+        const answer = multiple ? Array.from(checked).map((el) => el.value) : [checked[0].value];
         this.#userAnswers[this.#currentIndex] = answer;
 
         if (this.#currentIndex < this.totalQuestions - 1) {
@@ -97,7 +103,7 @@ export default class QuizMateriPresenter {
   }
 
   #updateProgress() {
-    const answered = this.#userAnswers.filter(ans => ans && ans.length > 0).length;
+    const answered = this.#userAnswers.filter((ans) => ans && ans.length > 0).length;
     this.view.updateProgress(answered, this.totalQuestions, this.#userAnswers, this.#currentIndex);
   }
 
@@ -116,7 +122,7 @@ export default class QuizMateriPresenter {
   }
 
   #finishQuiz() {
-    const correctAnswers = this.questions.map(q => (q.multiple ? q.answer : [q.answer]));
+    const correctAnswers = this.questions.map((q) => (q.multiple ? q.answer : [q.answer]));
     const score = this.#calculateScore(correctAnswers);
 
     const answers = this.questions.map((question, index) => ({
@@ -129,7 +135,7 @@ export default class QuizMateriPresenter {
       answers,
       score,
       totalQuestions: this.totalQuestions,
-      token: localStorage.getItem('token'), 
+      token: localStorage.getItem('token'),
     };
 
     console.log('Sending data:', data);
@@ -143,16 +149,18 @@ export default class QuizMateriPresenter {
         ]);
 
         const existingProgress = userProgressData?.data?.modulesProgress?.find(
-          (m) => m.moduleId === this.modId
+          (m) => m.moduleId === this.modId,
         );
 
         const topicsProgress = moduleDetail.topics.map((topic) => {
-        const oldProgress = existingProgress?.topicsProgress?.find(t => t.topicId === topic.id)?.checkpoint;
+          const oldProgress = existingProgress?.topicsProgress?.find(
+            (t) => t.topicId === topic.id,
+          )?.checkpoint;
 
-        const isIntroQuiz = topic.title.toLowerCase().includes('kuis evaluasi');
-        return {
-          topicId: topic.id,
-          checkpoint: oldProgress || isIntroQuiz,
+          const isIntroQuiz = topic.title.toLowerCase().includes('kuis evaluasi');
+          return {
+            topicId: topic.id,
+            checkpoint: oldProgress || isIntroQuiz,
           };
         });
 
@@ -165,27 +173,27 @@ export default class QuizMateriPresenter {
         window.location.href = `#/result-module/${this.modId}`;
       })
 
-      .catch(error => {
+      .catch((error) => {
         console.error('Error saving answers:', error);
         this.view.showErrorMessage(`Gagal menyimpan jawaban: ${error.message}`);
       });
   }
 
   #calculateScore(correctAnswers) {
-  let correctCount = 0;
-  this.#userAnswers.forEach((userAnswer, index) => {
-    const correct = correctAnswers[index];
+    let correctCount = 0;
+    this.#userAnswers.forEach((userAnswer, index) => {
+      const correct = correctAnswers[index];
 
-    const normalizedUser = (userAnswer || []).map(ans => String(ans).trim().toLowerCase());
-const normalizedCorrect = (correct || []).map(ans => String(ans).trim().toLowerCase());
+      const normalizedUser = (userAnswer || []).map((ans) => String(ans).trim().toLowerCase());
+      const normalizedCorrect = (correct || []).map((ans) => String(ans).trim().toLowerCase());
 
-    const isCorrect =
-      normalizedCorrect.length === normalizedUser.length &&
-      normalizedCorrect.every(ans => normalizedUser.includes(ans));
+      const isCorrect =
+        normalizedCorrect.length === normalizedUser.length &&
+        normalizedCorrect.every((ans) => normalizedUser.includes(ans));
 
-    if (isCorrect) correctCount++;
-  });
+      if (isCorrect) correctCount++;
+    });
 
-  return Math.round((correctCount / this.totalQuestions) * 100);
-}
+    return Math.round((correctCount / this.totalQuestions) * 100);
+  }
 }

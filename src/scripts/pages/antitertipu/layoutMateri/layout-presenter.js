@@ -76,7 +76,7 @@ export default class ModuleLayoutPresenter {
   isQuizCompleted() {
     const currentTopic = this.moduleDetail.topics[this.currentTopicIndex];
     if (currentTopic.id === 'quiz_topic_id') {
-      return this.userProgress.modulesProgress.some(moduleProgress => moduleProgress.checkQuiz);
+      return this.userProgress.modulesProgress.some((moduleProgress) => moduleProgress.checkQuiz);
     }
     return false;
   }
@@ -84,12 +84,14 @@ export default class ModuleLayoutPresenter {
   async saveProgress() {
     const currentModuleId = this.moduleDetail.modId;
     const existingProgress = this.userProgress?.data?.modulesProgress?.find(
-      (m) => m.moduleId === currentModuleId
+      (m) => m.moduleId === currentModuleId,
     );
 
     const mergedProgress = this.moduleDetail.topics.map((topic, index) => {
       const topicId = topic.id;
-      const alreadyCheckpointed = existingProgress?.topicsProgress?.find((t) => t.topicId === topicId)?.checkpoint;
+      const alreadyCheckpointed = existingProgress?.topicsProgress?.find(
+        (t) => t.topicId === topicId,
+      )?.checkpoint;
       const nowCheckpoint = index <= this.currentTopicIndex;
       return {
         topicId,

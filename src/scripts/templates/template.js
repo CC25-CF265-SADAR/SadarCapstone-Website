@@ -802,7 +802,9 @@ export function generateResultTemplate(characterData = {}, recommendedModules = 
             <div>
               <h2 class="text-2xl font-bold mb-2">${name}</h2>
               <div class="flex flex-wrap gap-2 mb-3">
-                ${Array.isArray(traits) && traits.length > 0 ? traits
+                ${
+                  Array.isArray(traits) && traits.length > 0
+                    ? traits
                         .map(
                           (trait) =>
                             `<span class="px-4 py-2 border border-[#42A7C3] bg-white text-[#42A7C3] text-sm font-regular rounded-4xl">${trait}</span>`,

@@ -46,7 +46,7 @@ export default class QuizPresenter {
     document.addEventListener('click', (e) => {
       if (e.target?.id === 'next-button') {
         const currentQuestion = questions[this.#currentIndex];
-        const currentType = currentQuestion.type || ''
+        const currentType = currentQuestion.type || '';
         this.view.hideErrorMessage();
 
         let answer;

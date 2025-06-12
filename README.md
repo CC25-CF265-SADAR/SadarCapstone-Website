@@ -3,6 +3,7 @@
 Dokumentasi ini ditujukan sebagai panduan setup dasar untuk aplikasi website SADAR: Saring, Amankan, Deteksi, Anti-Rugi yang menggunakan webpack untuk proses bundling, Babel untuk transpile JavaScript, serta mendukung proses build dan serving aplikasi.<br>
 
 ## Deskripsi
+
 SADAR: Saring, Amankan, Deteksi, Anti-Rugi adalah aplikasi deteksi dan pencegahan penipuan digital berbasis website. Aplikasi ini memiliki 3 fitur utama, yaitu: Detektor Penipuan (CekAjaDulu), Modul Edukasi (AntiTertipu), dan Simulasi Penipuan (TipuMeter).
 
 ## Table of Contents

@@ -13,14 +13,13 @@ export default class QuizResultPresenter {
     const questionData = await fetchQuestionsByModuleId(this.modId, token);
     const questions = questionData.questions || [];
 
-    const userAnswers = resultData.answers.map(ans =>
-      Array.isArray(ans.userAnswer) ? ans.userAnswer : [String(ans.userAnswer)]
+    const userAnswers = resultData.answers.map((ans) =>
+      Array.isArray(ans.userAnswer) ? ans.userAnswer : [String(ans.userAnswer)],
     );
 
-    const correctAnswers = questions.map(q =>
-      Array.isArray(q.answer) ? q.answer : [String(q.answer)]
+    const correctAnswers = questions.map((q) =>
+      Array.isArray(q.answer) ? q.answer : [String(q.answer)],
     );
-
 
     return {
       totalQuestions: resultData.totalQuestions,

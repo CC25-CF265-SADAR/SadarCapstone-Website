@@ -41,7 +41,7 @@ export default class CekUmumPresenter {
 
         const spamResult = result?.spam_detection_results?.[0]?.detection_result;
         smsText += result?.llm_extraction?.potential_sms_content || '';
-        const extracted = result?.llm_extraction?.extracted_urls?.map(u => u.url) || [];
+        const extracted = result?.llm_extraction?.extracted_urls?.map((u) => u.url) || [];
         urls.push(...extracted);
 
         if (spamResult) {
@@ -57,7 +57,9 @@ export default class CekUmumPresenter {
         try {
           const result = await detectLink({ url });
           if (isValidHttpUrl(url) && result.predicted_type?.toLowerCase() === 'phishing') {
-            await recordPhishingLink(url).catch(e => console.warn(`Gagal mencatat phishing link: ${e.message}`));
+            await recordPhishingLink(url).catch((e) =>
+              console.warn(`Gagal mencatat phishing link: ${e.message}`),
+            );
           }
           return {
             url,
@@ -74,12 +76,12 @@ export default class CekUmumPresenter {
       });
 
       const settled = await Promise.allSettled(phishingResultPromises);
-      phishingResults = settled
-        .filter((res) => res.status === 'fulfilled')
-        .map((res) => res.value);
+      phishingResults = settled.filter((res) => res.status === 'fulfilled').map((res) => res.value);
 
       if (keywords.length > 0) {
-        await recordSpamKeywords(keywords).catch(e => console.warn(`Gagal mencatat spam keywords: ${e.message}`));
+        await recordSpamKeywords(keywords).catch((e) =>
+          console.warn(`Gagal mencatat spam keywords: ${e.message}`),
+        );
       }
 
       this.onResult({
@@ -90,7 +92,6 @@ export default class CekUmumPresenter {
         urls: urls || [],
         phishingResults: phishingResults || [],
       });
-
     } catch (err) {
       this.onError(err.message || 'Terjadi kesalahan saat memproses gambar');
     }
