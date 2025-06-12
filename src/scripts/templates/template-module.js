@@ -170,19 +170,16 @@ export function generateModuleNavbarTemplate(moduleTitle) {
   return `
     <nav class="bg-white shadow-md sticky top-0 z-30">
       <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <!-- Tombol Back -->
         <button id="backBtn" class="text-white bg-[#42A7C3] hover:bg-[#2C6F82] focus:ring-2 focus:ring-[#2C6F82]/50 focus:outline-none rounded-md w-10 h-10 flex items-center justify-center shadow-sm transition-colors">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
         </button>
 
-        <!-- Judul Modul -->
         <h1 class="text-lg font-semibold text-gray-700 truncate max-w-xs sm:max-w-sm md:max-w-md text-center">
           ${moduleTitle}
         </h1>
 
-        <!-- Tombol Sidebar -->
         <button id="toggleSidebar" class="text-2xl text-[#42A7C3] hover:text-[#2C6F82] ring-offset-2 focus:ring-2 focus:ring-[#2C6F82] rounded-md w-10 h-10 flex items-center justify-center transition-all">
           &#9776;
         </button>
@@ -198,16 +195,11 @@ export function getTopicsProgressForModule(userProgress, moduleId) {
 }
 
 export function generateModuleSidebarTemplate(module, currentTopicId, userProgress = null) {
-  // Fungsi untuk menentukan apakah topic sudah selesai
   const topicsProgress = getTopicsProgressForModule(userProgress, module.modId);
-
   const isTopicCompleted = (topicId) => {
     const topicProgress = topicsProgress.find((t) => t.topicId === topicId);
     return topicProgress ? topicProgress.checkpoint : false;
   };
-
-  console.log('SIDEBAR userProgress:', userProgress);
-  console.log('TOPICS PROGRESS:', getTopicsProgressForModule(userProgress, module.id));
 
   const topicItems = module.topics
     .map((topic) => {
@@ -226,7 +218,6 @@ export function generateModuleSidebarTemplate(module, currentTopicId, userProgre
           </svg>`
         : `<span class="w-4 h-4 bg-gray-300 rounded-full inline-block flex-shrink-0"></span>`;
 
-      // Tambahkan indikator progress jika topic sudah selesai tapi bukan checkpoint
       const progressIndicator =
         !topic.checkpoint && isCompleted
           ? `<span class="text-xs text-green-600 ml-2">selesai</span>`
@@ -327,7 +318,6 @@ export function generateModuleFooterTemplate(text, hideNext = false, hidePrev = 
     <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 px-4 py-3 z-50">
       <div class="max-w-5xl mx-auto relative flex items-center ${justifyClass} text-sm sm:text-base font-medium text-gray-800 gap-2">
         
-        <!-- Tombol Sebelumnya -->
         <button id="prev-button" class="${prevButtonClass}">
           <svg class="w-5 h-5 sm:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -335,12 +325,10 @@ export function generateModuleFooterTemplate(text, hideNext = false, hidePrev = 
           <span class="hidden sm:inline">Sebelumnya</span>
         </button>
 
-        <!-- Judul Materi -->
         <h3 id="material-title" class="absolute left-1/2 transform -translate-x-1/2 font-semibold text-gray-800 truncate max-w-[60%] text-center text-xs sm:text-sm md:text-base">
           ${text}
         </h3>
 
-        <!-- Tombol Selanjutnya -->
         <button id="next-button" class="${nextButtonClass} ${hidePrev ? 'ml-auto' : ''}">
           <span class="hidden sm:inline">Selanjutnya</span>
           <svg class="w-5 h-5 sm:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -447,7 +435,6 @@ export function generateQuizModuleQuestionTemplate(
       <p id="error-message" class="text-sm text-red-500 mt-2 hidden">*Pilih jawaban sebelum melanjutkan.</p>
 
       <div class="pt-4 text-center flex justify-between">
-        <!-- Tombol Sebelumnya -->
         <button
           class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-md shadow transition-all flex items-center"
             id="prev-button"
@@ -458,7 +445,6 @@ export function generateQuizModuleQuestionTemplate(
           <span>Sebelumnya</span>
         </button>
 
-        <!-- Tombol Selanjutnya -->
         <button
           class="bg-[#42A7C3] hover:bg-[#2C6F82] text-white font-semibold py-2 px-6 rounded-md shadow transition-all flex items-center"
             id="next-button"
@@ -575,7 +561,6 @@ export function generateQuizModuleResultTemplate({
                       const isCorrectAnswer = normalizedCorrect.includes(normalizedOption);
                       const isUserAnswer = normalizedUser.includes(normalizedOption);
 
-                      // Hanya beri warna jika option dipilih user
                       let color = '';
                       let icon = '';
                       if (isUserAnswer) {

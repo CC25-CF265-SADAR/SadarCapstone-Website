@@ -7,12 +7,10 @@ export default class QuizIntroPage {
   async render() {
     return `
       <div class="relative max-w-screen-xl text-center m-0 lg:py-0 overflow-hidden">
-        <!-- Gambar background -->
         <img src="background-tipumeter.svg"
             class="w-full object-contain object-bottom h-[420px] z-0 md:h-[500px] md:object-contain lg:h-[620] lg:object-cover"
             alt="background" data-aos="fade-up" data-aos-delay="300" >
 
-        <!-- Konten di atas gambar -->
         <div data-aos="zoom-in" data-aos-delay="400" class="absolute z-10 mb-0 px-4 top-0 left-0 w-full h-fit flex flex-col pt-15 items-center">
           <h1 class="mb-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-snug text-gray-900">
             Seberapa Cermat Kamu Hadapi Penipuan Digital?
@@ -39,7 +37,6 @@ export default class QuizIntroPage {
 
         <div class="swiper mySwiper w-full">
           <div class="swiper-wrapper">
-           <!-- Card 1 -->
             <div class="swiper-slide !w-fit">
               <div class="card w-65 h-80 bg-white shadow-md transition-all duration-300">
                 <div class="card-body items-center text-center bg-[#FEA562] rounded-md p-4 flex flex-col justify-center">
@@ -50,8 +47,6 @@ export default class QuizIntroPage {
               </div>
             </div>
 
-
-            <!-- Card 2 -->
             <div class="swiper-slide !w-fit">
               <div class="card w-65 h-80 bg-white shadow-md transition-all duration-300">
                 <div class="card-body items-center text-center bg-[#DCD4D9] rounded-md p-4 flex flex-col justify-center">
@@ -62,7 +57,6 @@ export default class QuizIntroPage {
               </div>
             </div>
 
-            <!-- Card 3 -->
             <div class="swiper-slide !w-fit">
               <div class="card w-65 h-80 bg-white shadow-md transition-all duration-300">
                 <div class="card-body items-center text-center bg-[#A5EDFB] rounded-md p-4 flex flex-col justify-center">
@@ -73,7 +67,6 @@ export default class QuizIntroPage {
               </div>
             </div>
 
-            <!-- Card 4 -->
             <div class="swiper-slide !w-fit">
               <div class="card w-65 h-80 bg-white shadow-md transition-all duration-300">
                 <div class="card-body items-center text-center bg-[#FEDD69] rounded-md p-4 flex flex-col justify-center">
@@ -84,7 +77,6 @@ export default class QuizIntroPage {
               </div>
             </div>
 
-            <!-- Card 5 -->
             <div class="swiper-slide !w-fit">
               <div class="card w-65 h-80 bg-white shadow-md transition-all duration-300">
                 <div class="card-body items-center text-center bg-[#FCECD4] rounded-md p-4 flex flex-col justify-center">
@@ -95,7 +87,6 @@ export default class QuizIntroPage {
               </div>
             </div>
 
-            <!-- Card 6 -->
             <div class="swiper-slide !w-fit">
               <div class="card w-65 h-80 bg-white shadow-md transition-all duration-300">
                 <div class="card-body items-center text-center bg-[#FFAE99] rounded-md p-4 flex flex-col justify-center">

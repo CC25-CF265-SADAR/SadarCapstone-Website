@@ -85,7 +85,6 @@ export default class CekLinkPage {
         resultDiv.innerHTML = `
           <div class="flex flex-col justify-center items-center mt-0 p-4 rounded-lg border text-black
             ${isPhishing ? 'border-red-300 bg-[#FFF8F8]' : 'border-green-300 bg-[#F8FFF9]'}">
-              <!-- Ikon & Judul -->
             <div class="flex flex-col gap-3 justify-center items-center text-center md:gap-3">
               <div class="flex flex-row justify-center items-center gap-3 flex-wrap text-center">
                 <svg class="${isPhishing ? 'fill-red-700' : 'fill-green-700'} h-6 w-6 md:h-8 md:w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -96,7 +95,6 @@ export default class CekLinkPage {
                 </p>
               </div>
 
-              <!-- Deskripsi -->
               <p class="max-w-3xl text-center text-md font-base px-4">
                 ${
                   isPhishing
@@ -105,10 +103,8 @@ export default class CekLinkPage {
                 }
               </p>
 
-              <!-- Bagian Gauge + Kata Kunci -->
               <div class="flex flex-col lg:flex-row items-center justify-center gap-6 w-full mt-2">
                 
-                <!-- Gauge Component -->
                 <div class="relative w-[180px] h-[90px] overflow-hidden flex-shrink-0">
                   <svg class="w-full h-[180px] rotate-180" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="18" cy="18" r="16" fill="none"
@@ -119,7 +115,6 @@ export default class CekLinkPage {
                       stroke-width="2" stroke-dasharray="${(probability * 100).toFixed(2)} 100" stroke-linecap="round" />
                   </svg>
 
-                  <!-- Value Text -->
                   <div class="absolute top-[36px] left-1/2 transform -translate-x-1/2 text-center">
                     <span class="text-3xl font-bold ${isPhishing ? 'text-red-700' : 'text-green-700'}">
                       ${(probability * 100).toFixed(2)}%
@@ -165,7 +160,6 @@ export default class CekLinkPage {
     });
     periksaLagi.addEventListener('click', (e) => {
       e.preventDefault();
-      // Reset form
       form.classList.remove('hidden');
       input.value = '';
       resultDiv.innerHTML = '';
@@ -198,10 +192,8 @@ export default class CekLinkPage {
       }
     };
 
-    // Render awal
     renderPhishingLeaderboard(false);
 
-    // Setup tombol filter
     const btnAll = document.getElementById('btn-leaderboard-all');
     const btnMonth = document.getElementById('btn-leaderboard-month');
 

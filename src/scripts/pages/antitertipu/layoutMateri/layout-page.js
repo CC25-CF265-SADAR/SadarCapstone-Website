@@ -32,22 +32,16 @@ export default class ModuleLayoutPage {
   async render() {
     return `
       <div class="relative min-h-screen bg-white flex flex-col">
-        <!-- Navbar sticky -->
         <header id="module-navbar" class="sticky top-0 z-30 bg-white shadow-md"></header>
-        <!-- Container utama -->
         <div class="flex-1 flex overflow-hidden" style="padding-bottom: 80px"> <!-- Beri space untuk footer -->
-          <!-- Sidebar (tidak diubah dari yang sudah bekerja) -->
           <aside id="module-sidebar-wrapper"
             class="fixed top-16 left-0 w-full sm:w-64 transform -translate-x-full transition-transform duration-300 z-30 bg-white border-r border-[#DFF0F5] overflow-y-auto shadow-md rounded-r-2xl h-[calc(100vh-8rem)]">
           </aside>
-
-          <!-- Konten utama -->
           <main id="module-content" class="flex-1 overflow-y-auto px-4 pt-4">
             <div id="module-content-inner"></div>
           </main>
         </div>
 
-        <!-- Modal sesi habis -->
         <div id="session-expired-modal" class="fixed inset-0 z-50 hidden bg-gray-200 bg-opacity-40 flex items-center justify-center">
           <div class="bg-white p-6 rounded-lg shadow-md max-w-sm w-full text-center">
             <h2 class="text-lg font-semibold text-gray-900">Sesi Anda telah berakhir</h2>
@@ -60,7 +54,6 @@ export default class ModuleLayoutPage {
           </div>
         </div>
 
-        <!-- Footer fixed di bawah -->
         <footer id="module-footer" class="fixed bottom-0 left-0 right-0 bg-white shadow-sm z-20 h-20"></footer>
       </div>
     `;
@@ -81,7 +74,6 @@ export default class ModuleLayoutPage {
     if (sidebar) {
       sidebar.innerHTML = generateModuleSidebarTemplate(moduleDetail, currentTopicId, userProgress);
       
-      // Menambahkan listener untuk klik pada sidebar
       sidebar.addEventListener('click', (event) => {
         const listItem = event.target.closest('li[data-content-id]');
         if (!listItem) return;
@@ -91,8 +83,7 @@ export default class ModuleLayoutPage {
           this.contentId = contentId;
           this.pageIndex = 1;
 
-          // Menutup sidebar jika sudah pindah halaman
-          this.handleSidebarToggle(); // Menutup sidebar saat topik baru dipilih
+          this.handleSidebarToggle();
 
           this.presenter.loadContent(contentId, 1);
         }
@@ -105,7 +96,7 @@ export default class ModuleLayoutPage {
     const contentArea = document.querySelector('#module-content');
     if (!sidebarWrapper || !contentArea) return;
 
-    const isMobile = window.innerWidth < 640; // Tailwind sm breakpoint
+    const isMobile = window.innerWidth < 640;
     const isHidden = sidebarWrapper.classList.contains('-translate-x-full');
 
     if (isHidden) {
@@ -131,7 +122,6 @@ export default class ModuleLayoutPage {
       return;
     }
 
-    // Menambahkan kelas responsif font dengan ukuran yang lebih kecil untuk desktop
     container.innerHTML = `
       <div class="text-sm sm:text-base md:text-lg lg:text-lg">
         ${generateModuleContentTextTemplate(content, currentPageIndex)}
@@ -159,8 +149,8 @@ export default class ModuleLayoutPage {
     if (footer) {
       footer.innerHTML = generateModuleFooterTemplate(
         this.presenter.content.title,
-        isIntroQuiz,      // hideNext
-        isFirstPage        // hidePrev
+        isIntroQuiz,
+        isFirstPage
       );
     }
   }
@@ -174,20 +164,20 @@ export default class ModuleLayoutPage {
   }
 
   navigateToQuiz(modId) {
-    window.location.href = `#/quiz-modul/${modId}`; // Kirim modId ke URL
+    window.location.href = `#/quiz-modul/${modId}`;
   }
 
   addSidebarToggleListener() {
     const toggleButton = document.querySelector('#toggleSidebar');
     if (toggleButton) {
       toggleButton.addEventListener('click', () => {
-        this.handleSidebarToggle(); // Panggil handleSidebarToggle saat tombol toggle ditekan
+        this.handleSidebarToggle();
       });
     }
   }
 
   addEventListeners() {
-    this.addSidebarToggleListener();  // Pastikan toggle tetap berfungsi setelah pindah halaman
+    this.addSidebarToggleListener();
 
     document.querySelector('#backBtn')?.addEventListener('click', () => {
       const moduleId = this.presenter.moduleDetail?.modId;

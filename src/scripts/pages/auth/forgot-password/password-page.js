@@ -29,7 +29,6 @@ export default class ForgotPasswordPage {
     new ForgotPasswordPresenter(
       (message) => {
         if (message.toLowerCase().includes('pastikan email Anda telah terdaftar')) {
-          // Swal jika email tidak ditemukan
           Swal.fire({
             icon: 'warning',
             title: 'Email tidak ditemukan',

@@ -21,7 +21,6 @@ export default class ModuleDetailPresenter {
         progressResponse.data?.modulesProgress?.find((mod) => mod.moduleId === this.moduleId)
           ?.topicsProgress || [];
 
-      // Hasilkan array [100, 0, 100, dst]
       return topicsProgress.map((tp) => (tp.checkpoint ? 100 : 0));
     } catch {
       return [];

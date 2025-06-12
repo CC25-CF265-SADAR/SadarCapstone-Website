@@ -24,7 +24,7 @@ export function setupSortableDragAndDrop() {
     });
   });
 
-  const sourceContainer = document.querySelector(".grid"); // tempat asal
+  const sourceContainer = document.querySelector(".grid");
   if (sourceContainer) {
     new Sortable(sourceContainer, {
       group: "quiz-options",

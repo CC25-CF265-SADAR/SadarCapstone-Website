@@ -20,16 +20,13 @@ export async function generateNavbarTemplate() {
     })
     .join('');
 
-  // Menambahkan event listener untuk menutup menu jika klik di luar
   document.addEventListener('click', (event) => {
     const menuToggle = document.getElementById('menu-toggle');
-    const menuContainer = document.querySelector('.peer-checked\\:flex'); // Container menu ketika toggle diaktifkan
+    const menuContainer = document.querySelector('.peer-checked\\:flex');
 
-    // Mengecek jika elemen menuToggle dan menuContainer ada di DOM
     if (menuToggle && menuContainer) {
-      // Jika klik di luar menu toggle dan menu container, maka tutup menu
       if (!menuToggle.contains(event.target) && !menuContainer.contains(event.target)) {
-        menuToggle.checked = false; // Menutup menu dengan menghapus status checked
+        menuToggle.checked = false;
       }
     }
   });
@@ -42,7 +39,6 @@ export async function generateNavbarTemplate() {
           <img src="images/logo-sadar.svg" alt="logo sadar" class="h-full p-2 object-contain" />
         </a>
 
-        <!-- Desktop Menu -->
         <ul class="hidden md:flex items-center gap-6 text-sm">
           <li>
             <a href="#/link-checking/cek-umum"
@@ -66,13 +62,11 @@ export async function generateNavbarTemplate() {
           </li>
         </ul>
 
-        <!-- Desktop Button -->
         <div class="hidden md:flex gap-2 ml-6">
           <a href="#/login" class="text-sm font-medium text-white bg-[#2C6F82] px-4 py-2 rounded hover:bg-[#1e5566]">Login</a>
           <a href="#/register" class="text-sm font-medium text-[#2C6F82] bg-white px-4 py-2 rounded hover:bg-gray-100">Register</a>
         </div>
 
-        <!-- Mobile Toggle -->
         <div class="relative md:hidden flex items-center">
           <input type="checkbox" id="menu-toggle" class="peer hidden">
           <label for="menu-toggle" class="cursor-pointer rounded bg-white p-2.5 text-gray-600 z-50">
@@ -126,12 +120,10 @@ export async function generateNavbarAuthTemplate() {
     })
     .join('');
 
-  // Event listener untuk menutup menu ketika klik di luar menu toggle
   document.addEventListener('click', (event) => {
     const menuToggle = document.getElementById('menu-toggle');
-    const menuContainer = document.querySelector('.peer-checked\\:flex'); // Container menu ketika toggle aktif
+    const menuContainer = document.querySelector('.peer-checked\\:flex');
 
-    // Mengecek jika elemen menuToggle dan menuContainer ada di DOM
     if (menuToggle && menuContainer) {
       if (!menuToggle.contains(event.target) && !menuContainer.contains(event.target)) {
         menuToggle.checked = false;
@@ -147,7 +139,6 @@ export async function generateNavbarAuthTemplate() {
           <img src="images/logo-sadar.svg" alt="logo sadar" class="h-full p-2 object-contain" />
         </a>
 
-        <!-- Desktop Menu -->
         <ul class="hidden md:flex items-center gap-6 text-sm">
           <li>
             <a href="#/link-checking/cek-umum"
@@ -171,7 +162,6 @@ export async function generateNavbarAuthTemplate() {
           </li>
         </ul>
 
-        <!-- Desktop Profile -->
         <div class="relative hidden md:flex items-center">
           <button type="button" id="user-menu-button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300">
             <span class="sr-only">Open user menu</span>
@@ -190,7 +180,6 @@ export async function generateNavbarAuthTemplate() {
           </div>
         </div>
 
-        <!-- Mobile -->
         <div class="relative md:hidden flex items-center">
           <input type="checkbox" id="menu-toggle" class="peer hidden">
           <label for="menu-toggle" class="cursor-pointer rounded bg-white p-2.5 text-gray-600 z-50">
@@ -234,7 +223,6 @@ export function generateLeaderboardLinkTemplate() {
         </div>
 
         <ul id="leaderboard-list" class="space-y-3 w-full">
-          <!-- Item leaderboard akan dimasukkan di sini -->
         </ul>
       </div>
     </section>
@@ -434,11 +422,8 @@ export function generateScamTypeTemplate({
 }) {
   return `
 <section data-aos="zoom-in" data-aos-delay="400" class="relative flex flex-col items-center justify-center gap-8 mb-12 px-4 py-18">
-  <!-- Background Image -->
   <img src="images/background-type.svg" alt="Background" class="absolute w-contain h-full object-cover z-0 opacity-100 pointer-events-none" />
 
-
-  <!-- Foreground Content -->
   <div class="relative z-10">
     <h1 class="text-center mb-5 text-2xl font-semibold text-[#1F2937]">${title}</h1>
 
@@ -624,7 +609,6 @@ export function markCurrentTabActive() {
     const tab = link.getAttribute('data-tab');
     const isActive = currentPath.includes(tab);
 
-    // Tambahkan / hapus kelas untuk warna aktif
     if (isActive) {
       link.classList.add('!bg-[#42A7C3]', '!text-white');
       link.classList.remove('text-gray-800');
@@ -633,7 +617,6 @@ export function markCurrentTabActive() {
       link.classList.add('text-gray-800');
     }
 
-    // Tampilkan ikon hover saat aktif
     const iconDefault = link.querySelector('.icon-default');
     const iconHover = link.querySelector('.icon-hover');
 

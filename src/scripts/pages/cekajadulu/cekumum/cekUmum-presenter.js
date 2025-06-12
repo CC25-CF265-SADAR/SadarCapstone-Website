@@ -18,7 +18,6 @@ export default class CekUmumPresenter {
 
   async handleSubmit(imageFile) {
     try {
-      // Jalankan paralel (QR + OCR)
       const [qrResponse, ocrResponse] = await Promise.allSettled([
         processQr({ imageFile }),
         processScreenshot({ imageFile }),
@@ -31,14 +30,12 @@ export default class CekUmumPresenter {
       let probability = 0;
       let keywords = [];
 
-      // Proses QR jika sukses
       if (qrResponse.status === 'fulfilled' && qrResponse.value?.decoded_url) {
         const decodedUrl = qrResponse.value.decoded_url;
         urls.push(decodedUrl);
         smsText += `Ditemukan QR code yang mengarah ke: ${decodedUrl}\n`;
       }
 
-      // Proses OCR jika sukses
       if (ocrResponse.status === 'fulfilled') {
         const result = ocrResponse.value;
 
@@ -54,10 +51,8 @@ export default class CekUmumPresenter {
         }
       }
 
-      // Hilangkan duplikat URL
       urls = [...new Set(urls)];
 
-      // Deteksi phishing untuk semua URL
       const phishingResultPromises = urls.map(async (url) => {
         try {
           const result = await detectLink({ url });
@@ -83,12 +78,10 @@ export default class CekUmumPresenter {
         .filter((res) => res.status === 'fulfilled')
         .map((res) => res.value);
 
-      // Rekam spam keyword
       if (keywords.length > 0) {
         await recordSpamKeywords(keywords).catch(e => console.warn(`Gagal mencatat spam keywords: ${e.message}`));
       }
 
-      // Kirim ke tampilan
       this.onResult({
         prediction: prediction || 'Tidak terdeteksi',
         probability: probability || 0,

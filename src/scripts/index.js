@@ -8,7 +8,6 @@ const app = new App({
 
 window.addEventListener('hashchange', () => {
   app.renderPage();
-  // Stop all active media
   Camera.stopAllStreams();
   console.log('hash changed to', location.hash);
 });

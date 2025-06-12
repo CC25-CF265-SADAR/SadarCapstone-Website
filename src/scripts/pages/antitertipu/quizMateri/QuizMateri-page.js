@@ -47,7 +47,7 @@ export default class QuizMateriPage {
   updateProgress(answeredCount, totalQuestions, userAnswers, currentIndex) {
     const container = document.getElementById('progress-container');
     if (container && container.innerHTML.trim() === '') {
-      container.innerHTML = generateProgressModuleQuizTemplate(); // 🛠 render ulang struktur bar
+      container.innerHTML = generateProgressModuleQuizTemplate();
     }
 
     const percent = Math.round((answeredCount / totalQuestions) * 100);

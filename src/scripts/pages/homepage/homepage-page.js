@@ -117,7 +117,6 @@ export default class Homepage {
                 </article>
 
                 <section class="sadar-feature-detail z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-6 pb-12">
-                    <!-- CekAjaDulu -->
                     <div data-aos="zoom-in" data-aos-delay="600" class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col gap-5">
                       <img src="images/ikon-cekajadulu.svg" class="w-[72px] h-[72px]" alt="Ikon CekAjaDulu" />
                       <h2 class="text-lg md:text-xl font-semibold text-gray-900">CekAjaDulu</h2>
@@ -135,7 +134,6 @@ export default class Homepage {
                       </div>
                     </div>
 
-                    <!-- AntiTertipu -->
                     <div data-aos="zoom-in" data-aos-delay="1000" class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col gap-5">
                       <img src="images/ikon-antitertipu.svg" class="w-[72px] h-[72px]" alt="Ikon Antitertipu" />
                       <h2 class="text-lg md:text-xl font-semibold text-gray-900">Antitertipu</h2>
@@ -151,7 +149,6 @@ export default class Homepage {
                       </a>
                     </div>
 
-                    <!-- TipuMeter -->
                     <div data-aos="zoom-in" data-aos-delay="800" class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col gap-5">
                       <img src="images/ikon-tipumeter.svg" class="w-[72px] h-[72px]" alt="Ikon TipuMeter" />
                       <h2 class="text-lg md:text-xl font-semibold text-gray-900">TipuMeter</h2>
@@ -180,7 +177,6 @@ export default class Homepage {
                   Temukan jawaban dari pertanyaan umum seputar fitur dan layanan kami.
                 </p>
 
-                <!-- Tabs Kategori -->
                 <div data-aos="zoom-in-up" data-aos-delay="300" class="flex flex-wrap justify-center space-x-2 mb-8">
                   <button data-category="all" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-[#42A7C3] text-white text-sm sm:text-base rounded-4xl mb-2 sm:mb-0">Semua</button>
                   <button data-category="deteksi" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm sm:text-base rounded-4xl mb-2 sm:mb-0 hover:bg-gray-200">Deteksi</button>
@@ -189,7 +185,6 @@ export default class Homepage {
                   <button data-category="penipuan" class="faq-tab px-4 py-2 border border-[#42A7C3] bg-white text-gray-600 text-sm sm:text-base rounded-4xl mb-2 sm:mb-0 hover:bg-gray-200">Penipuan</button>
                 </div>
 
-                <!-- Container FAQ -->
                 <div id="faq-content" class="space-y-4" data-aos="zoom-in-up" data-aos-delay="300"></div>
               </div>
             </section>
@@ -207,7 +202,7 @@ export default class Homepage {
       if (event.target.id === 'logout-btn') {
         getLogout();
         location.hash = '/';
-        location.reload(); // agar render ulang navbar
+        location.reload();
       }
     });
 
@@ -256,10 +251,8 @@ export default class Homepage {
       }
     };
 
-    // Render awal
     renderPhishingLeaderboard(false);
 
-    // Setup tombol filter
     const btnAll = document.getElementById('btn-leaderboard-all');
     const btnMonth = document.getElementById('btn-leaderboard-month');
 

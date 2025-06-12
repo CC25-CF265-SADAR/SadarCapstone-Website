@@ -26,7 +26,6 @@ export default class CekLinkPresenter {
         probability: result.phishing_probability,
       });
 
-      // ✅ Cek jika hasil deteksi adalah phishing dan URL valid
       if (
         result.predicted_type?.toLowerCase() === 'phishing' &&
         isValidHttpUrl(result.url)

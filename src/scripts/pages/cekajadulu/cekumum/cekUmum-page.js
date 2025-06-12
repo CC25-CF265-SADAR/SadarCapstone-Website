@@ -18,8 +18,6 @@ export default class CekUmumPage {
       <div class="cekLink flex flex-col gap-2 justify-center items-center p-8 mt-12 p-5 sm:p-10 rounded-xl border border-gray-200 shadow-sm w-full max-w-4xl">
         <h1 class="text-2xl sm:text-3xl font-semibold text-[#42A7C3] text-center">🖼️ Unggah Gambar untuk Cek Penipuan</h1>
         <h2 class="text-base sm:text-lg font-regular text-gray-600 mb-5 text-center w-full">Unggah tangkapan layar atau gambar yang berisi pesan, tautan hingga QR code mencurigakan dan dapatkan analisis keamanan secara cepat.</h2>
-        
-        <!-- Form Input (Akan disembunyikan saat hasil muncul) -->
         <form id="input-form" class="flex flex-col gap-3 items-center sm:items-end w-full">
           <div id="drop" class="flex items-center justify-center w-full">
               <label for="dropzone-file" class="flex flex-col items-center justify-center w-full pb-3 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50">
@@ -54,7 +52,6 @@ export default class CekUmumPage {
           </button>
         </form>
         
-        <!-- Loading Indicator -->
         <div id="loading-indicator" class="hidden flex items-center gap-2 text-center mt-4 text-gray-600">
           <svg class="animate-spin h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -63,7 +60,6 @@ export default class CekUmumPage {
           <span>Sedang memproses gambar...</span>
         </div>
 
-        <!-- Result Container -->
         <div id="result-container" class="mt-6 w-full text-left hidden">
           <div class="flex justify-between items-center mb-6">
             <h3 class="text-xl font-semibold text-gray-800">Hasil Deteksi</h3>
@@ -75,7 +71,6 @@ export default class CekUmumPage {
             </button>
           </div>
           
-          <!-- Result content will be inserted here -->
           <div id="result-content"></div>
         </div>
       </div>
@@ -108,7 +103,6 @@ export default class CekUmumPage {
       onError: this.showError.bind(this),
     });
 
-    // Tombol "Cek yang lain"
     newCheckBtn?.addEventListener('click', () => {
       document.getElementById('result-container').classList.add('hidden');
       form.classList.remove('hidden');
@@ -118,7 +112,6 @@ export default class CekUmumPage {
       selectedImageFile = null;
     });
 
-    // Simpan file saat user memilih
     fileInput.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (!file) return;
@@ -126,13 +119,12 @@ export default class CekUmumPage {
       const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
       if (!allowedTypes.includes(file.type)) {
         alert('Hanya file PNG, JPG, atau JPEG yang diperbolehkan.');
-        fileInput.value = ''; // reset input
+        fileInput.value = '';
         return;
       }
 
       selectedImageFile = file;
 
-      // Tampilkan preview
       const previewImg = document.getElementById('image-preview');
       previewImg.src = URL.createObjectURL(file);
       previewImg.classList.remove('hidden');
@@ -143,7 +135,6 @@ export default class CekUmumPage {
       e.preventDefault();
 
       if (!cameraMode) {
-        // Aktifkan mode kamera
         fileInput.closest('label').classList.add('hidden');
         cameraContainer.classList.remove('hidden');
         cameraButton.innerHTML = '📸 Ambil Gambar';
@@ -160,7 +151,6 @@ export default class CekUmumPage {
         await cameraInstance.launch();
         cameraMode = true;
       } else {
-        // Ambil gambar
         const blob = await cameraInstance.takePicture();
         selectedImageFile = new File([blob], 'captured.png', { type: 'image/png' });
 
@@ -189,7 +179,6 @@ export default class CekUmumPage {
       const resultContainer = document.getElementById('result-container');
       const submitBtn = form.querySelector('button[type="submit"]');
 
-      // Tampilkan loading, disable tombol, sembunyikan form
       loading.classList.remove('hidden');
       submitBtn.disabled = true;
       submitBtn.textContent = 'Memproses...';
@@ -217,13 +206,11 @@ export default class CekUmumPage {
     const resultContent = document.getElementById('result-content');
     resultContainer.classList.remove('hidden');
 
-    // Deteksi apakah ada hasil dari QR code
     const qrUrl = urls.find(
       (url) => smsText?.includes(url) && smsText?.toLowerCase().includes('qr code'),
     );
 
     resultContent.innerHTML = `
-      <!-- Penjelasan Umum -->
       <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
         <div class="flex items-start">
           <div class="flex-shrink-0">

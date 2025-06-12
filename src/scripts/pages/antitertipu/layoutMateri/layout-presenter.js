@@ -4,7 +4,7 @@ export default class ModuleLayoutPresenter {
     this.api = api;
 
     this.currentTopicIndex = 0;
-    this.pageIndex = 1; // halaman saat ini (1-based)
+    this.pageIndex = 1;
     this.moduleDetail = null;
     this.content = null;
     this.moduleTitle = '';
@@ -16,7 +16,6 @@ export default class ModuleLayoutPresenter {
       const modules = await this.api.fetchModules();
       if (!modules.length) throw new Error('Tidak ada modul tersedia');
 
-      // Cari modul dan topic sesuai contentId
       let foundModule = null;
       let topicIndex = -1;
 
@@ -77,7 +76,6 @@ export default class ModuleLayoutPresenter {
   isQuizCompleted() {
     const currentTopic = this.moduleDetail.topics[this.currentTopicIndex];
     if (currentTopic.id === 'quiz_topic_id') {
-      // Cek status quiz
       return this.userProgress.modulesProgress.some(moduleProgress => moduleProgress.checkQuiz);
     }
     return false;
@@ -85,8 +83,6 @@ export default class ModuleLayoutPresenter {
 
   async saveProgress() {
     const currentModuleId = this.moduleDetail.modId;
-
-    // Ambil progress sebelumnya dari state
     const existingProgress = this.userProgress?.data?.modulesProgress?.find(
       (m) => m.moduleId === currentModuleId
     );
@@ -97,7 +93,7 @@ export default class ModuleLayoutPresenter {
       const nowCheckpoint = index <= this.currentTopicIndex;
       return {
         topicId,
-        checkpoint: alreadyCheckpointed || nowCheckpoint, // ambil yang lebih "jauh"
+        checkpoint: alreadyCheckpointed || nowCheckpoint,
       };
     });
 
@@ -121,7 +117,6 @@ export default class ModuleLayoutPresenter {
 
     this.currentTopicIndex = topicIndex;
 
-    // Tampilkan loading hanya sekali
     const container = document.querySelector('#module-content-inner');
     if (container) {
       container.innerHTML = `
@@ -133,8 +128,6 @@ export default class ModuleLayoutPresenter {
 
     try {
       this.content = await this.api.fetchContent(contentId);
-
-      // Setelah fetch selesai, baru render
       this.view.renderContent(this.content, this.pageIndex - 1);
       this.view.renderFooter(
         this.moduleTitle,
@@ -157,12 +150,9 @@ export default class ModuleLayoutPresenter {
     const totalPages = this.content.pages.length;
 
     if (this.pageIndex < totalPages) {
-      // Masih ada halaman berikutnya di konten ini
       this.pageIndex++;
     } else if (this.currentTopicIndex + 1 < this.moduleDetail.topics.length) {
       await this.saveProgress();
-
-      // Ambil ulang progress terbaru setelah simpan
       try {
         this.userProgress = await this.api.fetchUserProgress(this.moduleDetail.modId);
       } catch (err) {
@@ -181,7 +171,6 @@ export default class ModuleLayoutPresenter {
       return;
     }
 
-    // Update URL
     const currentContentId = this.moduleDetail.topics[this.currentTopicIndex].contentId;
     this.view.renderContent(this.content, this.pageIndex - 1);
     this.view.renderFooter(
@@ -197,11 +186,8 @@ export default class ModuleLayoutPresenter {
       this.userProgress,
     );
 
-
-    // Render ulang konten
     this.view.renderContent(this.content, this.pageIndex - 1);
 
-    // Update sidebar dan footer
     this.view.renderSidebar(
       this.moduleDetail,
       this.moduleDetail.topics[this.currentTopicIndex].id,
@@ -245,11 +231,10 @@ export default class ModuleLayoutPresenter {
 
     this.view.renderContent(this.content, this.pageIndex - 1);
 
-    // Update sidebar dan footer TETAP pakai progress sebelumnya
     this.view.renderSidebar(
       this.moduleDetail,
       this.moduleDetail.topics[this.currentTopicIndex].id,
-      this.userProgress, // tetap pakai yang lama
+      this.userProgress,
     );
     this.view.renderFooter(
       this.moduleTitle,

@@ -17,7 +17,7 @@ class App {
     const isModulePage = url.startsWith('/modul-belajar');
 
     if (isAuthPage || isModulePage) {
-      this.#header.innerHTML = ''; // Hapus navbar default
+      this.#header.innerHTML = '';
     } else {
       const isLogin = !!getAccessToken();
       this.#header.innerHTML = isLogin

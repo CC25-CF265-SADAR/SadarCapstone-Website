@@ -33,12 +33,11 @@ export default class QuizPage {
       if (event.target.id === 'logout-btn') {
         getLogout();
         location.hash = '/';
-        location.reload(); // agar render ulang navbar
+        location.reload();
       }
     });
   }
 
-  // metode-metode berikut dipanggil presenter
   renderQuestion(template, isLast) {
     const container = document.getElementById('quiz-content');
     container.innerHTML = template;

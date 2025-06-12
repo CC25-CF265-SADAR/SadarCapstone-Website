@@ -112,7 +112,7 @@ export default class QuizMateriPresenter {
       throw new Error('Gagal mengambil data modul');
     }
 
-    return await response.json(); // return moduleDetail berisi list topics
+    return await response.json();
   }
 
   #finishQuiz() {
@@ -152,7 +152,7 @@ export default class QuizMateriPresenter {
         const isIntroQuiz = topic.title.toLowerCase().includes('kuis evaluasi');
         return {
           topicId: topic.id,
-          checkpoint: oldProgress || isIntroQuiz, // Pertahankan yang lama + tandai intro quiz
+          checkpoint: oldProgress || isIntroQuiz,
           };
         });
 

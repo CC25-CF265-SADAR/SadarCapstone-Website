@@ -58,7 +58,7 @@ export default class ModuleDetailPage {
               moduleData.title,
               moduleData.description,
               `/images/modules/details/${moduleData.thumbnail}`,
-              progress, // untuk detail
+              progress,
               moduleData.color,
               firstContentId,
               startPage,
@@ -67,7 +67,7 @@ export default class ModuleDetailPage {
             ${generateModuleSylabusTemplate(
               moduleSylabus.title,
               moduleSylabus.topics,
-              progressArray, // untuk per-topik di silabus
+              progressArray,
             )}
           </div>
           ${generateQuizFooterTemplate()}

@@ -54,7 +54,6 @@ export function checkAuthenticatedRoute(routeHandler) {
         timerProgressBar: true,
       });
 
-      // Redirect balik ke halaman sebelumnya atau homepage
       window.location.replace('#/login');
       return false;
     }

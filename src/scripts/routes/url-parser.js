@@ -26,7 +26,7 @@ export function getQueryParams() {
 }
 export function getActivePathname() {
   const hash = location.hash.replace('#', '') || '/';
-  const [pathOnly] = hash.split('?'); // Pisahkan sebelum tanda tanya
+  const [pathOnly] = hash.split('?');
   return pathOnly;
 }
 

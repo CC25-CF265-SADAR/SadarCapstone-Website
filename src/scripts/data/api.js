@@ -2,7 +2,6 @@ import CONFIG from '../config.js';
 
 const BASE_URL = CONFIG.BASE_URL;
 
-// === BUAT AUTH LOGIN REGIST===
 export const register = async ({ email, password }) => {
   const response = await fetch(`${BASE_URL}/register`, {
     method: 'POST',
@@ -32,15 +31,11 @@ export const login = async ({ email, password, remember }) => {
 
   const data = await response.json();
 
-  // Hapus token sebelumnya
   document.cookie = `${CONFIG.ACCESS_TOKEN_KEY}=; path=/; max-age=0`;
 
-  
-  // Simpan token di localStorage supaya authHeader bisa membaca
   localStorage.setItem('token', data.token);
 
-  // Set max-age tergantung remember
-  const maxAge = remember ? 7 * 86400 : 86400; // 7 hari atau 1 hari
+  const maxAge = remember ? 7 * 86400 : 86400;
   document.cookie = `${CONFIG.ACCESS_TOKEN_KEY}=${data.token}; path=/; max-age=${maxAge}`;
 
   return data.token;
@@ -59,14 +54,11 @@ export const googleLogin = async (id_token, remember = false) => {
 
   const data = await response.json();
 
-  // Hapus token sebelumnya
   document.cookie = `${CONFIG.ACCESS_TOKEN_KEY}=; path=/; max-age=0`;
 
-  // Simpan token di localStorage supaya authHeader bisa membaca
   localStorage.setItem('token', data.token);
 
-  // Set token baru di cookie
-  const maxAge = remember ? 7 * 86400 : 86400; // 7 hari atau 1 hari
+  const maxAge = remember ? 7 * 86400 : 86400;
   document.cookie = `${CONFIG.ACCESS_TOKEN_KEY}=${data.token}; path=/; max-age=${maxAge}`;
 
   return data.token;
@@ -92,7 +84,6 @@ export const submitNewPassword = async (token, newPassword) => {
   return response.json();
 };
 
-// === AUTH HEADER ===
 const authHeader = () => {
   const token = localStorage.getItem('token');
   if (!token) return { 'Content-Type': 'application/json' }; // tanpa auth header
@@ -102,7 +93,6 @@ const authHeader = () => {
   };
 };
 
-// === BUAT MODULES ===
 export const fetchModules = async () => {
   const response = await fetch(`${BASE_URL}/modules`, {
     method: 'GET',
@@ -161,7 +151,7 @@ export const fetchQuestionsByModuleId = async (modId) => {
     const err = await response.json().catch(() => null);
     throw new Error(err?.message || 'Gagal mengambil pertanyaan modul');
   }
-  return await response.json(); // Mengembalikan data pertanyaan
+  return await response.json();
 };
 
 export const saveUserAnswers = async (data) => {
@@ -196,13 +186,10 @@ export const fetchResultByUserId = async (modId, token) => {
   return await res.json();
 };
 
-// === UTILITY ===
 export const logout = () => {
   localStorage.removeItem('token');
 };
 
-// === PROGRESS ===
-// === PROGRESS ===
 export const saveUserProgress = async ({ moduleId, topicsProgress, checkQuiz }) => {
   const response = await fetch(`${BASE_URL}/progress`, {
     method: 'POST',
@@ -253,7 +240,6 @@ export const checkAndUpdateQuizStatus = async (userId, moduleId) => {
   }
 };
 
-// === LEADERBOARD ===
 export const recordPhishingLink = async (url) => {
   const response = await fetch(`${BASE_URL}/leaderboard/phishing`, {
     method: 'POST',
