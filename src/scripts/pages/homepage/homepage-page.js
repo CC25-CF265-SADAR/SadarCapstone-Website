@@ -22,17 +22,17 @@ export default class Homepage {
       <div class="max-w-screen-xl ">
             <section class="hero-image">
                 <section class="bg-white sm:grid sm:grid-cols-2">
-                  <div data-aos="fade-right" data-aos-delay="200" class="p-8 md:p-12 lg:px-16 lg:py-24">
+                  <div data-aos="fade-right" data-aos-delay="200" class="p-8 md:p-12 lg:px-16 lg:py-18">
                       <div class="mx-auto max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
                         <h2 class="text-2xl font-semibold text-gray-900 md:text-3xl">
                         SADAR: Saring, Amankan, Deteksi, Anti-Rugi
                         </h2>
 
-                        <p class="hidden text-xl font-semibold text-gray-900 md:mt-4 md:block">
+                        <p class="text-xl font-semibold text-gray-900 mt-4">
                         Jangan Sampai Ketipu!
                         </p>
                         
-                        <p class="hidden text-gray-500 md:mt-4 md:block">
+                        <p class="text-gray-700 mt-4">
                         Penipuan digital sekarang makin licik! Mulai dari pesan spam hingga link jebakan. Tes seberapa waspada kamu lewat simulasi interaktif ini. Seru, cepat, dan bikin kamu lebih sadar!
                         </p>
         
@@ -50,12 +50,12 @@ export default class Homepage {
             <img data-aos="fade-left" data-aos-delay="200"
             alt="image"
             src="https://www.kba.one/files/images/20240427-20210825094845000000datasecurity11.jpg"
-            class="mt-5 h-80 w-full object-cover sm:h-full"/>
+            class="mt-5 h-60 w-full object-cover sm:h-full"/>
             </section>
             </section>
 
-            <section data-aos="zoom-in-up" data-aos-delay="300" class="info-1 font-jakarta px-4 sm:px-6 lg:px-8 py-8 max-w-screen-xl my-12">
-                <h1 class="font-semibold text-2xl sm:text-3xl text-center mb-3 md:mb-10 py-8">
+            <section data-aos="zoom-in-up" data-aos-delay="300" class="info-1 font-jakarta px-4 sm:px-6 lg:px-8 py-8 max-w-screen-xl my-2">
+                <h1 class="font-semibold text-2xl sm:text-3xl text-center mb-3 md:mb-10 py-2">
                     <span class="text-[#42A7C3]">Pertumbuhan Penetrasi Internet</span> di Indonesia
                 </h1>
 
